@@ -1,0 +1,57 @@
+/* Reset some default styles for better consistency */
+body, h1, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the header */
+.header {
+    background-color: blue; /* Blue background color */
+    color: white; /* White text color */
+    padding: 10px 0;
+}
+
+/* Center the header content */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Style the website title (h1) */
+.header h1 {
+    font-size: 24px;
+}
+
+/* Style the navigation menu */
+.nav ul {
+    list-style-type: none;
+}
+
+.nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.nav ul li a {
+    color: white; /* White link text color */
+    text-decoration: none;
+}
+
+/* Style the login button */
+.login-button {
+    background-color: green; /* Green button background color */
+    color: white; /* White button text color */
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: darkgreen; /* Dark green button background color on hover */
+}
