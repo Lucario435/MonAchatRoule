@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('inscription', function () {
+    return view('inscription');
+});
+// Route::get('login',function () {
+//     return view('login');
+// });
