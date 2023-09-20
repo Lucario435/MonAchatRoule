@@ -17,12 +17,12 @@
         font-size: 1.5rem;
         font-weight: bolder;
     }
-    .signForm>label{
+    /* .signForm>label{
         padding-left: var(--paddingLeftForm);
         margin-top: 1rem;
         margin-bottom: .6rem;
         display: block;
-    }
+    } */
     input[type=text],
     input[type=password] {
         width: 200px;
@@ -83,5 +83,14 @@
             width: 95%;
             height: 400px;
         }
+    }
+    /* .fill-blue {
+        border: 15px solid cyan;
+    } */
+    .label-row-data{
+        border: 2px solid red;
+        
+        width:fit-content;
+        background: linear-gradient(#e66465, #9198e5);
     }
 </style>

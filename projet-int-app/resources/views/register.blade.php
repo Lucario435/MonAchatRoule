@@ -8,7 +8,43 @@
 
     <form action="{{ url("/register") }}" method="POST">
         @csrf
-        <div class="signForm">
+        <div class="container text-center">
+            <div class="row">
+              <div class="col">
+                <label for="username"><b>Nom d'utilisateur</b></label>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    
+                </div>
+                <div class="col align-self-center">             
+                  <div class="label-row-data ">
+                    <i class="bi bi-envelope fill-blue"></i>
+                    <input type="text" placeholder="Courriel" name="email" id="email" required>
+                  </div>
+                </div>
+                <div class="col">
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                  <label for="phone"><b>Numéro de téléphone</b></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                  <label for="password"><b>Mot de passe</b></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                  <label for="password_confirm"><b>Mot de passe</b></label>
+                </div>
+            </div>
+        </div>
+        {{-- <div class="container signForm">
             <p class="petitp">Veuillez remplir vos renseignements</p>
             <br>
             <label for="email"><b>Courriel</b></label>
@@ -28,7 +64,7 @@
             </select>
             <br> <br>
             <button type="submit" class="registerbtn">Confirmer</button>
-        </div>
+        </div> --}}
 
         <div class="signForm signin">
             <p>Vous avez déjà un compte?<a href="{{ url("/login") }}"> Connectez vous</a>.</p>
