@@ -21,7 +21,6 @@ Route::get("/welcome",function(){
     return view("welcome");
 });
 
-
 Route::get('/users',[UsersController::class,"index"]);
 Route::get('/users/{id}',[UsersController::class,"index"]);
 

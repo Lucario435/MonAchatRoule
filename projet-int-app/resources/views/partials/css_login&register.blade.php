@@ -5,20 +5,19 @@
     .signForm {
         width: 90%;
         max-width: 600px;
-        background: var(--blueForms);
+        border: 2px solid red;
         margin: auto;
         font-size: 1.2rem;
         border-radius: 1rem;
         outline: 1px solid black;
     }
-    .signForm>p.petitp{
+    .signForm>p.petitp{ /* veuillez remplir vos ...*/
         text-align: center;
-        color: white;
+
         font-size: 1.5rem;
         font-weight: bolder;
     }
     .signForm>label{
-        color: white;
         padding-left: var(--paddingLeftForm);
         margin-top: 1rem;
         margin-bottom: .6rem;
@@ -26,11 +25,12 @@
     }
     input[type=text],
     input[type=password] {
-        width: 99.5%;
+        width: 200px;
+        margin: 0 auto;
         padding-bottom: 1rem;
-        display: inline-block;
-        border: none;
-        outline: solid gray 1px;
+        /* display: inline-block; */
+        /* border: none;
+        outline: solid gray 1px; */
         background: #f1f1f1;
         font-weight:lighter;
     }

@@ -4,6 +4,8 @@
 
 @section('content')
 
+@include("partials.css_login&register")
+
     <form action="{{ url("/register") }}" method="POST">
         @csrf
         <div class="signForm">
@@ -16,7 +18,7 @@
 
             <label for="psw"><b>Mot de passe</b></label>
             <input type="password" placeholder="Entrez votre mot de passe" name="psw" id="psw" required>
-            <label for="pswc"><b>Confirmation de mot de passe</b></label>
+            <label  for="pswc"><b>Confirmation de mot de passe</b></label>
             <input type="password" placeholder="Confirmez votre mot de passe" name="pswc" id="pswc" required>
             <br> <br>
             <label for="emailnotifs"><b>Notifications Par Courriel?</b></label>
@@ -32,6 +34,6 @@
             <p>Vous avez déjà un compte?<a href="{{ url("/login") }}"> Connectez vous</a>.</p>
         </div>
     </form>
-    @include("partials.css_login&register")
+    
 
 @endsection
