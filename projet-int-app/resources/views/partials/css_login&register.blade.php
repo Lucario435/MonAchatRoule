@@ -26,8 +26,10 @@
     input[type=text],
     input[type=password] {
         width: 200px;
-        margin: 0 auto;
-        padding-bottom: 1rem;
+        padding-top: .3rem;
+        padding-bottom: .3rem;
+        padding-left: .5rem;
+        font-weight: 800;
         /* display: inline-block; */
         /* border: none;
         outline: solid gray 1px; */
@@ -88,9 +90,17 @@
         border: 15px solid cyan;
     } */
     .label-row-data{
-        border: 2px solid red;
+        @extend .d-flex 
         
-        width:fit-content;
-        background: linear-gradient(#e66465, #9198e5);
+    }
+    .blue-block{
+        display:inline-block;
+        position: relative;
+        top: .85rem;
+        left: .28rem;
+        background-color: blue;
+        background-image: url();
+        width: 50px;
+        height: 38px;
     }
 </style>

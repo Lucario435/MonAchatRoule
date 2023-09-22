@@ -6,43 +6,48 @@
 
 @include("partials.css_login&register")
 
-    <form action="{{ url("/register") }}" method="POST">
+    <form action="{{ url("/register") }}" method="POST" style="height:300px">
         @csrf
-        <div class="container text-center">
-            <div class="row">
-              <div class="col">
-                <label for="username"><b>Nom d'utilisateur</b></label>
-              </div>
+        <div class="d-flex h-5 justify-content-center p-1 bg-secondary text-white">
+            <div class="p-2 bg-info">
+              <span class="blue-block"></span>
+              <input type="text" placeholder="Courriel" name="email" id="email" required>
             </div>
-            <div class="row">
-                <div class="col">
-                    
-                </div>
-                <div class="col align-self-center">             
-                  <div class="label-row-data ">
-                    <i class="bi bi-envelope fill-blue"></i>
-                    <input type="text" placeholder="Courriel" name="email" id="email" required>
-                  </div>
-                </div>
-                <div class="col">
-                    
-                </div>
+        </div>
+        <div class="d-flex h-10 justify-content-center p-1 bg-secondary text-white">
+            <div class="p-2 bg-info">
+              <span class="blue-block"></span>
+              <input type="text" placeholder="Confirmez votre courriel" name="email_confirm" id="email_confirm" required>
             </div>
-            <div class="row">
-                <div class="col">
-                  <label for="phone"><b>Numéro de téléphone</b></label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                  <label for="password"><b>Mot de passe</b></label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                  <label for="password_confirm"><b>Mot de passe</b></label>
-                </div>
-            </div>
+        </div>
+        <div class="d-flex h-15 justify-content-center p-1 bg-secondary text-white">
+          <div class="p-2 bg-info">
+            <span class="blue-block"></span>
+            <input type="text" placeholder="Nom d'utilisateur" name="email" id="email" required>
+          </div>
+        </div>
+        <div class="d-flex h-15 justify-content-center p-1 bg-secondary text-white">
+          <div class="p-2 bg-info">
+            <span class="blue-block"></span>
+            <input type="text" placeholder="Mot de passe" name="password" id="password" required>
+          </div>
+        </div>
+        <div class="d-flex h-15 justify-content-center p-1 bg-secondary text-white">
+          <div class="p-2 bg-info">
+            <span class="blue-block"></span>
+            <input type="text" placeholder="Confirmez le mot de passe" name="password_confirm" id="password_confirm" required>
+          </div>
+        </div>
+        <div class="d-flex h-15 justify-content-center p-1 bg-secondary text-white">
+          <div class="p-2 bg-info">
+            <label for="notication">Activer les alertes courriel sur les annonces suivies</label>
+            <input type="checkbox" name="notification">
+          </div>
+        </div>
+        <div class="d-flex h-15 justify-content-center p-1 bg-secondary text-white">
+          <div class="p-2 bg-info">
+            <input type="submit" value="Créer">
+          </div>
         </div>
         {{-- <div class="container signForm">
             <p class="petitp">Veuillez remplir vos renseignements</p>
