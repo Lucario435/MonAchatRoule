@@ -4,7 +4,11 @@
 
 @section('content')
 
-@include("partials.css_login&register")
+{{-- @include("partials.css_login&register") --}}
+
+@push('css')
+  @vite(['resources/css/register.css'])
+@endpush
 
     <form action="{{ url("/register") }}" method="POST" style="height:300px">
         @csrf
