@@ -1,5 +1,7 @@
 @extends('partials.xlayout')
-
+@push('css')
+    @vite(['resources/css/register.css'])
+@endpush
 @section('title', 'Création de compte')
 
 @section('content')

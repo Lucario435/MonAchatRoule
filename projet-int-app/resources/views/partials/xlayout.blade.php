@@ -9,8 +9,9 @@
     <title>@yield("appname")</title>
     <link rel="icon" type="image/x-icon"
     href="https://media.discordapp.net/attachments/1149051976550731906/1149052038769016862/Logo-Slogan.png?width=585&height=585">
-    {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> il faut compiler des trucs avec des commandes yarn et utiliser laravel mix --}}
-    @include("partials.css_site")
+
+    @vite(['resources/css/app.css'])
+    @stack('css')
 </head>
 <body>
     @include('partials.xheader')
