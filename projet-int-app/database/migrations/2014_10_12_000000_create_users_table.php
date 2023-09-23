@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('is_admin');
+            $table->boolean('is_blocked');
+            $table->boolean('email_notification');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
