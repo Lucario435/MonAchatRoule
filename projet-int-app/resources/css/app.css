@@ -212,6 +212,3 @@ input[type="checkbox"]:checked::before {
 input[type="checkbox"]:checked {
     transform: scale(1);
   }
-/* .notification > label{
-    margin-top: 2;
-} */

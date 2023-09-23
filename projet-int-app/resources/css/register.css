@@ -4,11 +4,9 @@
 .signForm {
     width: 90%;
     max-width: 600px;
-    border: 2px solid red;
     margin: auto;
     font-size: 1.2rem;
-    border-radius: 1rem;
-    outline: 1px solid black;
+
 }
 .signForm>p.petitp{ /* veuillez remplir vos ...*/
     text-align: center;
@@ -29,9 +27,9 @@ input[type=password] {
     padding-bottom: .3rem;
     padding-left: .5rem;
     font-weight: 800;
-    /* display: inline-block; */
-    /* border: none;
-    outline: solid gray 1px; */
+    display: inline-block; 
+    border: none;
+    outline: solid gray 1px; 
     background: #f1f1f1;
     font-weight:lighter;
 }
