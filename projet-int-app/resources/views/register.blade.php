@@ -9,47 +9,54 @@
 @push('css')
   @vite(['resources/css/register.css'])
 @endpush
-
+<div class="container-xxl ">
     <form action="{{ url("/register") }}" method="POST" style="height:300px">
         @csrf
-        <div class="d-flex h-5 justify-content-center p-1 bg-secondary text-white">
-            <div class="p-2 bg-info">
-              <span class="blue-block"></span>
-              <input type="text" placeholder="Courriel" name="email" id="email" required>
+        <div class="d-flex h-15 w-15 justify-content-center p-1  text-white">
+            <div class="p-2">
+              <span class="blue-block icon icon-user"></span>
+              <input type="text" placeholder="Nom d'utilisateur" name="email" id="email" required>
+            </div>
+          </div>
+          <div class="d-flex h-5 justify-content-center p-1  text-white">
+            <div class="p-2">
+                <span class="blue-block icon icon-phone"></span>
+                <input type="text" placeholder="Numéro de téléphone" name="phone" id="phone" required>
             </div>
         </div>
-        <div class="d-flex h-10 justify-content-center p-1 bg-secondary text-white">
+        <div class="d-flex h-5 justify-content-center p-1  text-white">
+            <div class="p-2">
+                <span class="blue-block icon icon-mail"></span>
+                <input type="text" placeholder="Courriel" name="email" id="email" required>
+            </div>
+        </div>
+        {{-- <div class="d-flex h-10 justify-content-center p-1  text-white">
             <div class="p-2 bg-info">
-              <span class="blue-block"></span>
+              <span class="blue-block icon icon-mail"></span>
               <input type="text" placeholder="Confirmez votre courriel" name="email_confirm" id="email_confirm" required>
             </div>
-        </div>
-        <div class="d-flex h-15 justify-content-center p-1 bg-secondary text-white">
-          <div class="p-2 bg-info">
-            <span class="blue-block"></span>
-            <input type="text" placeholder="Nom d'utilisateur" name="email" id="email" required>
-          </div>
-        </div>
-        <div class="d-flex h-15 justify-content-center p-1 bg-secondary text-white">
-          <div class="p-2 bg-info">
-            <span class="blue-block"></span>
+        </div> --}}
+
+        <div class="d-flex h-15 justify-content-center p-1  text-white">
+          <div class="p-2 ">
+            <span class="blue-block icon icon-password"></span>
             <input type="text" placeholder="Mot de passe" name="password" id="password" required>
           </div>
         </div>
-        <div class="d-flex h-15 justify-content-center p-1 bg-secondary text-white">
-          <div class="p-2 bg-info">
-            <span class="blue-block"></span>
+        <div class="d-flex h-15 justify-content-center p-1  text-white">
+          <div class="p-2 ">
+            <span class="blue-block icon icon-password"></span>
             <input type="text" placeholder="Confirmez le mot de passe" name="password_confirm" id="password_confirm" required>
           </div>
         </div>
-        <div class="d-flex h-15 justify-content-center p-1 bg-secondary text-white">
-          <div class="p-2 bg-info">
-            <label for="notication">Activer les alertes courriel sur les annonces suivies</label>
+        <div class="d-flex h-15 justify-content-center p-1  text-white">
+          <div class="p-2 ">
+            <label for="notication" class="notification">Activer les alertes courriel sur les annonces suivies</label>
             <input type="checkbox" name="notification">
           </div>
         </div>
-        <div class="d-flex h-15 justify-content-center p-1 bg-secondary text-white">
-          <div class="p-2 bg-info">
+        <div class="d-flex h-15 justify-content-center p-1  text-white">
+          <div class="p-2 ">
             <input type="submit" value="Créer">
           </div>
         </div>
@@ -80,6 +87,6 @@
             <p>Vous avez déjà un compte?<a href="{{ url("/login") }}"> Connectez vous</a>.</p>
         </div>
     </form>
-    
+</div>    
 
 @endsection

@@ -22,9 +22,9 @@
         @yield("title"){{--ici on mettra le nom de la page, doit etre défini dans le yield  --}}
     </h1>
 
-    <div class="container">
-        @yield('content')
-    </div>
+
+    @yield('content')
+
 
     {{-- @include('xfooter') --}}
 </body>

@@ -97,8 +97,33 @@ a {
     position: relative;
     top: .85rem;
     left: .28rem;
-    background-color: blue;
-    background-image: url();
+    background-color: #0084CE;
+    /* background-image: url("../../public/images/majesticons/solid/mail.svg"); */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40%;
     width: 50px;
     height: 38px;
+}
+.icon{
+
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: 60%;
+    
+}
+.icon-mail{
+    mask-image: url("../../public/images/majesticons/solid/mail.svg");
+}
+.icon-password{
+    mask-image: url("../../public/images/majesticons/solid/lock.svg");
+}
+.icon-user{
+    mask-image: url("../../public/images/majesticons/solid/user.svg");
+}
+.icon-phone{
+    mask-image: url("../../public/images/majesticons/solid/phone.svg");
+}
+.notification{
+    color: black;
 }
