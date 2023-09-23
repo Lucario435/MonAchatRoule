@@ -106,24 +106,37 @@ a {
     height: 38px;
 }
 .icon{
-
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: 60%;
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: 60%;
     
 }
 .icon-mail{
+    -webkit-mask-image: url("../../public/images/majesticons/solid/mail.svg");
     mask-image: url("../../public/images/majesticons/solid/mail.svg");
 }
 .icon-password{
+    -webkit-mask-image: url("../../public/images/majesticons/solid/lock.svg");
     mask-image: url("../../public/images/majesticons/solid/lock.svg");
 }
 .icon-user{
+    -webkit-mask-image: url("../../public/images/majesticons/solid/user.svg");
     mask-image: url("../../public/images/majesticons/solid/user.svg");
 }
 .icon-phone{
+    -webkit-mask-image: url("../../public/images/majesticons/solid/phone.svg");
     mask-image: url("../../public/images/majesticons/solid/phone.svg");
 }
 .notification{
     color: black;
+}
+hr{
+    /* https://www.w3docs.com/snippets/css/how-to-style-a-horizontal-line.html */
+    width: 22rem;
+    border-width: 2px ;
+    margin-left: auto;
+    margin-right: auto;
 }

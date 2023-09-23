@@ -49,18 +49,19 @@
             <input type="password" placeholder="Confirmez le mot de passe" name="password_confirm" id="password_confirm" required>
           </div>
         </div>
+        <hr >
+        <div class="d-flex h-15 justify-content-center p-1 text-white">
+            <div class="p-2 notification">
+                <input type="checkbox" name="notification" id="notification">                
+                <label for="notification">Activer le suivi d'annonces par courriel</label>
+            </div>
+        </div>
+        <hr >
         <div class="d-flex h-15 justify-content-center p-1  text-white">
-          <div class="p-2 ">
-            <label for="notication" class="notification">Activer les alertes courriel sur les annonces suivies</label>
-            <input type="checkbox" name="notification">
+            <div class="p-2 ">
+                <input type="submit" value="Créer">
           </div>
         </div>
-        <div class="d-flex h-15 justify-content-center p-1  text-white">
-          <div class="p-2 ">
-            <input type="submit" value="Créer">
-          </div>
-        </div>
-        <hr style="width:50%; margin:5 auto 5 auto;">
         <div class="signForm signin">
             <p>Vous avez déjà un compte?<a href="{{ url("/login") }}"> Connectez vous</a>.</p>
         </div>
