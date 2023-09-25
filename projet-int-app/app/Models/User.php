@@ -12,16 +12,16 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $primaryKey = 'id';
-    protected $username= 'username';
-    protected $name = 'name';
-    protected $surname = 'surname';
-    protected $password = 'password';
-    protected $phone = 'phone';
-    protected $emailNotification = 'email_notification';
-    protected $emailVerifiedAt = 'email_verified_at';
-    protected $isAdmin = 'is_admin';
-    protected $isBlocked = 'is_blocked';
+    // protected $primaryKey = 'id';
+    // protected $username= 'username';
+    // protected $name = 'name';
+    // protected $surname = 'surname';
+    // protected $password = 'password';
+    // protected $phone = 'phone';
+    // protected $emailNotification = 'email_notification';
+    // protected $emailVerifiedAt = 'email_verified_at';
+    // protected $isAdmin = 'is_admin';
+    // protected $isBlocked = 'is_blocked';
     // should we add defaulty created : created_at and remember_token and updated_at ?
 
     // Defaults values for each of our data
@@ -29,6 +29,7 @@ class User extends Authenticatable
         'email_notification' => false,
         'is_admin' => false,
         'is_blocked' => false,
+        'email_notification' => false,
     ];
 
     /**
@@ -42,6 +43,7 @@ class User extends Authenticatable
         'phone',
         'email',
         'password',
+        'email_notification',
     ];
 
     /**

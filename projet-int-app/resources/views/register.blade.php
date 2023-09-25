@@ -64,8 +64,8 @@
             <hr>
             <div class="d-flex h-15 justify-content-center text-white">
                 <div class="p-2 notification">
-                    <input type="checkbox" name="notification" id="notification" value="false">
-                    <label for="notification">Activer le suivi d'annonces par courriel</label>
+                    <input type="checkbox" name="email_notification" id="email_notification" value="z">
+                    <label for="email_notification">Activer le suivi d'annonces par courriel</label>
                 </div>
             </div>
             <hr>

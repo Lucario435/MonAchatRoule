@@ -5,13 +5,13 @@ const $ = jQuery;
 $(
     function() 
     {
-        $("#notification").on("change",(e)=>{
+        $("#email_notification").val($("#email_notification").is(":checked")? true:false);
+        $("#email_notification").on("change",(e)=>{
             // if($("#notification").is(":checked"))
             //     console.log(e.target.value);
             // else
             //     console.log(e.target.value);
-
-            $("#notification").val($("#notification").is(":checked"));      
+            $("#email_notification").val($("#email_notification").is(":checked")? true:false);      
             
         })
     }

@@ -25,7 +25,10 @@ Route::get('/users',[UsersController::class,"index"]);
 Route::get('/users/{id}',[UsersController::class,"index"]);
 
 Route::get('/login',[UsersController::class,"login"]);
+
 Route::get('/register',[UsersController::class,"register"]);
 Route::post('/register',[UsersController::class,"store"]);
+Route::get('/confirm-email',[UsersController::class,"confirmEmail"]);
+
 Route::get('/users/login',[UsersController::class,"login"]);
 Route::get('/users/register',[UsersController::class,"register"]);
