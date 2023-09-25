@@ -22,13 +22,27 @@ class UsersController extends Controller
         return view("register");
     }
 
-
     public function loginWData(Request $r){ //process
 
     }
-    public function registerWData(Request $r){ //process l'inscription
-        //echo var_dump($r);
-        $email = $r->input("email");
-        echo $email; // ca fonctionne!!!11 tlm de probleme a recuprer les inputs mais ca marhce finalement
+    public function store(Request $r){ //process l'inscription
+        return (request()->all());
+
+        
+        // $attributes = request()->validate([
+        //     'name' => 'required|max:255',
+        //     'surname' => 'required|max:255',
+        //     'username' => 'required|max:255|min:2',
+        //     'phone' => 'required|max:255',
+        //     'email' => 'required|email|max:255',
+        //     'password' => 'required|min:7',
+        //     'notification' => 'required|boolean',
+        // ]);
+        
+        // if(!request('notification') != null)
+        //     array_push($attributes,['password' => 'required|min:7']);
+
+
+        //User::create($attributes);
     }
 }
