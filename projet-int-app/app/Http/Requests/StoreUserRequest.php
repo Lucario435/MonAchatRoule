@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class StoreUserRequest extends FormRequest
 {
@@ -16,7 +17,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,14 +28,41 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255',
-            'surname' => 'required|max:255',
-            'username' => 'required|max:255|min:2',
-            'phone' => 'required|max:255',
-            'email' => 'required|email|max:255',
-            'password' => 'required|min:7',
-            'password_confirm' => 'required|min:7',
-            'email_notification' => 'required|bool',
+            'name' => 'required|max:75|min:1',
+            'surname' => 'required|max:75|min:1',
+            'username' => 'required|max:50|min:2|unique:users,username',
+            'phone' => 'required|max:10|min:10',
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => ['required', 'confirmed', Password::min(8)],
+            // 'password_confirm' => 'required|min:7',
+            'email_notification' => 'digits_between:0,1',
+        ];
+    }
+
+    public function messages(){
+        return[
+            'name.required' => 'Le prénom est obligatoire',
+            'name.max' => 'Le prénom ne peut pas dépasser 75 caractères',
+            'name.min' => 'Le prénom doit aumoins avoir 1 caractère',
+            'surname.required' => 'Le nom est obligatoire',
+            'surname.max' => 'Le nom ne peut pas dépasser 75 caractères',
+            'surname.min' => 'Le surname doit aumoins avoir 1 caractère',
+            'username.unique' => 'Le pseudonyme est déjà pris.',
+            'username.required' => 'Le pseudonyme est obligatoire',
+            'username.min' => 'Le pseudonyme doit être plus de 2 caractères',
+            'username.max' => 'Le pseudonyme ne peut pas dépasser 50 caractères',
+            'phone.required' => 'Le numéro de téléphone est obligatoire',
+            'phone.max' => 'Le numéro de téléphone doit avoir 10 chiffres',
+            'phone.min' => 'Le numéro de téléphone doit avoir 10 chiffres',
+            'email.required' => 'Le courriel est obligatoire',
+            'email.email' => 'Le courriel n\'est obligatoire',
+            'email.unique' => 'Le courriel est déjà pris.',
+            'password.required' => 'Le mot de passe est obligatoire',
+            'password.min' => 'Le mot de passe doit avoir aumoins 7 caractères',
+            'password.confirmed' => 'Le mot de passe ne correspond pas à sa confirmation',
+            'password_confirm.required' => 'Le mot de passe de confirmation est obligatoire',
+            'password_confirm.min' => 'Le mot de passe de confirmation doit avoir aumoins 7 caractères'
+
         ];
     }
 }

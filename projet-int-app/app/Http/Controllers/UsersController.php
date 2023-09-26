@@ -35,22 +35,14 @@ class UsersController extends Controller
     { //process
 
     }
-    public function store(StoreUserRequest $r)
+    public function store(StoreUserRequest $r) : RedirectResponse
     {
-
-        // Un input de type bool false doit etre initialisé ici, car le programme n'arrive pas a convertir la valeur false en bool depuis le form input bizzarement. Si depuis le form input une valeur de true est envoyé elle est bien interprété
-        if ($r->input('email_notification') == null)
-            $r->query->add(['email_notification' => false]);
-
-
 
         $attributes = $r->validated();
 
-        //$attributes = $attributes->safe()->except(['password_confirm']);
+        User::create($attributes);
 
-        //dd(User::create($attributes));
-
-        //return redirect('/confirm-email');
+        return redirect('/confirm-email'); // Passer le nom dans le view bag pour message 
     }
     public function confirmEmail()
     {

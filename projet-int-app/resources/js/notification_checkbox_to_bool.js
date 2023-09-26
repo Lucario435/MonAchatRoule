@@ -5,13 +5,10 @@ const $ = jQuery;
 $(
     function() 
     {
-        $("#email_notification").val($("#email_notification").is(":checked")? true:false);
+        $("#email_notification").val($("#email_notification").is(":checked")? '1':'0');
         $("#email_notification").on("change",(e)=>{
-            // if($("#notification").is(":checked"))
-            //     console.log(e.target.value);
-            // else
-            //     console.log(e.target.value);
-            $("#email_notification").val($("#email_notification").is(":checked")? true:false);      
+
+            $("#email_notification").val($("#email_notification").is(":checked")? '1':'0');      
             
         })
     }

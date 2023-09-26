@@ -21,50 +21,106 @@
             <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
                 <div class="p-2">
                     <label for="name" class="blue-block icon icon-user"></label>
-                    <input type="text" placeholder="Prénom" name="name" id="name" required>
+                    <input type="text" placeholder="Prénom" name="name" id="name" required value="{{old('name')}}">
                 </div>
             </div>
+            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
+                <div class="p-2">                  
+                    @error('name')
+                     <div class="erreur">{{$message}}</div>   
+                    @enderror
+                </div>
+            </div>
+
             <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
                 <div class="p-2">
                     <label for="surname" class="blue-block icon icon-user"></label>
-                    <input type="text" placeholder="Nom" name="surname" id="surname" required>
+                    <input type="text" placeholder="Nom" name="surname" id="surname" required value="{{old('surname')}}">
                 </div>
             </div>
             <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
-                <div class="p-2">
-                    <label for="username" class="blue-block icon icon-user"></label>
-                    <input type="text" placeholder="Nom d'utilisateur" name="username" id="username" required>
+                <div class="p-2">                  
+                    @error('surname')
+                     <div class="erreur">{{$message}}</div>   
+                    @enderror
                 </div>
             </div>
+
+            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
+                <div class="p-2">
+                    <label for="username" class="blue-block icon icon-user"></label>
+                    <input type="text" placeholder="Nom d'utilisateur" name="username" id="username" required value="{{old('username')}}">
+                </div>
+            </div>
+            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
+                <div class="p-2">                  
+                    @error('username')
+                     <div class="erreur">{{$message}}</div>   
+                    @enderror
+                </div>
+            </div>
+
             <div class="d-flex h-5 justify-content-center pe-2 text-white">
                 <div class="p-2">
                     <label for="phone" class="blue-block icon icon-phone"></label>
-                    <input type="text" placeholder="Numéro de téléphone" name="phone" id="phone" required>
+                    <input type="text" placeholder="Numéro de téléphone" name="phone" id="phone" required value="{{old('phone')}}">
                 </div>
             </div>
+            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
+                <div class="p-2">                  
+                    @error('phone')
+                     <div class="erreur">{{$message}}</div>   
+                    @enderror
+                </div>
+            </div>
+
             <div class="d-flex h-5 justify-content-center pe-2    text-white">
                 <div class="p-2">
                     <label for="email" class="blue-block icon icon-mail"></label>
-                    <input type="email" placeholder="Courriel" name="email" id="email" required>
+                    <input type="email" placeholder="Courriel" name="email" id="email" required value="{{old('email')}}">
                 </div>
             </div>
+            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
+                <div class="p-2">                  
+                    @error('email')
+                     <div class="erreur">{{$message}}</div>   
+                    @enderror
+                </div>
+            </div>
+
             <div class="d-flex h-15 justify-content-center pe-2    text-white">
                 <div class="p-2 ">
                     <label for="password" class="blue-block icon icon-password"></label>
                     <input type="password" placeholder="Mot de passe" name="password" id="password" required>
                 </div>
             </div>
+            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
+                <div class="p-2">                  
+                    @error('password')
+                     <div class="erreur">{{$message}}</div>   
+                    @enderror
+                </div>
+            </div>
+
             <div class="d-flex h-15 justify-content-center pe-2    text-white">
                 <div class="p-2 ">
                     <label for="password_confirm" class="blue-block icon icon-password"></label>
-                    <input type="password" placeholder="Confirmez le mot de passe" name="password_confirm"
+                    <input type="password" placeholder="Confirmez le mot de passe" name="password_confirmation"
                         id="password_confirm" required>
                 </div>
             </div>
+            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
+                <div class="p-2">                  
+                    @error('password_confirm')
+                     <div class="erreur">{{$message}}</div>   
+                    @enderror
+                </div>
+            </div>
+
             <hr>
             <div class="d-flex h-15 justify-content-center text-white">
                 <div class="p-2 notification">
-                    <input type="checkbox" name="email_notification" id="email_notification" value="z">
+                    <input type="checkbox" name="email_notification" id="email_notification" value="{{old('email_notification')}}">
                     <label for="email_notification">Activer le suivi d'annonces par courriel</label>
                 </div>
             </div>
@@ -74,7 +130,11 @@
                     <input class="btn btn-primary" type="submit" value="Créer">
                 </div>
             </div>
-
+            @if($errors->any())
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            @endif
         </form>
     </div>
 
