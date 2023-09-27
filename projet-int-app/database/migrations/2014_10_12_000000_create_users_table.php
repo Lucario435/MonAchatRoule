@@ -8,24 +8,28 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) { //genx
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('username', 45)->nullable();
+            $table->string('password', 1024)->nullable();
+
+            $table->string('phone', 45)->nullable();
+            $table->string('email', 45)->nullable();
+            $table->tinyInteger('emailnotificationsenabled')->nullable()->default(1);
+            $table->tinyInteger('accstatus')->nullable()->default(0);
+            $table->string('displayname', 45)->nullable();
+            $table->string('userimage', 256)->nullable();
+
             $table->timestamps();
+            $table->rememberToken();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down():void
     {
         Schema::dropIfExists('users');
     }

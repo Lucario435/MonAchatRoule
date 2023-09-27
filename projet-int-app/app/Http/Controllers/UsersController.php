@@ -21,8 +21,6 @@ class UsersController extends Controller
     public function register(){
         return view("register");
     }
-
-
     public function loginWData(Request $r){ //process
 
     }
@@ -30,5 +28,8 @@ class UsersController extends Controller
         //echo var_dump($r);
         $email = $r->input("email");
         echo $email; // ca fonctionne!!!11 tlm de probleme a recuprer les inputs mais ca marhce finalement
+        $new = new User();
+        $new->email = $email;
+        $new->save();
     }
 }

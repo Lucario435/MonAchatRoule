@@ -27,6 +27,7 @@ Route::get('/users/{id}',[UsersController::class,"index"]);
 
 Route::get('/login',[UsersController::class,"login"]);
 Route::get('/register',[UsersController::class,"register"]);
+Route::post('/login',[UsersController::class,"loginWData"]);
 Route::post('/register',[UsersController::class,"registerWData"]);
 Route::get('/users/login',[UsersController::class,"login"]);
 Route::get('/users/register',[UsersController::class,"register"]);

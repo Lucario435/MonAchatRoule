@@ -3,7 +3,8 @@
 @section('title', 'Accédez à votre compte')
 
 @section('content')
-    <form action="">
+    <form action="{{ url("/login") }}" method="POST">
+        @csrf
         <div class="signForm">
             <p class="petitp">Connexion</p>
             <label for="email"><b>Courriel</b></label>
