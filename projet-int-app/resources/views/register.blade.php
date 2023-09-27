@@ -88,10 +88,11 @@
                 </div>
             </div>
 
-            <div class="d-flex h-15 justify-content-center pe-2    text-white">
-                <div class="p-2 ">
+            <div class="d-flex h-15 justify-content-center pe-2 text-white">
+                <div class="col-md-6 align-items-center">
                     <label for="password" class="blue-block icon icon-password"></label>
                     <input type="password" placeholder="Mot de passe" name="password" id="password" required>
+                    <i class="togglePassword fa fa-fw fa-eye"></i>
                 </div>
             </div>
             <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">

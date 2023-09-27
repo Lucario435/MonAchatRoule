@@ -11,6 +11,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "fontawesome-free": "^1.0.4",
         "jquery": "^3.7.1"
     }
 }

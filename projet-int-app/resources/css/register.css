@@ -129,6 +129,19 @@ a {
     -webkit-mask-image: url("../../public/images/majesticons/solid/phone.svg");
     mask-image: url("../../public/images/majesticons/solid/phone.svg");
 }
+.icon-toggle-password{
+    -webkit-mask-image: url("../../public/images/majesticons/solid/phone.svg");
+    mask-image: url("../../public/images/majesticons/solid/phone.svg");
+}
+.togglePassword{
+    float: right;
+    color: black;
+
+    /* margin-left: -15px;
+    margin-top: -15px; */
+    position: relative;
+    z-index: 2;
+}
 .notification{
     color: black;
 }

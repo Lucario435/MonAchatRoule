@@ -19,9 +19,9 @@ export default defineConfig({
             }
         }),
     ],
-    // resolve: {
-    //     alias: {
-    //         '$': 'jQuery'
-    //     },
-    // }, NOT WORKING instead assigend $ as constant in app.js
+    resolve: {
+        alias: {
+            '$': 'jQuery',
+        },
+    }, 
 });
