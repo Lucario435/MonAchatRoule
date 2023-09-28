@@ -6,137 +6,109 @@
 
     {{-- @include("partials.css_login&register") --}}
     @push('js')
-      @vite(['resources/js/notification_checkbox_to_bool.js']);
+        @vite(['resources/js/notification_checkbox_to_bool.js']);
     @endpush
     @push('css')
         @vite(['resources/css/register.css'])
     @endpush
-    <div class="container-xxl" style="width:600px;">
-        <form class="" action="/register" method="POST" style="height:300px">
-            @csrf
+    <form action="/register" method="POST" style="width:350px; margin:auto;">
+        @csrf
 
-            <div class="signForm signin">
-                <p>Vous avez déjà un compte?<a href="{{ url('/login') }}"><br> Connectez vous</a>.</p>
+        <div class="mb-3">
+            <label for="name" class="form-label">Prénom</label>
+            <div class="grid-icon-input">
+                <i class="fas fa-user fa-lg icon-in-grid"></i>
+                <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" required>
             </div>
-            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
-                <div class="p-2">
-                    <label for="name" class="blue-block icon icon-user"></label>
-                    <input type="text" placeholder="Prénom" name="name" id="name" required value="{{old('name')}}">
-                </div>
+            <div class="info">
+                @error('name')
+                    <div class="erreur" style="float: left;">{{ $message }}</div>
+                @enderror
             </div>
-            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
-                <div class="p-2">                  
-                    @error('name')
-                     <div class="erreur">{{$message}}</div>   
-                    @enderror
-                </div>
+        </div>
+        <div class="mb-3">
+            <label for="surname" class="form-label">Nom</label>
+            <div class="grid-icon-input">
+                <i class="fas fa-user fa-lg icon-in-grid"></i>
+                <input type="text" class="form-control" name="surname" id="surname" value="{{ old('surname') }}"
+                    required>
             </div>
+            <div class="info">
+                @error('surname')
+                    <div class="erreur">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">Nom d'utilisateur</label>
+            <div class="grid-icon-input">
+                <i class="fas fa-user fa-lg icon-in-grid"></i>
+                <input type="text" class="form-control" name="username" id="username" value="{{ old('username') }}"
+                    required>
+            </div>
+            <div class="info">
 
-            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
-                <div class="p-2">
-                    <label for="surname" class="blue-block icon icon-user"></label>
-                    <input type="text" placeholder="Nom" name="surname" id="surname" required value="{{old('surname')}}">
-                </div>
-            </div>
-            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
-                <div class="p-2">                  
-                    @error('surname')
-                     <div class="erreur">{{$message}}</div>   
-                    @enderror
-                </div>
-            </div>
+                @error('username')
+                    <div class="erreur">{{ $message }}</div>
+                @enderror
 
-            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
-                <div class="p-2">
-                    <label for="username" class="blue-block icon icon-user"></label>
-                    <input type="text" placeholder="Nom d'utilisateur" name="username" id="username" required value="{{old('username')}}">
-                </div>
             </div>
-            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
-                <div class="p-2">                  
-                    @error('username')
-                     <div class="erreur">{{$message}}</div>   
-                    @enderror
-                </div>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Numéro de téléphone</label>
+            <div class="grid-icon-input">
+                <i class="fas fa-mobile fa-lg icon-in-grid" style="margin-left:.45em"></i>
+                <input type="tel" class="form-control" name="phone" id="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                    placeholder="1234567890" value="{{ old('phone') }}" required>
             </div>
-
-            <div class="d-flex h-5 justify-content-center pe-2 text-white">
-                <div class="p-2">
-                    <label for="phone" class="blue-block icon icon-phone"></label>
-                    <input type="text" placeholder="Numéro de téléphone" name="phone" id="phone" required value="{{old('phone')}}">
-                </div>
+            <div class="info">
+                @error('phone')
+                    <div class="erreur">{{ $message }}</div>
+                @enderror
             </div>
-            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
-                <div class="p-2">                  
-                    @error('phone')
-                     <div class="erreur">{{$message}}</div>   
-                    @enderror
-                </div>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Courriel</label>
+            <div class="grid-icon-input">
+                <i class="fas fa-envelope fa-lg icon-in-grid"></i>
+                <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}"
+                    required>
             </div>
-
-            <div class="d-flex h-5 justify-content-center pe-2    text-white">
-                <div class="p-2">
-                    <label for="email" class="blue-block icon icon-mail"></label>
-                    <input type="email" placeholder="Courriel" name="email" id="email" required value="{{old('email')}}">
-                </div>
+            <div class="info">
+                @error('email')
+                    <div class="erreur">{{ $message }}</div>
+                @enderror
             </div>
-            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
-                <div class="p-2">                  
-                    @error('email')
-                     <div class="erreur">{{$message}}</div>   
-                    @enderror
-                </div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Mot de passe</label>
+            <div class="grid-icon-input">
+                <i class="fas fa-lock fa-lg icon-in-grid"></i>
+                <input type="password" class="form-control" name="password" id="password" required>
             </div>
-
-            <div class="d-flex h-15 justify-content-center pe-2 text-white">
-                <div class="col-md-6 align-items-center">
-                    <label for="password" class="blue-block icon icon-password"></label>
-                    <input type="password" placeholder="Mot de passe" name="password" id="password" required>
-                    <i class="togglePassword fa fa-fw fa-eye"></i>
-                </div>
+            <div class="info">
+                @error('password')
+                    <div class="erreur">{{ $message }}</div>
+                @enderror
             </div>
-            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
-                <div class="p-2">                  
-                    @error('password')
-                     <div class="erreur">{{$message}}</div>   
-                    @enderror
-                </div>
+        </div>
+        <div class="mb-3">
+            <label for="password_confirm" class="form-label">Confirmez votre mot de passe</label>
+            <div class="grid-icon-input">
+                <i class="fas fa-lock fa-lg icon-in-grid"></i>
+                <input type="password" class="form-control" name="password_confirmation" id="password_confirm" required>
             </div>
-
-            <div class="d-flex h-15 justify-content-center pe-2    text-white">
-                <div class="p-2 ">
-                    <label for="password_confirm" class="blue-block icon icon-password"></label>
-                    <input type="password" placeholder="Confirmez le mot de passe" name="password_confirmation"
-                        id="password_confirm" required>
-                </div>
-            </div>
-            <div class="d-flex h-15 w-15 justify-content-center pe-2 text-white">
-                <div class="p-2">                  
-                    @error('password_confirm')
-                     <div class="erreur">{{$message}}</div>   
-                    @enderror
-                </div>
-            </div>
-
-            <hr>
-            <div class="d-flex h-15 justify-content-center text-white">
-                <div class="p-2 notification">
-                    <input type="checkbox" name="email_notification" id="email_notification" value="{{old('email_notification')}}">
-                    <label for="email_notification">Activer le suivi d'annonces par courriel</label>
-                </div>
-            </div>
-            <hr>
-            <div class="d-flex h-15 justify-content-center text-white">
-                <div class="d-grid gap-2 mw-35 col-6 mx-auto">
-                    <input class="btn btn-primary" type="submit" value="Créer">
-                </div>
-            </div>
-            @if($errors->any())
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            @endif
-        </form>
+        </div>
+        <div class="info"></div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" id="notification" name="notification">
+            <label class="form-check-label" for="notification">Activer le suivi d'annonces par courriel</label>
+        </div>
+        <button type="submit" class="btn btn-lg btn-primary d-flex justify-content-center"
+            style="width:200px;margin:auto;">Créer</button>
+    </form>
+    <div class="mb-3 signForm signin mt-5">
+        <p>Vous avez déjà un compte?<a href="{{ url('/login') }}"><br> Connectez vous</a>.</p>
     </div>
 
 @endsection

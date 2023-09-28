@@ -14,21 +14,18 @@
     font-size: 1.5rem;
     font-weight: bolder;
 }
-/* .signForm>label{
-    padding-left: var(--paddingLeftForm);
-    margin-top: 1rem;
-    margin-bottom: .6rem;
-    display: block;
-} */
+
 input[type=text],
 input[type=email],
+input[type=tel],
 input[type=password] {
-    width: 200px;
+    /* width: 200px;
     padding-top: .3rem;
     padding-bottom: .3rem;
     padding-left: .5rem;
     font-weight: 800;
-    display: inline-block; 
+    display: inline-block;   */
+    max-width: 330px;
     border: none;
     outline: solid gray 1px; 
     background: #f1f1f1;
@@ -84,13 +81,7 @@ a {
         height: 400px;
     }
 }
-/* .fill-blue {
-    border: 15px solid cyan;
-} */
-/* .label-row-data{
-    @extend .d-flex 
-    
-} */
+
 .blue-block{
     display:inline-block;
     position: relative;
@@ -133,14 +124,9 @@ a {
     -webkit-mask-image: url("../../public/images/majesticons/solid/phone.svg");
     mask-image: url("../../public/images/majesticons/solid/phone.svg");
 }
-.togglePassword{
-    float: right;
-    color: black;
-
-    /* margin-left: -15px;
-    margin-top: -15px; */
-    position: relative;
-    z-index: 2;
+#togglePassword{
+    margin-top: 4px;
+    margin-left: -35px;
 }
 .notification{
     color: black;
@@ -151,4 +137,25 @@ hr{
     border-width: 2px ;
     margin-left: auto;
     margin-right: auto;
+}
+.grid-icon-input{
+    display: grid; 
+    grid-template-columns:35px auto ; 
+    column-gap:0px;
+}
+.icon-in-grid{
+    margin: .5em .3em;
+    color:var(--blueheader);
+}
+.erreur{
+   margin: none !important;
+
+}
+.info{
+    margin: 0.5em 0em 0em 2.5em !important;
+    min-height: 1em;
+    content: "&nbsp;";
+}
+body{
+    height: 1250px;
 }

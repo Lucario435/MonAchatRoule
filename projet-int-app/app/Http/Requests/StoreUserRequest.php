@@ -33,7 +33,7 @@ class StoreUserRequest extends FormRequest
             'username' => 'required|max:50|min:2|unique:users,username',
             'phone' => 'required|max:10|min:10|unique:users,phone',
             'email' => 'required|email|max:255|unique:users,email',
-            'password' => ['required', 'confirmed', Password::min(8)],
+            'password' => ['required', 'confirmed', Password::min(7)],
             // 'password_confirm' => 'required|min:7',
             'email_notification' => 'digits_between:0,1',
         ];

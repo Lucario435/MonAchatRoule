@@ -208,11 +208,14 @@ input[type="checkbox"] {
     -webkit-appearance: none;
     appearance: none;
     background-color: #fff;
-    margin: 0;
+    float: left;
+   
+    margin-left: -1.3em;
+    margin-top:0.20em;
     font: inherit;
     color: currentColor;
-    width: 1.15em;
-    height: 1.15em;
+    width: 1.05em;
+    height: 1.05em;
     border: 0.15em solid currentColor;
     border-radius: 0.15em;
     transform: translateY(-0.075em);
@@ -238,10 +241,6 @@ input[type="checkbox"]:checked {
 }
 
 .erreur{
-    text-align: center;
-    font-size: medium;
-    margin: auto 60px;
-    width: 80%;
     color: red;
     font-weight: bold;
     overflow-wrap: break-word;
