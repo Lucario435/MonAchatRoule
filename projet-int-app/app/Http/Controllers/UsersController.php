@@ -35,17 +35,20 @@ class UsersController extends Controller
     { //process
 
     }
-    public function store(StoreUserRequest $r) : RedirectResponse
+    public function store(StoreUserRequest $r)
     {
 
         $attributes = $r->validated();
 
         User::create($attributes);
 
-        return redirect('/confirm-email'); // Passer le nom dans le view bag pour message 
+        return $this->confirmEmail(["name"=>$attributes['name'],"surname"=>$attributes['surname'],"email"=>$attributes['email']]);
     }
-    public function confirmEmail()
+    public function confirmEmail($attributes = null)
     {
-        return view("confirm-email");
+        if($attributes != null)
+            return view("confirm-email",$attributes);
+        else
+            return to_route('index');
     }
 }
