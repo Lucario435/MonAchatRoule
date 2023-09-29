@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -31,20 +31,20 @@ class UsersController extends Controller
         return view("register");
     }
 
-    public function loginWData(Request $r)
-    { //process
-
-    }
     public function store(StoreUserRequest $r)
     {
 
         $attributes = $r->validated();
 
-        User::create($attributes);
+        $user = User::create($attributes);
+        // event qui signale au mailsender un nouveau user vient de sinscrire
+        event(new Registered($user));
 
-        return $this->confirmEmail(["name"=>$attributes['name'],"surname"=>$attributes['surname'],"email"=>$attributes['email']]);
+        Auth::login($user);
+
+        return $this->VerifierEmail(["name"=>$attributes['name'],"surname"=>$attributes['surname'],"email"=>$attributes['email']]);
     }
-    public function confirmEmail($attributes = null)
+    public function VerifierEmail($attributes = null)
     {
         if($attributes != null)
             return view("confirm-email",$attributes);

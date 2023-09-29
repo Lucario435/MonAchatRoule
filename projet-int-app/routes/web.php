@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
-
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\VerifyEmailController;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +15,7 @@ use App\Http\Controllers\UsersController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+// ceci est la page index...
 Route::get('/', function () {
     return view('welcome');
 })->name('index');
@@ -21,13 +23,22 @@ Route::get('/', function () {
 
 Route::get('/users',[UsersController::class,"index"]);
 Route::get('/users/{id}',[UsersController::class,"index"]);
+Route::get('/login',[UsersController::class,"login"])->name('login');
 
-Route::get('/login',[UsersController::class,"login"]);
 
-Route::get('/register',[UsersController::class,"register"]);
+// Story #3 Chahine 
+
+// Inscription --------------------
+Route::get('/register',[UsersController::class,"register"])->name('register');
 Route::post('/register',[UsersController::class,"store"]);
 
-Route::get('/confirm-email',[UsersController::class,"confirmEmail"])->name('confirm.email');
 
-Route::get('/users/login',[UsersController::class,"login"]);
-Route::get('/users/register',[UsersController::class,"register"]);
+// Verification email --------------
+Route::get('/email/verifier', [UsersController::class,"VerifierEmail"])->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verifier/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/');
+})->middleware(['auth','signed'])->name('verification.verify');
+// FIN Story #3 Chahine  
+

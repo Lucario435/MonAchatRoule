@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Providers;
-
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Notifications\Messages\MailMessage;
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -22,5 +23,11 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
+            return (new MailMessage)
+                ->subject('MonAchatRoule - Confirmez votre adresse courriel')
+                ->line('Veuillez cliquer sur le lien ci-dessous pour confirmer votre inscription.')
+                ->action('Vérifier votre courriel', $url);
+        });
     }
 }
