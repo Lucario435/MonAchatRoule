@@ -140,7 +140,7 @@ hr{
 }
 .grid-icon-input{
     display: grid; 
-    grid-template-columns:35px auto ; 
+    grid-template-columns:35px auto; 
     column-gap:0px;
 }
 .icon-in-grid{
@@ -158,4 +158,9 @@ hr{
 }
 body{
     height: 1250px;
+}
+#toggleShowPassword{
+    color: var(--blueheader);
+    margin-top: 10px;
+    margin-left: -25px;
 }

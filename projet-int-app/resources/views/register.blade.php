@@ -4,9 +4,10 @@
 
 @section('content')
 
-    {{-- @include("partials.css_login&register") --}}
+
     @push('js')
         @vite(['resources/js/notification_checkbox_to_bool.js']);
+        @vite(['resources/js/show_hide_password.js'])
     @endpush
     @push('css')
         @vite(['resources/css/register.css'])
@@ -82,9 +83,10 @@
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Mot de passe</label>
-            <div class="grid-icon-input">
+            <div class="grid-icon-input" style="grid-template-columns:35px auto 0px; ">
                 <i class="fas fa-lock fa-lg icon-in-grid"></i>
                 <input type="password" class="form-control" name="password" id="password" required>
+                <span class="icon fa fa-eye-slash" id="toggleShowPassword"></span>
             </div>
             <div class="info">
                 @error('password')
