@@ -25,6 +25,7 @@ class AuthServiceProvider extends ServiceProvider
         //
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
             return (new MailMessage)
+                ->greeting('Bonjour!')
                 ->subject('MonAchatRoule - Confirmez votre adresse courriel')
                 ->line('Veuillez cliquer sur le lien ci-dessous pour confirmer votre inscription.')
                 ->action('Vérifier votre courriel', $url);
