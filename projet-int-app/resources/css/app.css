@@ -1,3 +1,4 @@
+@import '/node_modules/fontawesome-free/css/all.min.css';
 /* Reset some default styles for better consistency */
 body,
 h1,
@@ -71,6 +72,7 @@ li {
     --blueForms: rgb(91, 142, 237);
     --greenbutton: #27ae60;
     --greenbuttonhover: rgb(0, 159, 0);
+    --notification-color: rgb(12, 85, 232);
 }
 
 /* Reset some default styles for better consistency */
@@ -189,4 +191,57 @@ h1 {
     text-align: center;
     padding-top: 1rem;
     padding-bottom: 2rem;
+}
+
+.notification {
+    font-family: system-ui, sans-serif;
+    color: black !important;
+    font-size: 1rem;
+    line-height: 1.1;
+    display: grid;
+    grid-template-columns: 1em auto;
+    gap: 0.5em;
+}
+
+input[type="checkbox"] {
+    /* https://moderncss.dev/pure-css-custom-checkbox-style/ */
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    float: left;
+   
+    margin-left: -1.3em;
+    margin-top:0.20em;
+    font: inherit;
+    color: currentColor;
+    width: 1.05em;
+    height: 1.05em;
+    border: 0.15em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--notification-color);
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+input[type="checkbox"]:checked {
+    transform: scale(1);
+}
+
+.erreur{
+    color: red;
+    font-weight: bold;
+    overflow-wrap: break-word;
 }

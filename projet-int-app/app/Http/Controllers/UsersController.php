@@ -2,34 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use App\Models\User;
+use GuzzleHttp\Middleware;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    public function __invoke(){return redirect("index");}
+    public function __invoke()
+    {
+        return redirect("index");
+    }
 
-    public function index(Request $r, User $userid = null ){
-        if($userid != null)
-        { return view("profil",["userid" => $userid]);}
+    public function index(Request $r, User $userid = null)
+    {
+        if ($userid != null) {
+            return view("profil", ["userid" => $userid]);
+        }
         return redirect("login");
     }
-    public function login(){
+    public function login()
+    {
         return view("login");
     }
-    public function register(){
+    public function register()
+    {
         return view("register");
     }
-    public function loginWData(Request $r){ //process
 
+    public function store(StoreUserRequest $r)
+    {
+
+        $attributes = $r->validated();
+
+        $user = User::create($attributes);
+        // event qui signale au mailsender un nouveau user vient de sinscrire
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return $this->VerifierEmail(["name"=>$attributes['name'],"surname"=>$attributes['surname'],"email"=>$attributes['email'],"email_verified"=>0]);
     }
-    public function registerWData(Request $r){ //process l'inscription
-        //echo var_dump($r);
-        $email = $r->input("email");
-        echo $email; // ca fonctionne!!!11 tlm de probleme a recuprer les inputs mais ca marhce finalement
-        $new = new User();
-        $new->email = $email;
-        $new->save();
+    public function VerifierEmail($attributes = null)
+    {
+        if($attributes != null)
+            return view("confirm-email",$attributes);
+        else
+            return to_route('index');
     }
 }
