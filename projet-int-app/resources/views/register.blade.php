@@ -5,8 +5,6 @@
 @section('title', 'Création de compte')
 
 @section('content')
-
-
     @push('js')
         @vite(['resources/js/notification_checkbox_to_bool.js']);
         @vite(['resources/js/show_hide_password.js'])
