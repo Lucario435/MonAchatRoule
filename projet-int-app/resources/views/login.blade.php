@@ -41,5 +41,8 @@
         <button type="submit" class="btn btn-lg btn-primary d-flex justify-content-center"
             style="width:200px;margin:auto;">Se connecter</button>
     </form>
+    <div class="mb-3 signForm signin mt-5">
+        <p>Pas encore de compte?<a href="{{ url('/register') }}"><br> Inscrivez-vous</a>.</p>
+    </div>
 
 @endsection
