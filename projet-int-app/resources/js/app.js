@@ -1,10 +1,10 @@
 import './bootstrap';
-import jQuery from 'jquery';
-const $ = jQuery;
-
+import toast from 'jquery-toast-plugin';
+window.toast = toast;
 $(
     function() 
     {
-        console.log( "ready! layout" );
+        //toast('hello');
+        console.log( "ready! layoutyay" );
     }
 );

@@ -60,8 +60,8 @@
             <label for="phone" class="form-label">Numéro de téléphone</label>
             <div class="grid-icon-input">
                 <i class="fas fa-mobile fa-lg icon-in-grid" style="margin-left:.45em"></i>
-                <input type="tel" class="form-control" name="phone" id="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                    placeholder="123-456-7890" value="{{ old('phone') }}" required>
+                <input type="tel" class="form-control" name="phone" id="phone"
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" value="{{ old('phone') }}" required>
             </div>
             <div class="info">
                 @error('phone')
@@ -110,6 +110,14 @@
         <button type="submit" class="btn btn-lg btn-primary d-flex justify-content-center"
             style="width:200px;margin:auto;">Créer</button>
     </form>
+    <script type="module">
+        $(
+            function () {
+                
+                //toast('Here you can put the text of the toast')
+            }
+        );
+    </script>
     <div class="mb-3 signForm signin mt-5">
         <p>Vous avez déjà un compte?<a href="{{ url('/login') }}"><br> Connectez vous</a>.</p>
     </div>
