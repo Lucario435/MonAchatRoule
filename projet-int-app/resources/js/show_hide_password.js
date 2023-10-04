@@ -6,6 +6,7 @@ const $ = jQuery;
 // prof : nicolas chourot
 
 $("#toggleShowPassword").hide();
+
 $("#toggleShowPassword").on("click",() => {
     $("#password").attr("type", $("#password").attr("type") == 'password' ? 'text' : 'password');
     $("#password_confirm").attr("type", $("#password_confirm").attr("type") == 'password' ? 'text' : 'password');

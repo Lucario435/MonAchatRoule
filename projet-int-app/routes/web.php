@@ -32,13 +32,11 @@ Route::get('/login',[UsersController::class,"login"])->name('login');
 Route::get('/register',[UsersController::class,"register"])->name('register');
 Route::post('/register',[UsersController::class,"store"]);
 
-
 // Verification email --------------
-Route::get('/email/verifier', [UsersController::class,"VerifierEmail"])->middleware('auth')->name('verification.notice');
-
-Route::get('/email/verifier/{id}/{hash}', function (EmailVerificationRequest $request) {
+Route::get('/email/verifier/{id}/{hash}', 
+function (EmailVerificationRequest $request) {
     $request->fulfill();
-    return redirect('/');
+    return view("confirm-email",["email_verified"=>1]);
 })->middleware(['auth','signed'])->name('verification.verify');
 // FIN Story #3 Chahine  
 

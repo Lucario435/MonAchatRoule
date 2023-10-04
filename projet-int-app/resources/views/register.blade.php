@@ -8,6 +8,7 @@
     @push('js')
         @vite(['resources/js/notification_checkbox_to_bool.js']);
         @vite(['resources/js/show_hide_password.js'])
+        @vite(['resources/js/phone_number_formatter.js'])
     @endpush
     @push('css')
         @vite(['resources/css/register.css'])
@@ -59,8 +60,8 @@
             <label for="phone" class="form-label">Numéro de téléphone</label>
             <div class="grid-icon-input">
                 <i class="fas fa-mobile fa-lg icon-in-grid" style="margin-left:.45em"></i>
-                <input type="tel" class="form-control" name="phone" id="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
-                    placeholder="1234567890" value="{{ old('phone') }}" required>
+                <input type="tel" class="form-control" name="phone" id="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    placeholder="123-456-7890" value="{{ old('phone') }}" required>
             </div>
             <div class="info">
                 @error('phone')
@@ -103,8 +104,8 @@
         </div>
         <div class="info"></div>
         <div class="mb-3 form-check">
-            <input type="checkbox" id="notification" name="notification">
-            <label class="form-check-label" for="notification">Activer le suivi d'annonces par courriel</label>
+            <input type="checkbox" id="email_notification" name="email_notification">
+            <label class="form-check-label" for="email_notification">Activer le suivi d'annonces par courriel</label>
         </div>
         <button type="submit" class="btn btn-lg btn-primary d-flex justify-content-center"
             style="width:200px;margin:auto;">Créer</button>

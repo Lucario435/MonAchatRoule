@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
+use GuzzleHttp\Middleware;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,7 +43,7 @@ class UsersController extends Controller
 
         Auth::login($user);
 
-        return $this->VerifierEmail(["name"=>$attributes['name'],"surname"=>$attributes['surname'],"email"=>$attributes['email']]);
+        return $this->VerifierEmail(["name"=>$attributes['name'],"surname"=>$attributes['surname'],"email"=>$attributes['email'],"email_verified"=>0]);
     }
     public function VerifierEmail($attributes = null)
     {

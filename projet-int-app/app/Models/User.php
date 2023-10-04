@@ -56,7 +56,5 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    // public function setPasswordAttribute($password){
-    //     $this->attributes['password'] = 'fooo1234';
-    // }
+
 }
