@@ -17,26 +17,29 @@ use Illuminate\Support\Facades\Auth;
 */
 // ceci est la page index...
 Route::get('/', function () {
-    return view('welcome');
+    return view('login',$data);
 })->name('index');
 
 
 Route::get('/users',[UsersController::class,"index"]);
 Route::get('/users/{id}',[UsersController::class,"index"]);
+// login momo
+Route::post('/login',[UsersController::class,"authenticate"]);
 Route::get('/login',[UsersController::class,"login"])->name('login');
 
 
-// Story #3 Chahine 
+// Story #3 Chahine
 
 // Inscription --------------------
 Route::get('/register',[UsersController::class,"register"])->name('register');
 Route::post('/register',[UsersController::class,"store"]);
 
 // Verification email --------------
-Route::get('/email/verifier/{id}/{hash}', 
+Route::get('/email/verifier/{id}/{hash}',
 function (EmailVerificationRequest $request) {
     $request->fulfill();
     return view("confirm-email",["email_verified"=>1]);
 })->middleware(['auth','signed'])->name('verification.verify');
-// FIN Story #3 Chahine  
+// FIN Story #3 Chahine
+
 

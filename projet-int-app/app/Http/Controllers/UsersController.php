@@ -6,8 +6,11 @@ use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use GuzzleHttp\Middleware;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+
 
 class UsersController extends Controller
 {
@@ -42,8 +45,36 @@ class UsersController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-
         return $this->VerifierEmail(["name"=>$attributes['name'],"surname"=>$attributes['surname'],"email"=>$attributes['email'],"email_verified"=>0]);
+    }
+    public function destroySession($request){$request->session()->regenerate(false);}
+    public function authenticate(Request $request): RedirectResponse
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials,true)) {
+            $request->session()->regenerate();
+            $user = Auth::user();
+            $request->session()->put('userid', $user["id"]);
+            $request->session()->put('user', $user);
+            $request->session()->put("loggedin",true);
+            return redirect()->intended('index');
+        }
+        // request()->cookie('isConnectedMOMO',null);
+        // setCookie("isConnectedMOMO",null,-1);
+
+        $this->destroySession($request);
+        return redirect()->back()->withErrors([
+            'email' => 'Email ou mot de passe invalide',
+        ])->withInput($request->only('email'));
+    }
+    public function logout($request){
+        Auth::logout();
+        $this->destroySession($request);
+        return to_route("index");
     }
     public function VerifierEmail($attributes = null)
     {
