@@ -113,8 +113,8 @@
     <script type="module">
         $(
             function () {
-                
-                //toast('Here you can put the text of the toast')
+                $.toast("tes3");
+
             }
         );
     </script>
