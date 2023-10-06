@@ -40,3 +40,5 @@ function (EmailVerificationRequest $request) {
 })->middleware(['auth','signed'])->name('verification.verify');
 // FIN Story #3 Chahine  
 
+// Story #9 page apropos
+Route::view('/a-propos','a-propos');
