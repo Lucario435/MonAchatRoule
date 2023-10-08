@@ -35,8 +35,9 @@ Route::post('/register',[UsersController::class,"store"]);
 // Verification email --------------
 Route::get('/email/verifier/{id}/{hash}', 
 function (EmailVerificationRequest $request) {
+    $status = Auth::user()->email_verified_at == null ? 1 : 2;
     $request->fulfill();
-    return view("confirm-email",["email_verified"=>1]);
+    return view("confirm-email",["email_verified_now"=>$status]);
 })->middleware(['auth','signed'])->name('verification.verify');
 // FIN Story #3 Chahine  
 
