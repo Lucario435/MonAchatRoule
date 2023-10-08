@@ -1,18 +1,17 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class image extends Model
+class Image extends Model
 {
-    protected $fillable = [
-        'annonces_id',
-        'imagepath',
-    ];
+    use HasFactory;
 
-    public function annonce()
-    {
-        return $this->belongsTo(Annonce::class, 'annonces_id');
-    }
+    protected $fillable = [
+        //Foreign key
+        'publication_id',
+        'url'
+    ];
 }
