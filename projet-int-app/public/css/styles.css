@@ -37,10 +37,12 @@ textarea {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-label{
+.width10{
     width: 10%;
 }
 select{
+    color: #004aad;
+    font-weight: bold;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -82,6 +84,10 @@ select{
 }
 hr{
     width: 90%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-right: auto;
+    margin-left: auto;
 }
 .buttonEffect:hover{
     background-color: white;
@@ -258,14 +264,14 @@ padding-bottom: 100%;
     grid-gap: 1em;
     justify-content: center;
 }
-.card{
+.cardd{
     border-radius: 5px;
     background-color: gainsboro;
     width: 250px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     text-align: center;
 }
-.card:hover{
+.cardd:hover{
     background-color: #a6a6a6;
     box-shadow: rgba(0, 0, 0, 0.8) 0px 5px 15px;
     cursor: pointer;

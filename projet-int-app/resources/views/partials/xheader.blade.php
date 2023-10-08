@@ -4,7 +4,6 @@
         <div class="alert alert-success" id="success">
             {{ session()->get('message') }}
         </div>
-    @endif
     <script>
         //Usefull link : https://www.geeksforgeeks.org/how-to-hide-div-element-after-few-seconds-in-jquery/
         window.addEventListener("DOMContentLoaded", (event) => {
@@ -14,11 +13,11 @@
             alertc = document.getElementById("success");
             let tempsEnSec = 3;
             setTimeout(() =>{
-                alertc.style["font-size"] = 0;
+                alertc.style.fontSize = "0px";
             },tempsEnSec*1000);
         });
     </script>
-
+    @endif
     <header>
         <div class="header-container">
             <h1>@yield("appname")</h1>

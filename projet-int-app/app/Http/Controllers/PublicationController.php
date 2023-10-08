@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\Publication;
 use App\Models\Image;
 
-require_once 'xlogin.php';
+//require_once 'xlogin.php';
 
 
 class PublicationController extends Controller
@@ -53,6 +53,7 @@ class PublicationController extends Controller
             
         ]);
         //Validation of the user ID
+        /*
         if(null != getUID())
         {
             $data['user_id'] = getUID();
@@ -67,9 +68,9 @@ class PublicationController extends Controller
         }*/
 
         //Temporairement, c'est le id 1 qui publie les annonces à effacer quand le login fonctionnera
-        else{
+        //else{
             $data['user_id'] = 1;
-        }
+        //}
 
         //The default status of the publication will be "ok"
         $data['publicationStatus'] = 'ok';

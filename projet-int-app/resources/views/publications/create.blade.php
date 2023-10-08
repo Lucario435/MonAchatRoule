@@ -41,14 +41,14 @@
                 align-items: center;
                 justify-content: center;">
                 <input class="custom-radio" type="radio" name="type" value="0" checked="checked" onchange="toggleExpirationInput(false)"/>
-                <label>Prix fixe</label>
+                <label class="width10">Prix fixe</label>
                 </div>
                 <br>
                 <div style="display: flex;
                 align-items: center;
                 justify-content: center;">
                 <input class="custom-radio" type="radio" name="type" value="1" onchange="toggleExpirationInput(true)"/>
-                <label>Enchère</label>
+                <label class="width10">Enchère</label>
                 </div>
             </div>
             <br>
@@ -72,14 +72,14 @@
                 align-items: center;
                 justify-content: center;">
                     <input class="customRadio" type="radio" name="hidden" value="1" checked="checked" />
-                    <label>Publique</label>
+                    <label class="width10">Publique</label>
                 </div>
                 <br>
                 <div style="display: flex;
                     align-items: center;
                     justify-content: center;">
                     <input class="customRadio" type="radio" name="hidden" value="0" />
-                    <label>Privée</label>
+                    <label class="width10">Privée</label>
                 </div>
             </div>
             <br>

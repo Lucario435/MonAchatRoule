@@ -25,7 +25,7 @@
 <div class="card-container">
     <!--Filters-->
 @foreach ($publications as $publication)
- <div class="card">
+ <div class="cardd">
     <div class="card-state-text">
         <!--Usefull link : https://www.educative.io/answers/how-to-create-a-countdown-timer-using-javascript-->
         @if ($publication->type == "1")
