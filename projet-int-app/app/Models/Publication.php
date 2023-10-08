@@ -10,13 +10,25 @@ class Publication extends Model
     use HasFactory;
 
     protected $fillable = [
+        //Publication info
         'title',
         'description',
         'type',
-        'hidden',
-        'fixedPrice',
         'expirationOfBid',
-        'postalCode'
+        'postalCode',
+        'publicationStatus',
+        'hidden',
+
+        //Foreign key
+        'user_id',  
+
+        //Car info
+        'fixedPrice',
+        'kilometer',
+        'bodyType',
+        'transmission',
+        'brand',
+        'color'
     ];
 
     // Foreign Key User

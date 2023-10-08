@@ -3,7 +3,6 @@ body, h1, ul, li {
     margin: 0;
     padding: 0;
 }
-
 /* Style the header */
 .header {
     background-color: blue; /* Blue background color */
@@ -55,3 +54,5 @@ body, h1, ul, li {
 .login-button:hover {
     background-color: darkgreen; /* Dark green button background color on hover */
 }
+
+

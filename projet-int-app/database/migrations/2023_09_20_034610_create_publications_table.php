@@ -12,16 +12,32 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('publications', function (Blueprint $table) {
+            //id
             $table->id();
+            
+            //Publication info
+            ///////////////////////////////////////////
             $table->string('title');
             $table->string('description');
             $table->string('type');
-            //Constraints FOREIGN KEY colomn           Table 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->tinyInteger('hidden');
-            $table->integer('fixedPrice');
             $table->date('expirationOfBid')->nullable()->default(NULL);
             $table->string('postalCode');
+            //Public, private, deleted by admin etc
+            $table->string('publicationStatus');
+            $table->tinyInteger('hidden');
+            ///////////////////////////////////////////
+
+            //Constraints FOREIGN KEY             colomn      Table 
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
+            //Car informations
+            $table->integer('fixedPrice');
+            $table->integer('kilometer');
+            $table->string('bodyType');
+            $table->string('transmission');
+            $table->string('brand');
+            $table->string('color');
             $table->timestamps();
         });
     }

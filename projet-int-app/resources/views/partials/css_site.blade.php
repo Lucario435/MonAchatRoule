@@ -1,7 +1,7 @@
 <style>
     :root{
-        --blueheader: rgb(35, 112, 255); /* Bleu */
-        --blueForms: rgb(91, 142, 237);
+        --blueheader: #004aad; /* Bleu */
+        --blueForms: #004aad;;
         --greenbutton: #27ae60;
         --greenbuttonhover: rgb(0, 159, 0);
     }
