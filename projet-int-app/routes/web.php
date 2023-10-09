@@ -26,8 +26,10 @@ Route::get('/', function () {
 
 Route::get('/users',[UsersController::class,"index"]);
 Route::get('/users/{id}',[UsersController::class,"index"]);
-Route::get('/login',[UsersController::class,"login"])->name('login');
 
+// Temporaire avant commit login de mohammed - chahine
+Route::get('/login',[UsersController::class,"login"])->name('login');
+Route::post('/login',[UsersController::class,"authenticate"]);
 
 // Story #3 Chahine 
 
@@ -58,7 +60,7 @@ Route::get('/users/register',[UsersController::class,"register"]);
 //Route to show main page
 Route::get('/publication', [PublicationController::class, 'index'])->name('publication.index');
 //Route to create show publication page
-Route::get('/publication/create', [PublicationController::class, 'create'])->name('publication.create');
+Route::get('/publication/create', [PublicationController::class, 'create'])->middleware('auth')->name('publication.create');
 //Route to create the publication (SAVE)
 Route::post('/publication', [PublicationController::class, 'store'])->name('publication.store');
 //------------------------------------------------------------------------------------

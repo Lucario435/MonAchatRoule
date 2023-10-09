@@ -3,21 +3,21 @@
     @vite(['resources/css/register.css'])
 @endpush
 @push('js')
-        @vite(['resources/js/notification_checkbox_to_bool.js'])
-        @vite(['resources/js/show_hide_password.js'])
-        @vite(['resources/js/phone_number_formatter.js'])
+    @vite(['resources/js/notification_checkbox_to_bool.js'])
+    @vite(['resources/js/show_hide_password.js'])
+    @vite(['resources/js/phone_number_formatter.js'])
 @endpush
 @section('title', 'Accédez à votre compte')
 
 @section('content')
-    <form action="{{ url("/login") }}" method="POST" style="width:350px; margin:auto;>
+    <form action="{{ url('/login') }}" method="POST"
+        style="width:350px; margin:auto;">
         @csrf
         <div class="mb-3">
             <label for="email" class="form-label">Courriel</label>
             <div class="grid-icon-input">
                 <i class="fas fa-envelope fa-lg icon-in-grid"></i>
-                <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}"
-                    required>
+                <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" required>
             </div>
             <div class="info">
                 @error('email')

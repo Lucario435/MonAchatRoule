@@ -8,6 +8,7 @@ use App\Models\User;
 use GuzzleHttp\Middleware;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class UsersController extends Controller
 {
@@ -23,9 +24,25 @@ class UsersController extends Controller
         }
         return redirect("login");
     }
-    public function login()
-    {
+    public function login(){
         return view("login");
+    }
+    public function authenticate(Request $request): RedirectResponse
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+ 
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+ 
+            return redirect()->intended('/');
+        }
+ 
+        return back()->withErrors([
+            'email' => 'Mauvaise combinaison de courriel et/ou de mot de passe',
+        ])->onlyInput('email');
     }
     public function register()
     {
