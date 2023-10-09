@@ -11,7 +11,7 @@ export default defineConfig({
             refresh: [
                 'resources/routes/**',
                 'routes/**',
-                'resources/views/*',
+                'resources/views/**',
             ],
             server:{
                 host: '127.0.0.1:8000',
