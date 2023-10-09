@@ -1,0 +1,391 @@
+.align-center{
+    margin:auto;
+}
+.text-alignement{
+    text-align: center;
+}
+.clean-window-border{
+    border-radius: 5px;
+}
+textarea {
+    resize: none;  
+    border: 1px solid #ccc;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 50%;
+}
+.form-style{
+    text-align: center;
+    width: 90%;
+    margin: auto;
+    background-color: gainsboro;
+    border-radius: 5px;
+    outline: 1px solid darkgray;
+}
+.inputForm{
+    color: #004aad;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 50%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.width10{
+    width: 10%;
+}
+select{
+    color: #004aad;
+    font-weight: bold;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 50%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.inputStyleCopy{
+    height: 2em;
+    width: 70%;
+    border-radius: 50px;
+    color: #004aad;
+    font-weight: bold;
+    text-align: center;
+    min-width: 7em;
+}
+.form-style>div>textarea{
+    border-radius: 10px;
+    color: #004aad;
+    font-weight: bold;
+}
+.important{
+    color: red;
+    font-weight: bold;
+}
+.buttonEffect{
+    height: 2em;
+    background-color: #004aad;
+    color:white;
+    border-radius: 5px;
+    width: fit-content;
+    display: block;
+    margin: auto;
+    font-weight: bold;
+    text-decoration: none;
+}
+hr{
+    width: 90%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-right: auto;
+    margin-left: auto;
+}
+.buttonEffect:hover{
+    background-color: white;
+    color:#004aad;
+}
+
+
+/*--------------------------*/
+
+/* Styles pour les boutons radio carrés */
+input[type="radio"] {
+    appearance: none; /* Masque l'apparence par défaut des boutons radio */
+    width: 2em; /* Largeur souhaitée pour les boutons radio */
+    height: 2em; /* Hauteur souhaitée pour les boutons radio */
+    outline: 1px solid black;
+    background-color: white; /* Couleur de fond par défaut */
+    border-radius: 4px; /* Pas de coin arrondi */
+    cursor: pointer; /* Curseur de type main pour indiquer la possibilité de cliquer */
+    margin-right: 5px; /* Espacement entre les boutons radio */
+     /* Transition pour l'animation */
+}
+
+/* Styles lorsque le bouton radio est sélectionné */
+input[type="radio"]:checked {
+    background-color: #004aad; /* Couleur de fond grise lorsqu'il est sélectionné */
+    transition: 0.5s;
+}
+
+input[type="radio"]:hover {
+    outline: 3px solid black;
+    transition: 0.1s;
+}
+
+/*/////////////////////*/
+
+
+.upload {
+    &__box {
+      padding: 40px;
+    }
+    &__inputfile {
+      width: .1px;
+      height: .1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+    
+    &__btn {
+      display: inline-block;
+      font-weight: 600;
+      color: #fff;
+      text-align: center;
+      min-width: 116px;
+      padding: 5px;
+      transition: all .3s ease;
+      cursor: pointer;
+      border: 2px solid;
+      background-color: #4045ba;
+      border-color: #4045ba;
+      border-radius: 10px;
+      line-height: 26px;
+      font-size: 14px;
+      
+      &:hover {
+        background-color: unset;
+        color: #4045ba;
+        transition: all .3s ease;
+      }
+      
+      &-box {
+        margin-bottom: 10px;
+      }
+    }
+    
+    &__img {
+      &-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -10px;
+      }
+      
+      &-box {
+        width: 200px;
+        padding: 0 10px;
+        margin-bottom: 12px;
+      }
+      
+      &-close {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background-color: rgba(0, 0, 0, 0.5);
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          text-align: center;
+          line-height: 24px;
+          z-index: 1;
+          cursor: pointer;
+  
+          &:after {
+            content: '\2716';
+            font-size: 14px;
+            color: white;
+          }
+        }
+    }
+}
+  
+.img-bg {
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
+position: relative;
+padding-bottom: 100%;
+}
+
+/*//////////////////*/
+/*Add Images css*/
+
+/*Les divs*/
+.image-preview {
+    position: relative;
+    width: 10em; /* Taille maximale de l'image carrée en pixels */
+    height: 10em; /* Taille maximale de l'image carrée en pixels */
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 5px;
+}
+
+#image-container{
+    display: grid;
+    grid-template-columns: repeat( 2, minmax(10em, 10em) );
+    width: fit-content;
+    margin: auto;
+}
+@media screen and (orientation:portrait) {
+    #image-container{
+        display: grid;
+        grid-template-columns: repeat( 1, minmax(10em, 10em) );
+        width: 50%;
+        margin: auto;
+    }
+}
+
+.remove-image {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 2px 5px;
+}
+.remove-image:hover {
+    background-color: gray;
+    border: 2px solid red;
+    color: red;
+}
+/*Les images dans les div*/
+.image-css{
+    background-repeat: no-repeat;
+    min-width:-webkit-fill-available;
+    height: 100%;
+}
+
+/*CSS for publication page index*/
+.card-container{
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(250px, 250px) );
+    grid-gap: 1em;
+    justify-content: center;
+}
+.cardd{
+    border-radius: 5px;
+    background-color: gainsboro;
+    width: 250px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    text-align: center;
+}
+.cardd:hover{
+    background-color: #a6a6a6;
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 5px 15px;
+    cursor: pointer;
+}
+.card-image{
+    width: 100%;
+    height: 140px;
+    margin: auto;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.card-title{
+    float: left;
+    width: fit-content;
+    margin: 5px;
+}
+.card-price{
+    color: #004aad;
+    font-weight: bold;
+    font-size: large;
+    width: fit-content;
+    float: right;
+    margin: 5px;
+}
+.card-kilometer{
+    float: left;
+    color: gray;
+    font-weight: bold;
+    width: fit-content;
+    margin: 5px;
+}
+.card-postal-code{
+    float: left;
+    color: gray;
+    font-weight: bold;
+    float: right;
+    margin: 5px;
+    width: fit-content;
+}
+.card-postal-code:hover{
+    cursor: pointer;
+    color: green;
+}
+.card-location-icon{
+    height: 18px;
+    float: right;
+    margin: 5px;
+}
+/*Filter's CSS*/
+.filters-container
+{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 5px;
+    margin: auto;
+    margin-bottom: 2em;
+}
+.filters-controls{
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(120px, 100px) );
+    grid-gap: 1em;
+    justify-content: center;
+}
+/*CSS for the card state like "vendu, time remaining etc"*/
+.card-state-text{
+    position: absolute;
+    width: 250px;
+    background-color: darkred;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+.card-bid{
+    color: white;
+    font-weight: bold;
+}
+.alert-success{
+    background-color: green;
+    font-family: bold;
+    font-size: large;
+}
+#success
+{
+    transition: 1s;
+    text-align: center;
+    position: absolute;
+    height: 2em;
+    bottom: 0px;
+    color: white;
+    width: 100%;
+    font-size: 2em;
+    border-radius: 5px;
+}
+.end-of-inventory{
+    text-align: center;
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    margin-top: 1em;
+    height: 100px;
+    outline: 1px solid darkgray;
+}
+
+/* header de filtres */
+
+.filter > span{
+    color: black;
+}
+
+.page-on-top{
+    position:absolute;
+    z-index: 55;
+    background-color: var(--blueheader);
+    top:0;
+    color: white;
+    letter-spacing: 1px;
+}
