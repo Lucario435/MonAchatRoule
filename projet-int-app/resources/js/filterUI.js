@@ -1,8 +1,8 @@
 
 $(() => {
-    $("#page_filtre").show();
-    $("#content").hide();
-    $("#xheader").hide();
+    $("#page_filtre").hide();
+    // $("#content").hide();
+    // $("#xheader").hide();
     $("#filters").on("click", function (event) {
         console.log("click on filters");
         $("#content").hide();
