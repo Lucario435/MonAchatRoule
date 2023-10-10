@@ -74,7 +74,8 @@ Route::get('/image/create', [ImageController::class, 'create'])->name('image.cre
 //Route to create the images (SAVE)
 Route::post('/image', [ImageController::class, 'store'])->name('image.store');
 //------------------------------------------------------------------------------------
-
+// Search by filtera
+Route::get('/publications/search',[PublicationController::class,'search']);
 // Section for api/publications in order to filter 
 Route::get('/api/publications/brands',function ()
     {
@@ -91,6 +92,7 @@ Route::get('/api/publications/transmission',function ()
         return PublicationResource::collection(Publication::all())->unique('transmission')->pluck('transmission');
     }
 );
+
 // Route::get('/api/publications/price',function ()
 //     {
 //         return PublicationResource::collection(Publication::all())->pluck('brand');

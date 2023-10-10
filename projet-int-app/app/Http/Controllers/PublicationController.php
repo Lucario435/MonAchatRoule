@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 //Supports auth
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
 
 //Models are a must to access database since Controller <=> Model <=> DB
@@ -12,25 +11,27 @@ use App\Models\Publication;
 use App\Models\Image;
 use Illuminate\Database\Eloquent\Casts\Json;
 
-//require_once 'xlogin.php';
 
 
 class PublicationController extends Controller
 {
     //Returns the main publications page and the object "publication" so we can get it and show it in the page
-    public function index(){
+    public function index()
+    {
         $publications = Publication::all();
         $images = Image::all();
-        return view('publications.index', ['publications' => $publications,'images' => $images]);
+        return view('publications.index', ['publications' => $publications, 'images' => $images]);
     }
-    
+
     //Returns the create publication page
-    public function create(){
+    public function create()
+    {
         return view('publications.create');
     }
 
     //Inserts a publication into database (needs to pass validation tests before insertion)
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         //Validation /////////To Do Jonathan : More validation
         $data = $request->validate([
@@ -51,7 +52,7 @@ class PublicationController extends Controller
             'transmission' => 'nullable',
             'brand' => 'nullable',
             'color' => 'nullable'
-            
+
         ]);
         //Validation of the user ID
         /*
@@ -70,7 +71,7 @@ class PublicationController extends Controller
 
         //Temporairement, c'est le id 1 qui publie les annonces à effacer quand le login fonctionnera
         //else{
-            $data['user_id'] = 1;
+        $data['user_id'] = 1;
         //}
 
         //The default status of the publication will be "ok"
@@ -85,5 +86,29 @@ class PublicationController extends Controller
         return redirect(route('image.create'))->with('message', 'Publication créée avec succès!');
     }
 
+    public function search(Request $request)
+    {
+        // Inspired by this source
+        // https://stackoverflow.com/q/61479114
+        $params = $request->query();
 
+        $tab = array();
+        foreach ($params as $key => $item) {
+            $tab[$key] = explode(',',$item);
+        }
+
+        //dd($tab);
+        
+        $results = Publication::where(function ($query) use ($tab) {
+            foreach($tab as $key => $item) {
+                //dd($key);
+                foreach ($item as $value) {
+                    $query->orWhere($key, '=',  str_replace(',',' ',$value));
+                }
+            }
+
+        })->get();
+        
+        return $results;
+    }
 }

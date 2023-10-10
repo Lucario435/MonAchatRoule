@@ -1,4 +1,4 @@
-var selectedBrands = [];
+var selectedBrands = new Set();
 var selectedBodyType = [];
 var selectedTransmission = [];
 var selectedPrice = null;
@@ -44,13 +44,13 @@ $(() => {
             // format to html
             let output = `<span id=brands-list>
             <div class="row" style="min-height: 20px;"></div>`;
-            $.each(brands, function(brand,nombre) {
+            $.each(brands, function (brand, nombre) {
 
-                if(!brand in selectedBrands)
-                    selectedBrands[brand] = false;
+                // if (!brand in selectedBrands)
+                //     selectedBrands.push({ brand: false });
 
                 output += `
-                <div class="row ${selectedBrands[brand] ? 'selected-element':''}" brand=${brand} >
+                <div class="row ${selectedBrands[brand] ? 'selected-element' : ''}" brand=${brand} >
 
                     <div class='col-2 text-center p-0' style='color:black;'>
                         <span class="car-${brand.toLowerCase()} fa-2x"></span>
@@ -63,7 +63,7 @@ $(() => {
                     </div>
                 
                 </div>`;
-                
+
 
             });
             output += `</span>`;
@@ -72,16 +72,59 @@ $(() => {
                 output
             );
             // Setting up listeners for selection of filter    
-            $.each(brands, function(brand,nombre) {
-                $(`div[brand=${brand}]`).on("click",(ev)=>{
+            $.each(brands, function (brand, nombre) {
+                $(`div[brand=${brand}]`).on("click", (ev) => {
                     console.log(brand);
                     $(`div[brand=${brand}]`).toggleClass("selected-element");
+                    if ($(`div[brand=${brand}]`).hasClass("selected-element")) {
+                        selectedBrands.add(brand);
+                    } else {
+                        selectedBrands.delete(brand);
+                    }
                     selectedBrands[brand] = $(`div[brand=${brand}]`).hasClass("selected-element");
                     console.log(selectedBrands[brand]);
                 });
             })
-        }else{
+        } else {
             $('#brands-list').remove();
         }
+        $("#btn-search").on("click", (e) => {
+            $("#page_filtre").hide();
+            $("#content").show();
+            $("#xheader").show();
+            //console.log(selectedBrands);
+            $.ajax({
+                url: `publications/search?brand=${formatArrayToUrl(selectedBrands)}`,
+                async: false,
+                success: function (data) {
+                    console.log(data);
+                },
+                error: (xhr) => { console.log(xhr); }
+            });
+        });
     })
+    // Submit the search
+    // $("#btn-search").on("click", (e) => {
+    //     $("#page_filtre").hide();
+    //     $("#content").show();
+    //     $("#xheader").show();
+    //     $.ajax({
+    //         url: `publications/search?brands=${formatArrayToUrl(selectedBrands)}`,
+    //         async: false,
+    //         success: function (data) {
+    //             console.log(data);
+    //         },
+    //         error: (xhr) => { console.log(xhr); }
+    //     });
+    // });
+    function formatArrayToUrl(array) {
+        //let string = "[";
+        let tab = [];
+        array.forEach(brand => {
+            tab.push(brand);
+        });
+        console.log(tab.toString());
+
+        return tab;
+    }
 });

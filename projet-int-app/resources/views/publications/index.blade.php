@@ -27,7 +27,6 @@
                         <span class="fas fa-caret-down w-5 float-end pe-1"></span>
                     </span>
                 </label>
-                
             </div>
             <div class="row pb-3">
                 <label>
@@ -61,8 +60,7 @@
                     </span>
                 </label>
             </div>
-            {{-- <div class="row" style="min-height: 460px;"></div> --}}
-            <div class="row text-center fixed-bottom mb-2">
+            <div class="row text-center fixed-bottom mb-2" id="btn-search">
                 <span style="background-color: green">
                     <span style="font-size: 30px">Rechercher</span>
                     <span class="fas fa-search fa-2x px-3"></span>
@@ -70,9 +68,9 @@
             </div>
         </div>
     </div>
-    
+
     {{-- Fin filtres --}}
-    <span id="content">
+    
         <div class="container-fluid w-100 text-center" style="height: 100px">
             <div class="row">
                 <div class="col">
@@ -99,6 +97,7 @@
                 </div>
             </div>
         </div>
+    <span id="content">
         <div class="card-container">
             <!--Filters-->
             @foreach ($publications as $publication)
