@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\VerifyEmailController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PublicationController;
+use App\Http\Resources\PublicationResource;
+use App\Models\Publication;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,3 +74,30 @@ Route::get('/image/create', [ImageController::class, 'create'])->name('image.cre
 //Route to create the images (SAVE)
 Route::post('/image', [ImageController::class, 'store'])->name('image.store');
 //------------------------------------------------------------------------------------
+
+// Section for api/publications in order to filter 
+Route::get('/api/publications/brands',function ()
+    {
+        return PublicationResource::collection(Publication::all())->countBy('brand');
+    }
+);
+Route::get('/api/publications/body',function ()
+    {
+        return PublicationResource::collection(Publication::all())->unique('bodyType')->pluck('bodyType');
+    }
+);
+Route::get('/api/publications/transmission',function ()
+    {
+        return PublicationResource::collection(Publication::all())->unique('transmission')->pluck('transmission');
+    }
+);
+// Route::get('/api/publications/price',function ()
+//     {
+//         return PublicationResource::collection(Publication::all())->pluck('brand');
+//     }
+// );
+// Route::get('/api/publications/kilometer',function ()
+//     {
+//         return PublicationResource::collection(Publication::all())->pluck('brand');
+//     }
+// );

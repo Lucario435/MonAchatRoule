@@ -389,3 +389,8 @@ padding-bottom: 100%;
     color: white;
     letter-spacing: 1px;
 }
+
+.selected-element{
+    background-color: white;
+    color: black;
+}

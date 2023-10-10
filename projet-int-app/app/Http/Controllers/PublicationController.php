@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 //Models are a must to access database since Controller <=> Model <=> DB
 use App\Models\Publication;
 use App\Models\Image;
+use Illuminate\Database\Eloquent\Casts\Json;
 
 //require_once 'xlogin.php';
 
@@ -83,4 +84,6 @@ class PublicationController extends Controller
         //!!! In the future, the route will redirect to "mes annonces" or the page "détail" and the user will be able to see it on top of the list
         return redirect(route('image.create'))->with('message', 'Publication créée avec succès!');
     }
+
+
 }
