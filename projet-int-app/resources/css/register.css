@@ -27,7 +27,7 @@ input[type=password] {
     display: inline-block;   */
     max-width: 330px;
     border: none;
-    outline: solid gray 1px; 
+    outline: solid gray 1px;
     background: #f1f1f1;
     font-weight:lighter;
 }
@@ -102,7 +102,7 @@ a {
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: 60%;
-    
+
 }
 .icon-mail{
     -webkit-mask-image: url("../../public/images/majesticons/solid/mail.svg");
@@ -139,8 +139,8 @@ hr{
     margin-right: auto;
 }
 .grid-icon-input{
-    display: grid; 
-    grid-template-columns:35px auto; 
+    display: grid;
+    grid-template-columns:35px auto;
     column-gap:0px;
 }
 .icon-in-grid{
@@ -157,7 +157,7 @@ hr{
     content: "&nbsp;";
 }
 body{
-    height: 1250px;
+    /* height: 1250px; */
 }
 #toggleShowPassword{
     color: var(--blueheader);

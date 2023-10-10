@@ -17,15 +17,22 @@ use Illuminate\Support\Facades\Auth;
 */
 // ceci est la page index...
 Route::get('/', function () {
-    return view('login',$data);
+    return view('home');
 })->name('index');
 
+Route::get("/index",function(){
+    return to_route("index");
+});
 
 Route::get('/users',[UsersController::class,"index"]);
-Route::get('/users/{id}',[UsersController::class,"index"]);
+Route::get('/users/{id}',[UsersController::class,"userProfile"]);
 // login momo
 Route::post('/login',[UsersController::class,"authenticate"]);
 Route::get('/login',[UsersController::class,"login"])->name('login');
+Route::get("/logout",[UsersController::class,"logout"]);
+Route::get("/favoris",function(){
+    return view("favoris");
+});
 
 
 // Story #3 Chahine

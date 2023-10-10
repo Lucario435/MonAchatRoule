@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string("userimage");
             $table->boolean('is_admin');
             $table->boolean('is_blocked');
             $table->boolean('email_notification');

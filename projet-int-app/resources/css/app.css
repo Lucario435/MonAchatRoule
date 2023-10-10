@@ -1,5 +1,14 @@
 @import '/node_modules/fontawesome-free/css/all.min.css';
 /* Reset some default styles for better consistency */
+:root {
+    --blueheader: rgb(35, 112, 255);
+    /* Bleu */
+    --blueForms: rgb(115, 164, 255);
+    --greenbutton: #27ae60;
+    --greenbuttonhover: rgb(0, 159, 0);
+    --notification-color: rgb(12, 85, 232);
+    --mobileWidth: 768px;
+}
 body,
 h1,
 ul,
@@ -22,15 +31,21 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 0 20px;
 }
 
 /* Style the website title (h1) */
+@media (max-width: var(--mobileWidth)) {
+    .header-container>a>h1{
+        font-size: 1.2rem;
+    }
+}
 .header h1 {
     font-size: 24px;
 }
+
 
 /* Style the navigation menu */
 .nav ul {
@@ -46,6 +61,13 @@ li {
     color: white;
     /* White link text color */
     text-decoration: none;
+    transition: .2s ease;
+    border-bottom: 2px solid rgba(255, 255, 255, 0);
+    &:hover{
+        border-bottom: 2px solid white;
+        font-size: 1.1rem;
+        transition: .2s;
+    }
 }
 
 /* Style the login button */
@@ -58,22 +80,24 @@ li {
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
 }
-
 .login-button:hover {
     background-color: darkgreen;
     /* Dark green button background color on hover */
 }
-
-:root {
-    --blueheader: rgb(35, 112, 255);
-    /* Bleu */
-    --blueForms: rgb(91, 142, 237);
-    --greenbutton: #27ae60;
-    --greenbuttonhover: rgb(0, 159, 0);
-    --notification-color: rgb(12, 85, 232);
+.redlogout-button{
+    background-color: rgb(171, 0, 0) !important;
+    outline: red solid 1px !important;
 }
+.redlogout-button:hover{
+    background-color: rgb(117, 0, 0) !important;
+    outline: red solid px !important;
+}
+
+
+
+
 
 /* Reset some default styles for better consistency */
 body,
@@ -209,7 +233,7 @@ input[type="checkbox"] {
     appearance: none;
     background-color: #fff;
     float: left;
-   
+
     margin-left: -1.3em;
     margin-top:0.20em;
     font: inherit;

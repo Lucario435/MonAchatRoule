@@ -71,9 +71,10 @@ class UsersController extends Controller
             'email' => 'Email ou mot de passe invalide',
         ])->withInput($request->only('email'));
     }
-    public function logout($request){
+    public function logout($request = null){
         Auth::logout();
-        $this->destroySession($request);
+        if($request != null)
+            $this->destroySession($request);
         return to_route("index");
     }
     public function VerifierEmail($attributes = null)
@@ -82,5 +83,10 @@ class UsersController extends Controller
             return view("confirm-email",$attributes);
         else
             return to_route('index');
+    }
+    public function userProfile(Request $request, $uid = null){
+        if($uid == null)
+            return to_route("index");
+        return view("user",["uid" => $uid, "user" => User::find($uid)]);
     }
 }
