@@ -88,35 +88,24 @@ $(() => {
         } else {
             $('#brands-list').remove();
         }
-        $("#btn-search").on("click", (e) => {
-            $("#page_filtre").hide();
-            $("#content").show();
-            $("#xheader").show();
-            //console.log(selectedBrands);
-            $.ajax({
-                url: `publications/search?brand=${formatArrayToUrl(selectedBrands)}`,
-                async: false,
-                success: function (data) {
-                    console.log(data);
-                },
-                error: (xhr) => { console.log(xhr); }
-            });
-        });
     })
-    // Submit the search
-    // $("#btn-search").on("click", (e) => {
-    //     $("#page_filtre").hide();
-    //     $("#content").show();
-    //     $("#xheader").show();
-    //     $.ajax({
-    //         url: `publications/search?brands=${formatArrayToUrl(selectedBrands)}`,
-    //         async: false,
-    //         success: function (data) {
-    //             console.log(data);
-    //         },
-    //         error: (xhr) => { console.log(xhr); }
-    //     });
-    // });
+    //Submit the search
+    $("#btn-search").on("click", (e) => {
+        $("#page_filtre").hide();
+        $("#content").show();
+        $("#xheader").show();
+        $.ajax({
+            url: `publications/search?brand=${formatArrayToUrl(selectedBrands)}`,
+            async: false,
+            success: function (data) {
+                //console.log(data);
+                let html = $(data).html();
+                let content = $(data).find("#content").text();
+                console.log(content);
+            },
+            error: (xhr) => { console.log(xhr); }
+        });
+    });
     function formatArrayToUrl(array) {
         //let string = "[";
         let tab = [];

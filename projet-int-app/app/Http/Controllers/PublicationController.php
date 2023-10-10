@@ -99,7 +99,7 @@ class PublicationController extends Controller
 
         //dd($tab);
         
-        $results = Publication::where(function ($query) use ($tab) {
+        $publications = Publication::where(function ($query) use ($tab) {
             foreach($tab as $key => $item) {
                 //dd($key);
                 foreach ($item as $value) {
@@ -108,7 +108,7 @@ class PublicationController extends Controller
             }
 
         })->get();
-        
-        return $results;
+        $images = Image::all();
+        return view('publications.index', ['publications' => $publications, 'images' => $images]);
     }
 }
