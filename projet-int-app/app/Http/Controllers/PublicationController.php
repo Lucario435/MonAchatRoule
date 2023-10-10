@@ -71,7 +71,7 @@ class PublicationController extends Controller
 
         //Temporairement, c'est le id 1 qui publie les annonces à effacer quand le login fonctionnera
         //else{
-        $data['user_id'] = 1;
+        $data['user_id'] = 14;
         //}
 
         //The default status of the publication will be "ok"
@@ -97,18 +97,25 @@ class PublicationController extends Controller
             $tab[$key] = explode(',',$item);
         }
 
-        //dd($tab);
-        
-        $publications = Publication::where(function ($query) use ($tab) {
-            foreach($tab as $key => $item) {
-                //dd($key);
-                foreach ($item as $value) {
-                    $query->orWhere($key, '=',  str_replace(',',' ',$value));
+        //dd(count($tab));
+        if(count($tab) > 0){
+            $publications = Publication::where(function ($query) use ($tab) {
+                foreach($tab as $key => $item) {
+                    //dd($key);
+                    foreach ($item as $value) {
+                        $query->orWhere($key, '=',  str_replace(',',' ',$value));
+                    }
                 }
-            }
+    
+            })->get();
+            $images = Image::all();
 
-        })->get();
-        $images = Image::all();
-        return view('publications.index', ['publications' => $publications, 'images' => $images]);
+        }else{
+            //dd("enter else");
+            $publications = Publication::all();
+            $images = Image::all();
+        }
+
+        return view('publications.carte', ['publications' => $publications, 'images' => $images]);
     }
 }

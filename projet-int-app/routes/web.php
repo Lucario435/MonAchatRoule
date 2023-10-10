@@ -82,9 +82,9 @@ Route::get('/api/publications/brands',function ()
         return PublicationResource::collection(Publication::all())->countBy('brand');
     }
 );
-Route::get('/api/publications/body',function ()
+Route::get('/api/publications/bodies',function ()
     {
-        return PublicationResource::collection(Publication::all())->unique('bodyType')->pluck('bodyType');
+        return PublicationResource::collection(Publication::all())->countBy('bodyType');
     }
 );
 Route::get('/api/publications/transmission',function ()
