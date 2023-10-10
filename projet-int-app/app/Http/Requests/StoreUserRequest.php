@@ -24,7 +24,8 @@ class StoreUserRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'phone' => Str::replace("-","",$this->phone),
+            'phone' => Str::replace(["-","(",")",' '],"",$this->phone),
+            
         ]);
     }
     /**

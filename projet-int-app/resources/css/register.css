@@ -15,10 +15,7 @@
     font-weight: bolder;
 }
 
-input[type=text],
-input[type=email],
-input[type=tel],
-input[type=password] {
+input{
     /* width: 200px;
     padding-top: .3rem;
     padding-bottom: .3rem;

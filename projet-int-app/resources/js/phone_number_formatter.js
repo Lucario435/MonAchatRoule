@@ -2,8 +2,9 @@ import './bootstrap';
 import jQuery from 'jquery';
 const $ = jQuery;
 
-$("#phone").on("keyup",()=>{
+$("#phone").on("input",()=>{
     let number = $("#phone").val().replace(new RegExp('-','g'),"");
+    number = number.replace(/[^0-9]/g, '');
     let formatedNumber;
     let ac = number.substring(0,3);
     let prefix = number.substring(3,6);
@@ -17,3 +18,4 @@ $("#phone").on("keyup",()=>{
     //console.log(formatedNumber);
     $("#phone").val(formatedNumber);
 })
+

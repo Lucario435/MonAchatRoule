@@ -1,4 +1,23 @@
 <div id="xheader">
+    <!--Usefull link : https://www.fundaofwebit.com/laravel-8/how-to-show-success-message-in-laravel-8-->
+    @if(session()->has('message'))
+        <div class="alert alert-success" id="success">
+            {{ session()->get('message') }}
+        </div>
+    <script>
+        //Usefull link : https://www.geeksforgeeks.org/how-to-hide-div-element-after-few-seconds-in-jquery/
+        window.addEventListener("DOMContentLoaded", (event) => {
+            //const urlParams = new URLSearchParams(queryString);
+
+
+            alertc = document.getElementById("success");
+            let tempsEnSec = 3;
+            setTimeout(() =>{
+                alertc.style.fontSize = "0px";
+            },tempsEnSec*1000);
+        });
+    </script>
+    @endif
     <header>
         <div class="header-container">
             <a href="/" style="text-decoration: none; color:white;">
