@@ -47,6 +47,7 @@ function (EmailVerificationRequest $request) {
     $request->fulfill();
     return view("confirm-email",["email_verified_now"=>$status]);
 })->middleware(['auth','signed'])->name('verification.verify');
+
 Route::get('/email/verify/unconfirmed',function(){
     return view("confirm-email",["email_verified_now" => 3]);
 })->name("verification.notice");
