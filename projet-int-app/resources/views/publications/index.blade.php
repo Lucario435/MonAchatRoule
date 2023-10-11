@@ -97,7 +97,7 @@
                 </div>
             </div>
             <div class="col ">
-                <div class="row border">
+                <div class="row border" style="display:none;">
                     <label for="order" class="p-3 filter">
                         <span id="order">
                             <span class="fas fa-sort-amount-up-alt fa-lg w-20 px-0"></span>
