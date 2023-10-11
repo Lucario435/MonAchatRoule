@@ -47,13 +47,14 @@ function (EmailVerificationRequest $request) {
     $request->fulfill();
     return view("confirm-email",["email_verified_now"=>$status]);
 })->middleware(['auth','signed'])->name('verification.verify');
+Route::get('/email/verify/unconfirmed',function(){
+    return view("confirm-email",["email_verified_now" => 3]);
+})->name("verification.notice");
 // FIN Story #3 Chahine  
 
 // Story #9 page apropos
 Route::view('/a-propos','a-propos');
 Route::get('/login',[UsersController::class,"login"])->name('login');
-Route::get('/register',[UsersController::class,"register"]);
-Route::post('/register',[UsersController::class,"registerWData"]);
 Route::get('/users/login',[UsersController::class,"login"]);
 Route::get('/users/register',[UsersController::class,"register"]);
 
@@ -63,7 +64,7 @@ Route::get('/users/register',[UsersController::class,"register"]);
 //Route to show main page
 Route::get('/publication', [PublicationController::class, 'index'])->name('publication.index');
 //Route to create show publication page
-Route::get('/publication/create', [PublicationController::class, 'create'])->middleware('auth')->name('publication.create');
+Route::get('/publication/create', [PublicationController::class, 'create'])->middleware('verified')->name('publication.create');
 //Route to create the publication (SAVE)
 Route::post('/publication', [PublicationController::class, 'store'])->name('publication.store');
 //Route to create the detail page

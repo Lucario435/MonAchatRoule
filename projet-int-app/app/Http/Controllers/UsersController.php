@@ -60,7 +60,7 @@ class UsersController extends Controller
 
         Auth::login($user);
 
-        return $this->VerifierEmail(["name"=>$attributes['name'],"surname"=>$attributes['surname'],"email"=>$attributes['email'],"email_verified"=>0]);
+        return $this->VerifierEmail(["name"=>$attributes['name'],"surname"=>$attributes['surname'],"email"=>$attributes['email'],"email_verified_now"=>0]);
     }
     public function VerifierEmail($attributes = null)
     {
