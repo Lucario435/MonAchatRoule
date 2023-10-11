@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Publication;
 use Illuminate\Database\Eloquent\Model;
 
 class vente extends Model
@@ -9,7 +10,7 @@ class vente extends Model
     protected $fillable = [
         'userid',
         'seller_id',
-        'annonces_id',
+        'publication_id',
     ];
 
     public function user()
@@ -22,8 +23,8 @@ class vente extends Model
         return $this->belongsTo(User::class, 'seller_id');
     }
 
-    public function annonce()
+    public function publication()
     {
-        return $this->belongsTo(Annonce::class, 'annonces_id');
+        return $this->belongsTo(Publication::class, 'publication_id');
     }
 }

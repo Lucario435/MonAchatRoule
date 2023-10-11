@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\rating;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -32,6 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'username',
         'phone',
         'email',
+        "userimage",
         'password',
         'email_notification',
     ];
@@ -40,11 +42,26 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'remember_token',
     ];
-
-    public function getAnnonces()
-    {
-        return $this->hasMany(Annonce::class, 'userid');
+    public function getDisplayName(){
+        $name = $this->name;
+        $surname =  $this->surname;
+        return $name . " " .$surname;
     }
+    public function getNoteGlobale(){
+        $ratings = rating::where('userid', $this->id)->pluck('etoiles');
+        $avg = $ratings->avg();
+        if($avg == null){return 0;}
+        return $avg;
+    }
+    public function getImage(){
+        return "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
+        //return "https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png-286x300.jpg";
+    }
+    public function getPublications()
+    {
+        return $this->hasMany(Publication::class, 'user_id');
+    }
+    public function getAnnonces(){return $this->getPublications();}
     public function getMessages()
     {
         return $this->hasMany(chatmessages::class, 'userid');

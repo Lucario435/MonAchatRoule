@@ -9,7 +9,8 @@
         "axios": "^1.1.2",
         "jquery": "^3.7.1",
         "laravel-vite-plugin": "^0.8.0",
-        "vite": "^4.0.0"
+        "vite": "^4.0.0",
+        "vite-plugin-full-reload": "^1.0.5"
     },
     "dependencies": {
         "car-makes-icons": "^1.0.0",

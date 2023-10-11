@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Publication;
 use Illuminate\Database\Eloquent\Model;
 
 class ChatMessage extends Model
@@ -14,9 +15,9 @@ class ChatMessage extends Model
         'user_receiver',
     ];
 
-    public function annonce()
+    public function publication()
     {
-        return $this->belongsTo(Annonce::class, 'annonces_id');
+        return $this->belongsTo(Publication::class, 'publication_id');
     }
 
     public function sender()

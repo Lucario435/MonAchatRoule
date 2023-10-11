@@ -14,4 +14,8 @@ class Image extends Model
         'publication_id',
         'url'
     ];
+    public function publication()
+    {
+        return $this->belongsTo(Publication::class, 'publication_id');
+    }
 }

@@ -37,7 +37,7 @@ class PublicationController extends Controller
 
         return view('publications.detail', ['publication' => $publication, 'images' => $images]);
     }
-    
+
     //Returns the create publication page
     public function create()
     {
@@ -86,7 +86,7 @@ class PublicationController extends Controller
 
         //Temporairement, c'est le id 1 qui publie les annonces à effacer quand le login fonctionnera
         //else{
-        $data['user_id'] = 14;
+            $data['user_id'] = Auth::id();
         //}
 
         //The default status of the publication will be "ok"
@@ -98,7 +98,46 @@ class PublicationController extends Controller
 
         //Redirect to index page
         //!!! In the future, the route will redirect to "mes annonces" or the page "détail" and the user will be able to see it on top of the list
-        return redirect(route('image.create'))->with('message', 'Publication créée avec succès!');
+        return redirect(route('image.create'))->with('message', 'Publication créé avec succès!');
+    }
+    public function viewupdate(Request $r, $pid){
+        $p = Publication::find($pid);
+        if($p == null){return to_route("index");}
+        if($p->user_id != Auth::id()){return to_route("index");}
+        return view('publications.create',["isEdit" => true, "pid" => $pid, "publication" => $p]);
+    }
+    public function update(Request $request, $id){ //post
+        $p = Publication::find($id);
+        if($p == null){return to_route("index");}
+        if($p->user_id != Auth::id()){return to_route("index");}
+        $data = $request->validate([
+            //publication validation
+            'title' => 'required',
+            'description' => 'nullable',
+            'type' => 'required',
+            'hidden' => 'required',
+            'expirationOfBid' => 'nullable',
+            'postalCode' => 'required',
+            'fixedPrice' => 'required|numeric', //ex : 0.00
+            'kilometer' => 'nullable|numeric',
+            'bodyType' => 'nullable',
+            'transmission' => 'nullable',
+            'brand' => 'nullable',
+            'color' => 'nullable'
+        ]);
+
+        // Find the publication by ID
+        $publication = Publication::find($id);
+
+        // Check if the publication exists
+        if (!$publication) {
+            // Handle the case where the publication is not found, e.g., show an error message or redirect back
+            return redirect()->back()->with('error', 'Publication not found!');
+        }
+        $data["user_id"] = Auth::id();
+        // Update the publication with the validated data
+        $publication->update($data);
+        return redirect(route('image.edit',["id" => $publication->id]))->with('message', 'Publication mise à jour avec succès!');
     }
 
     public function search(Request $request)

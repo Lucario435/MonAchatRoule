@@ -10,8 +10,7 @@
 @section('title', 'Accédez à votre compte')
 
 @section('content')
-    <form action="{{ url('/login') }}" method="POST"
-        style="width:350px; margin:auto;">
+    <form action="/login" method="POST" style="width:350px; margin:auto;">
         @csrf
         <div class="mb-3">
             <label for="email" class="form-label">Courriel</label>
