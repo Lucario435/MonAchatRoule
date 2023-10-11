@@ -90,3 +90,40 @@
 <div class="end-of-inventory">
     <--Les annonces se terminent ici-->
 </div>
+
+
+{{-- @foreach ($images as $image)
+@if ($image->publication_id == $publication->id && !$found)
+    <a href="{{ route('publication.detail', ['id' => $publication->id]) }}">
+        <img class="card-image" src="{{ asset($image->url) }}"/>
+    </a>
+    @php
+        $found = true;
+    @endphp
+@endif
+@endforeach
+@if($found == false)
+<a href="{{ route('publication.detail', ['id' => $publication->id]) }}">
+    <img class="card-image" src="{{asset('img/noImage.jpg')}}"/>
+</a>
+@endif
+<div style="max-width:10em; overflow:hidden" class="card-title">{{$publication->title}}</div>
+<div class="card-price">{{$publication->fixedPrice}}$</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="card-kilometer">{{$publication->kilometer}} km</div>
+<a title="Google Maps" href="http://google.com/maps?q={{$publication->postalCode}}">
+<img class="card-location-icon" src="{{asset('img/GMLogo.svg')}}"/>
+<div class="card-postal-code">{{$publication->postalCode}}</div>
+</a>
+</div>
+@endforeach
+</div>
+
+<div class="end-of-inventory">
+<--Les annonces se terminent ici-->
+</div>
+@endsection --}}
