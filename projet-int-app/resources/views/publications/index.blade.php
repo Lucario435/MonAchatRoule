@@ -23,13 +23,15 @@
             <div class="row pb-3">
                 <label id="label-reset">
                     <span>
-                        <span class="w-75 p-0" style="font-size: 18px">Réinitialiser les filtres</span>
+                        <span id="text-reset-filter" class="w-75 p-0" style="font-size: 18px">Réinitialiser les
+                            filtres</span>
+                        <span id=number-filter>(0)</span>
                         {{-- <span class="fas fa-caret-down w-5 float-end pe-1"></span> --}}
                     </span>
                 </label>
             </div>
             <div class="row pb-3">
-                <label id="label-marque">
+                <label id="label-brand">
                     <span>
                         <span class="w-75 p-0" style="font-size: 22px">Marques</span>
                         <span class="fas fa-caret-down w-5 float-end pe-1"></span>
@@ -45,7 +47,7 @@
                 </label>
             </div>
             <div class="row pb-3">
-                <label>
+                <label id="label-transmission">
                     <span>
                         <span class="w-75 p-0" style="font-size: 22px">Transmission</span>
                         <span class="fas fa-caret-down w-5 float-end pe-1"></span>
@@ -53,15 +55,16 @@
                 </label>
             </div>
             <div class="row pb-3">
-                <label>
+                <label id="label-price">
                     <span>
                         <span class="w-75 p-0" style="font-size: 22px">Prix</span>
                         <span class="fas fa-caret-down w-5 float-end pe-1"></span>
+                        
                     </span>
                 </label>
             </div>
             <div class="row pb-3">
-                <label>
+                <label id="label-kilometer">
                     <span>
                         <span class="w-75 p-0" style="font-size: 22px">Kilométrage</span>
                         <span class="fas fa-caret-down w-5 float-end pe-1"></span>

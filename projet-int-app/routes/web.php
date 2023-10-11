@@ -87,9 +87,9 @@ Route::get('/api/publications/bodies',function ()
         return PublicationResource::collection(Publication::all())->countBy('bodyType');
     }
 );
-Route::get('/api/publications/transmission',function ()
+Route::get('/api/publications/transmissions',function ()
     {
-        return PublicationResource::collection(Publication::all())->unique('transmission')->pluck('transmission');
+        return PublicationResource::collection(Publication::all())->countBy('transmission');
     }
 );
 
