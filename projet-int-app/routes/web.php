@@ -59,9 +59,7 @@ function (EmailVerificationRequest $request) {
 
 // Story #9 page apropos
 Route::view('/a-propos','a-propos');
-Route::get('/login',[UsersController::class,"login"])->name('login');
-Route::get('/register',[UsersController::class,"register"]);
-Route::post('/register',[UsersController::class,"registerWData"]);
+Route::view('/about','a-propos');
 Route::get('/users/login',[UsersController::class,"login"]);
 Route::get('/users/register',[UsersController::class,"register"]);
 
@@ -72,6 +70,8 @@ Route::get('/users/register',[UsersController::class,"register"]);
 Route::get('/publication', [PublicationController::class, 'index'])->name('publication.index');
 //Route to create show publication page
 Route::get('/publication/create', [PublicationController::class, 'create'])->middleware('auth')->name('publication.create');
+Route::get('/publication/edit/{id}', [PublicationController::class, 'viewupdate'])->middleware('auth')->name('publication.getupdateview');
+Route::post('/publication/edit/{id}', [PublicationController::class, 'update'])->middleware('auth')->name('publication.update');
 //Route to create the publication (SAVE)
 Route::post('/publication', [PublicationController::class, 'store'])->name('publication.store');
 //------------------------------------------------------------------------------------
@@ -79,7 +79,14 @@ Route::post('/publication', [PublicationController::class, 'store'])->name('publ
 //Section for image routes
 //------------------------------------------------------------------------------------
 //Route to show create image page
-Route::get('/image/create', [ImageController::class, 'create'])->name('image.create');
+Route::get('/image/create', [ImageController::class, 'create'])->middleware('auth')->name('image.create');
+//momo
+Route::get("/image/publication",function(){
+    return to_route("index");
+});
+Route::get('/image/delete/{id}', [ImageController::class, 'deleteImage'])->middleware('auth')->name('image.delete');
+Route::get('/image/edit/{id}', [ImageController::class, 'edit_annonce'])->middleware('auth')->name('image.edit');
+Route::post('/image/edit/{id}', [ImageController::class, 'edit_annonce_recu'])->middleware('auth')->name('image.update');
 //Route to create the images (SAVE)
-Route::post('/image', [ImageController::class, 'store'])->name('image.store');
+Route::post('/image', [ImageController::class, 'store'])->middleware('auth')->name('image.store');
 //------------------------------------------------------------------------------------

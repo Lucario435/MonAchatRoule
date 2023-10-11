@@ -20,7 +20,7 @@ class Publication extends Model
         'hidden',
 
         //Foreign key
-        'user_id',  
+        'user_id',
 
         //Car info
         'fixedPrice',
@@ -35,6 +35,9 @@ class Publication extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function images(){
+        return $this->hasMany(Image::class,"publication_id");
     }
 
 }

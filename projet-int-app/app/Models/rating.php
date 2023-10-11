@@ -12,7 +12,7 @@ class rating extends Model
         'user_target',
         'commentaire',
         'etoiles',
-        'annonces_id',
+        'publication_id',
     ];
 
     public function vente()
@@ -30,8 +30,8 @@ class rating extends Model
         return $this->belongsTo(User::class, 'user_target');
     }
 
-    public function annonce()
+    public function publication()
     {
-        return $this->belongsTo(Annonce::class, 'annonces_id');
+        return $this->belongsTo(Publication::class, 'publication_id');
     }
 }

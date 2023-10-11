@@ -9,7 +9,7 @@ class enchere extends Model
     protected $fillable = [
         'userid',
         'prix',
-        'annonces_id',
+        'publication_id',
         'mcontent',
     ];
 
@@ -20,6 +20,6 @@ class enchere extends Model
 
     public function annonce()
     {
-        return $this->belongsTo(Annonce::class, 'annonces_id');
+        return $this->belongsTo(Publication::class, 'publication_id');
     }
 }

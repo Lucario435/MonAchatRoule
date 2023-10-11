@@ -57,10 +57,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
         //return "https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png-286x300.jpg";
     }
-    public function getAnnonces()
+    public function getPublications()
     {
-        return $this->hasMany(Annonce::class, 'userid');
+        return $this->hasMany(Publication::class, 'user_id');
     }
+    public function getAnnonces(){return $this->getPublications();}
     public function getMessages()
     {
         return $this->hasMany(chatmessages::class, 'userid');

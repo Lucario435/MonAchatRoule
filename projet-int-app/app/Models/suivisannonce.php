@@ -8,7 +8,7 @@ class suiviannonce extends Model
 {
     protected $fillable = [
         'userid',
-        'annonces_id',
+        'publication_id',
     ];
 
     public function user()
@@ -16,8 +16,8 @@ class suiviannonce extends Model
         return $this->belongsTo(User::class, 'userid');
     }
 
-    public function annonce()
+    public function publication()
     {
-        return $this->belongsTo(Annonce::class, 'annonces_id');
+        return $this->belongsTo(publication::class, 'publication_id');
     }
 }

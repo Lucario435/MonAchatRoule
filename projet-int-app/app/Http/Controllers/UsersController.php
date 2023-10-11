@@ -28,23 +28,7 @@ class UsersController extends Controller
     public function login(){
         return view("login");
     }
-    public function authenticate(Request $request): RedirectResponse
-    {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            return redirect()->intended('/');
-        }
-
-        return back()->withErrors([
-            'email' => 'Mauvaise combinaison de courriel et/ou de mot de passe',
-        ])->onlyInput('email');
-    }
     public function register()
     {
         return view("register");
@@ -52,9 +36,8 @@ class UsersController extends Controller
 
     public function store(StoreUserRequest $r)
     {
-
         $attributes = $r->validated();
-
+        $attributes["userimage"] = "";
         $user = User::create($attributes);
         // event qui signale au mailsender un nouveau user vient de sinscrire
         event(new Registered($user));
@@ -69,21 +52,25 @@ class UsersController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-
+        $errmsg = 'Email ou mot de passe invalide';
         if (Auth::attempt($credentials,true)) {
-            $request->session()->regenerate();
             $user = Auth::user();
-            $request->session()->put('userid', $user["id"]);
-            $request->session()->put('user', $user);
-            $request->session()->put("loggedin",true);
-            return redirect()->intended('index');
+            // echo $user;
+            if($user->email_verified_at != null){
+                $request->session()->regenerate();
+                $request->session()->put('userid', $user["id"]);
+                $request->session()->put('user', $user);
+                $request->session()->put("loggedin",true);
+                return redirect()->intended('index');
+            } else{$errmsg = "Veuillez vérifiez vos emails pour la confirmation du compte"; Auth::logout();}
+            $request->session()->regenerate();
         }
         // request()->cookie('isConnectedMOMO',null);
         // setCookie("isConnectedMOMO",null,-1);
 
-        $this->destroySession($request);
+         $this->destroySession($request);
         return redirect()->back()->withErrors([
-            'email' => 'Email ou mot de passe invalide',
+            'email' => $errmsg,
         ])->withInput($request->only('email'));
     }
     public function logout($request = null){
