@@ -1,6 +1,6 @@
 @extends('partials.xlayout')
 
-@section('title', "Page de publication")
+@section('title', "Page des publications suivies")
 
 @section('content')
 <head>

@@ -25,6 +25,7 @@ class Publication extends Model
         //Car info
         'fixedPrice',
         'kilometer',
+        //MISSING carburant and year
         'bodyType',
         'transmission',
         'brand',

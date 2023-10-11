@@ -22,6 +22,20 @@ class PublicationController extends Controller
         $images = Image::all();
         return view('publications.index', ['publications' => $publications,'images' => $images]);
     }
+
+    //Returns the detail page of a publication and it's values images are taken only in the html in a foreach
+    public function detail($id){
+        $publication = Publication::find($id);
+        $images = Image::all();
+
+        if (!$publication) {
+            abort(404); // Handle the case when the item is not found.
+        }
+
+        $images = Image::where('publication_id', $publication->id)->get();
+
+        return view('publications.detail', ['publication' => $publication, 'images' => $images]);
+    }
     
     //Returns the create publication page
     public function create(){

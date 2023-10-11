@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\VerifyEmailController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\PublicationFollow;
+use App\Models\Publication;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +65,8 @@ Route::get('/publication', [PublicationController::class, 'index'])->name('publi
 Route::get('/publication/create', [PublicationController::class, 'create'])->middleware('auth')->name('publication.create');
 //Route to create the publication (SAVE)
 Route::post('/publication', [PublicationController::class, 'store'])->name('publication.store');
+//Route to create the detail page
+Route::get('publication/detail/{id}', [PublicationController::class, 'detail'])->name('publication.detail');
 //------------------------------------------------------------------------------------
 
 //Section for image routes
@@ -71,4 +75,10 @@ Route::post('/publication', [PublicationController::class, 'store'])->name('publ
 Route::get('/image/create', [ImageController::class, 'create'])->name('image.create');
 //Route to create the images (SAVE)
 Route::post('/image', [ImageController::class, 'store'])->name('image.store');
+//------------------------------------------------------------------------------------
+
+//Section for favoritePublicaitons routes
+//------------------------------------------------------------------------------------
+//Route to show create image page
+Route::get('/publicationfollow', [PublicationFollow::class, 'index'])->name('publicationfollow.index');
 //------------------------------------------------------------------------------------

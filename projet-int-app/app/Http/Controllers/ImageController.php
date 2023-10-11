@@ -21,7 +21,7 @@ class ImageController extends Controller
 
         //Validation
         $request->validate([
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the allowed file types and size limit as needed
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:16384', // Adjust the allowed file types and size limit of 16MB
         ]);
 
         foreach ($request->file('images.*') as $imagefile) {
