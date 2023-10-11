@@ -8,6 +8,7 @@ use App\Http\Controllers\VerifyEmailController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\PublicationFollow;
+use App\Http\Resources\PublicationResource;
 use App\Models\Publication;
 
 /*
@@ -82,3 +83,32 @@ Route::post('/image', [ImageController::class, 'store'])->name('image.store');
 //Route to show create image page
 Route::get('/publicationfollow', [PublicationFollow::class, 'index'])->name('publicationfollow.index');
 //------------------------------------------------------------------------------------
+// Search by filter
+Route::get('/publications/search',[PublicationController::class,'search']);
+// Section for api/publications in order to filter 
+Route::get('/api/publications/brands',function ()
+    {
+        return PublicationResource::collection(Publication::all())->countBy('brand');
+    }
+);
+Route::get('/api/publications/bodies',function ()
+    {
+        return PublicationResource::collection(Publication::all())->countBy('bodyType');
+    }
+);
+Route::get('/api/publications/transmissions',function ()
+    {
+        return PublicationResource::collection(Publication::all())->countBy('transmission');
+    }
+);
+
+// Route::get('/api/publications/price',function ()
+//     {
+//         return PublicationResource::collection(Publication::all())->pluck('brand');
+//     }
+// );
+// Route::get('/api/publications/kilometer',function ()
+//     {
+//         return PublicationResource::collection(Publication::all())->pluck('brand');
+//     }
+// );

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Publication extends Model
 {
@@ -36,6 +37,10 @@ class Publication extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function brands(){
+        return DB::table('publications')->pluck('brand');
     }
 
 }
