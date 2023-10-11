@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 //Models are a must to access database since Controller <=> Model <=> DB
 use App\Models\Publication;
 use App\Models\Image;
+use Hamcrest\Type\IsNumeric;
 use Illuminate\Database\Eloquent\Casts\Json;
 
 
@@ -118,17 +119,26 @@ class PublicationController extends Controller
                 function ($query) use ($tab) {
                     foreach ($tab as $key => $item) {
                         $query->where(
-                            function($query) use ($item,$key){
-                                foreach ($item as $value) 
-                                    {
+                            function ($query) use ($item, $key) {
+                                foreach ($item as $value) {
+                                    if ($key == "minPrice")
+                                        $query->Where("fixedPrice", '>=', ($value));
+                                    else if ($key == "maxPrice")
+                                        $query->Where("fixedPrice", '<=', ($value));
+                                    else if ($key == "minMileage")
+                                        $query->Where("kilometer", '>=', ($value));
+                                    else if ($key == "maxMileage")
+                                        $query->Where("kilometer", '<=', ($value));
+                                    else
                                         $query->orWhere($key, '=',  str_replace(',', ' ', $value));
-                                    }
                                 }
-                            );
+                            }
+                        );
+                    }
+                    //dd($query->toSql());
                 }
-                //dd($query->toSql());
-            })->get();
-            
+            )->get();
+
             //dd(DB::getQueryLog());
             //dd
 

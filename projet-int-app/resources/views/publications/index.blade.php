@@ -8,7 +8,7 @@
 @endpush
 @section('content')
     {{-- prix marque kilometre couleur tranmission corps  --}}
-    <div class="page-on-top container-fluid w-100 h-100" id="page_filtre" style="display: block">
+    <div class="page-on-top container-fluid w-100 h-auto" id="page_filtre" style="display: block;min-height:100%">
         <div class="grid text-start row-gap-5 ">
             <div class="row pt-4 px-2">
                 <label id="close_page_filters" class="p-0">
@@ -71,8 +71,9 @@
                     </span>
                 </label>
             </div>
-            <div class="row text-center fixed-bottom mb-2" id="btn-search">
-                <span style="background-color: green">
+            <div class="row" style="min-height:100px;"></div>
+            <div class="row text-center fixed-bottom" id="btn-search" style="background-color: green">
+                <span>
                     <span style="font-size: 30px">Rechercher</span>
                     <span class="fas fa-search fa-2x px-3"></span>
                 </span>
