@@ -63,6 +63,13 @@ function (EmailVerificationRequest $request) {
 // Story #9 page apropos
 Route::view('/a-propos','a-propos');
 Route::view('/about','a-propos');
+Route::get('/email/verify/unconfirmed',function(){
+    return view("confirm-email",["email_verified_now" => 3]);
+})->name("verification.notice");
+// FIN Story #3 Chahine
+
+// Story #9 page apropos
+Route::get('/login',[UsersController::class,"login"])->name('login');
 Route::get('/users/login',[UsersController::class,"login"]);
 Route::get('/users/register',[UsersController::class,"register"]);
 
@@ -72,9 +79,9 @@ Route::get('/users/register',[UsersController::class,"register"]);
 //Route to show main page
 Route::get('/publication', [PublicationController::class, 'index'])->name('publication.index');
 //Route to create show publication page
-Route::get('/publication/create', [PublicationController::class, 'create'])->middleware('auth')->name('publication.create');
-Route::get('/publication/edit/{id}', [PublicationController::class, 'viewupdate'])->middleware('auth')->name('publication.getupdateview');
-Route::post('/publication/edit/{id}', [PublicationController::class, 'update'])->middleware('auth')->name('publication.update');
+Route::get('/publication/create', [PublicationController::class, 'create'])->middleware('verified')->name('publication.create');
+Route::get('/publication/edit/{id}', [PublicationController::class, 'viewupdate'])->middleware('verified')->name('publication.getupdateview');
+Route::post('/publication/edit/{id}', [PublicationController::class, 'update'])->middleware('verified')->name('publication.update');
 //Route to create the publication (SAVE)
 Route::post('/publication', [PublicationController::class, 'store'])->name('publication.store');
 //Route to create the detail page
@@ -103,7 +110,7 @@ Route::get('/publicationfollow', [PublicationFollow::class, 'index'])->name('pub
 //------------------------------------------------------------------------------------
 // Search by filter
 Route::get('/publications/search',[PublicationController::class,'search']);
-// Section for api/publications in order to filter 
+// Section for api/publications in order to filter
 Route::get('/api/publications/brands',function ()
     {
         return PublicationResource::collection(Publication::all())->countBy('brand');

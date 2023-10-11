@@ -43,7 +43,8 @@ class UsersController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-        return $this->VerifierEmail(["name"=>$attributes['name'],"surname"=>$attributes['surname'],"email"=>$attributes['email'],"email_verified"=>0]);
+
+        return $this->VerifierEmail(["name"=>$attributes['name'],"surname"=>$attributes['surname'],"email"=>$attributes['email'],"email_verified_now"=>0]);
     }
     public function destroySession($request){$request->session()->regenerate(false);}
     public function authenticate(Request $request): RedirectResponse

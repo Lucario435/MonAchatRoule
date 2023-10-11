@@ -16,9 +16,9 @@ const removeAccents = str =>
     str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
 $(() => {
-    $("#page_filtre").show();
-    $("#content").hide();
-    $("#xheader").hide();
+    $("#page_filtre").hide();
+    $("#content").show();
+    $("#xheader").show();
     //$("#span-price").hide();
 
     // The Boutons filter and order
