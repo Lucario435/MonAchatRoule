@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Models\Image;
+use App\Models\Publication;
 use Illuminate\Http\Request;
 use App\Models\User;
 use GuzzleHttp\Middleware;
@@ -82,14 +84,20 @@ class UsersController extends Controller
     }
     public function VerifierEmail($attributes = null)
     {
-        if($attributes != null)
+        if($attributes != null){
+            Auth::logout();
             return view("confirm-email",$attributes);
+        }
         else
             return to_route('index');
     }
     public function userProfile(Request $request, $uid = null){
         if($uid == null)
             return to_route("index");
-        return view("user",["uid" => $uid, "user" => User::find($uid)]);
+        if(User::find($uid) == null)
+            return to_route("index");
+        $plist = User::find($uid)->getPublications;
+        $images = Image::all();
+        return view("user",["uid" => $uid, "user" => User::find($uid), "publications" => $plist, "images" => $images]);
     }
 }

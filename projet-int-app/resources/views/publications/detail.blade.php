@@ -5,9 +5,12 @@
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 </head>
 <!--BODY-->
-<div class="main-container-style">
-    <div class="car-images">
-        
+@php
+    use Illuminate\Support\Facades\Auth;
+@endphp
+<div class="main-container-style xreducteur" >
+    <div class="car-images ">
+
         @php
            $found = false;
         @endphp
@@ -59,24 +62,24 @@
 
                     var now = new Date().getTime();
                     var timeleft = countDownDate - now;
-                    
+
                     // Calculating the days, hours, minutes and seconds left
                     var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
                     var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
                     var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
-                    
+
                     // Result is output to the specific element
                     daysElement.innerHTML = days + "j ";
                     hoursElement.innerHTML = hours + "h ";
                     minutesElement.innerHTML = minutes + "m ";
                     secondsElement.innerHTML = seconds + "s ";
-                        
+
                     // Display the message when countdown is over
                     if (timeleft < 0) {
                         clearInterval(myfunc);
                         daysElement.innerHTML = "";
-                        hoursElement.innerHTML = ""; 
+                        hoursElement.innerHTML = "";
                         minutesElement.innerHTML = "";
                         secondsElement.innerHTML = "";
                         endElement.innerHTML = "Enchère terminé";
@@ -90,8 +93,16 @@
         @endif
     </div>
 </div>
+    @auth
+        @if(Auth::id() == $publication->user_id)
+
+            <a style="font-weight: bold;" href="{{ route("publication.getupdateview",["id"=>$publication->id]) }}">
+                <div class="button-div detail-contact-div xer" style="width: 30%; color:black;">Modifier annonce</div></a>
+        <style>.xer:hover{ color:white !important;}</style>
+        @endif
+    @endauth
     <br>
-    <div class="button-container">
+    <div class="button-container xreducteur" style="display:none;">
         <a class="noDec" href="">
             <div class="button-div detail-contact-div" style="display: flex">
                 <div class="contact-icon">
@@ -109,16 +120,23 @@
             </div>
         </a>
     </div>
-    <br> 
-<div class="main-container-style">
+    <br>
+    <style momo="PERMET DE BAISSER LE WIDTH">
+        @media (min-width: 768px){
+            .xreducteur{width: 40%;}
+        }
+    </style>
+<div class="main-container-style xreducteur" >
     <h4 class="detail-info-text">Informations du véhicule</h4>
     <hr>
     <br>
     <div class="car-info-item" style="display: flex; width: 50%; margin: auto;"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/dollar.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Prix</label><p>{{$publication->fixedPrice}}$</p></div></div>
     <br>
+    <hr> <span style="float: center;">Description:</span> <br>
+    {{ $publication->description }}asdaweij aijweiu awjueua h eawiueh a iuajweiuahwuehawug eyagwyegyawgeyagwye ayweg yuagweu
     <hr>
     <br>
-    <div class="car-info"> 
+    <div class="car-info ">
         <div class="car-info-item" style="display: flex;"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/industrie.png')}}"/></div><div class="detail-labels"><label class="detail-info-text">Fabricant</label><p>{{$publication->brand}}</p></div></div>
         <div class="car-info-item" style="display: flex;"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/compteur-de-vitesse.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Kilométrage</label><p>{{$publication->kilometer}} km</p></div></div>
         <!--<label>Année :</label><p>À rajouter</p>-->
@@ -126,8 +144,8 @@
         <div class="car-info-item" style="display: flex;"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/body-type.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Carosserie</label><p>{{$publication->bodyType}}</p></div></div>
         <div class="car-info-item" style="display: flex;"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/cercle-de-couleur.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Couleur</label><p>{{$publication->color}}</p></div></div>
     </div>
-    <div class="Area-info-container">  
-        <label class="detail-info-text">Emplacement</label>  
+    <div class="Area-info-container">
+        <label class="detail-info-text">Emplacement</label>
         <a title="Google Maps" href="http://google.com/maps?q={{$publication->postalCode}}">
             <img class="card-location-icon" style="width:50px; height:50px;" src="{{asset('img/GMLogo.svg')}}"/>
             <div class="detail-postal-code">{{$publication->postalCode}}</div>
@@ -149,7 +167,7 @@
                 index = images.length - 1
             }
             else
-            { 
+            {
                 if(index >= images.length) {
                     index = 0;
                 }

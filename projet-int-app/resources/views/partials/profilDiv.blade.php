@@ -16,7 +16,7 @@
     @endif
 
     ></div>
-    <h3 class="name"> {{ $user->getDisplayName()  }}</h3>
+    <h3 class="name" style="color: white;"> {{ $user->getDisplayName()  }}</h3>
     <div class="info cf">
         <div class="four col"><span class="number">{{ $user->getNoteGlobale() }}</span>Note globale</div>
         <div class="four col"><span class="number">{{ count($user->getAnnonces) }}</span>Annonces actives</div>
@@ -41,7 +41,7 @@
     }
     .btnBlueSend{
         width: 100%;
-        background: var(--blueheader);
+        background: var(--blueForms);
         outline: solid 2px white;
         margin-bottom: 10px;
         padding: .5rem;
@@ -100,6 +100,7 @@
 
 .col {
 	display: block;
+    color: white;
 	/* float:left; */
 	/* margin: 1% 0 1% 1.6%; */
 }
@@ -131,6 +132,7 @@
 	background-color: #fff;
 	font-family: 'Arimo', sans-serif;
 	font-size: 14px;
+    border-radius: 5px;
 }
 @media (max-width: 768px){
     .cardprofilDiv{
@@ -205,6 +207,9 @@
 }
 
 .profilDiv{
-background: var(--blueForms);
+background: var(--blueheader);
+color: white;
+font-weight: bold;
+outline: solid 2px black;
 }
 </style>

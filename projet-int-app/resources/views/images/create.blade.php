@@ -33,7 +33,8 @@
                         @endforeach
                     </div>
                         <style>
-                            .imgdestroyer{display: flex;grid-template-columns: auto auto auto auto auto auto;}
+                            .imgdestroyer{display: flex;   justify-content: center; /* centers children elements horizontally */
+  align-items: center;}
                             .imgdestroyer>a{width: 10rem; height: 10rem; position: relative;}
                             .imgdestroyer>a>img{width:100%;}
                             .imgdestroyer>a>sbutton{transition: .2s; display: block; color: white; font-weight: bolder; font-family: arial; position: absolute; top: 0; left: 0; background: rgb(194, 0, 0); width: 5rem; border: none; border-radius: 10px; outline: 2px solid rgb(255, 0, 0);}

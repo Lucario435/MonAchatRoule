@@ -26,7 +26,15 @@
                 <h1>Informations de l'annonce</h1>
             </div>
             <hr>
-            <a style="margin:0px;width:5em;" href="{{ route('publication.index') }}" class="buttonEffect">RETOUR</a>
+            <div style="margin: auto; width: 90%; display: grid; grid-template-columns: auto auto;">
+        <a style="width:10rem;" href="{{ route('publication.index') }}" class="buttonEffect">RETOUR</a>
+        @if (isset($isEdit))
+            <a style="width:10rem;" href="{{ route('image.edit',["id" => $publication->id]) }}" class="buttonEffect">Gérer les images</a>
+        @endif
+
+            </div>
+
+            <br><br>
             <!--For Security-->
             @csrf
             @method('post')

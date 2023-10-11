@@ -17,7 +17,7 @@ class ImageController extends Controller
     //TO DO: Verify that the user is connected else redirect to connection page
     public function create(){
         $plist = Auth::user()->getPublications;
-        dump($plist);
+        // dump($plist);
         return view('images.create',["plist" => $plist]);
     }
     public function edit_annonce(Request $r, $pid){
@@ -55,6 +55,7 @@ class ImageController extends Controller
         $p = Publication::find($request["publication_id"]);
         if($p == null){return to_route("index");}
         if($p->user_id != Auth::id() ){return to_route("index");}
+        if($request->file('images.*') == null){return to_route("index");}
         foreach ($request->file('images.*') as $imagefile) {
             $image = new Image;
             //Creates the path of the imagefile

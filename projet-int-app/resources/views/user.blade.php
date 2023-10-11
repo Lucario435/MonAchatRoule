@@ -6,13 +6,22 @@
     use App\Models\User;
     // $addedCssProfilDiv = "float: left;"
 @endphp
-
+@push('css')
+    @vite(['resources/css/publication.css'])
+@endpush
+@push('js')
+    @vite(['resources/js/filterUI.js'])
+@endpush
 @section('title', "Profil de ".$user->getDisplayName())
 
 @section('content')
     <div class="userp">
         @include("partials.profilDiv")
-        <div style="width: 100%; height: 5rem; background-color: red;"> Example de div avec les annonces</div>
+        <br><br>
+        <div style="width: 100%;">
+            @include("publications.carte")
+
+        </div>
     </div>
 @endsection
 

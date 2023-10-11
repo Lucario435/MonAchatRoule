@@ -11,6 +11,7 @@
 
 
             alertc = document.getElementById("success");
+            alertc.style.display = "none";
             let tempsEnSec = 3;
             setTimeout(() =>{
                 alertc.style.fontSize = "0px";
@@ -28,7 +29,7 @@
                     <li><a href="/publication">Recherche</a></li>
                     @auth
                         <li><a href="/users/{{ Auth::id() }}">Mes annonces</a></li>
-                        <li><a href="/messages">Messagerie</a></li>
+                        <li><a href="/publication/create">Publier une annonce</a></li>
                     @endauth
                 </ul>
             </nav>
