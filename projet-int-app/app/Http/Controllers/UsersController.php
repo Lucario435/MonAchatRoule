@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Models\Image;
+use App\Models\Publication;
 use Illuminate\Http\Request;
 use App\Models\User;
 use GuzzleHttp\Middleware;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Cookie;
 
 class UsersController extends Controller
 {
@@ -27,23 +30,7 @@ class UsersController extends Controller
     public function login(){
         return view("login");
     }
-    public function authenticate(Request $request): RedirectResponse
-    {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
- 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
- 
-            return redirect()->intended('/');
-        }
- 
-        return back()->withErrors([
-            'email' => 'Mauvaise combinaison de courriel et/ou de mot de passe',
-        ])->onlyInput('email');
-    }
+
     public function register()
     {
         return view("register");
@@ -51,9 +38,8 @@ class UsersController extends Controller
 
     public function store(StoreUserRequest $r)
     {
-
         $attributes = $r->validated();
-
+        $attributes["userimage"] = "";
         $user = User::create($attributes);
         // event qui signale au mailsender un nouveau user vient de sinscrire
         event(new Registered($user));
@@ -62,11 +48,56 @@ class UsersController extends Controller
 
         return $this->VerifierEmail(["name"=>$attributes['name'],"surname"=>$attributes['surname'],"email"=>$attributes['email'],"email_verified_now"=>0]);
     }
+    public function destroySession($request){$request->session()->regenerate(false);}
+    public function authenticate(Request $request): RedirectResponse
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+        $errmsg = 'Email ou mot de passe invalide';
+        if (Auth::attempt($credentials,true)) {
+            $user = Auth::user();
+            // echo $user;
+            if($user->email_verified_at != null){
+                $request->session()->regenerate();
+                $request->session()->put('userid', $user["id"]);
+                $request->session()->put('user', $user);
+                $request->session()->put("loggedin",true);
+                return redirect()->intended('index');
+            } else{$errmsg = "Veuillez vérifiez vos emails pour la confirmation du compte"; Auth::logout();}
+            $request->session()->regenerate();
+        }
+        // request()->cookie('isConnectedMOMO',null);
+        // setCookie("isConnectedMOMO",null,-1);
+
+         $this->destroySession($request);
+        return redirect()->back()->withErrors([
+            'email' => $errmsg,
+        ])->withInput($request->only('email'));
+    }
+    public function logout($request = null){
+        Auth::logout();
+        if($request != null)
+            $this->destroySession($request);
+        return to_route("index");
+    }
     public function VerifierEmail($attributes = null)
     {
-        if($attributes != null)
+        if($attributes != null){
+            Auth::logout();
             return view("confirm-email",$attributes);
+        }
         else
             return to_route('index');
+    }
+    public function userProfile(Request $request, $uid = null){
+        if($uid == null)
+            return to_route("index");
+        if(User::find($uid) == null)
+            return to_route("index");
+        $plist = User::find($uid)->getPublications;
+        $images = Image::all();
+        return view("user",["uid" => $uid, "user" => User::find($uid), "publications" => $plist, "images" => $images]);
     }
 }

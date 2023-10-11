@@ -1,3 +1,5 @@
+
+
 @extends('partials.xlayout')
 
 @section('title', "Page de publication")
@@ -15,22 +17,34 @@
         @endforeach
     </ul>
     @endif
-        <form class="form-style" method="post" action="{{route('publication.store')}}">
+    @if (isset($isEdit))
+        <form class="form-style" method="post" action="{{ route('publication.update', ["id" => $pid]) }}">
+    @else
+        <form class="form-style" method="post" action="{{ route('publication.store') }}">
+    @endif
             <div>
                 <h1>Informations de l'annonce</h1>
             </div>
             <hr>
-            <a style="margin:0px;width:5em;" href="../publication" class="buttonEffect">RETOUR</a>
+            <div style="margin: auto; width: 90%; display: grid; grid-template-columns: auto auto;">
+        <a style="width:10rem;" href="{{ route('publication.index') }}" class="buttonEffect">RETOUR</a>
+        @if (isset($isEdit))
+            <a style="width:10rem;" href="{{ route('image.edit',["id" => $publication->id]) }}" class="buttonEffect">Gérer les images</a>
+        @endif
+
+            </div>
+
+            <br><br>
             <!--For Security-->
             @csrf
             @method('post')
             <!--////////////-->
             <div>
-                <input class="inputForm" type="text" maxlength="32" name="title" required placeholder="Titre"/><label class="important"> * </label>
+                <input class="inputForm" type="text" maxlength="32" name="title" required placeholder="Titre" value="{{ isset($publication) ? $publication->title : old('title') }}" /><label class="important"> * </label>
             </div>
             <br>
             <div>
-                <textarea type="textarea" rows="10" name="description" placeholder="Description" ></textarea>
+                <textarea type="textarea" rows="10" name="description" placeholder="Description">{{ isset($publication) ? $publication->description : old('description') }}</textarea>
             </div>
             <div style="display:block; align-items:center;">
                 <br>
@@ -40,28 +54,22 @@
                 <div style="display: flex;
                 align-items: center;
                 justify-content: center;">
-                <input class="custom-radio" type="radio" name="type" value="0" checked="checked" onchange="toggleExpirationInput(false)"/>
+                <input class="custom-radio" type="radio" name="type" value="0" {{ (isset($publication) && $publication->type == 0) ? 'checked' : '' }} onchange="toggleExpirationInput(false)"/>
                 <label class="width10">Prix fixe</label>
                 </div>
                 <br>
                 <div style="display: flex;
                 align-items: center;
                 justify-content: center;">
-                <input class="custom-radio" type="radio" name="type" value="1" onchange="toggleExpirationInput(true)"/>
+                <input class="custom-radio" type="radio" name="type" value="1" {{ (isset($publication) && $publication->type == 1) ? 'checked' : '' }} onchange="toggleExpirationInput(true)"/>
                 <label class="width10">Enchère</label>
                 </div>
             </div>
             <br>
-            <div style="display: none" id="expirationOfBidInput">
+            <div style="display: {{ (isset($publication) && $publication->type == 1) ? 'block' : 'none' }}" id="expirationOfBidInput">
                 <label>Date de fin de l'enchère</label>
                 <br>
-                <?php
-                    //Takes 7 day as a default value for the end of bid starting by today's date
-                    $datetime = new DateTime();
-                    $datetime->modify('+7 day');
-                    $datetime = $datetime->format('Y-m-d');
-                    echo "<input class=\"inputForm\" type=\"date\" value=\"$datetime\" name=\"expirationOfBid\" placeholder=\"date\"/><label class=\"important\"> * </label>"
-                ?>
+                <input class="inputForm" type="date" value="{{ isset($publication) ? $publication->expirationOfBid : date('Y-m-d', strtotime('+7 days')) }}" name="expirationOfBid" placeholder="date"/><label class="important"> * </label>
             </div>
             <div style="display:block; align-items:center;">
                 <br>
@@ -71,23 +79,23 @@
                 <div style="display: flex;
                 align-items: center;
                 justify-content: center;">
-                    <input class="customRadio" type="radio" name="hidden" value="1" checked="checked" />
+                    <input class="customRadio" type="radio" name="hidden" value="1" {{ (isset($publication) && $publication->hidden == 1) ? 'checked' : '' }} />
                     <label class="width10">Publique</label>
                 </div>
                 <br>
                 <div style="display: flex;
                     align-items: center;
                     justify-content: center;">
-                    <input class="customRadio" type="radio" name="hidden" value="0" />
+                    <input class="customRadio" type="radio" name="hidden" value="0" {{ (isset($publication) && $publication->hidden == 0) ? 'checked' : '' }} />
                     <label class="width10">Privée</label>
                 </div>
             </div>
             <br>
             <div>
-                <input class="inputForm" type="number" max="9999999" min="0" step=".01" required name="fixedPrice" placeholder="Prix"/><label class="important"> * </label>
+                <input class="inputForm" type="number" max="9999999" min="0" step=".01" required name="fixedPrice" placeholder="Prix" value="{{ isset($publication) ? $publication->fixedPrice : old('fixedPrice') }}"/><label class="important"> * </label>
             </div>
             <div>
-                <input class="inputForm" oninput="convertToUpperCase(this)" type="text" required name="postalCode" placeholder="Code postal ex: A1B 2C3" pattern="^[A-Z]\d[A-Z] \d[A-Z]\d$"/><label class="important"> * </label>
+                <input class="inputForm" oninput="convertToUpperCase(this)" type="text" required name="postalCode" placeholder="Code postal ex: A1B 2C3" pattern="^[A-Z]\d[A-Z] \d[A-Z]\d$" value="{{ isset($publication) ? $publication->postalCode : old('postalCode') }}"/><label class="important"> * </label>
             </div>
             <hr>
             <div>
@@ -95,7 +103,7 @@
             </div>
             <hr>
             <div>
-                <input class="inputForm" type="number" max="999999" min="0" step="1" name="kilometer" required placeholder="Kilomètrage"/><label class="important"> * </label>
+                <input class="inputForm" type="number" max="999999" min="0" step="1" name="kilometer" required placeholder="Kilomètrage" value="{{ isset($publication) ? $publication->kilometer : old('kilometer') }}"/><label class="important"> * </label>
             </div>
             <div>
                 <!--Vérifier que ça n'est pas null-->
@@ -169,34 +177,25 @@
             <br>
             <!--ul for spacing-->
             <ul>
-                <input class="buttonEffect" type="submit" value="Créer l'annonce"/>
+                <input class="buttonEffect" type="submit" value="{{ isset($isEdit)? "Éditer" : "Créer" }} l'annonce"/>
             </ul>
-
             <br>
         </form>
-    <div>
-        <script>
-            function toggleExpirationInput(show) {
-                var expirationInput = document.getElementById("expirationOfBidInput");
-                //Makes the style change if the param (show) is true or false
-                if (show) {
-                    expirationInput.style.display = "";
-                } else {
-                    expirationInput.style.display = "none";
-                }
+    </div>
+    <script>
+        function toggleExpirationInput(show) {
+            var expirationInput = document.getElementById("expirationOfBidInput");
+            //Makes the style change if the param (show) is true or false
+            if (show) {
+                expirationInput.style.display = "";
+            } else {
+                expirationInput.style.display = "none";
             }
+        }
 
-            function convertToUpperCase(input) {
-                input.value = input.value.toUpperCase();
-            }
-            
-            //This function gets the date of today and return the date of the week after
-            function getTomorrowDate(){
-                const today = new Date();
-                const tomorrow = new Date(today);
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                return tomorrow;
-            }
-            //------------------------------
-        </script>
+        function convertToUpperCase(input) {
+            input.value = input.value.toUpperCase();
+        }
+    </script>
+</body>
 @endsection

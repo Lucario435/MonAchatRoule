@@ -12,6 +12,15 @@ class Image extends Model
     protected $fillable = [
         //Foreign key
         'publication_id',
+        "user_id",
         'url'
     ];
+    public function publication()
+    {
+        return $this->belongsTo(Publication::class, 'publication_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
