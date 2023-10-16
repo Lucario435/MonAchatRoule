@@ -16,12 +16,13 @@ const removeAccents = str =>
     str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
 $(() => {
-    $("#page_filtre").hide();
-    $("#content").show();
-    $("#xheader").show();
+    $("#page_filtre").show();
+    $("#content").hide();
+    $("#xheader").hide();
     //$("#span-price").hide();
 
     // The Boutons filter and order
+
     $("#filters").on("click", function (event) {
         console.log("click on filters");
         $("#content").hide();
@@ -32,6 +33,7 @@ $(() => {
         $("#content").show();
         $("#xheader").show();
         $("#page_filtre").hide();
+
     })
     $("#order").on("click", function (event) {
         console.log("click on order")
@@ -155,25 +157,49 @@ $(() => {
         console.log(isDisplayed);
         if (!isDisplayed) {
             console.log(filterObject);
+            // $("#label-price").after(
+            //     `
+            //      <span id="span-price">
+            //                 <div class="row" style=height:10px></div>
+            //                 <div class="row">
+            //                     <div class="col-4 text-end">minimum</div>
+            //                     <div class="col-8">
+            //                     <input class="border" type="number" id="min_price" value=${filterObject.selectedMinPrice != null ? filterObject.selectedMinPrice : ''}>
+            //                     </div>
+            //                 </div>
+            //                 <div class="row" style="height: 10px"></div>
+            //                 <div class="row">
+            //                     <div class="col-4 text-end">maximum</div>
+            //                     <div class="col-8">
+            //                     <input class="border" type="number" id="max_price" value=${filterObject.selectedMaxPrice != null ? filterObject.selectedMaxPrice : ''}></div>
+            //                 </div>
+            //       </span>
+            //     `
+            // );
             $("#label-price").after(
                 `
-                 <span id="span-price">
-                            <div class="row" style=height:10px></div>
-                            <div class="row">
-                                <div class="col-4 text-end">minimum</div>
-                                <div class="col-8">
-                                <input class="border" type="number" id="min_price" value=${filterObject.selectedMinPrice != null ? filterObject.selectedMinPrice : ''}>
-                                </div>
-                            </div>
-                            <div class="row" style="height: 10px"></div>
-                            <div class="row">
-                                <div class="col-4 text-end">maximum</div>
-                                <div class="col-8">
-                                <input class="border" type="number" id="max_price" value=${filterObject.selectedMaxPrice != null ? filterObject.selectedMaxPrice : ''}></div>
-                            </div>
-                  </span>
+                    <span id="span-price">
+                        <span id="amount"></span>
+                        <div id="slider-range-price"></div>
+                    </span>
                 `
             );
+            let maxPrice = getHighestPriceItemFromServer();
+            console.log(typeof (maxPrice));
+            $("#slider-range-price").slider({
+                range: true,
+                min: 0,
+                max: maxPrice,
+                values: [0, maxPrice],
+                slide: function (event, ui) {
+                    $("#amount").html(ui.values[0] + '$' + " - " + ui.values[1] + '$ ');
+                    filterObject.selectedMaxPrice = ui.values[1];
+                    filterObject.selectedMinPrice = ui.values[0];
+                }
+            });
+            $("#amount-price").val("$" + $("#slider-range-price").slider("values", 0) +
+                " - $" + $("#slider-range-price").slider("values", 1));
+
             if (filterObject.errorMaxPrice) {
                 setErrorMaxInput("price", $("#max_price").val(), filterObject.selectedMinPrice);
             }
@@ -200,8 +226,8 @@ $(() => {
                     filterObject.numberSelectedFilters++;
 
                 filterObject.selectedMaxPrice = parseInt($("#max_price").val());
-                
-                if ($("#max_price").val() == ''){
+
+                if ($("#max_price").val() == '') {
                     filterObject.numberSelectedFilters--;
                     filterObject.selectedMaxPrice = null;
                 }
@@ -222,26 +248,50 @@ $(() => {
         console.log(isDisplayed);
         if (!isDisplayed) {
             console.log(filterObject);
+            // $("#label-kilometer").after(
+            //     `
+            //      <span id="span-kilometer">
+            //                 <div class="row" style=height:10px></div>
+            //                 <div class="row">
+            //                     <div class="col-4 text-end">minimum</div>
+            //                     <div class="col-8">
+            //                     <input class="border" type="number" id="min_kilometer" value=${filterObject.selectedMinMileage != null ? filterObject.selectedMinMileage : ''}>
+            //                     </div>
+            //                 </div>
+            //                 <div class="row" style="height: 10px"></div>
+            //                 <div class="row">
+            //                     <div class="col-4 text-end">maximum</div>
+            //                     <div class="col-8">
+            //                     <input class="border" type="number" id="max_kilometer" value=${filterObject.selectedMaxMileage != null ? filterObject.selectedMaxMileage : ''}></div>
+            //                 </div>
+                            
+            //       </span>
+            //     `
+            // );
             $("#label-kilometer").after(
                 `
-                 <span id="span-kilometer">
-                            <div class="row" style=height:10px></div>
-                            <div class="row">
-                                <div class="col-4 text-end">minimum</div>
-                                <div class="col-8">
-                                <input class="border" type="number" id="min_kilometer" value=${filterObject.selectedMinMileage != null ? filterObject.selectedMinMileage : ''}>
-                                </div>
-                            </div>
-                            <div class="row" style="height: 10px"></div>
-                            <div class="row">
-                                <div class="col-4 text-end">maximum</div>
-                                <div class="col-8">
-                                <input class="border" type="number" id="max_kilometer" value=${filterObject.selectedMaxMileage != null ? filterObject.selectedMaxMileage : ''}></div>
-                            </div>
-                            
-                  </span>
+                <span id="span-kilometer">
+                    <span id="amount-kilometer"></span>
+                    <div id="slider-range-kilometer"></div>
+                </span>
                 `
             );
+
+            let maxKilometer = getHighestKilometerItemFromServer();
+            console.log(typeof (maxKilometer));
+            $("#slider-range-kilometer").slider({
+                range: true,
+                min: 0,
+                max: maxKilometer,
+                values: [0, maxKilometer],
+                slide: function (event, ui) {
+                    $("#amount-kilometer").html(ui.values[0] + 'kms' + " - " + ui.values[1] + 'kms ');
+                    filterObject.selectedMaxMileage = ui.values[1];
+                    filterObject.selectedMinMileage = ui.values[0];
+                }
+            });
+            $("#amount").val("$" + $("#slider-range-kilometer").slider("values", 0) +
+                " - $" + $("#slider-range-kilometer").slider("values", 1));
 
             $("#min_kilometer").on("input", function (ev) {
 
@@ -266,8 +316,8 @@ $(() => {
                     filterObject.numberSelectedFilters++;
 
                 filterObject.selectedMaxMileage = parseInt($("#max_kilometer").val());
-                
-                if ($("#max_kilometer").val() == ''){
+
+                if ($("#max_kilometer").val() == '') {
                     filterObject.numberSelectedFilters--;
                     filterObject.selectedMaxMileage = null;
                 }
@@ -282,16 +332,6 @@ $(() => {
                 setErrorMaxInput('kilometer', parseInt($("#max_kilometer").val()), filterObject.selectedMinMileage);
             }
 
-            // $("#min_kilometer").on("input", function (ev) {
-            //     filterObject.selectedMinMileage = parseInt($("#min_kilometer").val());
-            //     setErrorMaxInput('kilometer', parseInt($("#max_kilometer").val()), filterObject.selectedMinMileage);
-            //     console.log("min kilo changed " + filterObject.selectedMinMileage);
-
-            // })
-            // $("#max_kilometer").on("input", function (ev) {
-            //     setErrorMaxInput('kilometer', parseInt($("#max_kilometer").val()), filterObject.selectedMinMileage);
-
-            // })
         } else {
             $("#span-kilometer").remove();
         }
@@ -316,133 +356,6 @@ $(() => {
             //console.log("max kilo changed " + filterObject.selectedMaxMileage);
         }
     }
-    // $("#label-marque").on("click", function (ev) {
-    //     let isDisplayed = $('#brands-list').length;
-    //     console.log(isDisplayed);
-    //     if (!isDisplayed) {
-    //         // Do ajax call to get all makes of cars in DB
-    //         let brands;
-    //         $.ajax({
-    //             url: '/api/publications/brands',
-    //             async: false,
-    //             success: function (data) {
-    //                 brands = data;
-    //                 console.log(data);
-    //             },
-    //             error: (xhr) => { console.log(xhr); }
-    //         });
-
-    //         // format to html
-    //         let output = `<span id=brands-list>
-    //         <div class="row" style="min-height: 20px;"></div>`;
-    //         $.each(brands, function (brand, nombre) {
-
-    //             // if (!brand in selectedBrands)
-    //             //     selectedBrands.push({ brand: false });
-
-    //             output += `
-    //             <div class="row ${selectedBrands[brand] ? 'selected-element' : ''}" brand=${brand} >
-
-    //                 <div class='col-2 text-center p-0' style='color:black;'>
-    //                     <span class="car-${brand.toLowerCase()} fa-2x"></span>
-    //                 </div>
-    //                 <div class='col-9 text-start d-flex align-items-center'>
-    //                     <span class="w-75" style="font-size: 22px">${brand}</span>
-    //                 </div>
-    //                 <div class='col-1 p-1'>
-    //                     <span style="font-size: 20px">${nombre}</span>
-    //                 </div>
-
-    //             </div>`;
-
-
-    //         });
-    //         output += `</span>`;
-    //         // Show them
-    //         $("#label-marque").after(
-    //             output
-    //         );
-    //         // Setting up listeners for selection of filter    
-    //         $.each(brands, function (brand, nombre) {
-    //             $(`div[brand=${brand}]`).on("click", (ev) => {
-    //                 console.log(brand);
-    //                 $(`div[brand=${brand}]`).toggleClass("selected-element");
-    //                 if ($(`div[brand=${brand}]`).hasClass("selected-element")) {
-    //                     selectedBrands.add(brand);
-    //                 } else {
-    //                     selectedBrands.delete(brand);
-    //                 }
-    //                 selectedBrands[brand] = $(`div[brand=${brand}]`).hasClass("selected-element");
-    //                 console.log(selectedBrands[brand]);
-    //             });
-    //         })
-    //     } else {
-    //         $('#brands-list').remove();
-    //     }
-    // })
-
-    // $("#label-body").on("click", function (ev) {
-    //     let isDisplayed = $('#body-list').length;
-    //     console.log(isDisplayed);
-    //     if (!isDisplayed) {
-    //         // Do ajax call to get all makes of cars in DB
-    //         let bodies;
-    //         $.ajax({
-    //             url: '/api/publications/bodies',
-    //             async: false,
-    //             success: function (data) {
-    //                 bodies = data;
-    //                 console.log(data);
-    //             },
-    //             error: (xhr) => { console.log(xhr); }
-    //         });
-
-    //         // format to html
-    //         let output = `<span id=body-list>
-    //         <div class="row" style="min-height: 20px;"></div>`;
-    //         $.each(bodies, function (body, nombre) {
-
-
-    //             output += `
-    //             <div class="row ${selectedBodyType[body] ? 'selected-element' : ''}" body=${body} >
-
-    //                 <div class='col-2 ' >
-
-    //                 </div>
-    //                 <div class='col-9 text-start d-flex align-items-center'>
-    //                     <span class="w-75" style="font-size: 22px">${CapitalizeFirstCase(body)}</span>
-    //                 </div>
-    //                 <div class='col-1 p-1'>
-    //                     <span style="font-size: 20px">${nombre}</span>
-    //                 </div>
-
-    //             </div>`;
-
-
-    //         });
-    //         output += `</span>`;
-    //         // Show them
-    //         $("#label-body").after(
-    //             output
-    //         );
-    //         // Setting up listeners for selection of filter    
-    //         $.each(bodies, function (body, nombre) {
-    //             $(`div[body=${body}]`).on("click", (ev) => {
-    //                 console.log(body);
-    //                 $(`div[body=${body}]`).toggleClass("selected-element");
-    //                 if ($(`div[body=${body}]`).hasClass("selected-element")) {
-    //                     selectedBodyType.add(body);
-    //                 } else {
-    //                     selectedBodyType.delete(body);
-    //                 }
-    //                 selectedBodyType[body] = $(`div[body=${body}]`).hasClass("selected-element");
-    //                 console.log(selectedBodyType[body]);
-    //             });
-    //         })
-    //     } else {
-    //         $('#body-list').remove();
-    //     }
-    // });
 
     //Submit the search
 
@@ -468,7 +381,7 @@ $(() => {
                 },
                 error: (xhr) => { console.log(xhr); }
             });
-
+            ShowNumberOfActiveFilters("#active_filters_main", filterObject.numberSelectedFilters)
         }
 
     });
@@ -476,6 +389,8 @@ $(() => {
     $("#label-reset").on("click", function (event) {
         resetFilters();
     });
+
+
     function setBackgroundColor(element, color) {
         if ($("#erreur").length == 0 && color == "green")
             $(element).css("background-color", color);
@@ -554,6 +469,35 @@ $(() => {
         return str[0].toUpperCase() + str.slice(1).toLowerCase();
     }
     function ShowNumberOfActiveFilters(element, number) {
-        $(element).html(number);
+        $(element).html(number == 0 ? '' : '(' + number + ')');
+    }
+    function getHighestPriceItemFromServer() {
+        let response;
+        $.ajax({
+            url: searchUrlBuilder('/api/publications/maxPrice'),
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                console.log(parseInt(data));
+                response = parseInt(data);
+            },
+            error: (xhr) => { console.log(xhr); }
+        });
+        return response;
+    }
+    function getHighestKilometerItemFromServer(){
+        
+        let response;
+        $.ajax({
+            url: searchUrlBuilder('/api/publications/maxKilometer'),
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                console.log(parseInt(data));
+                response = parseInt(data);
+            },
+            error: (xhr) => { console.log(xhr); }
+        });
+        return response;
     }
 });

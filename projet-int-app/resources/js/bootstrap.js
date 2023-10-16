@@ -7,7 +7,8 @@
 import axios from 'axios';
 import $ from 'jquery';
 
-window.jQuery = window.$ = $
+
+window.jQuery = window.$ = $;
 
 
 window.axios = axios;

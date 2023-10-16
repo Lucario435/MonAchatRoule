@@ -1,6 +1,8 @@
 @import '/node_modules/fontawesome-free/css/all.min.css';
 @import './jquery.toast.css';
 @import 'car-makes-icons/dist/style.css';
+@import '/node_modules/jquery-ui/dist/themes/base/jquery-ui.css';
+
 
 /* Reset some default styles for better consistency */
 :root {
