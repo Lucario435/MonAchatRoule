@@ -130,11 +130,16 @@ Route::get('/api/publications/transmissions',function ()
     }
 );
 
-// Route::get('/api/publications/price',function ()
-//     {
-//         return PublicationResource::collection(Publication::all())->pluck('brand');
-//     }
-// );
+Route::get('/api/publications/maxPrice',function ()
+    {
+        return PublicationResource::collection(Publication::all())->max('fixedPrice');
+    }
+);
+Route::get('/api/publications/maxKilometer',function ()
+    {
+        return PublicationResource::collection(Publication::all())->max('kilometer');
+    }
+);
 // Route::get('/api/publications/kilometer',function ()
 //     {
 //         return PublicationResource::collection(Publication::all())->pluck('brand');

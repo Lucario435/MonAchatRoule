@@ -1,6 +1,7 @@
 import './bootstrap';
 import * as toast from './jquery.toast';
 import * as maskedinput from './jquery.maskedinput';
+import * as jqueryui from './jquery-ui';
 
 var idleTime = 0;
 const minutesOfInactivity = 30; 
