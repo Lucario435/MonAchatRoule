@@ -85,7 +85,7 @@ class UsersController extends Controller
     public function VerifierEmail($attributes = null)
     {
         if($attributes != null){
-            Auth::logout();
+            //Auth::logout();
             return view("confirm-email",$attributes);
         }
         else
