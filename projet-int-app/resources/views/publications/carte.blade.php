@@ -2,6 +2,7 @@
     <!--Filters-->
 @foreach ($publications as $publication)
  <div class="cardd">
+    <a title="Plus d'informations" href="{{ route('publication.detail', ['id' => $publication->id]) }}">
     <div class="card-state-text">
         <!--Usefull link : https://www.educative.io/answers/how-to-create-a-countdown-timer-using-javascript-->
         @if ($publication->type == "1")
@@ -67,18 +68,14 @@
 
     @foreach ($images as $image)
         @if ($image->publication_id == $publication->id && !$found)
-            <a href="{{ route('publication.detail', ['id' => $publication->id]) }}">
                 <img class="card-image" src="{{ asset($image->url) }}"/>
-            </a>
             @php
                 $found = true;
             @endphp
         @endif
     @endforeach
     @if($found == false)
-        <a href="{{ route('publication.detail', ['id' => $publication->id]) }}">
             <img class="card-image" src="{{asset('img/noImage.jpg')}}"/>
-        </a>
     @endif
     <div style="max-width:10em; overflow:hidden" class="card-title">{{$publication->title}}</div>
     <div class="card-price">{{$publication->fixedPrice}}$</div>
@@ -92,6 +89,7 @@
         <img class="card-location-icon" src="{{asset('img/GMLogo.svg')}}"/>
         <div class="card-postal-code">{{$publication->postalCode}}</div>
     </a>
+</a>
 </div>
 @endforeach
 </div>
