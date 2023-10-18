@@ -9,8 +9,8 @@
     --blueheader: rgb(35, 112, 255);
     /* Bleu */
     --blueForms: rgb(115, 164, 255);
-    --greenbutton: #27ae60;
-    --greenbuttonhover: rgb(0, 159, 0);
+    --greenbutton: #27ae5f00;
+    --greenbuttonhover: rgba(0, 159, 0, 0);
     --notification-color: rgb(12, 85, 232);
     --mobileWidth: 768px;
 }
@@ -75,21 +75,7 @@ li {
 }
 
 /* Style the login button */
-.login-button {
-    background-color: green;
-    /* Green button background color */
-    color: white;
-    /* White button text color */
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: 0.3s ease;
-}
-.login-button:hover {
-    background-color: darkgreen;
-    /* Dark green button background color on hover */
-}
+
 .redlogout-button{
     background-color: rgb(171, 0, 0) !important;
     outline: red solid 1px !important;
@@ -156,7 +142,6 @@ h1 {
     padding: .8rem 2rem;
     text-decoration: none;
     border: none;
-    outline: greenyellow solid 1px;
     border-radius: 5px;
     cursor: pointer;
     transition: .2s;
@@ -164,10 +149,9 @@ h1 {
 
 .login-button:hover {
     background-color: var(--greenbuttonhover);
-    outline: greenyellow solid 2px;
     font-weight: bolder;
     transition: .2s;
-    padding: .8rem 2.5rem;
+    transform: scale(1.5);
 }
 
 .menu-icon {

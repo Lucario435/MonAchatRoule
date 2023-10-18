@@ -277,9 +277,7 @@ padding-bottom: 100%;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     text-align: center;
 }
-body{
-    background-color: gainsboro;
-}
+
 .cardd:hover{
     border-radius: 5px;
     width: 250px;

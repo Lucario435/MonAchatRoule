@@ -22,8 +22,8 @@ const removeAccents = str =>
 
 $(() => {
     $("#page_filtre").hide();
-    $("#content").show();
-    $("#xheader").show();
+    // $("#content").show();
+    // $("#xheader").show();
     //$("#span-price").hide();
 
     // The Boutons filter and order
@@ -32,11 +32,17 @@ $(() => {
         console.log("click on filters");
         $("#content").hide();
         $("#xheader").hide();
+        $(".footer").hide();
+        $("#xtitle").hide();
+        $("#menu").hide();
         $("#page_filtre").show();
     })
     $("#close_page_filters").on("click", function (event) {
         $("#content").show();
         $("#xheader").show();
+        $(".footer").show();
+        $("#xtitle").show();
+        $("#menu").show();
         $("#page_filtre").hide();
 
     })
