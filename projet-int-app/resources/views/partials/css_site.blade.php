@@ -79,7 +79,7 @@ h1 {
 }
 
 /* menu hamberger pour mobile */
-@media screen and (max-width: 768px) {
+@media (orientation: portrait) {
     .nav ul {
         display: none;
         flex-direction: column;

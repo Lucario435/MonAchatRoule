@@ -43,7 +43,7 @@
 }
 
 /* Media query for mobile devices */
-@media (max-width: 768px) {
+@media (orientation:portrait)  {
     .userp {
         flex-direction: column;
     }

@@ -134,7 +134,7 @@
 	font-size: 14px;
     border-radius: 5px;
 }
-@media (max-width: 768px){
+@media (orientation: portrait){
     .cardprofilDiv{
         min-width: 100%;
     }

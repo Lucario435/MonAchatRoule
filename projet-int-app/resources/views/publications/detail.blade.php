@@ -1,9 +1,10 @@
 @extends('partials.xlayout')
 @section('title', "$publication->title")
 @section('content')
-<head>
-    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-</head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+@push('css')
+    @vite(['resources/css/publication.css'])
+@endpush
 <!--BODY-->
 @php
     use Illuminate\Support\Facades\Auth;
@@ -93,33 +94,42 @@
         @endif
     </div>
 </div>
-    @auth
-        @if(Auth::id() == $publication->user_id)
-
-            <a style="font-weight: bold;" href="{{ route("publication.getupdateview",["id"=>$publication->id]) }}">
-                <div class="button-div detail-contact-div xer" style="width: 30%; color:black;">Modifier annonce</div></a>
-        <style>.xer:hover{ color:white !important;}</style>
-        @endif
-    @endauth
+<br>
+<div class="main-container-style xreducteur">
     <br>
-    <div class="button-container xreducteur" style="display:none;">
-        <a class="noDec" href="">
-            <div class="button-div detail-contact-div" style="display: flex">
-                <div class="contact-icon">
-
+    <div class="button-container">
+        <div class="action-buttons" style="grid-gap:1em;">
+            <a title="Contacter le vendeur" class="noDec xreducteur div-button-actions" style="margin:auto;width:100%" href="">
+                <div class="button-div  detail-contact-div-test">
+                    <div class="contact-icon">
+                        <img class="detail-profil-vendeur div-button-actions" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"/>
+                    </div>
+                        <label class="detail-labels div-button-actions" style="font-size: 80%; width: 100%;">Contacter</label>
                 </div>
+            </a>
+            <!--Vérifier si déjà follow-->
+            <div title="Ajouter l'annonce au favoris" class="div-button-actions" style="width:100%;">
+                <a class="noDec button-div-icon"   href="{{ route('publicationfollow.store', ['id' => $publication->id]) }}">
                 <!--Ramener vers le controlleur pour ajouter un contact-->
-                    <label class="detail-labels">Contacter le vendeur *NonFonctionnel*</label>
+                    <img class="fav-icon div-button-actions" src="{{asset('img/starwhite.png')}}"/>
+                    <label class="detail-labels div-button-actions">Favori</label>
+                </a>
             </div>
-        </a>
-
-        <a class="noDec" href="">
-            <div class="button-div detail-contact-div">
-                <!--Ramener vers le controlleur pour ajouter un contact-->
-                    <img class="fav-icon" style="width:50px; height:50px;" src="{{asset('img/starwhite.png')}}"/>
-            </div>
-        </a>
+            @auth
+            @if(Auth::id() == $publication->user_id)    
+                <div title="Modifier l'annonce" class="div-button-actions" style="width:100%;">
+                    <a class="noDec button-div-icon"  href="">
+                    <!--Ramener vers le controlleur pour ajouter un contact-->
+                        <img class="fav-icon div-button-actions" src="{{asset('img/pencil.png')}}"/>
+                        <label class="detail-labels div-button-actions">Modifier</label>
+                    </a>
+                </div>
+            @endif
+            @endauth
+        </div>
     </div>
+    <br>
+</div>
     <br>
     <style momo="PERMET DE BAISSER LE WIDTH">
         @media (min-width: 768px){
@@ -127,13 +137,14 @@
         }
     </style>
 <div class="main-container-style xreducteur" >
+    <br>
     <h4 class="detail-info-text">Informations du véhicule</h4>
     <hr>
     <br>
     <div class="car-info-item" style="display: flex; width: 50%; margin: auto;"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/dollar.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Prix</label><p>{{$publication->fixedPrice}}$</p></div></div>
     <br>
     <hr> <span style="float: center;">Description:</span> <br>
-    {{ $publication->description }}asdaweij aijweiu awjueua h eawiueh a iuajweiuahwuehawug eyagwyegyawgeyagwye ayweg yuagweu
+    {{ $publication->description }}
     <hr>
     <br>
     <div class="car-info ">
@@ -151,6 +162,15 @@
             <div class="detail-postal-code">{{$publication->postalCode}}</div>
         </a>
     </div>
+    <br> 
+<div title="Signaler l'annonce" class="div-button-actions" style="width: 85%; margin:auto">
+    <a class="noDec button-div-icon"  href="">
+    <!--Ramener vers le controlleur pour ajouter un contact-->
+        <img class="fav-icon div-button-actions" src="{{asset('img/avertissement.png')}}"/>
+        <label class="detail-labels div-button-actions">Signaler l'annonce</label>
+    </a>
+</div>
+<br>
 </div>
 <script>
     //With the help of chat gpt
@@ -193,4 +213,23 @@
         });
     });
 </script>
+<!--Utile pour follow une annonce-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#myForm").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "process.php", // The PHP script to handle the POST request
+                    data: {
+                        data: $("#data").val()
+                    },
+                    success: function (response) {
+                        $("#result").html(response);
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
