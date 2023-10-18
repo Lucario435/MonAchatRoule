@@ -10,6 +10,10 @@ let filterObject = {
     selectedMaxMileage: null,
     errorMaxMilage: null,
     errorMaxPrice: null,
+    orderPrice:null,
+    orderMileage:null,
+    distance:null,
+
 }
 
 const removeAccents = str =>
@@ -38,8 +42,225 @@ $(() => {
     $("#order").on("click", function (event) {
         console.log("click on order")
     })
-    // Each filter and it's options/UI
 
+    // Each filter and it's options/UI
+    $("#label-price").on("click", function (event) {
+        let span = $(`#span-price`);
+        if (!span.length) {
+            $("#label-price").after(
+                `
+                    <span id="span-price"  class="w-75 mx-auto mt-4">
+                        <span id="amount-price"></span>
+                        <div id="slider-range-price"></div>
+                    </span>
+                `
+            );
+            let maxPrice = getHighestPriceItemFromServer();
+            //console.log(typeof (maxPrice));
+            createSlider("price",0,maxPrice,"#amount-price","selectedMinPrice","selectedMaxPrice",' $');
+
+            if (filterObject.errorMaxPrice) {
+                setErrorMaxInput("price", $("#max_price").val(), filterObject.selectedMinPrice);
+            }
+
+            $("#min_price").on("input", function (ev) {
+
+                if (filterObject.selectedMinPrice == null)
+                    filterObject.numberSelectedFilters++;
+
+                filterObject.selectedMinPrice = parseInt($("#min_price").val());
+
+                console.log(filterObject.selectedMinPrice);
+                if ($("#min_price").val() == '') {
+                    filterObject.numberSelectedFilters--;
+                    filterObject.selectedMinPrice = null;
+                }
+                setErrorMaxInput("price", $("#max_price").val(), filterObject.selectedMinPrice);
+
+                ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
+                console.log("min price changed " + filterObject.selectedMinPrice);
+            })
+            $("#max_price").on("input", function (ev) {
+                if (filterObject.selectedMaxPrice == null)
+                    filterObject.numberSelectedFilters++;
+
+                filterObject.selectedMaxPrice = parseInt($("#max_price").val());
+
+                if ($("#max_price").val() == '') {
+                    filterObject.numberSelectedFilters--;
+                    filterObject.selectedMaxPrice = null;
+                }
+
+                setErrorMaxInput("price", $("#max_price").val(), filterObject.selectedMinPrice);
+
+                ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
+                console.log("max kilometer changed " + filterObject.selectedMaxPrice);
+            })
+        }
+        else if($(span).is(":hidden")){
+            $("#span-price").show();
+        } 
+        else {
+            $("#span-price").hide();
+        }
+
+    });
+
+    $("#label-kilometer").on("click", function (event) {
+        let span = $(`#span-kilometer`);
+        if (!span.length) {
+            $("#label-kilometer").after(
+                `
+                <span id="span-kilometer" class="w-75 mx-auto mt-4">
+                    <span id="amount-kilometer"></span>
+                    <div id="slider-range-kilometer"></div>
+                </span>
+                `
+            );
+
+            let maxKilometer = getHighestKilometerItemFromServer();
+            //console.log(typeof (maxKilometer));
+            createSlider("kilometer",0,maxKilometer,"#amount-kilometer","selectedMinMileage","selectedMaxMileage"," kms")
+
+            $("#min_kilometer").on("input", function (ev) {
+
+                if (filterObject.selectedMinMileage == null)
+                    filterObject.numberSelectedFilters++;
+
+                filterObject.selectedMinMileage = parseInt($("#min_kilometer").val());
+
+                console.log(filterObject.selectedMinMileage);
+                if ($("#min_kilometer").val() == '') {
+                    filterObject.numberSelectedFilters--;
+                    filterObject.selectedMinMileage = null;
+                }
+                setErrorMaxInput("kilometer", $("#max_kilometer").val(), filterObject.selectedMinMileage);
+
+                ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
+                console.log("min kilometer changed " + filterObject.selectedMinMileage);
+            })
+            $("#max_kilometer").on("input", function (ev) {
+
+                if (filterObject.selectedMaxMileage == null)
+                    filterObject.numberSelectedFilters++;
+
+                filterObject.selectedMaxMileage = parseInt($("#max_kilometer").val());
+
+                if ($("#max_kilometer").val() == '') {
+                    filterObject.numberSelectedFilters--;
+                    filterObject.selectedMaxMileage = null;
+                }
+
+                setErrorMaxInput("kilometer", $("#max_kilometer").val(), filterObject.selectedMinMileage);
+
+                ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
+                console.log("max kilometer changed " + filterObject.selectedMaxMileage);
+            })
+
+            if (filterObject.errorMaxMilage) {
+                setErrorMaxInput('kilometer', parseInt($("#max_kilometer").val()), filterObject.selectedMinMileage);
+            }
+
+        }else if($(span).is(":hidden")) {
+            $("#span-kilometer").show();
+        }
+        else {
+            $("#span-kilometer").hide();
+        }
+
+    });
+
+    // Submit the search
+    $("#btn-search").on("click", (e) => {
+
+        console.log($(".erreur").length);
+        if ($(".erreur").length > 0) {
+            console.log("Il ya des erreurs");
+        }
+        else {
+            setBackgroundColor("#btn-search", "green");
+            HideMenuAfterSearch();
+            $.ajax({
+                url: searchUrlBuilder('publications/search?'),
+                async: false,
+                dataType: 'html',
+                success: function (data) {
+                    //console.log(data);
+                    let html = $(data).html();
+                    let content = $(data).find("#content").find("#content");
+                    console.log(data);
+                    $("#content").html(data);
+                },
+                error: (xhr) => { console.log(xhr); }
+            });
+            ShowNumberOfActiveFilters("#active_filters_main", filterObject.numberSelectedFilters)
+        }
+
+    });
+    // Reset filters
+    $("#label-reset").on("click", function (event) {
+        resetFilters();
+    });
+    
+    $(".orderby-element").on("click", function (element) {
+        console.log(element);
+        $(element.currentTarget).toggleClass("selected-element");
+    });
+
+    listFilterDataFromServer("brand", "brands", "selectedBrands");
+    
+    listFilterDataFromServer("body", "bodies", "selectedBodyType");
+    
+    listFilterDataFromServer("transmission", "transmissions", "selectedTransmissions");
+
+    
+
+
+
+    function setErrorMaxInput(filter, max_input, min_input, selectedElement, selectedErrorElement) {
+        let maxValue = parseInt(max_input);
+        if (maxValue < min_input) {
+            $(`#val-max-${filter}-error`).remove();
+            $(`#span-${filter}`).append(`<div id=val-max-${filter}-error class='erreur text-center mt-2'>
+            La valeur maximum doit être plus grande que la valeur minimum</div>`);
+            filterObject[selectedElement] = maxValue;
+            filterObject[selectedErrorElement] = true;
+            setBackgroundColor("#btn-search", "red");
+
+        } else if (maxValue >= min_input) {
+            $(`#val-max-${filter}-error`).remove();
+            setBackgroundColor("#btn-search", "green");
+            filterObject[selectedElement] = maxValue;
+            filterObject[selectedErrorElement] = null;
+            //console.log("max kilo changed " + filterObject.selectedMaxMileage);
+        }
+    }
+    function createSlider(fitler,minVal=0,maxVal,htmlElement,selectedElementMin, selectedElementMax,sign = ''){
+        $(`#slider-range-${fitler}`).slider({
+            range: true,
+            min: minVal,
+            max: maxVal,
+            values: [0, maxVal],
+            slide: function (event, ui) {
+                $(`${htmlElement}`).html(ui.values[0] + sign + " - " + ui.values[1] + `${sign} `);
+                if(filterObject[selectedElementMax] == null && filterObject[selectedElementMin] == null){
+                    filterObject.numberSelectedFilters++;
+                    ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
+                }
+                filterObject[selectedElementMax] = ui.values[1];
+                filterObject[selectedElementMin] = ui.values[0];
+            },
+
+        });
+        $(`#amount-${fitler}`).val("$" + $(`#slider-range-${fitler}`).slider("values", 0) +
+            " - $" + $(`#slider-range-${fitler}`).slider("values", 1));
+    }
+    function setBackgroundColor(element, color) {
+        if ($("#erreur").length == 0 && color == "green")
+            $(element).css("background-color", color);
+        else
+            $(element).css("background-color", color);
+    }
     function listFilterDataFromServer(filter, plural, selectedList) {
         $(`#label-${filter}`).on("click", function (ev) {
             let isDisplayed = $(`#${filter}-list`).length;
@@ -147,261 +368,10 @@ $(() => {
             }
         });
     }
-
-    listFilterDataFromServer("brand", "brands", "selectedBrands");
-    listFilterDataFromServer("body", "bodies", "selectedBodyType");
-    listFilterDataFromServer("transmission", "transmissions", "selectedTransmissions");
-
-    $("#label-price").on("click", function (event) {
-        let isDisplayed = $(`#span-price`).length;
-        console.log(isDisplayed);
-        if (!isDisplayed) {
-            console.log(filterObject);
-            // $("#label-price").after(
-            //     `
-            //      <span id="span-price">
-            //                 <div class="row" style=height:10px></div>
-            //                 <div class="row">
-            //                     <div class="col-4 text-end">minimum</div>
-            //                     <div class="col-8">
-            //                     <input class="border" type="number" id="min_price" value=${filterObject.selectedMinPrice != null ? filterObject.selectedMinPrice : ''}>
-            //                     </div>
-            //                 </div>
-            //                 <div class="row" style="height: 10px"></div>
-            //                 <div class="row">
-            //                     <div class="col-4 text-end">maximum</div>
-            //                     <div class="col-8">
-            //                     <input class="border" type="number" id="max_price" value=${filterObject.selectedMaxPrice != null ? filterObject.selectedMaxPrice : ''}></div>
-            //                 </div>
-            //       </span>
-            //     `
-            // );
-            $("#label-price").after(
-                `
-                    <span id="span-price">
-                        <span id="amount"></span>
-                        <div id="slider-range-price"></div>
-                    </span>
-                `
-            );
-            let maxPrice = getHighestPriceItemFromServer();
-            console.log(typeof (maxPrice));
-            $("#slider-range-price").slider({
-                range: true,
-                min: 0,
-                max: maxPrice,
-                values: [0, maxPrice],
-                slide: function (event, ui) {
-                    $("#amount").html(ui.values[0] + '$' + " - " + ui.values[1] + '$ ');
-                    filterObject.selectedMaxPrice = ui.values[1];
-                    filterObject.selectedMinPrice = ui.values[0];
-                }
-            });
-            $("#amount-price").val("$" + $("#slider-range-price").slider("values", 0) +
-                " - $" + $("#slider-range-price").slider("values", 1));
-
-            if (filterObject.errorMaxPrice) {
-                setErrorMaxInput("price", $("#max_price").val(), filterObject.selectedMinPrice);
-            }
-
-            $("#min_price").on("input", function (ev) {
-
-                if (filterObject.selectedMinPrice == null)
-                    filterObject.numberSelectedFilters++;
-
-                filterObject.selectedMinPrice = parseInt($("#min_price").val());
-
-                console.log(filterObject.selectedMinPrice);
-                if ($("#min_price").val() == '') {
-                    filterObject.numberSelectedFilters--;
-                    filterObject.selectedMinPrice = null;
-                }
-                setErrorMaxInput("price", $("#max_price").val(), filterObject.selectedMinPrice);
-
-                ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
-                console.log("min price changed " + filterObject.selectedMinPrice);
-            })
-            $("#max_price").on("input", function (ev) {
-                if (filterObject.selectedMaxPrice == null)
-                    filterObject.numberSelectedFilters++;
-
-                filterObject.selectedMaxPrice = parseInt($("#max_price").val());
-
-                if ($("#max_price").val() == '') {
-                    filterObject.numberSelectedFilters--;
-                    filterObject.selectedMaxPrice = null;
-                }
-
-                setErrorMaxInput("price", $("#max_price").val(), filterObject.selectedMinPrice);
-
-                ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
-                console.log("max kilometer changed " + filterObject.selectedMaxPrice);
-            })
-        } else {
-            $("#span-price").remove();
-        }
-
-    });
-
-    $("#label-kilometer").on("click", function (event) {
-        let isDisplayed = $(`#span-kilometer`).length;
-        console.log(isDisplayed);
-        if (!isDisplayed) {
-            console.log(filterObject);
-            // $("#label-kilometer").after(
-            //     `
-            //      <span id="span-kilometer">
-            //                 <div class="row" style=height:10px></div>
-            //                 <div class="row">
-            //                     <div class="col-4 text-end">minimum</div>
-            //                     <div class="col-8">
-            //                     <input class="border" type="number" id="min_kilometer" value=${filterObject.selectedMinMileage != null ? filterObject.selectedMinMileage : ''}>
-            //                     </div>
-            //                 </div>
-            //                 <div class="row" style="height: 10px"></div>
-            //                 <div class="row">
-            //                     <div class="col-4 text-end">maximum</div>
-            //                     <div class="col-8">
-            //                     <input class="border" type="number" id="max_kilometer" value=${filterObject.selectedMaxMileage != null ? filterObject.selectedMaxMileage : ''}></div>
-            //                 </div>
-                            
-            //       </span>
-            //     `
-            // );
-            $("#label-kilometer").after(
-                `
-                <span id="span-kilometer">
-                    <span id="amount-kilometer"></span>
-                    <div id="slider-range-kilometer"></div>
-                </span>
-                `
-            );
-
-            let maxKilometer = getHighestKilometerItemFromServer();
-            console.log(typeof (maxKilometer));
-            $("#slider-range-kilometer").slider({
-                range: true,
-                min: 0,
-                max: maxKilometer,
-                values: [0, maxKilometer],
-                slide: function (event, ui) {
-                    $("#amount-kilometer").html(ui.values[0] + 'kms' + " - " + ui.values[1] + 'kms ');
-                    filterObject.selectedMaxMileage = ui.values[1];
-                    filterObject.selectedMinMileage = ui.values[0];
-                }
-            });
-            $("#amount").val("$" + $("#slider-range-kilometer").slider("values", 0) +
-                " - $" + $("#slider-range-kilometer").slider("values", 1));
-
-            $("#min_kilometer").on("input", function (ev) {
-
-                if (filterObject.selectedMinMileage == null)
-                    filterObject.numberSelectedFilters++;
-
-                filterObject.selectedMinMileage = parseInt($("#min_kilometer").val());
-
-                console.log(filterObject.selectedMinMileage);
-                if ($("#min_kilometer").val() == '') {
-                    filterObject.numberSelectedFilters--;
-                    filterObject.selectedMinMileage = null;
-                }
-                setErrorMaxInput("kilometer", $("#max_kilometer").val(), filterObject.selectedMinMileage);
-
-                ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
-                console.log("min kilometer changed " + filterObject.selectedMinMileage);
-            })
-            $("#max_kilometer").on("input", function (ev) {
-
-                if (filterObject.selectedMaxMileage == null)
-                    filterObject.numberSelectedFilters++;
-
-                filterObject.selectedMaxMileage = parseInt($("#max_kilometer").val());
-
-                if ($("#max_kilometer").val() == '') {
-                    filterObject.numberSelectedFilters--;
-                    filterObject.selectedMaxMileage = null;
-                }
-
-                setErrorMaxInput("kilometer", $("#max_kilometer").val(), filterObject.selectedMinMileage);
-
-                ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
-                console.log("max kilometer changed " + filterObject.selectedMaxMileage);
-            })
-
-            if (filterObject.errorMaxMilage) {
-                setErrorMaxInput('kilometer', parseInt($("#max_kilometer").val()), filterObject.selectedMinMileage);
-            }
-
-        } else {
-            $("#span-kilometer").remove();
-        }
-
-    });
-
-    function setErrorMaxInput(filter, max_input, min_input, selectedElement, selectedErrorElement) {
-        let maxValue = parseInt(max_input);
-        if (maxValue < min_input) {
-            $(`#val-max-${filter}-error`).remove();
-            $(`#span-${filter}`).append(`<div id=val-max-${filter}-error class='erreur text-center mt-2'>
-            La valeur maximum doit être plus grande que la valeur minimum</div>`);
-            filterObject[selectedElement] = maxValue;
-            filterObject[selectedErrorElement] = true;
-            setBackgroundColor("#btn-search", "red");
-
-        } else if (maxValue >= min_input) {
-            $(`#val-max-${filter}-error`).remove();
-            setBackgroundColor("#btn-search", "green");
-            filterObject[selectedElement] = maxValue;
-            filterObject[selectedErrorElement] = null;
-            //console.log("max kilo changed " + filterObject.selectedMaxMileage);
-        }
-    }
-
-    //Submit the search
-
-    $("#btn-search").on("click", (e) => {
-
-        console.log($(".erreur").length);
-        if ($(".erreur").length > 0) {
-            console.log("Il ya des erreurs");
-        }
-        else {
-            setBackgroundColor("#btn-search", "green");
-            HideMenuAfterSearch();
-            $.ajax({
-                url: searchUrlBuilder('publications/search?'),
-                async: false,
-                dataType: 'html',
-                success: function (data) {
-                    //console.log(data);
-                    let html = $(data).html();
-                    let content = $(data).find("#content").find("#content");
-                    console.log(data);
-                    $("#content").html(data);
-                },
-                error: (xhr) => { console.log(xhr); }
-            });
-            ShowNumberOfActiveFilters("#active_filters_main", filterObject.numberSelectedFilters)
-        }
-
-    });
-
-    $("#label-reset").on("click", function (event) {
-        resetFilters();
-    });
-
-
-    function setBackgroundColor(element, color) {
-        if ($("#erreur").length == 0 && color == "green")
-            $(element).css("background-color", color);
-        else
-            $(element).css("background-color", color);
-    }
     function searchUrlBuilder(endpointUrl) {
         let url = endpointUrl;
         if (filterObject.selectedBrands.size > 0)
             url += `brand=${formatArrayToUrl(filterObject.selectedBrands)}&`;
-        //console.log(filterObject.selectedBodyType);
         if (filterObject.selectedBodyType.size > 0)
             url += `bodyType=${formatArrayToUrl(filterObject.selectedBodyType)}&`;
         if (filterObject.selectedTransmissions.size > 0)
@@ -414,6 +384,8 @@ $(() => {
             url += `minMileage=${filterObject.selectedMinMileage}&`;
         if (filterObject.selectedMaxMileage != null)
             url += `maxMileage=${filterObject.selectedMaxMileage}&`;
+        if(filterObject.orderMileage != null)
+            url += `distance=${filterObject.orderMileage}&`;
         console.log("URL: " + url)
         return removeAccents(url);
     }
@@ -449,6 +421,9 @@ $(() => {
             selectedMaxMileage: null,
             errorMaxMilage: null,
             errorMaxPrice: null,
+            orderPrice:null,
+            orderMileage:null,
+            distance:null,
         }
         $(".selected-element").removeClass("selected-element");
         $("#min_price").val('');
@@ -457,6 +432,12 @@ $(() => {
         $("#max_kilometer").val('');
         $(`#val-max-price-error`).remove();
         $(`#val-max-kilometer-error`).remove();
+        $('#amount-price').html(' ');
+        $('#amount-kilometer').html(' ');
+        // $('#span-kilometer').remove();
+        // $('#span-price').remove();
+        $(`#slider-range-price`).slider("values",[0,getHighestPriceItemFromServer()])
+        $(`#slider-range-kilometer`).slider("values",[0,getHighestKilometerItemFromServer()])
         setBackgroundColor("#btn-search", "green");
         ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
     }
@@ -469,12 +450,12 @@ $(() => {
         return str[0].toUpperCase() + str.slice(1).toLowerCase();
     }
     function ShowNumberOfActiveFilters(element, number) {
-        $(element).html(number == 0 ? '' : '(' + number + ')');
+        $(element).html('(' + number + ')');
     }
     function getHighestPriceItemFromServer() {
         let response;
         $.ajax({
-            url: searchUrlBuilder('/api/publications/maxPrice'),
+            url: '/api/publications/maxPrice',
             async: false,
             dataType: 'json',
             success: function (data) {
@@ -489,7 +470,7 @@ $(() => {
         
         let response;
         $.ajax({
-            url: searchUrlBuilder('/api/publications/maxKilometer'),
+            url: '/api/publications/maxKilometer',
             async: false,
             dataType: 'json',
             success: function (data) {
