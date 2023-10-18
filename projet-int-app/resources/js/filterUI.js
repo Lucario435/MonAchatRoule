@@ -1,3 +1,4 @@
+import {askUserLocation,getDistanceByTransportMethod} from './location';
 
 let filterObject = {
     selectedBrands: new Set(),
@@ -20,9 +21,9 @@ const removeAccents = str =>
     str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
 $(() => {
-    $("#page_filtre").show();
-    $("#content").hide();
-    $("#xheader").hide();
+    $("#page_filtre").hide();
+    $("#content").show();
+    $("#xheader").show();
     //$("#span-price").hide();
 
     // The Boutons filter and order
@@ -185,10 +186,6 @@ $(() => {
                 async: false,
                 dataType: 'html',
                 success: function (data) {
-                    //console.log(data);
-                    let html = $(data).html();
-                    let content = $(data).find("#content").find("#content");
-                    console.log(data);
                     $("#content").html(data);
                 },
                 error: (xhr) => { console.log(xhr); }
@@ -202,9 +199,15 @@ $(() => {
         resetFilters();
     });
     
-    $(".orderby-element").on("click", function (element) {
-        console.log(element);
-        $(element.currentTarget).toggleClass("selected-element");
+    $(".orderby-element > div > input").on("change", function (element) {
+        console.log(element.currentTarget.id);
+        console.log(element.currentTarget.value);
+        filterObject[element.currentTarget.name] = element.currentTarget.id;
+        console.log(filterObject);
+        if(element.currentTarget.name == "orderMileage"){
+            let coordinateUser = askUserLocation();
+            //getDistanceByTransportMethod(coordinateUser,);
+        }
     });
 
     listFilterDataFromServer("brand", "brands", "selectedBrands");
@@ -434,10 +437,10 @@ $(() => {
         $(`#val-max-kilometer-error`).remove();
         $('#amount-price').html(' ');
         $('#amount-kilometer').html(' ');
-        // $('#span-kilometer').remove();
-        // $('#span-price').remove();
+        $('.orderby-element > div > input').prop("checked",false);
         $(`#slider-range-price`).slider("values",[0,getHighestPriceItemFromServer()])
         $(`#slider-range-kilometer`).slider("values",[0,getHighestKilometerItemFromServer()])
+        
         setBackgroundColor("#btn-search", "green");
         ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
     }

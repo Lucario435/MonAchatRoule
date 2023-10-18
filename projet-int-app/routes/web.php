@@ -145,3 +145,9 @@ Route::get('/api/publications/maxKilometer',function ()
 //         return PublicationResource::collection(Publication::all())->pluck('brand');
 //     }
 // );
+
+
+// Bing map test
+Route::get('map',function() {
+    return view("map");
+});

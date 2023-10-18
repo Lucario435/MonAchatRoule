@@ -99,10 +99,11 @@ hr{
 
 /* Styles pour les boutons radio carrés */
 input[type="radio"] {
-    appearance: none; /* Masque l'apparence par défaut des boutons radio */
-    width: 2em; /* Largeur souhaitée pour les boutons radio */
-    height: 2em; /* Hauteur souhaitée pour les boutons radio */
-    outline: 1px solid black;
+    /* appearance: none; Masque l'apparence par défaut des boutons radio */
+    
+    width: 1em; /* Largeur souhaitée pour les boutons radio */
+    height: 1em; /* Hauteur souhaitée pour les boutons radio */
+    /* outline: 1px solid black; */
     background-color: white; /* Couleur de fond par défaut */
     border-radius: 4px; /* Pas de coin arrondi */
     cursor: pointer; /* Curseur de type main pour indiquer la possibilité de cliquer */
@@ -112,12 +113,12 @@ input[type="radio"] {
 
 /* Styles lorsque le bouton radio est sélectionné */
 input[type="radio"]:checked {
-    background-color: #004aad; /* Couleur de fond grise lorsqu'il est sélectionné */
+    background-color:#002c66; /* Couleur de fond grise lorsqu'il est sélectionné */
+    background-image: url();
     transition: 0.5s;
 }
 
 input[type="radio"]:hover {
-    outline: 3px solid black;
     transition: 0.1s;
 }
 

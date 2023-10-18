@@ -153,20 +153,7 @@ class PublicationController extends Controller
 
         //dd(count($tab));
         if (count($tab) > 0) {
-            // $publications = Publication::where(
-            //     function ($query) use ($tab) {
-            //     foreach($tab as $key => $item) {
-            //         //dd($key);
-            //         foreach ($item as $value) {
-            //             $query->orWhere($key, '=',  str_replace(',',' ',$value));
-            //         }
-            //         // Checks if we still can do AND operator between different keys until there is no more key
-            //         // if(count($tab) > 0 && end($tab) != $tab[count($tab)-1]){
-            //         //     $query->Where();
-            //         // }
-            //     }
-            //     dd($query->toSql());
-            // })->get();
+
             DB::enableQueryLog();
             $publications = DB::table('publications')->where(
                 function ($query) use ($tab) {
