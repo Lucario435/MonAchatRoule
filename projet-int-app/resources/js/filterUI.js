@@ -32,7 +32,7 @@ $(() => {
         console.log("click on filters");
         $("#content").hide();
         $("#xheader").hide();
-        $(".footer").hide();
+        $("#footer").hide();
         $("#xtitle").hide();
         $("#menu").hide();
         $("#page_filtre").show();

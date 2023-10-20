@@ -17,3 +17,4 @@
         @include('publications.carte')
     </span>
 @endsection
+

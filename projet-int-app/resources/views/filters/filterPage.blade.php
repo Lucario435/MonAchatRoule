@@ -1,4 +1,4 @@
-<div class="page-on-top container-fluid w-100 h-auto" id="page_filtre" style="display: block;min-height:100%; background-color:var(--blueheader);color:white;">
+<div class="page-on-top container-fluid w-100 h-auto" id="page_filtre">
     <div class="grid text-start row-gap-5 ">
         <div class="row pt-4 ">
             <label class="row w-100 p-0 m-0">
