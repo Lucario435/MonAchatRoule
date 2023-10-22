@@ -2,7 +2,10 @@
 @push('css')
     @vite(['resources/css/register.css'])
 @endpush
-@section('title', 'Création de compte')
+
+@section('title', )
+    <h1 id="xtitle">Création de compte</h1>
+@endsection
 
 @section('content')
     @push('js')

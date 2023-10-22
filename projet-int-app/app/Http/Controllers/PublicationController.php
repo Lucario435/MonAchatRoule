@@ -25,7 +25,8 @@ class PublicationController extends Controller
     }
 
     //Returns the detail page of a publication and it's values images are taken only in the html in a foreach
-    public function detail($id){
+    public function detail($id)
+    {
         $publication = Publication::find($id);
         $images = Image::all();
 
@@ -86,7 +87,7 @@ class PublicationController extends Controller
 
         //Temporairement, c'est le id 1 qui publie les annonces à effacer quand le login fonctionnera
         //else{
-            $data['user_id'] = Auth::id();
+        $data['user_id'] = Auth::id();
         //}
 
         //The default status of the publication will be "ok"
@@ -100,16 +101,26 @@ class PublicationController extends Controller
         //!!! In the future, the route will redirect to "mes annonces" or the page "détail" and the user will be able to see it on top of the list
         return redirect(route('image.create'))->with('message', 'Publication créé avec succès!');
     }
-    public function viewupdate(Request $r, $pid){
+    public function viewupdate(Request $r, $pid)
+    {
         $p = Publication::find($pid);
-        if($p == null){return to_route("index");}
-        if($p->user_id != Auth::id()){return to_route("index");}
-        return view('publications.create',["isEdit" => true, "pid" => $pid, "publication" => $p]);
+        if ($p == null) {
+            return to_route("index");
+        }
+        if ($p->user_id != Auth::id()) {
+            return to_route("index");
+        }
+        return view('publications.create', ["isEdit" => true, "pid" => $pid, "publication" => $p]);
     }
-    public function update(Request $request, $id){ //post
+    public function update(Request $request, $id)
+    { //post
         $p = Publication::find($id);
-        if($p == null){return to_route("index");}
-        if($p->user_id != Auth::id()){return to_route("index");}
+        if ($p == null) {
+            return to_route("index");
+        }
+        if ($p->user_id != Auth::id()) {
+            return to_route("index");
+        }
         $data = $request->validate([
             //publication validation
             'title' => 'required',
@@ -137,7 +148,7 @@ class PublicationController extends Controller
         $data["user_id"] = Auth::id();
         // Update the publication with the validated data
         $publication->update($data);
-        return redirect(route('image.edit',["id" => $publication->id]))->with('message', 'Publication mise à jour avec succès!');
+        return redirect(route('image.edit', ["id" => $publication->id]))->with('message', 'Publication mise à jour avec succès!');
     }
 
     public function search(Request $request)
@@ -145,16 +156,34 @@ class PublicationController extends Controller
         // Inspired by this source
         // https://stackoverflow.com/q/61479114
         $params = $request->query();
-
+        $orderByCommand = "order";
+        $eqTable = [
+            "orderMileage"=>"kilometer",
+            "orderPrice"=>"fixedPrice",
+            "orderDateAdded"=>"created_at",
+            "orderDistance"=>"distance",
+        ];
         $tab = array();
-        foreach ($params as $key => $item) {
-            $tab[$key] = explode(',', $item);
+        $orderByRequest = "";
+        
+        foreach ($params as $key => $item) {                   
+            //dd($item);   
+            if(substr($key,0,5) == $orderByCommand){
+                $orderByRequest .= $eqTable[$key] .' '. $item.', ';
+            }
+            else{
+                $item = explode(',', $item);
+                $tab[$key] = $item;
+            }
         }
-
+        // Remove tha last virgule causing sql problem
+        strlen($orderByRequest) == 0 ? $orderByRequest = "created_at ASC": $orderByRequest = rtrim($orderByRequest,', ');;
+        //dd($orderByRequest);  
         //dd(count($tab));
+        DB::enableQueryLog();
         if (count($tab) > 0) {
 
-            DB::enableQueryLog();
+            
             $publications = DB::table('publications')->where(
                 function ($query) use ($tab) {
                     foreach ($tab as $key => $item) {
@@ -169,23 +198,26 @@ class PublicationController extends Controller
                                         $query->Where("kilometer", '>=', ($value));
                                     else if ($key == "maxMileage")
                                         $query->Where("kilometer", '<=', ($value));
-                                    else
+                                    else{
+                                        ///dd(DB::getQueryLog());
                                         $query->orWhere($key, '=',  str_replace(',', ' ', $value));
+                                    }
                                 }
                             }
                         );
                     }
                     //dd($query->toSql());
                 }
-            )->get();
+            )->orderByRaw($orderByRequest)->get();
 
-            //dd(DB::getQueryLog());
+            
             //dd
 
             $images = Image::all();
         } else {
             //dd("enter else");
-            $publications = Publication::all();
+            $publications = DB::table('publications')->orderByRaw($orderByRequest)->get();
+            //dd(DB::getQueryLog());
             $images = Image::all();
         }
 

@@ -7,7 +7,10 @@
     @vite(['resources/js/show_hide_password.js'])
     @vite(['resources/js/phone_number_formatter.js'])
 @endpush
-@section('title', 'Accédez à votre compte')
+
+@section('title')
+    <h1 id="xtitle">Accédez à votre compte</h1>
+@endsection
 
 @section('content')
     <form action="/login" method="POST" style="width:350px; margin:auto;">

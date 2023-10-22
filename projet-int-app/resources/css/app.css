@@ -14,9 +14,12 @@
     --notification-color: rgb(12, 85, 232);
     --mobileWidth: 768px;
 }
-html,body{
+
+html,
+body {
     height: 100%;
 }
+
 body,
 h1,
 ul,
@@ -268,13 +271,43 @@ input[type="checkbox"]:checked {
     margin: 10px 0;
 }
 
-/* #orderby-list > *:first-child {
-    margin: 0px;
-} */
+.hidden {
+    display: none;
+}
 
 #page_filtre {
     display: block;
     min-height: 100%;
     background-color: var(--blueheader);
     color: white;
+}
+/* from font awesome site */
+/* Step 1: Common Properties: All required to make icons render reliably */
+.icon::before {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Step 2: Reference Individual Icons */
+.arrow-asc::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 700;
+    color: greenyellow;
+    content: "\f163";
+}
+
+/* Note: Make sure to include the correct weight and Unicode value for the icon */
+.arrow-desc::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 700;
+    color: rgb(231, 148, 5);
+    content: "\f886";
+}
+
+.selected-element{
+    background-color: white;
+    color: black;
 }
