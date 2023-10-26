@@ -158,35 +158,48 @@ class PublicationController extends Controller
         $params = $request->query();
         $orderByCommand = "order";
         $eqTable = [
-            "orderMileage"=>"kilometer",
-            "orderPrice"=>"fixedPrice",
-            "orderDateAdded"=>"created_at",
-            "orderDistance"=>"distance",
+            "orderMileage" => "kilometer",
+            "orderPrice" => "fixedPrice",
+            "orderDateAdded" => "created_at",
+            "orderDistance" => "distance",
         ];
-        $tab = array();
-        $orderByRequest = "";
-        
-        foreach ($params as $key => $item) {                   
+        $filteringCriterias = [];
+        $orderByRequest = [];
+        $order = "";
+        $userCoordinates = '';
+        $boolRequestDistances = false;
+
+        foreach ($params as $key => $item) {
             //dd($item);   
-            if(substr($key,0,5) == $orderByCommand){
-                $orderByRequest .= $eqTable[$key] .' '. $item.', ';
-            }
-            else{
-                $item = explode(',', $item);
-                $tab[$key] = $item;
+            if (substr($key, 0, 5) == $orderByCommand) {
+                $orderByRequest[$eqTable[$key]] = explode(',', $item);
+                $order = $eqTable[$key];
+                if ($order == "distance") {
+                    $temp = explode(',', $item);
+                    //dd($temp);
+                    $userCoordinates = $temp[1] . ',' . $temp[2];
+                    $boolRequestDistances = true;
+                }
+            } else {
+                //$item = explode(',', $item);
+                $filteringCriterias[$key] = explode(',', $item);
+                //$filteringCriterias[$key] = $item;
             }
         }
-        // Remove tha last virgule causing sql problem
-        strlen($orderByRequest) == 0 ? $orderByRequest = "created_at ASC": $orderByRequest = rtrim($orderByRequest,', ');;
-        //dd($orderByRequest);  
-        //dd(count($tab));
-        DB::enableQueryLog();
-        if (count($tab) > 0) {
 
-            
+        $sortingCriterias = [];
+        foreach ($orderByRequest as $column => $data) {
+            $sortingCriterias[] = [$column, $data[0]];
+        }
+
+        // Remove tha last virgule causing sql problem
+        //strlen($orderByRequest) == 0 ? $orderByRequest = "created_at ASC" : $orderByRequest = rtrim($orderByRequest, ', ');;
+
+        DB::enableQueryLog();
+        if (count($filteringCriterias) > 0) {
             $publications = DB::table('publications')->where(
-                function ($query) use ($tab) {
-                    foreach ($tab as $key => $item) {
+                function ($query) use ($filteringCriterias) {
+                    foreach ($filteringCriterias as $key => $item) {
                         $query->where(
                             function ($query) use ($item, $key) {
                                 foreach ($item as $value) {
@@ -198,7 +211,7 @@ class PublicationController extends Controller
                                         $query->Where("kilometer", '>=', ($value));
                                     else if ($key == "maxMileage")
                                         $query->Where("kilometer", '<=', ($value));
-                                    else{
+                                    else {
                                         ///dd(DB::getQueryLog());
                                         $query->orWhere($key, '=',  str_replace(',', ' ', $value));
                                     }
@@ -206,21 +219,102 @@ class PublicationController extends Controller
                             }
                         );
                     }
-                    //dd($query->toSql());
                 }
-            )->orderByRaw($orderByRequest)->get();
+            )->get();
 
-            
-            //dd
+            if ($boolRequestDistances) {
 
-            $images = Image::all();
+                foreach ($publications as $key => $value) {
+                    //dd($publications->$key);
+                    $postalCode = preg_replace('/\s+/', '', $publications[$key]->postalCode);
+                    $publications[$key]->distance = $this->getTravelDistance($userCoordinates, $postalCode);
+                }
+            }
+
+            $publications = $publications->sortBy($sortingCriterias);
+            dd($publications);
         } else {
-            //dd("enter else");
-            $publications = DB::table('publications')->orderByRaw($orderByRequest)->get();
+
+            $publications = DB::table('publications')->get();
+
+            //If we do have distance in query params, then we add the calculated distance in order to use later
+            //dd($orderByRequest['distance'] != null);
+            if ($boolRequestDistances) {
+
+                //$userCoordinates = $OrderUserCoordinates[1] . ',' . $OrderUserCoordinates[2];
+
+                foreach ($publications as $key => $value) {
+                    //dd($publications->$key);
+                    $postalCode = preg_replace('/\s+/', '', $publications[$key]->postalCode);
+                    $publications[$key]->distance = $this->getTravelDistance($userCoordinates, $postalCode);
+                }
+            }
+
+            //$publications = DB::table('publications')->orderByRaw($orderByRequest)->get();
+
+            //$publications = collect($publications);
+            // ->sortBy(function ($pub) use ($orderByRequest) {
+            //     $result = '';
+            //     foreach ($orderByRequest as $column => $param) {
+            //         $result .= $param[0].' '.$param[1][0];
+            //         //dd($result);
+            //     }
+            //     return $result;
+            // });
+
+
+
+            // $sortingCriterias = [];
+            // foreach ($orderByRequest as $column => $data) {
+            //     $sortingCriterias[] = [$column, $data[0]];
+            // }
+
+            $publications = $publications->sortBy(
+                $sortingCriterias
+            );
+
             //dd(DB::getQueryLog());
-            $images = Image::all();
+
+            //dd($publications);
+
+
+
         }
 
+        $images = Image::all();
+
+        //dd($publications);
+
         return view('publications.carte', ['publications' => $publications, 'images' => $images]);
+    }
+    private function getTravelDistance($wp1, $wp2)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0=$wp1&wp.1=$wp2&key=AtND6We4q6ydLy0dVPwZ1NGD__tCGQzhVSIhMA4EQnSTMVgtOg9TwWhOYzYvVzVC", // your preferred link
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_TIMEOUT => 30000,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                // Set Here Your Requesred Headers
+                'Content-Type: application/json',
+            ),
+        ));
+        //dd($curl);
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+
+        if ($err) {
+            return ("cURL Error #:" . $err);
+        } else {
+            return (json_decode($response)->resourceSets[0]->resources[0]->travelDistance);
+        }
+    }
+    private function testThing()
+    {
     }
 }

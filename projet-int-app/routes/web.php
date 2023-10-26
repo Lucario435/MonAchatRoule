@@ -153,3 +153,18 @@ Route::get('/api/publications/maxKilometer',function ()
 Route::get('map',function() {
     return view("map");
 });
+// Get code postales
+Route::get('/api/publications/postalcodes',function ()
+    {
+        $publications = Publication::all()->map(function ($pub){
+            return ['id'=>$pub['id'],'postalcode'=>$pub['postalCode']];
+        });
+        return $publications;
+    }
+);
+// Get newest publication
+Route::get('/api/publications/newest',function ()
+    {
+        return Publication::all()->pluck('updated_at')->sortByDesc('updated_at')->first();
+    }
+);

@@ -84,6 +84,7 @@
     <br>
     <br>
     <br>
+    @if($publication->distance)<div class="card-kilometer">{{$publication->distance}} km</div>@endif
     <div class="card-kilometer">{{$publication->kilometer}} km</div>
     <a title="Google Maps" href="http://google.com/maps?q={{$publication->postalCode}}">
         <img class="card-location-icon" src="{{asset('img/GMLogo.svg')}}"/>

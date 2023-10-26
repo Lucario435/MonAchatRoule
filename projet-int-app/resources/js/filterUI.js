@@ -1,4 +1,4 @@
-import { askUserLocation, getDistanceByTransportMethod } from './location';
+import { UserLocation, getWayPointFromZipCode, getTravelDistance } from './location';
 
 let filterObject = {
     selectedBrands: new Set(),
@@ -23,6 +23,7 @@ const removeAccents = str =>
 
 $(() => {
     showFilterPage();
+
     $("#orderby-list").html(
         createOrderByElementDiv("orderDateAdded", "Date d'ajout") +
         createOrderByElementDiv("orderPrice", "Prix") +
@@ -35,11 +36,13 @@ $(() => {
         let key = $(event.currentTarget).attr("order");
         let orderType = filterObject[key][1] == "asc" ? "desc" : "asc";
         let checkedState = filterObject[key][0];
-        filterObject = { ...filterObject, [key]: [checkedState, orderType] }
+        //filterObject = { ...filterObject, key: [...checkedState, orderType] }
+        filterObject[key][0] = checkedState;
+        filterObject[key][1] = orderType;
         console.log(filterObject[key]);
         $(a).toggleClass("arrow-desc");
         $(a).toggleClass("arrow-asc");
-        console.log(a);
+        //console.log(a);
     });
     $(".fa-long-arrow-alt-up").on("click", function (event) {
         let selectedElement = $(event.target).parent();
@@ -54,10 +57,10 @@ $(() => {
             selectedElement.fadeIn(200);
         }
 
-        console.log(selectedElement.attr("id"));
+        //console.log(selectedElement.attr("id"));
 
 
-        console.log("prev element:", prevElementId);
+        //console.log("prev element:", prevElementId);
     });
     $(".fa-long-arrow-alt-down").on("click", function (event) {
         let selectedElement = $(event.target).parent();
@@ -70,37 +73,21 @@ $(() => {
         }
         selectedElement.hide();
         selectedElement.fadeIn(200);
-        console.log(selectedElement.attr("id"));
+        //console.log(selectedElement.attr("id"));
 
 
-        console.log("after element:", afterElementId);
+        //console.log("after element:", afterElementId);
     });
-    function showFilterPage() {
-        $("#content").hide();
-        $("#xheader").hide();
-        $("#footer").hide();
-        $("#xtitle").hide();
-        $("#menu").hide();
-        $("#page_filtre").show();
-    }
-    function hideFilterPage() {
-        $("#content").show();
-        $("#xheader").show();
-        $("#footer").show();
-        $("#xtitle").show();
-        $("#menu").show();
-        $("#page_filtre").hide();
-    }
+
     // The Boutons filter and order
 
     $("#filters").on("click", function (event) {
-        console.log("click on filters");
+        //console.log("click on filters");
         showFilterPage();
     });
 
     $("#close_page_filters").on("click", function (event) {
         hideFilterPage()
-
     });
 
     $("#order").on("click", function (event) {
@@ -134,7 +121,7 @@ $(() => {
 
                 filterObject.selectedMinPrice = parseInt($("#min_price").val());
 
-                console.log(filterObject.selectedMinPrice);
+                //console.log(filterObject.selectedMinPrice);
                 if ($("#min_price").val() == '') {
                     filterObject.numberSelectedFilters--;
                     filterObject.selectedMinPrice = null;
@@ -142,7 +129,7 @@ $(() => {
                 setErrorMaxInput("price", $("#max_price").val(), filterObject.selectedMinPrice);
 
                 ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
-                console.log("min price changed " + filterObject.selectedMinPrice);
+                //console.log("min price changed " + filterObject.selectedMinPrice);
             })
             $("#max_price").on("input", function (ev) {
                 if (filterObject.selectedMaxPrice == null)
@@ -158,7 +145,7 @@ $(() => {
                 setErrorMaxInput("price", $("#max_price").val(), filterObject.selectedMinPrice);
 
                 ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
-                console.log("max kilometer changed " + filterObject.selectedMaxPrice);
+                //console.log("max kilometer changed " + filterObject.selectedMaxPrice);
             })
         }
         else if ($(span).is(":hidden")) {
@@ -193,7 +180,7 @@ $(() => {
 
                 filterObject.selectedMinMileage = parseInt($("#min_kilometer").val());
 
-                console.log(filterObject.selectedMinMileage);
+                //console.log(filterObject.selectedMinMileage);
                 if ($("#min_kilometer").val() == '') {
                     filterObject.numberSelectedFilters--;
                     filterObject.selectedMinMileage = null;
@@ -201,7 +188,7 @@ $(() => {
                 setErrorMaxInput("kilometer", $("#max_kilometer").val(), filterObject.selectedMinMileage);
 
                 ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
-                console.log("min kilometer changed " + filterObject.selectedMinMileage);
+                //console.log("min kilometer changed " + filterObject.selectedMinMileage);
             })
             $("#max_kilometer").on("input", function (ev) {
 
@@ -218,7 +205,7 @@ $(() => {
                 setErrorMaxInput("kilometer", $("#max_kilometer").val(), filterObject.selectedMinMileage);
 
                 ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
-                console.log("max kilometer changed " + filterObject.selectedMaxMileage);
+                //console.log("max kilometer changed " + filterObject.selectedMaxMileage);
             })
 
             if (filterObject.errorMaxMilage) {
@@ -241,7 +228,7 @@ $(() => {
     // Submit the search
     $("#btn-search").on("click", (e) => {
 
-        console.log($(".erreur").length);
+        //console.log($(".erreur").length);
         if ($(".erreur").length > 0) {
             console.log("Il ya des erreurs");
         }
@@ -268,18 +255,29 @@ $(() => {
     });
 
     $(".orderby-element > div > input").on("change", function (element) {
-        console.log(element.currentTarget.name, $(element.target).is(":checked"));
+        //console.log(element.currentTarget.name, $(element.target).is(":checked"));
         let key = element.currentTarget.name;
         let checkedState = $(element.target).is(":checked");
         let orderType = filterObject[key][1];
-        console.log(filterObject[key][1]);
+        //console.log(filterObject[key][1]);
         //filterObject[element.currentTarget.name] = $(element).prop("checked");
         filterObject = { ...filterObject, [key]: [checkedState, orderType] }
 
-        //console.log(filterObject);
-        if (element.currentTarget.name === "orderMileage") {
-            let coordinateUser = askUserLocation();
-            //getDistanceByTransportMethod(coordinateUser,);
+        if (element.currentTarget.name === "orderDistance" && checkedState) {
+            // There is a problem with a div displaying above filters when asking for user location or denied user location
+            const coordinateUser = UserLocation;
+            console.log(coordinateUser);
+            filterObject = { ...filterObject, [key]: [checkedState, orderType,coordinateUser] }
+            //let codesPostales = getCodesPostalesFromServer();
+            console.log(filterObject[key]);
+
+            
+            //let locations = getDistancesFromLocations([coordinateUser.lat, coordinateUser.long], codesPostales);
+            //setCookie("locations",locations);
+
+            //getWayPointFromZipCode('j7h1b6');
+            //testGetDist();
+            //getTravelDistance([45.6261632,-73.8656256],[]);
         }
     });
 
@@ -289,7 +287,22 @@ $(() => {
 
     listFilterDataFromServer("transmission", "transmissions", "selectedTransmissions");
 
-
+    function showFilterPage() {
+        $("#content").hide();
+        $("#xheader").hide();
+        $("#footer").hide();
+        $("#xtitle").hide();
+        $("#menu").hide();
+        $("#page_filtre").show();
+    }
+    function hideFilterPage() {
+        $("#content").show();
+        $("#xheader").show();
+        $("#footer").show();
+        $("#xtitle").show();
+        $("#menu").show();
+        $("#page_filtre").hide();
+    }
     function createOrderByElementDiv(inputName, labelText) {
         // removed from last span: fas fa-exchange-alt fa-rotate-90
         return (`
@@ -306,7 +319,7 @@ $(() => {
 
             <div class="col-1 d-flex align-items-center 
                             justify-content-end p-0" style=width:40px>
-                <input id=${inputName} name=${inputName} type="checkbox" style="font-size:15px;">
+                <input class=input-checkmark id=${inputName} name=${inputName} type="checkbox" style="font-size:15px;">
             </div>
             <label class="col-6 text-start d-flex align-items-center" for=${inputName}>
                 <div>
@@ -366,7 +379,7 @@ $(() => {
     function listFilterDataFromServer(filter, plural, selectedList) {
         $(`#label-${filter}`).on("click", function (ev) {
             let isDisplayed = $(`#${filter}-list`).length;
-            console.log(isDisplayed);
+            //console.log(isDisplayed);
 
             if (!isDisplayed) {
                 // Do ajax call to get all makes of cars in DB
@@ -385,7 +398,7 @@ $(() => {
                 let output = `
                 <span id=${filter}-list>
                 <div class="row" style="min-height: 20px;"></div>`;
-                console.log(filterObject);
+                //console.log(filterObject);
                 $.each(elements, function (element, nombre) {
                     output += `
                     <div class="row ${filterObject[element] ? 'selected-element' : ''}" ${filter}=${element} >
@@ -414,7 +427,7 @@ $(() => {
                 // Setting up listeners for selection of filter    
                 $.each(elements, function (element, nombre) {
                     $(`div[${filter}=${element}]`).on("click", (ev) => {
-                        console.log(element);
+                        //console.log(element);
                         $(`div[${filter}=${element}]`).toggleClass("selected-element");
                         if ($(`div[${filter}=${element}]`).hasClass("selected-element")) {
                             switch (selectedList) {
@@ -462,7 +475,7 @@ $(() => {
                             ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
                         }
                         filterObject[element] = $(`div[${filter}=${element}]`).hasClass("selected-element");
-                        console.log(filterObject[element]);
+                        //console.log(filterObject[element]);
                     });
                 })
             } else {
@@ -472,7 +485,7 @@ $(() => {
     }
     function searchUrlBuilder(endpointUrl) {
         let url = endpointUrl;
-        console.log(filterObject)
+        //console.log(filterObject)
         if (filterObject.selectedBrands.size > 0)
             url += `brand=${formatArrayToUrl(filterObject.selectedBrands)}&`;
         if (filterObject.selectedBodyType.size > 0)
@@ -491,13 +504,17 @@ $(() => {
         console.log("URL: " + url)
         return removeAccents(url);
     }
-    function setOrdersOrder(url){
+    function setOrdersOrder(url) {
         console.log($("#orderby-list > div"));
-        $("#orderby-list > div").each(function(i,e){
+        $("#orderby-list > div").each(function (i, e) {
             let id = jQuery(e).attr("id").slice(3);
             console.log(id);
-            if(filterObject[id][0] != false)
-                url += `${id}=${filterObject[id][1]}&`
+            // Consider we need to send the user coordinates with request of type distance
+            if (filterObject[id][0] != false)
+                if(filterObject[id] == filterObject.orderDistance)
+                    url += `${id}=${filterObject[id][1]},${filterObject[id][2]['lat']},${filterObject[id][2]['long']}&`
+                else
+                    url += `${id}=${filterObject[id][1]}&`
         })
         return url;
     }
@@ -506,7 +523,7 @@ $(() => {
         array.forEach(element => {
             tab.push(element);
         });
-        console.log("formatArrayTOUrl: " + tab.toString());
+        //console.log("formatArrayTOUrl: " + tab.toString());
 
         return tab;
     }
@@ -572,7 +589,7 @@ $(() => {
             async: false,
             dataType: 'json',
             success: function (data) {
-                console.log(parseInt(data));
+                //console.log(parseInt(data));
                 response = parseInt(data);
             },
             error: (xhr) => { console.log(xhr); }
@@ -587,13 +604,56 @@ $(() => {
             async: false,
             dataType: 'json',
             success: function (data) {
-                console.log(parseInt(data));
+                //console.log(parseInt(data));
                 response = parseInt(data);
             },
             error: (xhr) => { console.log(xhr); }
         });
         return response;
     }
+    function getCodesPostalesFromServer() {
+        let response;
+        $.ajax({
+            url: '/api/publications/postalcodes',
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                response = data;
+            },
+            error: (xhr) => { console.log(xhr); }
+        });
+        return response;
+    }
+    function getDistancesFromLocations(userCoordinates, locations) {
+        //console.log(userCoordinates);
+        locations.forEach((location) => {
+            let destination = getWayPointFromZipCode(location.postalcode.replaceAll(' ', ''));
+            location['distance'] = getTravelDistance(userCoordinates, destination);
+            //console.log(location);
+        });
+        console.log(locations);
 
-
+        return locations;
+    }
+    function setCookie(name, data) {
+        $.cookie(name, data);
+    }
+    function readCookie(name) {
+        return $.cookie(name);
+    }
+    function serverNewestPublication() {
+        let response;
+        $.ajax({
+            url: '/api/publications/newest',
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                response = data;
+            },
+            error: (xhr) => { console.log(xhr); }
+        });
+        return response;
+    }
 });
