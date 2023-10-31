@@ -345,7 +345,7 @@ body{
 }
 /*CSS for the card state like "vendu, time remaining etc"*/
 .card-state-text{
-    position: absolute;
+    
     width: 250px;
     background-color: darkred;
     border-top-right-radius: 5px;
