@@ -50,7 +50,7 @@
                 <input class="inputForm" type="text" maxlength="32" name="title" required placeholder="Titre (Suggestion : Marque Modèle Année)" value="{{ isset($publication) ? $publication->title : old('title') }}" />
             </div>
             <div>
-                <textarea type="textarea" rows="9" maxlength="500" name="description" placeholder="Description">{{ isset($publication) ? $publication->description : old('description') }}</textarea>
+                <textarea type="textarea" rows="9" maxlength="500" required name="description" placeholder="Description">{{ isset($publication) ? $publication->description : old('description') }}</textarea>
             </div>
             <div id="hintActivator">
                 <div>
@@ -76,8 +76,11 @@
                 <input class="inputForm" type="number" max="999999" min="0" step="1" name="kilometer" required placeholder="Kilomètrage" value="{{ isset($publication) ? $publication->kilometer : old('kilometer') }}"/>
             </div>
             <div>
+                <input class="inputForm" type="number" max="2040" min="1700" step="1" name="year" required placeholder="Année" value="{{ isset($publication) ? $publication->year : old('year') }}"/>
+            </div>
+            <div>
                 <!--Vérifier que ça n'est pas null-->
-                <select id="brand" name="brand" required>
+                <select class="selectors" id="brand" name="brand" required>
                     <option disabled selected value="">*Marque*</option>
                     <option value="Acura">Acura</option>
                     <option value="Alfa Romeo">Alfa Romeo</option>
@@ -112,7 +115,7 @@
                 </select>
             </div>
             <div>
-                <select id="bodyType" name="bodyType" required>
+                <select class="selectors" id="bodyType" name="bodyType" required>
                     <option disabled selected value="">*Carosserie*</option>
                     <option value="Berline">Berline</option>
                     <option value="VUS">VUS</option>
@@ -125,7 +128,7 @@
                 </select>
             </div>
             <div>
-                <select id="transmission" name="transmission" required>
+                <select class="selectors" id="transmission" name="transmission" required>
                     <option disabled selected value="">*Transmission*</option>
                     <option value="Automatique">Automatique</option>
                     <option value="Manuelle">Manuelle</option>
@@ -133,7 +136,7 @@
                 </select>
             </div>
             <div>
-                <select id="color" name="color" required>
+                <select class="selectors" id="color" name="color" required>
                     <option disabled selected value="">*Couleur*</option>
                     <option value="orange">Blanc</option>
                     <option value="Noir">Noir</option>
@@ -145,6 +148,15 @@
                     <option value="Orange">Orange</option>
                     <option value="Autre">Autre</option>
                 </select>
+            </div>
+            <div>
+                <select class="selectors" id="fuelType" name="fuelType" required>
+                    <option disabled selected value="">*Type d'essence*</option>
+                    <option value="Électrique">Électrique</option>
+                    <option value="Essence">Essence</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Autre">Autre</option>
+                </select>    
             </div>
             <div style="display:block; align-items:center;">
                 <br>

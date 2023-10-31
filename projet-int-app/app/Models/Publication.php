@@ -27,6 +27,8 @@ class Publication extends Model
         'fixedPrice',
         'kilometer',
         //MISSING carburant and year
+        'year',
+        'fuelType',
         'bodyType',
         'transmission',
         'brand',

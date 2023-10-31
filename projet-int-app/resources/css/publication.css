@@ -1,7 +1,10 @@
 .align-center{
     margin:auto;
 }
-
+.selectors{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
 .text-alignement{
     text-align: center;
 }
@@ -50,7 +53,6 @@ select{
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 10px;
     width: 80%;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -71,6 +73,11 @@ select{
     font-weight: bold;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+.not-available
+{
+    color: gray;
+    font-weight: bolder;
 }
 #hint{
     transition: 1s; /* Specify 'transform' property and duration in seconds */

@@ -67,7 +67,7 @@ class PublicationController extends Controller
         $data = $request->validate([
             //publication validation
             'title' => 'required',
-            'description' => 'nullable',
+            'description' => 'required',
             'type' => 'required',
             'hidden' => 'required',
             'expirationOfBid' => 'nullable',
@@ -76,6 +76,8 @@ class PublicationController extends Controller
 
             //By default, if we will need to show car details it will only say "Not specified by owner"
             //car validation
+            'fuelType' => 'required',
+            'year' => 'required|numeric',
             'fixedPrice' => 'required|numeric', //ex : 0.00
             'kilometer' => 'nullable|numeric',
             'bodyType' => 'nullable',
@@ -138,9 +140,11 @@ class PublicationController extends Controller
         $data = $request->validate([
             //publication validation
             'title' => 'required',
-            'description' => 'nullable',
+            'description' => 'required',
             'type' => 'required',
             'hidden' => 'required',
+            'fuelType' => 'required',
+            'year' => 'required|numeric',
             'expirationOfBid' => 'nullable',
             'postalCode' => 'required',
             'fixedPrice' => 'required|numeric', //ex : 0.00

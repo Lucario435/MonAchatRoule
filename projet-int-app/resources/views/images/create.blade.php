@@ -2,13 +2,12 @@
 @php
     use Illuminate\Support\Facades\Auth;
 @endphp
+@push('css')
+    @vite(['resources/css/publication.css'])
+@endpush
 @section('title', 'Page de publication')
 {{-- valeur possible: $pid, $isEdit --}}
 @section('content')
-
-    <head>
-        <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-    </head>
 
     <body>
         <div class="align-center">

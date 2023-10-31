@@ -146,9 +146,9 @@
     <h4 class="detail-info-text">Informations du véhicule</h4>
     <hr>
     <br>
-    <div class="car-info-item" style="width: 50%; margin: auto;"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/dollar.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Prix</label><p>{{$publication->fixedPrice}}$</p></div><br></div>
+    <div class="car-info-item" style="width: 95%; margin: auto;"><br><label class="detail-info-text">Prix demandé par l'acheteur</label><br><br><p class="detail-text-emphasis">{{$publication->fixedPrice}}$</p></div>
     <br>
-    <hr> <br><h4 class="detail-info-text">Description</h4> <br>
+    <hr> <br><h4 class="detail-info-text">Description du véhicule</h4> <br>
     {{ $publication->description }}
     <br>
     <br>
@@ -160,6 +160,10 @@
         <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/transmission-manuelle.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Transmission</label><p class="detail-text-emphasis">{{$publication->transmission}}</p></div></div>
         <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/body-type.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Carosserie</label><p class="detail-text-emphasis">{{$publication->bodyType}}</p></div></div>
         <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/couleurs.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Couleur</label><p class="detail-text-emphasis">{{$publication->color}}</p></div></div>
+
+        <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/year.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Année</label><p class="detail-text-emphasis">{{$publication->year}}</p></div></div>
+        <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/essence.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Type d'essence</label><p class="detail-text-emphasis">{{$publication->fuelType}}</p></div></div>
+
         <div><a style="color: black;" class="noDec" href="http://google.com/maps?q={{$publication->postalCode}}"><div title="Google Maps vers {{$publication->postalCode}}" style="background-image: url({{asset('img/Google-Maps-Logo.png')}}); background-size: cover;"class="car-info-item location-hover"><div class="info-logo opacity" style="width: 100%;"><img class="detail-icon" src="{{asset('img/epingle.png')}}"/><div  class="detail-labels"><label class="detail-info-text">Emplacement</label><p class="detail-text-emphasis">{{$publication->postalCode}}</p></div></div></a></div>
     </div>
     </div>

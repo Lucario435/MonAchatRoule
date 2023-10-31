@@ -35,6 +35,8 @@ return new class extends Migration
             $table->integer('fixedPrice');
             $table->integer('kilometer');
             $table->string('bodyType');
+            $table->integer('year');
+            $table->string('fuelType');
             $table->string('transmission');
             $table->string('brand');
             $table->string('color');
