@@ -1,9 +1,7 @@
-<div class="page-on-top container-fluid w-100 h-auto" id="page_filtre" >
-    <div class="grid text-start row-gap-5 ">
-        <div class="row pt-4 ">
+<div class="page-on-top container-fluid w-100 h-auto " id="page_filtre">
+    <div class="grid text-start row-gap-5 scroll">
+        <div class="row pt-4">
             <label class="row w-100 p-0 m-0">
-
-                {{-- <span class="w-75 p-0" style="font-size: 22px">Filtres</span> --}}
                 <div class="col-5" style="font-size: 22px">
                     <div class="row" style="width:200px;">
                         <div class="col-4">
@@ -33,7 +31,7 @@
                 <div class="col-5 " style="font-size: 22px">
                     Marques
                 </div>
-                <div class="col-6"></div>
+                <div class="col-5"></div>
                 <div
                     class="col-1 d-flex align-items-center justify-content-center fas fa-caret-down flex-grow-1 ms-auto">
                 </div>
@@ -44,7 +42,7 @@
                 <div class="col-5 " style="font-size: 22px">
                     Carroserie
                 </div>
-                <div class="col-6"></div>
+                <div class="col-5"></div>
                 <div
                     class="col-1 d-flex align-items-center justify-content-center fas fa-caret-down flex-grow-1 ms-auto">
                 </div>
@@ -55,7 +53,7 @@
                 <div class="col-5 " style="font-size: 22px">
                     Transmission
                 </div>
-                <div class="col-6"></div>
+                <div class="col-5"></div>
                 <div
                     class="col-1 d-flex align-items-center justify-content-center fas fa-caret-down flex-grow-1 ms-auto">
                 </div>
@@ -63,10 +61,10 @@
         </div>
         <div class="row pb-3">
             <label id="label-price" class="row w-100 p-0 m-0">
-                <div class="col-5 " style="font-size: 22px">
+                <div class="col-5" style="font-size: 22px">
                     Prix
                 </div>
-                <div id="amount-price" class="col-6 d-flex align-items-end justify-content-end flex-fill">
+                <div id="amount-price" class="col-4 d-flex align-items-end justify-content-end flex-fill">
                 </div>
                 <div
                     class="col-1 d-flex align-items-center justify-content-center fas fa-caret-down flex-grow-1 ms-auto">
@@ -78,7 +76,7 @@
                 <div class="col-5 " style="font-size: 22px">
                     Kilométrage
                 </div>
-                <div id="amount-kilometer" class="col-6 d-flex align-items-end justify-content-end flex-fill">
+                <div id="amount-kilometer" class="col-4 d-flex align-items-end justify-content-end flex-fill">
                 </div>
                 <div
                     class="col-1 d-flex align-items-center justify-content-center fas fa-caret-down flex-grow-1 ms-auto">
@@ -90,7 +88,7 @@
                 <div class="col-5 " style="font-size: 22px">
                     Trier par
                 </div>
-                <div class="col-6 d-flex align-items-end justify-content-end flex-fill">
+                <div class="col-4 d-flex align-items-end justify-content-end flex-fill">
                 </div>
                 <div
                     class="col-1 d-flex align-items-center justify-content-center fas fa-caret-down flex-grow-1 ms-auto">

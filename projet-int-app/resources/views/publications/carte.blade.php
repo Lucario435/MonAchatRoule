@@ -2,7 +2,7 @@
     <!--Filters-->
 @foreach ($publications as $publication)
  <div class="cardd">
-    <a title="Plus d'informations" href="{{ route('publication.detail', ['id' => $publication->id]) }}">
+    <a class="noDec" title="Plus d'informations" href="{{ route('publication.detail', ['id' => $publication->id]) }}">
     <div class="card-state-text">
         <!--Usefull link : https://www.educative.io/answers/how-to-create-a-countdown-timer-using-javascript-->
         @if ($publication->type == "1")

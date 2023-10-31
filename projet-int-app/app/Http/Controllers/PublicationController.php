@@ -153,8 +153,7 @@ class PublicationController extends Controller
 
     public function search(Request $request)
     {
-        // Inspired by this source
-        // https://stackoverflow.com/q/61479114
+
         $params = $request->query();
         $orderByCommand = "order";
         $eqTable = [
@@ -176,14 +175,11 @@ class PublicationController extends Controller
                 $order = $eqTable[$key];
                 if ($order == "distance") {
                     $temp = explode(',', $item);
-                    //dd($temp);
                     $userCoordinates = $temp[1] . ',' . $temp[2];
                     $boolRequestDistances = true;
                 }
             } else {
-                //$item = explode(',', $item);
                 $filteringCriterias[$key] = explode(',', $item);
-                //$filteringCriterias[$key] = $item;
             }
         }
 
@@ -197,30 +193,7 @@ class PublicationController extends Controller
 
         DB::enableQueryLog();
         if (count($filteringCriterias) > 0) {
-            $publications = DB::table('publications')->where(
-                function ($query) use ($filteringCriterias) {
-                    foreach ($filteringCriterias as $key => $item) {
-                        $query->where(
-                            function ($query) use ($item, $key) {
-                                foreach ($item as $value) {
-                                    if ($key == "minPrice")
-                                        $query->Where("fixedPrice", '>=', ($value));
-                                    else if ($key == "maxPrice")
-                                        $query->Where("fixedPrice", '<=', ($value));
-                                    else if ($key == "minMileage")
-                                        $query->Where("kilometer", '>=', ($value));
-                                    else if ($key == "maxMileage")
-                                        $query->Where("kilometer", '<=', ($value));
-                                    else {
-                                        ///dd(DB::getQueryLog());
-                                        $query->orWhere($key, '=',  str_replace(',', ' ', $value));
-                                    }
-                                }
-                            }
-                        );
-                    }
-                }
-            )->get();
+            $publications = $this->getFilteredPublications($filteringCriterias);
 
             if ($boolRequestDistances) {
 
@@ -238,10 +211,9 @@ class PublicationController extends Controller
             $publications = DB::table('publications')->get();
 
             //If we do have distance in query params, then we add the calculated distance in order to use later
-            //dd($orderByRequest['distance'] != null);
+          
             if ($boolRequestDistances) {
 
-                //$userCoordinates = $OrderUserCoordinates[1] . ',' . $OrderUserCoordinates[2];
 
                 foreach ($publications as $key => $value) {
                     //dd($publications->$key);
@@ -250,34 +222,12 @@ class PublicationController extends Controller
                 }
             }
 
-            //$publications = DB::table('publications')->orderByRaw($orderByRequest)->get();
-
-            //$publications = collect($publications);
-            // ->sortBy(function ($pub) use ($orderByRequest) {
-            //     $result = '';
-            //     foreach ($orderByRequest as $column => $param) {
-            //         $result .= $param[0].' '.$param[1][0];
-            //         //dd($result);
-            //     }
-            //     return $result;
-            // });
-
-
-
-            // $sortingCriterias = [];
-            // foreach ($orderByRequest as $column => $data) {
-            //     $sortingCriterias[] = [$column, $data[0]];
-            // }
 
             $publications = $publications->sortBy(
                 $sortingCriterias
             );
 
             //dd(DB::getQueryLog());
-
-            //dd($publications);
-
-
 
         }
 
@@ -286,6 +236,34 @@ class PublicationController extends Controller
         //dd($publications);
 
         return view('publications.carte', ['publications' => $publications, 'images' => $images]);
+    }
+    private function getFilteredPublications($filteringCriterias){
+        // Inspired by this source
+        // https://stackoverflow.com/q/61479114
+        return DB::table('publications')->where(
+            function ($query) use ($filteringCriterias) {
+                foreach ($filteringCriterias as $key => $item) {
+                    $query->where(
+                        function ($query) use ($item, $key) {
+                            foreach ($item as $value) {
+                                if ($key == "minPrice")
+                                    $query->Where("fixedPrice", '>=', ($value));
+                                else if ($key == "maxPrice")
+                                    $query->Where("fixedPrice", '<=', ($value));
+                                else if ($key == "minMileage")
+                                    $query->Where("kilometer", '>=', ($value));
+                                else if ($key == "maxMileage")
+                                    $query->Where("kilometer", '<=', ($value));
+                                else {
+                                    ///dd(DB::getQueryLog());
+                                    $query->orWhere($key, '=',  str_replace(',', ' ', $value));
+                                }
+                            }
+                        }
+                    );
+                }
+            }
+        )->get();
     }
     private function getTravelDistance($wp1, $wp2)
     {
@@ -314,7 +292,5 @@ class PublicationController extends Controller
             return (json_decode($response)->resourceSets[0]->resources[0]->travelDistance);
         }
     }
-    private function testThing()
-    {
-    }
+    
 }

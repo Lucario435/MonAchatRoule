@@ -11,10 +11,14 @@
 @endpush
 @section('content')
     @include('filters.menu')
-    @include('filters.filterPage')
-
-    <span id="content">
-        @include('publications.carte')
-    </span>
+    <div class="container-sm">
+        <div class="col-4" id="filters-wrapper">
+            @include('filters.filterPage')
+        </div>
+        <div class="col content">
+            <span id="content">
+                @include('publications.carte')
+            </span>
+        </div>
+    </div>
 @endsection
-

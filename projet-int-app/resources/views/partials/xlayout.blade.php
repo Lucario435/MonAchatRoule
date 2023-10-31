@@ -30,7 +30,6 @@
     @include('partials.xheader')
 
 
-
     @yield('title'){{-- ici on mettra le nom de la page, doit etre défini dans le yield  --}}
 
 

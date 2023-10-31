@@ -1,6 +1,6 @@
 
 <div class="container-fluid w-100 text-center" style="height: 100px" id="menu">
-    <div class="row">
+    <div class="row" >
         <div class="col">
             <div class="row border">
                 <label for="filters" class="p-3 filter" id="filters">
@@ -13,7 +13,7 @@
                 </label>
             </div>
         </div>
-        <div class="col ">
+        {{-- <div class="col ">
             <div class="row border">
                 <label for="order" class="p-3 filter">
                     <span id="order">
@@ -23,6 +23,6 @@
                     </span>
                 </label>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>

@@ -22,7 +22,7 @@ const removeAccents = str =>
     str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
 $(() => {
-    showFilterPage();
+    //showFilterPage();
 
     $("#orderby-list").html(
         createOrderByElementDiv("orderDateAdded", "Date d'ajout") +
@@ -401,7 +401,7 @@ $(() => {
                 //console.log(filterObject);
                 $.each(elements, function (element, nombre) {
                     output += `
-                    <div class="row ${filterObject[element] ? 'selected-element' : ''}" ${filter}=${element} >
+                    <div class="row w-100 m-auto ${filterObject[element] ? 'selected-element' : ''}" ${filter}=${element} >
 
                         ${filter == "brand" ?
                             `<div class='col-2 text-center p-0' style='color:black;'>
