@@ -84,7 +84,7 @@
     <br>
     <br>
     <br>
-    @if(@$publication->distance)<div class="card-kilometer">{{$publication->distance}} km</div>@endif
+    @if(@$publication->distance)<div class="card-kilometer">proximité: {{$publication->distance}} km</div>@endif
     <hr style="color: black">
     <div class="card-kilometer">{{$publication->kilometer}} km</div>
     <a title="Google Maps" href="http://google.com/maps?q={{$publication->postalCode}}">

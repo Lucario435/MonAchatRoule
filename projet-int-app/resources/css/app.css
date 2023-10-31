@@ -337,9 +337,14 @@ input[type="checkbox"]:checked {
 
 
 @media (max-width:768px) {
+    .sticky-sidebar {
+        position: absolute;
+        
+       
+    }
     #page_filtre {
         display: none;
-       
+        top:0;
     }
     #menu, #menu + *  {
         padding-top: 100px;
@@ -353,8 +358,8 @@ input[type="checkbox"]:checked {
 @media (min-width: 769px) {
 
     .scroll {
-        height: 470px;
-        width: 270px;
+        font-size: 16px;
+        max-height: 100px;
         overflow-x: hidden;
         overflow-y: auto;
         scrollbar-width: none;
@@ -362,7 +367,7 @@ input[type="checkbox"]:checked {
     }
     #filters-wrapper > * {
         height: 100%;
-        max-width: 320px;
+        max-width: 250px;
         margin-left: 0;
         /* position: fixed;*/
         padding-top: 0px;
@@ -377,9 +382,9 @@ input[type="checkbox"]:checked {
         margin-top: 150px;
         margin-left: 20%;
         margin-right: auto;
-        height: 500px;
+        /* height: 500px;
         display: block;
-        overflow-y: auto;
+        overflow-y: auto; */
     
     }
 

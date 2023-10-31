@@ -1,5 +1,5 @@
 <div class="page-on-top container-fluid w-100 h-auto " id="page_filtre">
-    <div class="grid text-start row-gap-5 scroll">
+    <div class="grid text-start row-gap-5">
         <div class="row pt-4">
             <label class="row w-100 p-0 m-0">
                 <div class="col-5" style="font-size: 22px">

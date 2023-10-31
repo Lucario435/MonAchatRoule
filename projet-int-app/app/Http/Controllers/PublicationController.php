@@ -12,8 +12,7 @@ use App\Models\suiviannonce;
 use App\Models\Image;
 use Hamcrest\Type\IsNumeric;
 use Illuminate\Database\Eloquent\Casts\Json;
-
-
+use Mockery\Undefined;
 
 class PublicationController extends Controller
 {
@@ -220,7 +219,7 @@ class PublicationController extends Controller
             }
 
             $publications = $publications->sortBy($sortingCriterias);
-            dd($publications);
+            //dd($publications);
         } else {
 
             $publications = DB::table('publications')->get();
@@ -283,9 +282,9 @@ class PublicationController extends Controller
     private function getTravelDistance($wp1, $wp2)
     {
         $curl = curl_init();
-
+        
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0=$wp1&wp.1=$wp2&key=AtND6We4q6ydLy0dVPwZ1NGD__tCGQzhVSIhMA4EQnSTMVgtOg9TwWhOYzYvVzVC", // your preferred link
+            CURLOPT_URL => "http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0=$wp1&wp.1=$wp2&key=AtND6We4q6ydLy0dVPwZ1NGD__tCGQzhVSIhMA4EQnSTMVgtOg9TwWhOYzYvVzVC",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_TIMEOUT => 30000,
@@ -300,11 +299,23 @@ class PublicationController extends Controller
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
-
+        //dd($curl);
         if ($err) {
             return ("cURL Error #:" . $err);
-        } else {
-            return (json_decode($response)->resourceSets[0]->resources[0]->travelDistance);
+        } 
+        else {
+            
+            // if($res == null)
+            //     dd("address is not valid");
+            // else
+            //     return $res;
+            try {
+                $res = json_decode($response)->resourceSets[0]->resources[0]->travelDistance;
+                return $res;
+            } catch (\Throwable $th) {
+                return false;
+                // return "proximité: inconnue";
+            }
         }
     }
     

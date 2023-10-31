@@ -28,9 +28,8 @@ $(() => {
         createOrderByElementDiv("orderDateAdded", "Date d'ajout") +
         createOrderByElementDiv("orderPrice", "Prix") +
         createOrderByElementDiv("orderMileage", "Kilométrage") +
-        createOrderByElementDiv("orderDistance", "Distance ")
-
-    )
+        createOrderByElementDiv("orderDistance", "Proximité ")
+    );
     $(".arrows").on("click", function (event) {
         let a = event.target;
         let key = $(event.currentTarget).attr("order");
@@ -309,24 +308,22 @@ $(() => {
         <div class="row orderby-element" id=mv_${inputName}>
             <div class="col-1 p-0 
                 d-flex align-items-center justify-content-end 
-                fas fa-long-arrow-alt-up" style="font-size:17px;">
+                fas fa-long-arrow-alt-up">
             </div>
             <div class="col-1 p-0 
                 d-flex align-items-center justify-content-center 
-                fas fa-long-arrow-alt-down" style="font-size:17px;"
-                >
+                fas fa-long-arrow-alt-down">
             </div>
 
-            <div class="col-1 d-flex align-items-center 
-                            justify-content-end p-0" style=width:40px>
-                <input class=input-checkmark id=${inputName} name=${inputName} type="checkbox" style="font-size:15px;">
+            <div class="col-1 d-flex align-items-center justify-content-end p-0" style=width:40px>
+                <input class=input-checkmark id=${inputName} name=${inputName} type="checkbox">
             </div>
             <label class="col-6 text-start d-flex align-items-center" for=${inputName}>
                 <div>
                     ${labelText}
                 </div>
             </label>
-            <div class="col-2 arrows" order=${inputName}>
+            <div class="col-1 arrows" order=${inputName}>
                 <span class=arrow-asc></span> 
             </div>
         </div>
@@ -396,7 +393,7 @@ $(() => {
 
                 // format to html
                 let output = `
-                <span id=${filter}-list>
+                <span id=${filter}-list class=scroll>
                 <div class="row" style="min-height: 20px;"></div>`;
                 //console.log(filterObject);
                 $.each(elements, function (element, nombre) {
@@ -404,15 +401,15 @@ $(() => {
                     <div class="row w-100 m-auto ${filterObject[element] ? 'selected-element' : ''}" ${filter}=${element} >
 
                         ${filter == "brand" ?
-                            `<div class='col-2 text-center p-0' style='color:black;'>
+                            `<div class='col-2 d-flex align-items-center justify-content-center p-0' style='color:black;'>
                                 <span class="car-${element.toLowerCase()} fa-2x"></span>
                             </div>` : `<div class='col-2'> </div>`}
                         
                         <div class='col-9 text-start d-flex align-items-center'>
-                            <span class="w-75" style="font-size: 22px">${CapitalizeFirstCase(element)}</span>
+                            <span class="w-75" >${CapitalizeFirstCase(element)}</span>
                         </div>
                         <div class='col-1 p-1'>
-                            <span style="font-size: 20px">${nombre}</span>
+                            <span >${nombre}</span>
                         </div>
                     
                     </div>`;
