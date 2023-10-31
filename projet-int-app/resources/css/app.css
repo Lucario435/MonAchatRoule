@@ -6,8 +6,8 @@
 
 /* Reset some default styles for better consistency */
 :root {
-    --blueheader: rgb(35, 112, 255);
     /* Bleu */
+    --blueheader: #004aad;
     --blueForms: rgb(115, 164, 255);
     --greenbutton: #27ae5f00;
     --greenbuttonhover: rgba(0, 159, 0, 0);
@@ -125,7 +125,7 @@ li {
 
 /* Styles pour l'en-tête */
 header {
-    background-color: var(--blueheader);
+    background-image: linear-gradient(to left, #006eff , #004aad);
     color: white;
     padding: 20px 0;
 }
@@ -210,6 +210,10 @@ h1 {
     text-align: center;
     padding-top: 1rem;
     padding-bottom: 2rem;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 36px;
+    color: #232628;
 }
 
 .notification {

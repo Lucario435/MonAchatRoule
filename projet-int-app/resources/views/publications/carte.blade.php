@@ -82,12 +82,16 @@
     <br>
     <br>
     <br>
+<<<<<<< Updated upstream
     <br>
     <br>
     @if(@$publication->distance)<div class="card-kilometer">{{$publication->distance}} km</div>@endif
+=======
+    <hr style="color: black">
+>>>>>>> Stashed changes
     <div class="card-kilometer">{{$publication->kilometer}} km</div>
     <a title="Google Maps" href="http://google.com/maps?q={{$publication->postalCode}}">
-        <img class="card-location-icon" src="{{asset('img/GMLogo.svg')}}"/>
+        <img class="card-location-icon" src="{{asset('img/epingle.png')}}"/>
         <div class="card-postal-code">{{$publication->postalCode}}</div>
     </a>
 </a>

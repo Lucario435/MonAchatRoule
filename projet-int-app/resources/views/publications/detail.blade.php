@@ -4,6 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 @push('css')
     @vite(['resources/css/publication.css'])
+
 @endpush
 <!--BODY-->
 @php
@@ -100,27 +101,31 @@
     <div class="button-container">
         <div class="action-buttons" style="grid-gap:1em;">
             <a title="Contacter le vendeur" class="noDec xreducteur div-button-actions" style="margin:auto;width:100%" href="">
-                <div class="button-div  detail-contact-div-test">
+                <div class="button-div">
                     <div class="contact-icon">
-                        <img class="detail-profil-vendeur div-button-actions" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"/>
+                        <i class="fav-icon div-button-actions fa-solid fa-envelope" ></i>
                     </div>
-                        <label class="detail-labels div-button-actions" style="font-size: 80%; width: 100%;">Contacter</label>
+                        <label class="detail-labels div-button-actions">Contacter</label>
                 </div>
             </a>
             <!--Vérifier si déjà follow-->
-            <div title="Ajouter l'annonce au favoris" class="div-button-actions" style="width:100%;">
-                <a class="noDec button-div-icon"   href="{{ route('publicationfollow.store', ['id' => $publication->id]) }}">
+            <div title="Suivre l'état de l'annonce" class="div-button-actions" style="width:100%;">
+                <a class="noDec button-div"   href="{{ route('publicationfollow.store', ['publication_id' => $publication->id]) }}">
                 <!--Ramener vers le controlleur pour ajouter un contact-->
-                    <img class="fav-icon div-button-actions" src="{{asset('img/starwhite.png')}}"/>
-                    <label class="detail-labels div-button-actions">Favori</label>
+                    @if($followed)  
+                        <i class="fav-icon div-button-actions fas fa-star" style="color: orange"></i>
+                    @else
+                        <i class="fav-icon div-button-actions fa-regular fa-star"></i>
+                    @endif
+                    <label class="detail-labels div-button-actions">Suivre</label>
                 </a>
             </div>
             @auth
             @if(Auth::id() == $publication->user_id)    
                 <div title="Modifier l'annonce" class="div-button-actions" style="width:100%;">
-                    <a class="noDec button-div-icon"  href="">
+                    <a class="noDec button-div"  href="{{ route('publication.update', ['id' => $publication->id]) }}">
                     <!--Ramener vers le controlleur pour ajouter un contact-->
-                        <img class="fav-icon div-button-actions" src="{{asset('img/pencil.png')}}"/>
+                        <i class="fav-icon div-button-actions fa-solid fa-pencil"></i>
                         <label class="detail-labels div-button-actions">Modifier</label>
                     </a>
                 </div>
@@ -141,35 +146,32 @@
     <h4 class="detail-info-text">Informations du véhicule</h4>
     <hr>
     <br>
-    <div class="car-info-item" style="display: flex; width: 50%; margin: auto;"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/dollar.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Prix</label><p>{{$publication->fixedPrice}}$</p></div></div>
+    <div class="car-info-item" style="width: 50%; margin: auto;"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/dollar.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Prix</label><p>{{$publication->fixedPrice}}$</p></div><br></div>
     <br>
-    <hr> <span style="float: center;">Description:</span> <br>
+    <hr> <br><h4 class="detail-info-text">Description</h4> <br>
     {{ $publication->description }}
-    <hr>
     <br>
+    <br>
+    <hr>
     <div class="car-info ">
-        <div class="car-info-item" style="display: flex;"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/industrie.png')}}"/></div><div class="detail-labels"><label class="detail-info-text">Fabricant</label><p>{{$publication->brand}}</p></div></div>
-        <div class="car-info-item" style="display: flex;"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/compteur-de-vitesse.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Kilométrage</label><p>{{$publication->kilometer}} km</p></div></div>
+        <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/industrie.png')}}"/></div><div class="detail-labels"><label class="detail-info-text">Fabricant</label><p class="detail-text-emphasis">{{$publication->brand}}</p></div></div>
+        <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/compteur-de-vitesse.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Kilométrage</label><p class="detail-text-emphasis">{{$publication->kilometer}} km</p></div></div>
         <!--<label>Année :</label><p>À rajouter</p>-->
-        <div class="car-info-item" style="display: flex;"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/transmission-manuelle.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Transmission</label><p>{{$publication->transmission}}</p></div></div>
-        <div class="car-info-item" style="display: flex;"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/body-type.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Carosserie</label><p>{{$publication->bodyType}}</p></div></div>
-        <div class="car-info-item" style="display: flex;"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/cercle-de-couleur.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Couleur</label><p>{{$publication->color}}</p></div></div>
+        <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/transmission-manuelle.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Transmission</label><p class="detail-text-emphasis">{{$publication->transmission}}</p></div></div>
+        <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/body-type.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Carosserie</label><p class="detail-text-emphasis">{{$publication->bodyType}}</p></div></div>
+        <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/couleurs.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Couleur</label><p class="detail-text-emphasis">{{$publication->color}}</p></div></div>
+        <div><a style="color: black;" class="noDec" href="http://google.com/maps?q={{$publication->postalCode}}"><div title="Google Maps vers {{$publication->postalCode}}" style="background-image: url({{asset('img/Google-Maps-Logo.png')}}); background-size: cover;"class="car-info-item location-hover"><div class="info-logo opacity" style="width: 100%;"><img class="detail-icon" src="{{asset('img/epingle.png')}}"/><div  class="detail-labels"><label class="detail-info-text">Emplacement</label><p class="detail-text-emphasis">{{$publication->postalCode}}</p></div></div></a></div>
     </div>
-    <div class="Area-info-container">
-        <label class="detail-info-text">Emplacement</label>
-        <a title="Google Maps" href="http://google.com/maps?q={{$publication->postalCode}}">
-            <img class="card-location-icon" style="width:50px; height:50px;" src="{{asset('img/GMLogo.svg')}}"/>
-            <div class="detail-postal-code">{{$publication->postalCode}}</div>
-        </a>
     </div>
     <br> 
-<div title="Signaler l'annonce" class="div-button-actions" style="width: 85%; margin:auto">
-    <a class="noDec button-div-icon"  href="">
-    <!--Ramener vers le controlleur pour ajouter un contact-->
-        <img class="fav-icon div-button-actions" src="{{asset('img/avertissement.png')}}"/>
-        <label class="detail-labels div-button-actions">Signaler l'annonce</label>
-    </a>
-</div>
+    <div style="width: 100%; height: 4em;">
+    <div title="Signaler l'annonce" class="div-button-actions" style="float: right; width:fit-content;margin:20px;">
+        <a class="noDec alert-button-div"  title="Signaler l'annonce" href="">
+        <!--Ramener vers le controlleur pour ajouter un contact-->
+            <i class="fav-icon alert-hover div-button-actions fa-solid fa-triangle-exclamation"></i>
+        </a>
+    </div>
+    </div>
 <br>
 </div>
 <script>
@@ -231,5 +233,14 @@
                 });
             });
         });
+        
+    </script>
+    <script>
+    document.querySelector('.location-hover').addEventListener('mouseenter', function () {
+        document.querySelector('.opacity').classList.add('active');
+    });
+    document.querySelector('.location-hover').addEventListener('mouseleave', function () {
+        document.querySelector('.opacity').classList.remove('active');
+    });
     </script>
 @endsection

@@ -109,9 +109,9 @@ Route::post('/image', [ImageController::class, 'store'])->middleware("verified")
 //Section for favoritePublicaitons routes
 //------------------------------------------------------------------------------------
 //Route to show create image page
-Route::get('/publicationfollow', [PublicationFollow::class, 'index'])->name('publicationfollow.index')->middleware("verified");
+Route::get('/publications/saved', [PublicationFollow::class, 'index'])->name('publicationfollow.index')->middleware("verified");
 //Route to store the follow on a publication
-Route::get('publicaitonfollow', [PublicationFollow::class, 'store'])->name('publicationfollow.store');
+Route::get('publicaitonsfollow', [PublicationFollow::class, 'store'])->name('publicationfollow.store');
 //------------------------------------------------------------------------------------
 // Search by filter
 Route::get('/publications/search',[PublicationController::class,'search']);
