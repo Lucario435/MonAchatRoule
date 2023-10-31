@@ -12,14 +12,15 @@
                 //const urlParams = new URLSearchParams(queryString);
 
 
-                alertc = document.getElementById("success");
-                alertc.style.display = "none";
-                let tempsEnSec = 3;
-                setTimeout(() => {
-                    alertc.style.fontSize = "0px";
-                }, tempsEnSec * 1000);
-            });
-        </script>
+            alertc = document.getElementById("success");
+
+            // Add the 'hidden' class after a delay
+            let delayInSeconds = 3; // Set your desired delay time in seconds
+            setTimeout(() => {
+                alertc.classList.add("hiddenalert");
+            }, delayInSeconds * 1000);
+        });
+    </script>
     @endif
     <header>
         <div class="header-container">
@@ -28,10 +29,11 @@
             </a>
             <nav class="nav">
                 <ul>
-                    <li><a href="/publication">Recherche</a></li>
+                    <li><a href="/publication">Trouver un véhicule</a></li>
                     @auth
                         <li><a href="/users/{{ Auth::id() }}">Mes annonces</a></li>
                         <li><a href="/publication/create">Publier une annonce</a></li>
+                        <li><a href="/publications/saved">Annonces suivies</a></li>
                     @endauth
                 </ul>
             </nav>

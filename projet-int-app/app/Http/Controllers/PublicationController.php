@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 //Models are a must to access database since Controller <=> Model <=> DB
 use App\Models\Publication;
+use App\Models\suiviannonce;
 use App\Models\Image;
 use Hamcrest\Type\IsNumeric;
 use Illuminate\Database\Eloquent\Casts\Json;
@@ -27,6 +28,20 @@ class PublicationController extends Controller
     //Returns the detail page of a publication and it's values images are taken only in the html in a foreach
     public function detail($id)
     {
+        $followedPublications = Suiviannonce::where('publication_id', $id)->first();
+
+        $currentUser = Auth::id();
+
+        $followed = false;
+
+        //Returns true if id current user has saved this publication
+        if($followedPublications != null && $currentUser != null)
+        {
+            if ($followedPublications->userid == $currentUser && $followedPublications->publication_id == $id) {
+                $followed = true;
+            }
+        }
+
         $publication = Publication::find($id);
         $images = Image::all();
 
@@ -36,7 +51,7 @@ class PublicationController extends Controller
 
         $images = Image::where('publication_id', $publication->id)->get();
 
-        return view('publications.detail', ['publication' => $publication, 'images' => $images]);
+        return view('publications.detail', ['publication' => $publication, 'images' => $images, 'followed' => $followed]);
     }
 
     //Returns the create publication page
