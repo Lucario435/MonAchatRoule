@@ -17,18 +17,35 @@ let filterObject = {
     orderDateAdded: [false, "asc"],
 
 }
-
+const MOBILE_WIDTH = 769;
 const removeAccents = str =>
     str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
+
 $(() => {
-    //showFilterPage();
+    $(window).on("resize", function (ev) {
+        const viewPortDesktopWidth = 769;
+        let width = $(window).width();
+        let height = $(window).height();
+        console.log('resize', $(window).width(), $(window).height());
+        if (viewPortDesktopWidth <= width) {
+            hideFilterPage();
+            showFilterPage();
+            hideMenuFilter();
+        }
+        else{
+            hideFilterPage();
+            showMenuFilter();
+        }
+    });
+    //showOnlyFilterPage();
 
     $("#orderby-list").html(
         createOrderByElementDiv("orderDateAdded", "Date d'ajout") +
         createOrderByElementDiv("orderPrice", "Prix") +
         createOrderByElementDiv("orderMileage", "Kilométrage") +
-        createOrderByElementDiv("orderDistance", "Proximité ")
+        createOrderByElementDiv("orderDistance", "Proximité ") +
+        '<span class=row style=height:30px></span>'
     );
     $(".arrows").on("click", function (event) {
         let a = event.target;
@@ -82,7 +99,7 @@ $(() => {
 
     $("#filters").on("click", function (event) {
         //console.log("click on filters");
-        showFilterPage();
+        showOnlyFilterPage();
     });
 
     $("#close_page_filters").on("click", function (event) {
@@ -233,7 +250,8 @@ $(() => {
         }
         else {
             setBackgroundColor("#btn-search", "green");
-            hideFilterPage();
+            if($(window).width() < MOBILE_WIDTH)
+                hideFilterPage();
             $.ajax({
                 url: searchUrlBuilder('publications/search?'),
                 async: false,
@@ -266,11 +284,11 @@ $(() => {
             // There is a problem with a div displaying above filters when asking for user location or denied user location
             const coordinateUser = UserLocation;
             console.log(coordinateUser);
-            filterObject = { ...filterObject, [key]: [checkedState, orderType,coordinateUser] }
+            filterObject = { ...filterObject, [key]: [checkedState, orderType, coordinateUser] }
             //let codesPostales = getCodesPostalesFromServer();
             console.log(filterObject[key]);
 
-            
+
             //let locations = getDistancesFromLocations([coordinateUser.lat, coordinateUser.long], codesPostales);
             //setCookie("locations",locations);
 
@@ -285,8 +303,16 @@ $(() => {
     listFilterDataFromServer("body", "bodies", "selectedBodyType");
 
     listFilterDataFromServer("transmission", "transmissions", "selectedTransmissions");
-
+    function showMenuFilter(){
+        $("#menu").show();
+    }
+    function hideMenuFilter(){
+        $("#menu").hide();
+    }
     function showFilterPage() {
+        $("#page_filtre").show();
+    }
+    function showOnlyFilterPage() {
         $("#content").hide();
         $("#xheader").hide();
         $("#footer").hide();
@@ -393,8 +419,8 @@ $(() => {
 
                 // format to html
                 let output = `
-                <span id=${filter}-list class=scroll>
-                <div class="row" style="min-height: 20px;"></div>`;
+                <span id=${filter}-list class=>
+                <div class="row" style="min-height: 10px;"></div>`;
                 //console.log(filterObject);
                 $.each(elements, function (element, nombre) {
                     output += `
@@ -504,11 +530,11 @@ $(() => {
     function setOrdersOrder(url) {
         console.log($("#orderby-list > div"));
         $("#orderby-list > div").each(function (i, e) {
+            console.log(jQuery(e).attr("id"));
             let id = jQuery(e).attr("id").slice(3);
-            console.log(id);
             // Consider we need to send the user coordinates with request of type distance
             if (filterObject[id][0] != false)
-                if(filterObject[id] == filterObject.orderDistance)
+                if (filterObject[id] == filterObject.orderDistance)
                     url += `${id}=${filterObject[id][1]},${filterObject[id][2]['lat']},${filterObject[id][2]['long']}&`
                 else
                     url += `${id}=${filterObject[id][1]}&`

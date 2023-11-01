@@ -2,12 +2,19 @@
 // https://www.w3schools.com/howto/howto_js_sticky_header.asp
 // When the user scrolls the page, execute myFunction
 document.addEventListener("DOMContentLoaded", function () {
+    
     window.onscroll = function () {
         myFunction();
         //myFunction2();
-        console.log('scroll');
+        //console.log('scroll');
     };
-
+    $(window).on("resize", function (ev) {
+        const viewPortDesktopWidth = 769;
+        let width = $(window).width();
+        let height = $(window).height();
+        console.log('resize', $(window).width(), $(window).height());
+        myFunction();
+    });
     // Get the header
     var header = document.querySelector("#xheader");
     var sideFilters = document.getElementById("page_filtre");
@@ -21,13 +28,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
     function myFunction() {
-        console.log(window.pageYOffset, ' > ', sticky)
+        //console.log(window.pageYOffset, ' > ', sticky)
         if (window.pageYOffset > sticky) {
             // header.classList.add("sticky");
             // sideFilters.classList.add("sticky-sidebar");
             toggleFixed();
-        } else {
-            toggleFixed();
+        } else{
+            adjustWidth();
         }
     }
 
@@ -37,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
         adjustWidth();
 
     }
-    function RemoveFixed() {
+    function removeFixed() {
         $(header).removeClass("sticky");
         $(sideFilters).removeClass("sticky-sidebar");
         adjustWidth();

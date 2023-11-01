@@ -125,7 +125,7 @@ li {
 
 /* Styles pour l'en-tête */
 header {
-    background-image: linear-gradient(to left, #006eff , #004aad);
+    background-image: linear-gradient(to left, #006eff, #004aad);
     color: white;
     padding: 20px 0;
 
@@ -329,9 +329,9 @@ input[type="checkbox"]:checked {
 
 .sticky-sidebar {
     position: fixed;
-    top: 90px;
+    top: 88px;
     left: 0px;
-   
+
 }
 
 
@@ -339,45 +339,66 @@ input[type="checkbox"]:checked {
 @media (max-width:768px) {
     .sticky-sidebar {
         position: absolute;
-        
-       
     }
+
     #page_filtre {
         display: none;
-        top:0;
+        top: 0;
     }
-    #menu, #menu + *  {
-        padding-top: 100px;
+
+    #menu,
+    #menu+* {
+        padding-top: 40px;
     }
+
     .content {
         margin-left: auto;
         margin-right: auto;
     }
-    #btn-search div:first-child{
+
+    #btn-search div:first-child {
         width: 60% !important;
         justify-content: end !important;
         font-size: 25px;
     }
-    #btn-search div:last-child{
+
+    #btn-search div:last-child {
         justify-content: start !important;
         font-size: 25px;
     }
-    #close_page_filters{
+
+    #close_page_filters {
         justify-content: center !important;
     }
 }
 
 @media (min-width: 769px) {
+    .scroll::-webkit-scrollbar {
+        width: .5em;
+    }
 
-    .scroll {
-        font-size: 16px;
+    .scroll::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .scroll::-webkit-scrollbar-thumb {
+        background: black;
+    }
+
+   
+    #orderby-list{
+        font-size: 14px;
+    }
+    .scroll{
+        font-size: 14px;
         max-height: 100px;
         overflow-x: hidden;
         overflow-y: auto;
         scrollbar-width: none;
         scrollbar-gutter: stable;
     }
-    #filters-wrapper > * {
+
+    #filters-wrapper>* {
         height: 100%;
         max-width: 250px;
         margin-left: 0;
@@ -391,13 +412,13 @@ input[type="checkbox"]:checked {
     }
 
     .content {
-        margin-top: 150px;
-        margin-left: 20%;
+        margin-top: 105px;
+        margin-left: 22%;
         margin-right: auto;
         /* height: 500px;
         display: block;
         overflow-y: auto; */
-    
+
     }
 
     #menu {
