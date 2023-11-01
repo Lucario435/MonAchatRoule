@@ -3,7 +3,7 @@
     <div class="row" >
         <div class="col">
             <div class="row border">
-                <label for="filters" class="p-3 filter" id="filters">
+                <label for="filters" class="p-3 " id="filters">
                     <span id="filters">
                         <span class="fas fa-filter fa-lg w-20 p-0"></span>
                         <span class="w-75 p-0" style="font-size: 22px">Filtrer</span>

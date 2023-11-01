@@ -233,7 +233,7 @@ $(() => {
         }
         else {
             setBackgroundColor("#btn-search", "green");
-            //HideMenuAfterSearch();
+            hideFilterPage();
             $.ajax({
                 url: searchUrlBuilder('publications/search?'),
                 async: false,

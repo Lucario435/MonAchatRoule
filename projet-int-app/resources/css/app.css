@@ -353,6 +353,18 @@ input[type="checkbox"]:checked {
         margin-left: auto;
         margin-right: auto;
     }
+    #btn-search div:first-child{
+        width: 60% !important;
+        justify-content: end !important;
+        font-size: 25px;
+    }
+    #btn-search div:last-child{
+        justify-content: start !important;
+        font-size: 25px;
+    }
+    #close_page_filters{
+        justify-content: center !important;
+    }
 }
 
 @media (min-width: 769px) {
@@ -397,7 +409,9 @@ input[type="checkbox"]:checked {
     }
 
     #btn-search {
-        max-width: 350px;
+        width: 262px;
         float: left;
+        font-size: 25px;
+
     }
 }

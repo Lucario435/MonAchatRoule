@@ -100,10 +100,10 @@
         </div>
         <div class="row" style="min-height:100px;"></div>
         <div class="row text-center fixed-bottom" id="btn-search" style="background-color: green">
-            <span>
-                <span style="font-size: 30px">Rechercher</span>
-                <span class="fas fa-search fa-2x px-3"></span>
-            </span>
+            
+                <div class="col-8 d-flex align-items-center justify-content-end">Rechercher</div>
+                <div class="col-4 fas fa-search px-3 d-flex align-items-center justify-content-start"></div>
+            
         </div>
     </div>
 </div>
