@@ -135,24 +135,87 @@
     </div>
     <br>
 </div>
+<br>
+<!--Section enchère-->
+@if ($publication->type == "1")
+<div class="main-container-style xreducteur">
     <br>
-    <style momo="PERMET DE BAISSER LE WIDTH">
-        @media (min-width: 768px){
-            .xreducteur{width: 40%;}
-        }
-    </style>
+    <h4 class="detail-info-text">Détails de l'enchère</h4>
+    <hr>
+    <div class="bid-detail-grid" style="grid-gap:1em; margin: 1em">
+        <div class="car-info-item d-flex align-items-center justify-content-center" style="width:100%;">
+            <div class="">
+                <br>
+                <span class="detail-info-text">Prix demandé</span>
+                <br>
+                <br>
+                <span class="detail-text-emphasis">12 000$</span>
+                <br>
+                <br>
+                <span class="detail-info-text">État de l'annonce</span>
+                <br>
+                <br>
+                <span class="detail-text-emphasis">En cours</span>
+                <br>
+                <br>
+            </div>
+        </div>
+        <div class="car-info-item div-white-shadow" style="width:100%;">
+            <br>
+            <span class="detail-info-text" style=" background-color:white;">Enchères</span>
+            <br>
+            <br>
+            <!--Container of the historic of bids-->
+            <div class="scroller" style="overflow-y: scroll;">
+                @foreach ($images as $image)
+                @endforeach
+                <div class="historic-bids-container">
+                    <i class="fav-icon fas fa-crown" style="color:goldenrod"></i><span class="text-emphasis text-adapt">Rollingasaurus Rex</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">25000$</span>
+                </div>
+                <div class="historic-bids-container">
+                    <i class="fav-icon fas fa-crown" style="color:gray"></i><span class="text-emphasis text-adapt">IamWheel</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">14000$</span>
+                </div>
+                <div class="historic-bids-container">
+                    <i class="fav-icon fas fa-crown" style="color:brown"></i><span class="text-emphasis text-adapt">JaguarMilk</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">12500$</span>
+                </div>
+                <div class="historic-bids-container">
+                    <i class="fav-icon fas fa-crown" style="color:lightblue"></i><span class="text-emphasis text-adapt">JaguarMilk</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">12500$</span>
+                </div>
+                <div class="historic-bids-container">
+                    <i class="fav-icon fas fa-crown" style="color:lightblue"></i><span class="text-emphasis text-adapt">JaguarMilk</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">12500$</span>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div title="Suivre l'état de l'annonce" class="div-button-actions" style=" margin:1em;">
+            <a class="noDec button-div"   href="">
+                    <i class="fav-icon div-button-actions fas fa-hand-holding-usd"></i>
+                <label class="detail-labels div-button-actions">Déposer une enchère</label>
+            </a>
+        </div>
+        <br>
+    </div>
+</div>
+@endif
+<br>
+<style momo="PERMET DE BAISSER LE WIDTH">
+    @media (min-width: 768px){
+        .xreducteur{width: 40%;}
+    }
+</style>
 <div class="main-container-style xreducteur" >
     <br>
     <h4 class="detail-info-text">Informations du véhicule</h4>
     <hr>
-    <br>
-    <div class="car-info-item" style="width: 95%; margin: auto;"><br><label class="detail-info-text">Prix demandé par l'acheteur</label><br><br><p class="detail-text-emphasis">{{$publication->fixedPrice}}$</p></div>
-    <br>
-    <hr> <br><h4 class="detail-info-text">Description du véhicule</h4> <br>
-    {{ $publication->description }}
-    <br>
-    <br>
-    <hr>
+    <div class="car-info-item" style="margin: 1em;"><br><h4 class="detail-info-text">Prix demandé</h4><p class="detail-text-emphasis">{{$publication->fixedPrice}}$</p></div>
+    <div class="car-info-item" style="margin: 1em;">
+        <br>
+        <h4 class="detail-info-text">Description</h4> 
+        <br>
+            {{ $publication->description }}
+        <br>
+        <br>
+    </div>
     <div class="car-info ">
         <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/industrie.png')}}"/></div><div class="detail-labels"><label class="detail-info-text">Fabricant</label><p class="detail-text-emphasis">{{$publication->brand}}</p></div></div>
         <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/compteur-de-vitesse.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Kilométrage</label><p class="detail-text-emphasis">{{$publication->kilometer}} km</p></div></div>

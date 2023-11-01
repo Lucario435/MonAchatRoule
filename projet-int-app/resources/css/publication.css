@@ -611,6 +611,11 @@ display: flex;
     padding: 1em;
     margin: 0px;
 }
+.text-emphasis
+{
+    font-weight: bolder;
+    margin: 0px;
+}
 .noDec{
     text-decoration: none;
     height: fit-content;
@@ -625,8 +630,47 @@ display: flex;
     display: grid;
     grid-template-columns: repeat( auto-fit, minmax(48px, 1fr) );
 }
+.bid-detail-grid{
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(225px, 1fr) );
+    
+}
+.text-adapt{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+}
+.scroller::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scroller::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+.scroller{
+    background-color: #ddd;
+    border-radius: 5px;
+    height: 10rem;
+}
+.scroller::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #004aad;
+}
+.div-white-shadow{
+    /*background-color: rgb(39, 39, 39);
+    box-shadow: inset 0px 0px 20px 10px rgb(173, 173, 173);*/
+}
 .action-buttons > *{
     margin-right: 1em;
+}
+.historic-bids-container{
+    margin: 0.5em;
+    display: flex;
+    align-items: center;
+    border-radius: 500px;
+    background-color: white;
 }
 .alert-button-div{
     text-align: center;
