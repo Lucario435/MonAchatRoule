@@ -2,9 +2,9 @@
     <div class="grid text-start row-gap-5">
         <div class="row pt-4">
             <label class="row w-100 p-0 m-0">
-                <div class="col-5" >
+                <div class="col-5">
                     <div class="row" style="width:200px;">
-                        
+
                         <div class="col-8">
                             <label id="label-reset">
                                 <span>
@@ -24,8 +24,18 @@
         <div class="row pb-3">
         </div>
         <div class="row pb-3">
+
+            <label class="col-4" for="followedPublications" style="width: 140px">
+                Annonces suivis
+            </label>
+            <div class="col-1 d-flex align-items-center">
+                <input type="checkbox" id="followedPublications">
+            </div>
+            <div class="col-7"></div>
+        </div>
+        <div class="row pb-3">
             <label id="label-brand" class="row w-100 p-0 m-0">
-                <div class="col-8 " >
+                <div class="col-8 ">
                     Marques
                 </div>
                 <div class="col-2"></div>
@@ -58,11 +68,10 @@
         </div>
         <div class="row pb-3">
             <label id="label-price" class="row w-100 p-0 m-0">
-                <div class="col-8" >
+                <div class="col-8">
                     Prix
                 </div>
-                <div id="amount-price" 
-                    class="col-2 d-flex align-items-end justify-content-end ">
+                <div id="amount-price" class="col-2 d-flex align-items-end justify-content-end ">
                 </div>
                 <div
                     class="col-1 d-flex align-items-center justify-content-center fas fa-caret-down flex-grow-1 ms-auto">
@@ -71,11 +80,10 @@
         </div>
         <div class="row pb-3">
             <label id="label-kilometer" class="row w-100 p-0 m-0">
-                <div class="col-8" >
+                <div class="col-8">
                     Kilométrage
                 </div>
-                <div id="amount-kilometer" 
-                    class="col-2 d-flex align-items-end justify-content-end ">
+                <div id="amount-kilometer" class="col-2 d-flex align-items-end justify-content-end ">
                 </div>
                 <div
                     class="col-1 d-flex align-items-center justify-content-center fas fa-caret-down flex-grow-1 ms-auto">
@@ -99,10 +107,10 @@
         </div>
         <div class="row" style="min-height:100px;"></div>
         <div class="row text-center fixed-bottom" id="btn-search" style="background-color: green">
-            
-                <div class="col-8 d-flex align-items-center justify-content-end">Rechercher</div>
-                <div class="col-4 fas fa-search px-3 d-flex align-items-center justify-content-start"></div>
-            
+
+            <div class="col-8 d-flex align-items-center justify-content-end">Rechercher</div>
+            <div class="col-4 fas fa-search px-3 d-flex align-items-center justify-content-start"></div>
+
         </div>
     </div>
 </div>

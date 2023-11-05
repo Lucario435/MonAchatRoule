@@ -34,8 +34,7 @@ class PublicationController extends Controller
         $followed = false;
 
         //Returns true if id current user has saved this publication
-        if($followedPublications != null && $currentUser != null)
-        {
+        if ($followedPublications != null && $currentUser != null) {
             if ($followedPublications->userid == $currentUser && $followedPublications->publication_id == $id) {
                 $followed = true;
             }
@@ -185,6 +184,7 @@ class PublicationController extends Controller
         $order = "";
         $userCoordinates = '';
         $boolRequestDistances = false;
+        $boolFollowedPublications = false;
 
         foreach ($params as $key => $item) {
             //dd($item);   
@@ -197,7 +197,12 @@ class PublicationController extends Controller
                     $boolRequestDistances = true;
                 }
             } else {
-                $filteringCriterias[$key] = explode(',', $item);
+                //dd($key);
+                if (strtolower($key) == "followedpublications") {
+                    $boolFollowedPublications = true;
+                } else {
+                    $filteringCriterias[$key] = explode(',', $item);
+                }
             }
         }
 
@@ -225,11 +230,26 @@ class PublicationController extends Controller
             $publications = $publications->sortBy($sortingCriterias);
             //dd($publications);
         } else {
-
-            $publications = DB::table('publications')->get();
+            if ($boolFollowedPublications) {
+                $publications = DB::table('publications')
+                    ->join('suiviannonces', 'suiviannonces.publication_id', '=', 'publications.id')
+                    ->select('publications.*')
+                    ->get();
+                //dd($publications);
+                $images = DB::table("images")   
+                ->join('publications', 'images.publication_id', '=', 'publications.id')
+                ->join('suiviannonces', 'suiviannonces.publication_id', '=', 'publications.id')
+                ->select(['images.id','images.publication_id','images.user_id','images.url'])
+                ->get();
+                //dd(DB::getQueryLog());
+                //dd($images);
+            } else {
+                $publications = DB::table('publications')->get();
+                $images = Image::all();
+            }
 
             //If we do have distance in query params, then we add the calculated distance in order to use later
-          
+
             if ($boolRequestDistances) {
 
 
@@ -249,13 +269,14 @@ class PublicationController extends Controller
 
         }
 
-        $images = Image::all();
+        
 
         //dd($publications);
 
         return view('publications.carte', ['publications' => $publications, 'images' => $images]);
     }
-    private function getFilteredPublications($filteringCriterias){
+    private function getFilteredPublications($filteringCriterias)
+    {
         // Inspired by this source
         // https://stackoverflow.com/q/61479114
         return DB::table('publications')->where(
@@ -286,7 +307,7 @@ class PublicationController extends Controller
     private function getTravelDistance($wp1, $wp2)
     {
         $curl = curl_init();
-        
+
         curl_setopt_array($curl, array(
             CURLOPT_URL => "http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0=$wp1&wp.1=$wp2&key=AtND6We4q6ydLy0dVPwZ1NGD__tCGQzhVSIhMA4EQnSTMVgtOg9TwWhOYzYvVzVC",
             CURLOPT_RETURNTRANSFER => true,
@@ -306,9 +327,8 @@ class PublicationController extends Controller
         //dd($curl);
         if ($err) {
             return ("cURL Error #:" . $err);
-        } 
-        else {
-            
+        } else {
+
             // if($res == null)
             //     dd("address is not valid");
             // else
@@ -322,5 +342,4 @@ class PublicationController extends Controller
             }
         }
     }
-    
 }

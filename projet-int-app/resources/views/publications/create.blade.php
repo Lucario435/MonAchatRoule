@@ -10,7 +10,10 @@
 @endpush
 <style momo="PERMET DE BAISSER LE WIDTH">
     @media (min-width: 768px){
-        .xreducteur{width: 50%;}
+        .xreducteur{width: 60%;}
+    }
+    @media (max-width: 767px){
+        .xreducteur{width: 90%;}
     }
 </style>
 <body>

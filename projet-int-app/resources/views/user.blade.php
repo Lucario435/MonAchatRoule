@@ -10,40 +10,43 @@
     @vite(['resources/css/publication.css'])
 @endpush
 @push('js')
-    @vite(['resources/js/filterUI.js'])
+    @vite(['resources/js/snap_header_filters.js'])
 @endpush
-@section('title', "Profil de ".$user->getDisplayName())
 
+
+@section('title', 'Profil de ' . $user->getDisplayName())
 @section('content')
-    <div class="userp">
-        @include("partials.profilDiv")
-        <br><br>
-        <div style="width: 100%;">
-            @include("publications.carte")
+    <div class="userp mt-5">
+    @include('partials.profilDiv')
+    <br><br>
+    <div style="width: 100%;">
+        @include('publications.carte')
 
-        </div>
     </div>
+</div>
+@include('partials.xfooter')
 @endsection
 
 <style>
 /* .userp{
-        display: grid;
-        grid-template-columns: auto auto;
-    }
-    @media (max-width: 768px) {
-    .userp{
-        display: grid;
-        grid-template-columns: auto;
-        grid-template-rows: auto auto;
-    }
+display: grid;
+grid-template-columns: auto auto;
+}
+@media (max-width: 768px) {
+.userp{
+display: grid;
+grid-template-columns: auto;
+grid-template-rows: auto auto;
+}
 } */
 .userp {
     display: flex;
-    width: 90%; margin: auto;
+    width: 90%;
+    margin: auto;
 }
 
 /* Media query for mobile devices */
-@media (orientation:portrait)  {
+@media (orientation:portrait) {
     .userp {
         flex-direction: column;
     }

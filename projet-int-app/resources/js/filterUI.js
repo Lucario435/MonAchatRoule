@@ -15,6 +15,7 @@ let filterObject = {
     orderMileage: [false, "asc"],
     orderDistance: [false, "asc"],
     orderDateAdded: [false, "asc"],
+    followedPublications: null,
 
 }
 const MOBILE_WIDTH = 769;
@@ -89,12 +90,16 @@ $(() => {
         }
         selectedElement.hide();
         selectedElement.fadeIn(200);
-        //console.log(selectedElement.attr("id"));
-
-
-        //console.log("after element:", afterElementId);
     });
-
+    $("#followedPublications").on("change",function(event){
+        console.log('t');
+        filterObject.followedPublications = isCheckboxChecked($("#followedPublications"));
+        if(isCheckboxChecked($("#followedPublications")))
+            filterObject.numberSelectedFilters++;
+        else
+            filterObject.numberSelectedFilters--;
+        ShowNumberOfActiveFilters();
+    })
     // The Boutons filter and order
 
     $("#filters").on("click", function (event) {
@@ -303,6 +308,10 @@ $(() => {
     listFilterDataFromServer("body", "bodies", "selectedBodyType");
 
     listFilterDataFromServer("transmission", "transmissions", "selectedTransmissions");
+    function isCheckboxChecked(chkbox){
+
+        return $(chkbox).is(":checked");
+    }
     function showMenuFilter(){
         $("#menu").show();
     }
@@ -523,6 +532,8 @@ $(() => {
             url += `minMileage=${filterObject.selectedMinMileage}&`;
         if (filterObject.selectedMaxMileage != null)
             url += `maxMileage=${filterObject.selectedMaxMileage}&`;
+        if (filterObject.followedPublications != null)
+            url += `followedPublications&`;
         url = setOrdersOrder(url);
         console.log("URL: " + url)
         return removeAccents(url);
@@ -577,6 +588,7 @@ $(() => {
             orderMileage: [null, "asc"],
             orderDistance: [null, "asc"],
             orderDateAdded: [null, "asc"],
+            followedPublications:null,
         }
         $(".selected-element").removeClass("selected-element");
         $("#min_price").val('');
@@ -587,6 +599,7 @@ $(() => {
         $(`#val-max-kilometer-error`).remove();
         $('#amount-price').html(' ');
         $('#amount-kilometer').html(' ');
+        $('#followedPublications').prop("checked", false);
         $('.orderby-element > div > input').prop("checked", false);
         $(`#slider-range-price`).slider("values", [0, getHighestPriceItemFromServer()])
         $(`#slider-range-kilometer`).slider("values", [0, getHighestKilometerItemFromServer()])
@@ -602,7 +615,7 @@ $(() => {
     function CapitalizeFirstCase(str) {
         return str[0].toUpperCase() + str.slice(1).toLowerCase();
     }
-    function ShowNumberOfActiveFilters(element, number) {
+    function ShowNumberOfActiveFilters(element = "#number-filter", number = filterObject.numberSelectedFilters) {
         $(element).html('(' + number + ')');
     }
     function getHighestPriceItemFromServer() {

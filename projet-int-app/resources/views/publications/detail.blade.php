@@ -200,7 +200,7 @@
 <br>
 <style momo="PERMET DE BAISSER LE WIDTH">
     @media (min-width: 768px){
-        .xreducteur{width: 40%;}
+        .xreducteur{width: 70%;}
     }
 </style>
 <div class="main-container-style xreducteur" >
@@ -310,4 +310,5 @@
         document.querySelector('.opacity').classList.remove('active');
     });
     </script>
+@include('partials.xfooter')
 @endsection

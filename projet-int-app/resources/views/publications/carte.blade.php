@@ -1,8 +1,9 @@
 <div class="card-container">
     <!--Filters-->
 @if (count($publications) == 0)
-<span class="not-available">Aucune annonce disponible</span>
+<span class="not-available">Aucune annonce disponible <br> ou aucune respectant les critères de recherches</span>
 @endif
+
 @foreach ($publications as $publication)
  <div class="cardd">
     <a class="noDec" title="Plus d'informations" href="{{ route('publication.detail', ['id' => $publication->id]) }}">

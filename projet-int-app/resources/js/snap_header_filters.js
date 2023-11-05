@@ -21,10 +21,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Get the offset position of the navbar
     var sticky = header.offsetTop;
-    var sticky2 = sideFilters.offsetTop;
-
+    //var sticky2 = sideFilters.offsetTop;
+    toggleFixed();
     //Init
-    myFunction();
+    //myFunction();
 
     // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
     function myFunction() {

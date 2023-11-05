@@ -20,7 +20,9 @@
         <div class="col content">
             <span id="content">
                 @include('publications.carte')
+                @include('partials.xfooter')
             </span>
         </div>
+        
     </div>
 @endsection

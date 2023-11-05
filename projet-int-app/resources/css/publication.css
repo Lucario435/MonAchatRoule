@@ -78,6 +78,7 @@ select{
 {
     color: gray;
     font-weight: bolder;
+    text-align: left;
 }
 #hint{
     transition: 1s; /* Specify 'transform' property and duration in seconds */

@@ -18,7 +18,7 @@ return new class extends Migration
             //Publication info
             ///////////////////////////////////////////
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->string('type');
             $table->date('expirationOfBid')->nullable()->default(NULL);
             $table->string('postalCode');
