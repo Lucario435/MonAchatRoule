@@ -532,7 +532,7 @@ $(() => {
             url += `minMileage=${filterObject.selectedMinMileage}&`;
         if (filterObject.selectedMaxMileage != null)
             url += `maxMileage=${filterObject.selectedMaxMileage}&`;
-        if (filterObject.followedPublications != null)
+        if (filterObject.followedPublications != false)
             url += `followedPublications&`;
         url = setOrdersOrder(url);
         console.log("URL: " + url)

@@ -199,9 +199,10 @@
 @endif
 <br>
 <style momo="PERMET DE BAISSER LE WIDTH">
-    @media (min-width: 768px){
-        .xreducteur{width: 70%;}
+    @media (max-width: 920px){
+        .xreducteur{width: 90%;}
     }
+
 </style>
 <div class="main-container-style xreducteur" >
     <br>
