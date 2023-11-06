@@ -28,7 +28,7 @@ $(() => {
         const viewPortDesktopWidth = 769;
         let width = $(window).width();
         let height = $(window).height();
-        console.log('resize', $(window).width(), $(window).height());
+        //console.log('resize', $(window).width(), $(window).height());
         if (viewPortDesktopWidth <= width) {
             hideFilterPage();
             showFilterPage();

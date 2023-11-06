@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const viewPortDesktopWidth = 769;
         let width = $(window).width();
         let height = $(window).height();
-        console.log('resize', $(window).width(), $(window).height());
+        //console.log('resize', $(window).width(), $(window).height());
         myFunction();
     });
     // Get the header
