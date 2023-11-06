@@ -12,15 +12,15 @@
                 //const urlParams = new URLSearchParams(queryString);
 
 
-            alertc = document.getElementById("success");
+                alertc = document.getElementById("success");
 
-            // Add the 'hidden' class after a delay
-            let delayInSeconds = 3; // Set your desired delay time in seconds
-            setTimeout(() => {
-                alertc.classList.add("hiddenalert");
-            }, delayInSeconds * 1000);
-        });
-    </script>
+                // Add the 'hidden' class after a delay
+                let delayInSeconds = 3; // Set your desired delay time in seconds
+                setTimeout(() => {
+                    alertc.classList.add("hiddenalert");
+                }, delayInSeconds * 1000);
+            });
+        </script>
     @endif
     <header>
         <div class="header-container">
@@ -28,26 +28,49 @@
                 <h1>@yield('appname')</h1>
             </a>
             <nav class="nav">
-                <ul>
+                <ul class="ul-menu">
                     <li><a href="/publication">Trouver un véhicule</a></li>
                     @auth
                         <li><a href="/users/{{ Auth::id() }}">Mes annonces</a></li>
                         <li><a href="/publication/create">Publier une annonce</a></li>
                         <li><a href="/publications/saved">Annonces suivies</a></li>
+                        <li id="btn-deco-mobile">
+                            <form action="/logout" method="GET" class="d-flex align-items-top">
+                                @csrf
+                                <button type="submit" class="d-flex align-items-center btn-disconnect" id="btn-deco" style="gap: 20px;">
+                                    <i class="fas fa-sign-out-alt"></i><div>Se deconnecter</div>
+
+                                </button>
+                            </form>
+                        </li>
+                        <li>
+
+                        </li>
                     @endauth
                 </ul>
             </nav>
 
-            <div style="display: grid; grid-template-columns: auto auto;">
+            <div style="display: grid; grid-template-columns: auto auto;gap:20px;">
                 @auth
-                    <form action="/logout" method="GET">
+                    {{-- <form action="/logout" method="GET">
                         <button class="login-button redlogout-button">
                             <i class="fas fa-sign-out-alt"></i>
                         </button>
-                    </form>
+                    </form> --}}
+                   
                     <a href="/users/{{ Auth::id() }}">
                         <div class="imgProfile" style="background-image: url('{{ Auth::user()->getImage() }}')"></div>
+                        
                     </a>
+                    <form action="/logout" method="GET" class="d-flex align-items-top">
+                        @csrf
+                        <button type="submit" class="d-flex align-items-center btn-disconnect" id="btn-deco-desktop"
+                            style="gap: 15px;">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <div>Se deconnecter</div>
+
+                        </button>
+                    </form>
                 @else
                     <a href="/login">
                         <button class="login-button">
@@ -98,7 +121,7 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        
+
         const menuIcon = document.querySelector(".menu-icon");
         const navLinks = document.querySelector(".nav ul");
 
