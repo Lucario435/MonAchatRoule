@@ -287,7 +287,7 @@ $(() => {
 
         if (element.currentTarget.name === "orderDistance" && checkedState) {
             // There is a problem with a div displaying above filters when asking for user location or denied user location
-            const coordinateUser = UserLocation;
+            const coordinateUser = {long:UserLocation[0],lat:UserLocation[1]};
             console.log(coordinateUser);
             filterObject = { ...filterObject, [key]: [checkedState, orderType, coordinateUser] }
             //let codesPostales = getCodesPostalesFromServer();
@@ -546,7 +546,7 @@ $(() => {
             // Consider we need to send the user coordinates with request of type distance
             if (filterObject[id][0] != false)
                 if (filterObject[id] == filterObject.orderDistance)
-                    url += `${id}=${filterObject[id][1]},${filterObject[id][2]['lat']},${filterObject[id][2]['long']}&`
+                    url += `${id}=${filterObject[id][1]},${filterObject[id][2].long},${filterObject[id][2].lat}&`
                 else
                     url += `${id}=${filterObject[id][1]}&`
         })

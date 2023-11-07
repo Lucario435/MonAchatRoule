@@ -256,7 +256,7 @@ class PublicationController extends Controller
                 foreach ($publications as $key => $value) {
                     //dd($publications->$key);
                     $postalCode = preg_replace('/\s+/', '', $publications[$key]->postalCode);
-                    $publications[$key]->distance = $this->getTravelDistance($userCoordinates, $postalCode);
+                    $publications[$key]->distance = round($this->getTravelDistance($userCoordinates, $postalCode),2);
                 }
             }
 

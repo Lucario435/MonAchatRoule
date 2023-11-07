@@ -91,12 +91,14 @@ li {
     transition: .2s;
     transform: scale(1.05);
 }
-.btn-disconnect{
+
+.btn-disconnect {
     background-color: transparent;
     border: none;
     color: inherit;
     padding: 0;
 }
+
 .login-button {
     background-color: var(--greenbutton);
     /* Vert */
@@ -180,19 +182,20 @@ h1 {
     margin: 3px 0;
 }
 
-.ul-menu{
+.ul-menu {
     display: flex;
 }
 
-#btn-deco-mobile{
+#btn-deco-mobile {
     display: none !important;
 }
 
 /* menu hamberger pour mobile */
 @media (max-width: 1200px) {
-    .app-name{
+    .app-name {
         margin: auto;
     }
+
     .nav ul {
         display: none;
         flex-direction: column;
@@ -215,7 +218,7 @@ h1 {
         background-image: linear-gradient(to left, #006eff, #004aad); */
     }
 
-    .nav li{
+    .nav li {
         font-size: 20px;
         padding: 15px;
     }
@@ -225,17 +228,20 @@ h1 {
         transition: .2s;
         flex-direction: column;
     }
-    .ul-menu{
+
+    .ul-menu {
         transition: .2s;
         font-weight: lighter;
         top: 85px !important;
         width: auto;
         background-image: linear-gradient(to left, #006eff, #004aad);
     }
-    #btn-deco-desktop{
+
+    #btn-deco-desktop {
         display: none !important;
     }
-    #btn-deco-mobile{
+
+    #btn-deco-mobile {
         display: block !important;
     }
 }
@@ -372,7 +378,7 @@ input[type="checkbox"]:checked {
 
 
 @media (max-width:800px) {
-    
+
     .sticky-sidebar {
         position: absolute;
     }
@@ -421,11 +427,12 @@ input[type="checkbox"]:checked {
         background: black;
     }
 
-   
-    #orderby-list{
+
+    #orderby-list {
         font-size: 14px;
     }
-    .scroll{
+
+    .scroll {
         font-size: 14px;
         max-height: 100px;
         overflow-x: hidden;
@@ -472,3 +479,4 @@ input[type="checkbox"]:checked {
 
     }
 }
+

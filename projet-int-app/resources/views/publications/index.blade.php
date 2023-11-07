@@ -13,16 +13,16 @@
 @endpush
 @section('content')
     @include('filters.menu')
-    <div class="container-sm">
+    <div class="container-sm" >
         <div class="col-4" id="filters-wrapper">
             @include('filters.filterPage')
         </div>
         <div class="col content">
             <span id="content">
                 @include('publications.carte')
-                @include('partials.xfooter')
             </span>
         </div>
+        @include('partials.xfooter')
         
     </div>
 @endsection
