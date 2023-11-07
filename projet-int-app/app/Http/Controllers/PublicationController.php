@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Publication;
 use App\Models\suiviannonce;
 use App\Models\Image;
+use App\Models\Bid;
 use Hamcrest\Type\IsNumeric;
 use Illuminate\Database\Eloquent\Casts\Json;
 use Mockery\Undefined;
@@ -28,6 +29,8 @@ class PublicationController extends Controller
     public function detail($id)
     {
         $followedPublications = Suiviannonce::where('publication_id', $id)->first();
+
+        $publicationBids = Bid::where('publication_id',$id)->get();
 
         $currentUser = Auth::id();
 
@@ -50,7 +53,7 @@ class PublicationController extends Controller
 
         $images = Image::where('publication_id', $publication->id)->get();
 
-        return view('publications.detail', ['publication' => $publication, 'images' => $images, 'followed' => $followed]);
+        return view('publications.detail', ['publication' => $publication, 'images' => $images, 'followed' => $followed,'bids' => $publicationBids]);
     }
 
     //Returns the create publication page

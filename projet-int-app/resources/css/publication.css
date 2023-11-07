@@ -331,6 +331,40 @@ padding-bottom: 100%;
     width: fit-content;
     margin: 5px;
 }
+.popup-container{
+    background-color: #004aad;
+    border-radius: 25px;
+    z-index: 99999;
+    position: fixed;
+    width: 80%;
+    height: fit-content;
+    top: 25%;
+    left: 10%;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 20px;
+}
+.popup-exit-text{
+    margin: auto;
+}
+.popup-exit{
+    float: right;
+    transition: .5s;
+    border-radius: 25px;
+    color:black;
+    background-color: red;
+    font-size: 1rem;
+    text-align: center;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+}
+.popup-exit:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: .5s;
+    color: white;
+    background-color: gray;
+}
 .card-price{
     color: white;
     background-image: linear-gradient(to right, #006eff , #004aad);

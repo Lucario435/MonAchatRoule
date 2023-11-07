@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\VerifyEmailController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\BidController;
 use App\Http\Controllers\PublicationFollow;
 use App\Http\Resources\PublicationResource;
 use App\Models\Publication;
@@ -89,6 +90,11 @@ Route::post('/publication/edit/{id}', [PublicationController::class, 'update'])-
 Route::post('/publication', [PublicationController::class, 'store'])->name('publication.store');
 //Route to create the detail page
 Route::get('publication/detail/{id}', [PublicationController::class, 'detail'])->name('publication.detail');
+//------------------------------------------------------------------------------------
+
+//Section for bids routes
+//------------------------------------------------------------------------------------
+Route::post('/bid', [BidController::class, 'store'])->name('bid.store');
 //------------------------------------------------------------------------------------
 
 //Section for image routes

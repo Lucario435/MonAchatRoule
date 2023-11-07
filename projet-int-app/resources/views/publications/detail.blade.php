@@ -1,3 +1,17 @@
+@php
+use App\Models\User;
+use App\Models\Bid;
+    $price = null;
+    if(Bid::count() >= 1)
+    {
+        $price = Bid::where('publication_id', $publication->id)
+        ->orderBy('priceGiven', 'desc') // Order bids in descending order by amount
+        ->first()->priceGiven;
+    }
+    else {
+        $price = $publication->fixedPrice;
+    }
+@endphp
 @extends('partials.xlayout')
 @section('title', "$publication->title")
 @section('content')
@@ -10,9 +24,50 @@
 @php
     use Illuminate\Support\Facades\Auth;
 @endphp
+
+<div id="popup-bid" style="display:none" class="popup-container">
+    <div onclick="hide()" style="margin:1em;" class="popup-exit">
+        <p class="popup-exit-text">X</p>
+    </div>
+    <br>
+    <div style="width: 100%">
+        <div style="position: relative; margin:auto; width:fit-content;">
+        <p style="overflow:auto;color:white; font-size:2rem;text-align:center; width:100%;margin:0;">Dépose d'enchère</p>
+        <br>
+        <div style="color: white; font-size:4rem;margin:auto;position:relative" class="fav-icon div-button-actions fas fa-hand-holding-usd"></div>
+        <span style="color:white; font-size:4rem">- - -</span>
+        <div style="color: white; font-size:4rem;margin:auto;position:relative" class="fav-icon div-button-actions fas fa-user"></div>
+        </div>
+    </div>
+    <br>
+    <p style="color:white; font-size:1rem; text-align:center;margin:0;">Avant de déposer une enchère, <br>veuillez lire les <a style="color: white;" href="">politiques des enchères</a> de MonAchatRoule®
+    </p>
+    <br>
+    <br>
+    <form id="bid-form" method="post" action="{{ route('bid.store') }}">
+        <!--For Security-->
+        @csrf
+        @method('post')
+        <!--////////////-->
+        <div style="background-color:white;width:fit-content;margin:auto;border-radius:25px;text-align:center;">
+            <p style="font-weight: bolder;margin:0;">Dépot minimum : {{$price + 50}} $</p>
+        </div>
+        <br>
+        <div style="background-color:white;width:fit-content;margin:auto;border-radius:25px;">
+            <input name="priceGiven" required min="{{$price + 50}}" style="color:black; background-color: transparent;border:none;width:100%;font-weight: bolder;text-align:center;" placeholder="{{$price + 50}}" type="number" />
+            <span style="font-weight: bolder;margin:0;color:white;position:absolute;">$</span>
+            <input type="hidden" name="publication_id" value="{{$publication->id}}"/>
+            <input type="hidden" name="bidStatus" value="Ok"/>
+        </div>
+        <br>
+        <div style="background-color:black;width:fit-content;margin:auto;border-radius:25px;text-align:center;">
+            <input style="background-color: transparent;border:none;width:100%;font-weight: bolder;color:white;" type="submit" value="Déposer"/>
+        </div>
+    </form>
+    <br>
+</div>
 <div class="main-container-style xreducteur" >
     <div class="car-images ">
-
         @php
            $found = false;
         @endphp
@@ -146,16 +201,21 @@
         <div class="car-info-item d-flex align-items-center justify-content-center" style="width:100%;">
             <div class="">
                 <br>
-                <span class="detail-info-text">Prix demandé</span>
+                <span class="detail-info-text">Enchère la plus haute</span>
                 <br>
                 <br>
-                <span class="detail-text-emphasis">12 000$</span>
+                @php
+                    $highestBid = Bid::where('publication_id', $publication->id)
+                    ->orderBy('priceGiven', 'desc') // Order bids in descending order by amount
+                    ->first();
+                @endphp
+                <span class="detail-text-emphasis">{{$price}} $</span>
                 <br>
                 <br>
                 <span class="detail-info-text">État de l'annonce</span>
                 <br>
                 <br>
-                <span class="detail-text-emphasis">En cours</span>
+                <span class="detail-text-emphasis">{{$publication->publicationStatus}}</span>
                 <br>
                 <br>
             </div>
@@ -167,31 +227,109 @@
             <br>
             <!--Container of the historic of bids-->
             <div class="scroller" style="overflow-y: scroll;">
-                @foreach ($images as $image)
-                @endforeach
-                <div class="historic-bids-container">
-                    <i class="fav-icon fas fa-crown" style="color:goldenrod"></i><span class="text-emphasis text-adapt">Rollingasaurus Rex</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">25000$</span>
-                </div>
-                <div class="historic-bids-container">
-                    <i class="fav-icon fas fa-crown" style="color:gray"></i><span class="text-emphasis text-adapt">IamWheel</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">14000$</span>
-                </div>
-                <div class="historic-bids-container">
-                    <i class="fav-icon fas fa-crown" style="color:brown"></i><span class="text-emphasis text-adapt">JaguarMilk</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">12500$</span>
-                </div>
-                <div class="historic-bids-container">
-                    <i class="fav-icon fas fa-crown" style="color:lightblue"></i><span class="text-emphasis text-adapt">JaguarMilk</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">12500$</span>
-                </div>
-                <div class="historic-bids-container">
-                    <i class="fav-icon fas fa-crown" style="color:lightblue"></i><span class="text-emphasis text-adapt">JaguarMilk</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">12500$</span>
-                </div>
+                <!--Vérifier qu'il existe des bids-->
+                @php
+                    $bidExist = False;
+                @endphp
+                @if($bids != null)
+                    @foreach ($bids as $publicationBid)
+                        @php
+                            $bidExist = True;
+                        @endphp
+                    @endforeach
+                @endif
+                <!--Get le plus haut enchère-->
+                @if($bidExist)
+                    @php
+                        $highestBid = Bid::where('publication_id', $publication->id)
+                            ->orderBy('priceGiven', 'desc') // Order bids in descending order by amount
+                            ->first();
+                    @endphp
+                    @if($highestBid != null)
+                        @php
+                            //Get the usernames
+                            $user_id = $highestBid->user_id;
+                            $user = User::find($user_id);
+                            $username = $user->username;
+                        @endphp
+                        <div title="{{$highestBid->created_at}}" class="historic-bids-container">
+                            <i class="fav-icon fas fa-crown" style="color:goldenrod"></i><span class="text-emphasis text-adapt">{{$username}}</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">{{$highestBid->priceGiven}} $</span>
+                        </div>
+                    @endif
+                    <!--Get le deuxième plus haut enchère-->
+                    @php
+                        $secondHighestBid = Bid::where('publication_id', $publication->id)
+                            ->orderBy('priceGiven', 'desc') // Order bids in descending order by amount
+                            ->skip(1) // Skip the first highest bid
+                            ->take(1) // Take one record, which will be the second highest bid
+                            ->first();
+                    @endphp
+                    @if($secondHighestBid != null)
+                        @php
+                            //Get the usernames
+                            $user_id = $highestBid->user_id;
+                            $user = User::find($user_id);
+                            $username = $user->username;
+                        @endphp
+                        <div class="historic-bids-container">
+                            <i class="fav-icon fas fa-crown" style="color:gray"></i><span class="text-emphasis text-adapt">{{$username}}</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">{{$secondHighestBid->priceGiven}} $</span>
+                        </div>
+                    @endif
+                    <!--Get le troisième plus haut enchère-->
+                    @php
+                        $thirdHighestBid = Bid::where('publication_id', $publication->id)
+                            ->orderBy('priceGiven', 'desc') // Order bids in descending order by amount
+                            ->skip(2) // Skip the first highest bid
+                            ->take(1) // Take one record, which will be the second highest bid
+                            ->first();
+                    @endphp
+                    @if($thirdHighestBid != null)
+                        @php
+                            //Get the usernames
+                            $user_id = $highestBid->user_id;
+                            $user = User::find($user_id);
+                            $username = $user->username;
+                        @endphp
+                        <div class="historic-bids-container">
+                            <i class="fav-icon fas fa-crown" style="color:brown"></i><span class="text-emphasis text-adapt">{{$username}}</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">{{$thirdHighestBid->priceGiven}} $</span>
+                        </div>
+                    @endif
+                    <!--Get le reste des bids dans l'ordre du plus haut au plus bas-->
+                    @php
+                        $restOfBid = null;
+                        if(Bid::count() >= 4)
+                        {
+                            $restOfBid = Bid::where('publication_id', $publication->id)
+                                ->orderBy('priceGiven', 'desc') // Order bids in descending order by amount
+                                ->offset(3)
+                                ->limit(99999999999) // Skip the first highest bid
+                                ->get();
+                        }
+                    @endphp
+                    @if($restOfBid)
+                        @foreach ($restOfBid as $publicationBid)
+                            @php
+                                //Get the usernames
+                                $user_id = $highestBid->user_id;
+                                $user = User::find($user_id);
+                                $username = $user->username;
+                            @endphp
+                            <div class="historic-bids-container">
+                                <i class="fav-icon fas fa-crown" style="color:lightblue"></i><span class="text-emphasis text-adapt">{{$username}}</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">{{$publicationBid->priceGiven}} $</span>
+                            </div>
+                        @endforeach
+                    @endif
+                @else
+                        <p style="font-weight: bolder;font-size:15px;">Aucune enchère pour le moment...</p>
+                @endif
             </div>
             </div>
         </div>
-        <div title="Suivre l'état de l'annonce" class="div-button-actions" style=" margin:1em;">
-            <a class="noDec button-div"   href="">
+        <div onclick="show()" title="Suivre l'état de l'annonce" class="div-button-actions" style=" margin:1em;">
+            <div class="noDec button-div" >
                     <i class="fav-icon div-button-actions fas fa-hand-holding-usd"></i>
                 <label class="detail-labels div-button-actions">Déposer une enchère</label>
-            </a>
+            </div>
         </div>
         <br>
     </div>
@@ -207,7 +345,7 @@
     <br>
     <h4 class="detail-info-text">Informations du véhicule</h4>
     <hr>
-    <div class="car-info-item" style="margin: 1em;"><br><h4 class="detail-info-text">Prix demandé</h4><p class="detail-text-emphasis">{{$publication->fixedPrice}}$</p></div>
+    <div class="car-info-item" style="margin: 1em;"><br><h4 class="detail-info-text">Prix demandé</h4><p class="detail-text-emphasis">{{$price}} $</p></div>
     <div class="car-info-item" style="margin: 1em;">
         <br>
         <h4 class="detail-info-text">Description</h4> 
@@ -308,6 +446,24 @@
     });
     document.querySelector('.location-hover').addEventListener('mouseleave', function () {
         document.querySelector('.opacity').classList.remove('active');
+    });
+    function hide() {
+         document.getElementById('popup-bid').style.display = 'none';
+    }
+    function show() {
+         document.getElementById('popup-bid').style.display = 'block';
+    }
+    document.getElementById("bid-form").addEventListener("submit", function (event) {
+        // Prevent the form from automatically submitting
+        event.preventDefault();
+
+        // Display a confirmation dialog
+        const isConfirmed = confirm("Etes-vous sur de vouloir déposer votre enchère sur {{$publication->title}}?");
+
+        // If the user confirms, submit the form
+        if (isConfirmed) {
+            this.submit(); // "this" refers to the form
+        }
     });
     </script>
 @endsection
