@@ -25,7 +25,7 @@ const removeAccents = str =>
 
 $(() => {
     $(window).on("resize", function (ev) {
-        const viewPortDesktopWidth = 769;
+        const viewPortDesktopWidth = 800;
         let width = $(window).width();
         let height = $(window).height();
         //console.log('resize', $(window).width(), $(window).height());

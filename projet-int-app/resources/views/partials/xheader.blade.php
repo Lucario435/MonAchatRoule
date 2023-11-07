@@ -20,13 +20,20 @@
                     alertc.classList.add("hiddenalert");
                 }, delayInSeconds * 1000);
             });
-        </script>
+            </script>
     @endif
     <header>
         <div class="header-container">
-            <a href="/" style="text-decoration: none; color:white;">
-                <h1>@yield('appname')</h1>
-            </a>
+            <div class="menu-icon">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <div class="app-name">
+                <a href="/" style="text-decoration: none; color:white;">
+                    <h1>@yield('appname')</h1>
+                </a>
+            </div>
             <nav class="nav">
                 <ul class="ul-menu">
                     <li><a href="/publication">Trouver un véhicule</a></li>
@@ -80,11 +87,6 @@
                 @endauth
             </div>
 
-            <div class="menu-icon">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
         </div>
     </header>
 </div>
