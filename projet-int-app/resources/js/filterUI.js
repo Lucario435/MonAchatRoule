@@ -308,6 +308,7 @@ $(() => {
     listFilterDataFromServer("body", "bodies", "selectedBodyType");
 
     listFilterDataFromServer("transmission", "transmissions", "selectedTransmissions");
+
     function isCheckboxChecked(chkbox){
 
         return $(chkbox).is(":checked");
@@ -387,6 +388,7 @@ $(() => {
             range: true,
             min: minVal,
             max: maxVal,
+            step:500,
             values: [0, maxVal],
             slide: function (event, ui) {
                 $(`${htmlElement}`).html(ui.values[0] + sign + " - " + ui.values[1] + `${sign} `);
@@ -399,8 +401,8 @@ $(() => {
             },
 
         });
-        $(`#amount-${fitler}`).val("$" + $(`#slider-range-${fitler}`).slider("values", 0) +
-            " - $" + $(`#slider-range-${fitler}`).slider("values", 1));
+        $(`#amount-${fitler}`).html($(`#slider-range-${fitler}`).slider("values", 0) + ` ${sign} - ` +
+            $(`#slider-range-${fitler}`).slider("values", 1) + ` ${sign}` );
     }
     function setBackgroundColor(element, color) {
         if ($("#erreur").length == 0 && color == "green")
