@@ -21,8 +21,8 @@
             <span id="content">
                 @include('publications.carte')
             </span>
+            @include('partials.xfooter')
         </div>
-        @include('partials.xfooter')
         
     </div>
 @endsection

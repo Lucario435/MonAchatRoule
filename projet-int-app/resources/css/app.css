@@ -13,6 +13,7 @@
     --greenbuttonhover: rgba(0, 159, 0, 0);
     --notification-color: rgb(12, 85, 232);
     --mobileWidth: 768px;
+    --linearGradiantBlue:linear-gradient(to left, #006eff, #004aad);
 }
 
 html,
@@ -131,7 +132,7 @@ li {
 }
 
 /* Styles pour l'en-tête */
-header {
+header{
     background-image: linear-gradient(to left, #006eff, #004aad);
     color: white;
     padding: 20px 0;
@@ -479,4 +480,6 @@ input[type="checkbox"]:checked {
 
     }
 }
-
+footer{
+    font-size: 19px;
+}
