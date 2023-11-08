@@ -148,7 +148,7 @@ Route::get('/publications/saved', [PublicationFollow::class, 'index'])->name('pu
 Route::get('publicaitonsfollow', [PublicationFollow::class, 'store'])->name('publicationfollow.store');
 //------------------------------------------------------------------------------------
 // Search by filter
-//Route::get('/publications/search',[PublicationController::class,'search']);
+Route::get('/publications/search',[PublicationController::class,'search']);
 Route::get('/refresh-div', [BidController::class, 'refreshDiv']);
 // Section for api/publications in order to filter
 Route::get('/api/publications/brands',function ()

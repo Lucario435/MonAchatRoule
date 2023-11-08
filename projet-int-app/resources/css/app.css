@@ -213,6 +213,7 @@ h1 {
 
     .nav ul.active {
         display: flex;
+        z-index: 100;
         /* transition: .2s;
         font-weight: lighter;
         top: 85px;

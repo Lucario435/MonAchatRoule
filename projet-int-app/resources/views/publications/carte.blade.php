@@ -95,16 +95,17 @@ use Illuminate\Support\Facades\Auth;
     <div class="card-price">{{$publication->fixedPrice}}$</div>
     <br>
     <br>
-    <br>
+    <br> 
+    @if(@$publication->distance)<div class="card-kilometer" style="display: block">proximité: {{$publication->distance}} km</div>@endif
+    
     @if($publication->user_id == Auth::id() && $publication->hidden == 0)
-        <div style="float: left;"><p class="card-kilometer fas fa-eye-slash"></p><p class="card-kilometer" style="color: red;float:left; font-weight:bolder;">Privée</p></div>
+        <div class="d-flex align-items-center" style="float: right;"><div class="card-kilometer fas fa-eye-slash "></div><p class="card-kilometer" style="color: red;float:left; font-weight:bolder;">Privée</p></div>
     @elseif($publication->user_id == Auth::id() && $publication->hidden == 1)
-        <div style="float: left;"><p class="card-kilometer fas fa-eye"></p><p class="card-kilometer" style="color: green;float:left;font-weight:bolder;">Publique</p></div>
+        <div class="d-flex align-items-center" style="float: right;"><p class="card-kilometer fas fa-eye"></p><p class="card-kilometer" style="color: green;float:left;font-weight:bolder;">Publique</p></div>
     @else
         <br>
     @endif
-
-    @if(@$publication->distance)<div class="card-kilometer">proximité: {{$publication->distance}} km</div>@endif
+   
     <hr style="color: black">
     <div class="card-kilometer">{{$publication->kilometer}} km</div>
     <a title="Google Maps" href="http://google.com/maps?q={{$publication->postalCode}}">
