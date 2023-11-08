@@ -1,23 +1,23 @@
 <div id="xheader">
     <!--Usefull link : https://www.fundaofwebit.com/laravel-8/how-to-show-success-message-in-laravel-8-->
-    @if(session()->has('message'))
+    @if (session()->has('message'))
         <div class="alert alert-success" id="success">
             {{ session()->get('message') }}
         </div>
-    <script>
-        //Usefull link : https://www.geeksforgeeks.org/how-to-hide-div-element-after-few-seconds-in-jquery/
-        window.addEventListener("DOMContentLoaded", (event) => {
-            //const urlParams = new URLSearchParams(queryString);
+        <script type="module">
+            //Usefull link : https://www.geeksforgeeks.org/how-to-hide-div-element-after-few-seconds-in-jquery/
+            window.addEventListener("DOMContentLoaded", (event) => {
+                //const urlParams = new URLSearchParams(queryString);
 
 
-            alertc = document.getElementById("success");
-            alertc.style.display = "none";
-            let tempsEnSec = 3;
-            setTimeout(() =>{
-                alertc.style.fontSize = "0px";
-            },tempsEnSec*1000);
-        });
-    </script>
+                alertc = document.getElementById("success");
+                alertc.style.display = "none";
+                let tempsEnSec = 3;
+                setTimeout(() => {
+                    alertc.style.fontSize = "0px";
+                }, tempsEnSec * 1000);
+            });
+        </script>
     @endif
     <header>
         <div class="header-container">
@@ -63,17 +63,19 @@
 </div>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
     /* Ajoutez du CSS pour rendre le bouton carré sur les appareils mobiles */
     @media (max-width: 768px) {
         .login-button {
-            width: .1rem; /* Définissez la largeur et la hauteur du bouton carré */
+            width: .1rem;
+            /* Définissez la largeur et la hauteur du bouton carré */
             height: 3rem;
-            font-size: 1rem; /* Réglez la taille de l'icône */
+            font-size: 1rem;
+            /* Réglez la taille de l'icône */
             display: flex;
             align-items: center;
-            justify-content: center; /* Centre l'icône horizontalement */
+            justify-content: center;
+            /* Centre l'icône horizontalement */
         }
     }
 

@@ -16,10 +16,12 @@ return new class extends Migration
             $table->timestamps();
 
             $table->tinyInteger('seen')->default(0);
+            $table->tinyInteger('hidden')->default(0);
+
             $table->string('mcontent', 512)->default('');
 
-            $table->unsignedBigInteger("annonces_id")->nullable();
-            $table->foreign("annonces_id")->references("id")->on("annonces");
+            $table->unsignedBigInteger("publication_id")->nullable();
+            $table->foreign("publication_id")->references("id")->on("publications");
 
             $table->unsignedBigInteger("user_sender");
             $table->foreign("user_sender")->references("id")->on("users");

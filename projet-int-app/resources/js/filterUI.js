@@ -22,7 +22,7 @@ const removeAccents = str =>
 $(() => {
     $("#page_filtre").show();
     $("#content").hide();
-    $("#xheader").hide();
+    //$("#xheader").hide();
     //$("#span-price").hide();
 
     // The Boutons filter and order
@@ -99,7 +99,7 @@ $(() => {
         }
         else if($(span).is(":hidden")){
             $("#span-price").show();
-        } 
+        }
         else {
             $("#span-price").hide();
         }
@@ -201,19 +201,19 @@ $(() => {
     $("#label-reset").on("click", function (event) {
         resetFilters();
     });
-    
+
     $(".orderby-element").on("click", function (element) {
         console.log(element);
         $(element.currentTarget).toggleClass("selected-element");
     });
 
     listFilterDataFromServer("brand", "brands", "selectedBrands");
-    
+
     listFilterDataFromServer("body", "bodies", "selectedBodyType");
-    
+
     listFilterDataFromServer("transmission", "transmissions", "selectedTransmissions");
 
-    
+
 
 
 
@@ -292,14 +292,14 @@ $(() => {
                             `<div class='col-2 text-center p-0' style='color:black;'>
                                 <span class="car-${element.toLowerCase()} fa-2x"></span>
                             </div>` : `<div class='col-2'> </div>`}
-                        
+
                         <div class='col-9 text-start d-flex align-items-center'>
                             <span class="w-75" style="font-size: 22px">${CapitalizeFirstCase(element)}</span>
                         </div>
                         <div class='col-1 p-1'>
                             <span style="font-size: 20px">${nombre}</span>
                         </div>
-                    
+
                     </div>`;
 
 
@@ -309,7 +309,7 @@ $(() => {
                 $(`#label-${filter}`).after(
                     output
                 );
-                // Setting up listeners for selection of filter    
+                // Setting up listeners for selection of filter
                 $.each(elements, function (element, nombre) {
                     $(`div[${filter}=${element}]`).on("click", (ev) => {
                         console.log(element);
@@ -467,7 +467,7 @@ $(() => {
         return response;
     }
     function getHighestKilometerItemFromServer(){
-        
+
         let response;
         $.ajax({
             url: '/api/publications/maxKilometer',

@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use Mockery\Undefined;
+use PhpParser\Builder\Function_;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
-
 
     // Defaults values for each of our data
     protected $attributes = [
@@ -54,6 +54,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $avg;
     }
     public function getImage(){
+        if($this->userimage != null){
+            return $this->userimage;
+        }
         return "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
         //return "https://www.dovercourt.org/wp-content/uploads/2019/11/610-6104451_image-placeholder-png-user-profile-placeholder-image-png-286x300.jpg";
     }
@@ -61,10 +64,27 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Publication::class, 'user_id');
     }
+    public function userrels() {
+        return $this->hasMany(Userrels::class, 'user_sender', 'id')
+                    ->orWhere('user_target', 'id');
+    }
+    public Function getPublicationsCountForDisplay(){
+        $pubs = $this->getPublications;
+        $count = 0;
+        foreach ($pubs as $key => $p) {
+            if($p->hidden == false)
+                $count += 1;
+        }
+        return $count;
+    }
+
     public function getAnnonces(){return $this->getPublications();}
     public function getMessages()
     {
         return $this->hasMany(chatmessages::class, 'userid');
+    }
+    public function getNotifications(){
+        return $this->hasMany(notification::class,"userid");
     }
 
     //https://stackoverflow.com/questions/46841159/laravel-hasmany-and-belongsto-parameters
