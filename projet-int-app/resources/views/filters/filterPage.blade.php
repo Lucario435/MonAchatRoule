@@ -67,6 +67,30 @@
             </label>
         </div>
         <div class="row pb-3">
+            <label id="label-fuelType" class="row w-100 p-0 m-0">
+                <div class="col-8">
+                    Type de carburant
+                </div>
+                <div class="col-2"></div>
+                <div
+                    class="col-1 d-flex align-items-center justify-content-center fas fa-caret-down flex-grow-1 ms-auto">
+                </div>
+            </label>
+        </div>
+        <div class="row pb-3">
+            <label id="label-year" class="row w-100 p-0 m-0">
+                <div class="col-3">
+                    Année
+                </div>
+                <div id="amount-year" class="col-7 d-flex align-items-end justify-content-end">
+                    
+                </div>
+                <div
+                    class="col-1 d-flex align-items-center justify-content-center fas fa-caret-down flex-grow-1 ms-auto">
+                </div>
+            </label>
+        </div>
+        <div class="row pb-3">
             <label id="label-price" class="row w-100 p-0 m-0">
                 <div class="col-3">
                     Prix

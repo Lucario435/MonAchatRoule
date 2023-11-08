@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Publication;
 use App\Models\suiviannonce;
 use App\Models\Image;
+use App\Models\User;
 use Hamcrest\Type\IsNumeric;
 use Illuminate\Database\Eloquent\Casts\Json;
 use Mockery\Undefined;
@@ -216,8 +217,10 @@ class PublicationController extends Controller
 
         DB::enableQueryLog();
         if (count($filteringCriterias) > 0) {
+            //dd($filteringCriterias);
             $publications = $this->getFilteredPublications($filteringCriterias);
-
+            //dd($publications,DB::getQueryLog());
+            
             if ($boolRequestDistances) {
 
                 foreach ($publications as $key => $value) {
@@ -228,11 +231,13 @@ class PublicationController extends Controller
             }
 
             $publications = $publications->sortBy($sortingCriterias);
+            $images = DB::table("images")->get();
             //dd($publications);
         } else {
             if ($boolFollowedPublications) {
                 $publications = DB::table('publications')
                     ->join('suiviannonces', 'suiviannonces.publication_id', '=', 'publications.id')
+                    ->where('suiviannonces.userid','=',Auth::id())
                     ->select('publications.*')
                     ->get();
                 //dd($publications);
@@ -285,14 +290,26 @@ class PublicationController extends Controller
                     $query->where(
                         function ($query) use ($item, $key) {
                             foreach ($item as $value) {
+                                //dd($key,$item);
                                 if ($key == "minPrice")
                                     $query->Where("fixedPrice", '>=', ($value));
+
                                 else if ($key == "maxPrice")
                                     $query->Where("fixedPrice", '<=', ($value));
+
                                 else if ($key == "minMileage")
                                     $query->Where("kilometer", '>=', ($value));
+
                                 else if ($key == "maxMileage")
                                     $query->Where("kilometer", '<=', ($value));
+                                
+                                else if ($key == "minYear")
+                                    $query->Where("year", '>=', intval($value));
+                                
+                                else if ($key == "maxYear")
+                                    $query->Where("year", '<=', intval($value));
+
+
                                 else {
                                     ///dd(DB::getQueryLog());
                                     $query->orWhere($key, '=',  str_replace(',', ' ', $value));

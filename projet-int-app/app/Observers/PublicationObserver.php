@@ -8,7 +8,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 
-//require_once 'xnotifications.php';
+use App\Http\Controllers;
+use App\Http\Controllers\NotificationClass;
+
+require_once 'xnotifications.php';
+//echo app_path('Http\Controllers\xnotifications.php');
 
 class PublicationObserver
 {
@@ -67,6 +71,13 @@ class PublicationObserver
         foreach ($subscribersEmail as $sub) {
             //dd($sub->email);
             Mail::to($sub->email)->queue(new PublicationChanged($publication,$changedAttributesWithText));
+            // Test sendNotification when done
+            sendNotification(
+                $sub->userid,
+                $publication->title,
+                $changedAttributesWithText,
+                url("publication/detail/{$publication->id}")
+            );
         }
     }
 
