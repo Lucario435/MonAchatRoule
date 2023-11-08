@@ -22,7 +22,7 @@
                         <img id="shown image" class="detail-image" src="{{ asset($image->url) }}" alt="Image description" />
                         <div class="image-buttons">
                             <button id="arrowLeft" class="buttonArrow-left" title="Image précédente" id="prev-image">
-                                << /button>
+                                < </button>
                                     <button id="arrowRight" class="buttonArrow-right" title="Prohaine image"
                                         id="next-image">></button>
                         </div>

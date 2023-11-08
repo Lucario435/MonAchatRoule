@@ -81,10 +81,10 @@
         </div>
         <div class="row pb-3">
             <label id="label-kilometer" class="row w-100 p-0 m-0">
-                <div class="col-5">
+                <div class="col-3">
                     Kilométrage
                 </div>
-                <div id="amount-kilometer" class="col-5 d-flex align-items-end justify-content-end ">
+                <div id="amount-kilometer" class="col-7 d-flex align-items-end justify-content-end ">
                 </div>
                 <div
                     class="col-1 d-flex align-items-center justify-content-center fas fa-caret-down flex-grow-1 ms-auto">
