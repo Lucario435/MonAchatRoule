@@ -15,6 +15,20 @@ class PublicationObserver
     /**
      * Handle the Publication "created" event.
      */
+    const eqTableFrench = [
+        "title"=>'titre',
+        "bodyType"=>'Type de carroserie',
+        "brand"=>'Marque',
+        "color"=>'Couleur de peinture',
+        "expirationOfBid"=>"Date d'échéance de l'enchère",
+        "fixedPrice"=>'Prix',
+        "fuelType"=>'Type de carburant',
+        "kilometer"=>'Kilomètrage',
+        "postalCode"=>'Code postal',
+        "year"=>'Année',
+        "type"=>"Type d'annonce",
+        "description"=>"description"
+    ];
     public function created(Publication $publication): void
     {
         //
@@ -26,15 +40,33 @@ class PublicationObserver
     public function updated(Publication $publication): void
     {
         // Sql request pour voir si la publication a des suiveurs
-        $subscribers_email = DB::table('suiviannonces')
+        $subscribersEmail = DB::table('suiviannonces')
             ->join('publications', 'suiviannonces.publication_id', '=', 'publications.id')
             ->join('users', 'users.id', '=', 'suiviannonces.userid')
             ->where('publications.id', '=', $publication->id)
             ->select('suiviannonces.userid', 'suiviannonces.publication_id', 'publications.title', 'users.email', 'users.username')->get(); 
 
-        foreach ($subscribers_email as $sub) {
+        $oldAttributes = $publication->getOriginal();
+        $newAttributes = $publication->getDirty();
+    
+        $changedAttributesWithText = [];
+        foreach ($newAttributes as $attribute => $newValue) {
+            $oldValue = $oldAttributes[$attribute];
+            // $enFrancais = isset(self::eqTableFrench[$attribute]) ? self::eqTableFrench[$attribute] : $attribute;
+            if(isset(self::eqTableFrench[$attribute])){
+                $enFrancais = self::eqTableFrench[$attribute];
+                if($enFrancais == 'description'){
+                    $changedAttributesWithText[] = "La $enFrancais à changée";
+                }else{
+                    $changedAttributesWithText[] = "$enFrancais est passé de '$oldValue' à '$newValue'";
+                }
+            }
+            
+        }
+
+        foreach ($subscribersEmail as $sub) {
             //dd($sub->email);
-            Mail::to($sub->email)->queue(new PublicationChanged($publication));
+            Mail::to($sub->email)->queue(new PublicationChanged($publication,$changedAttributesWithText));
         }
     }
 

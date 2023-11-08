@@ -9,6 +9,8 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use PhpParser\Node\Expr\Cast\Array_;
+use PhpParser\Node\Expr\Cast\String_;
 
 class PublicationChanged extends Mailable
 {
@@ -18,7 +20,8 @@ class PublicationChanged extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        protected Publication $publication,
+        protected Publication $publication, 
+        protected array $changedAttributesArray,
         )
     { }
 
@@ -38,9 +41,11 @@ class PublicationChanged extends Mailable
     public function content(): Content
     {
         //dd(url(`publication/detail/{$this->publication->id}`));
+        //dd($this->changedAttributesArray);
         return new Content(
             view: 'emails.publication-changed',
             with:[
+                'changedAttributesArray'=>$this->changedAttributesArray,
                 'title' => $this->publication->title,
                 'url' => url("publication/detail/{$this->publication->id}"),
             ],
