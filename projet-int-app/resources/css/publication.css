@@ -78,6 +78,7 @@ select{
 {
     color: gray;
     font-weight: bolder;
+    text-align: left;
 }
 #hint{
     transition: 1s; /* Specify 'transform' property and duration in seconds */
@@ -476,7 +477,7 @@ padding-bottom: 100%;
 /*CSS for detail page*/
 .main-container-style{
     text-align: center;
-    width: 85%;
+    width: 800px;
     margin: auto;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

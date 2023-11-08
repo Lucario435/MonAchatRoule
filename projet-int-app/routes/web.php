@@ -166,6 +166,11 @@ Route::get('/api/publications/transmissions',function ()
         return PublicationResource::collection(Publication::all())->countBy('transmission');
     }
 );
+Route::get('/api/publications/fuelTypes',function ()
+    {
+        return PublicationResource::collection(Publication::all())->countBy('fuelType');
+    }
+);
 
 Route::get('/api/publications/maxPrice',function ()
     {
@@ -175,6 +180,16 @@ Route::get('/api/publications/maxPrice',function ()
 Route::get('/api/publications/maxKilometer',function ()
     {
         return PublicationResource::collection(Publication::all())->max('kilometer');
+    }
+);
+Route::get('/api/publications/maxYear',function ()
+    {
+        return PublicationResource::collection(Publication::all())->max('year');
+    }
+);
+Route::get('/api/publications/minYear',function ()
+    {
+        return PublicationResource::collection(Publication::all())->min('year');
     }
 );
 // Route::get('/api/publications/kilometer',function ()

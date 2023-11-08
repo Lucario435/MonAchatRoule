@@ -4,30 +4,37 @@ let filterObject = {
     selectedBrands: new Set(),
     selectedBodyType: new Set(),
     selectedTransmissions: new Set(),
+    selectedFuelType: new Set(),
     numberSelectedFilters: 0,
     selectedMinPrice: null,
     selectedMaxPrice: null,
     selectedMinMileage: null,
     selectedMaxMileage: null,
+    selectedMinYear: null,
+    selectedMaxYear: null,
     errorMaxMilage: null,
     errorMaxPrice: null,
     orderPrice: [false, "asc"],
     orderMileage: [false, "asc"],
     orderDistance: [false, "asc"],
     orderDateAdded: [false, "asc"],
+    followedPublications: false,
+    errorMaxYear:null,
 
 }
+
 const MOBILE_WIDTH = 769;
+
 const removeAccents = str =>
     str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
 
 $(() => {
     $(window).on("resize", function (ev) {
-        const viewPortDesktopWidth = 769;
+        const viewPortDesktopWidth = 800;
         let width = $(window).width();
         let height = $(window).height();
-        console.log('resize', $(window).width(), $(window).height());
+        //console.log('resize', $(window).width(), $(window).height());
         if (viewPortDesktopWidth <= width) {
             hideFilterPage();
             showFilterPage();
@@ -89,12 +96,16 @@ $(() => {
         }
         selectedElement.hide();
         selectedElement.fadeIn(200);
-        //console.log(selectedElement.attr("id"));
-
-
-        //console.log("after element:", afterElementId);
     });
-
+    $("#followedPublications").on("change",function(event){
+        console.log('t');
+        filterObject.followedPublications = isCheckboxChecked($("#followedPublications"));
+        if(isCheckboxChecked($("#followedPublications")))
+            filterObject.numberSelectedFilters++;
+        else
+            filterObject.numberSelectedFilters--;
+        ShowNumberOfActiveFilters();
+    })
     // The Boutons filter and order
 
     $("#filters").on("click", function (event) {
@@ -237,6 +248,73 @@ $(() => {
 
     });
 
+    $("#label-year").on("click", function (event) {
+        let span = $(`#span-year`);
+        if (!span.length) {
+            $("#label-year").after(
+                `
+                <span id="span-year" class="w-75 mx-auto mt-4">
+                    <span id="amount-year"></span>
+                    <div id="slider-range-year"></div>
+                </span>
+                `
+            );
+
+            let maxYear = getHighestYearFromServer();
+            let minYear = getMinYearFromServer();
+
+            console.log(typeof (minYear));
+            console.log(minYear);
+            createSlider("year", minYear, maxYear, "#amount-year", "selectedMinYear", "selectedMaxYear", " ",1)
+
+            $("#min_year").on("input", function (ev) {
+
+                if (filterObject.selectedMinYear == null)
+                    filterObject.numberSelectedFilters++;
+
+                filterObject.selectedMinYear = parseInt($("#min_year").val());
+
+                //console.log(filterObject.selectedMinMileage);
+                if ($("#min_year").val() == '') {
+                    filterObject.numberSelectedFilters--;
+                    filterObject.selectedMinYear = null;
+                }
+                setErrorMaxInput("year", $("#max_year").val(), filterObject.selectedMinYear);
+
+                ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
+                //console.log("min kilometer changed " + filterObject.selectedMinMileage);
+            })
+            $("#max_year").on("input", function (ev) {
+
+                if (filterObject.selectedMaxYear == null)
+                    filterObject.numberSelectedFilters++;
+
+                filterObject.selectedMaxYear = parseInt($("#max_year").val());
+
+                if ($("#max_year").val() == '') {
+                    filterObject.numberSelectedFilters--;
+                    filterObject.selectedMaxYear = null;
+                }
+
+                setErrorMaxInput("year", $("#max_year").val(), filterObject.selectedMinYear);
+
+                ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
+                //console.log("max kilometer changed " + filterObject.selectedMaxMileage);
+            })
+
+            if (filterObject.errorMaxYear) {
+                setErrorMaxInput('year', parseInt($("#max_year").val()), filterObject.selectedMinYear);
+            }
+
+        } else if ($(span).is(":hidden")) {
+            $("#span-year").show();
+        }
+        else {
+            $("#span-year").hide();
+        }
+
+    });
+
     $("#label-trier").on("click", function (event) {
         $("#orderby-list").toggleClass("hidden");
     });
@@ -282,7 +360,7 @@ $(() => {
 
         if (element.currentTarget.name === "orderDistance" && checkedState) {
             // There is a problem with a div displaying above filters when asking for user location or denied user location
-            const coordinateUser = UserLocation;
+            const coordinateUser = {long:UserLocation[0],lat:UserLocation[1]};
             console.log(coordinateUser);
             filterObject = { ...filterObject, [key]: [checkedState, orderType, coordinateUser] }
             //let codesPostales = getCodesPostalesFromServer();
@@ -303,6 +381,13 @@ $(() => {
     listFilterDataFromServer("body", "bodies", "selectedBodyType");
 
     listFilterDataFromServer("transmission", "transmissions", "selectedTransmissions");
+
+    listFilterDataFromServer("fuelType",'fuelTypes',"selectedFuelType")
+
+    function isCheckboxChecked(chkbox){
+
+        return $(chkbox).is(":checked");
+    }
     function showMenuFilter(){
         $("#menu").show();
     }
@@ -373,14 +458,15 @@ $(() => {
             //console.log("max kilo changed " + filterObject.selectedMaxMileage);
         }
     }
-    function createSlider(fitler, minVal = 0, maxVal, htmlElement, selectedElementMin, selectedElementMax, sign = '') {
+    function createSlider(fitler, minVal = 0, maxVal, htmlElement, selectedElementMin, selectedElementMax, sign = '',step = 500) {
         $(`#slider-range-${fitler}`).slider({
             range: true,
             min: minVal,
             max: maxVal,
-            values: [0, maxVal],
+            step:step,
+            values: [minVal, maxVal],
             slide: function (event, ui) {
-                $(`${htmlElement}`).html(ui.values[0] + sign + " - " + ui.values[1] + `${sign} `);
+                $(`${htmlElement}`).html(ui.values[0]  + " - " + ui.values[1] + `${sign} `);
                 if (filterObject[selectedElementMax] == null && filterObject[selectedElementMin] == null) {
                     filterObject.numberSelectedFilters++;
                     ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
@@ -390,8 +476,8 @@ $(() => {
             },
 
         });
-        $(`#amount-${fitler}`).val("$" + $(`#slider-range-${fitler}`).slider("values", 0) +
-            " - $" + $(`#slider-range-${fitler}`).slider("values", 1));
+        $(`#amount-${fitler}`).html($(`#slider-range-${fitler}`).slider("values", 0) + ' - ' +
+            $(`#slider-range-${fitler}`).slider("values", 1) + ` ${sign}` );
     }
     function setBackgroundColor(element, color) {
         if ($("#erreur").length == 0 && color == "green")
@@ -462,12 +548,9 @@ $(() => {
                                     break;
                                 case 'selectedBodyType':
                                     filterObject.selectedBodyType.add(element);
-                                    break;
-                                case 'selectedMileage':
-                                    filterObject.selectedMileage.add(element);
-                                    break;
-                                case 'selectedPrice':
-                                    filterObject.selectedPrice.add(element);
+                                    break;                        
+                                case 'selectedFuelType':
+                                    filterObject.selectedFuelType.add(element);
                                     break;
                                 default:
                                     break;
@@ -485,11 +568,8 @@ $(() => {
                                 case 'selectedBodyType':
                                     filterObject.selectedBodyType.delete(element);
                                     break;
-                                case 'selectedMileage':
-                                    filterObject.selectedMileage.delete(element);
-                                    break;
-                                case 'selectedPrice':
-                                    filterObject.selectedPrice.delete(element);
+                                case 'selectedFuelType':
+                                    filterObject.selectedFuelType.delete(element);
                                     break;
                                 default:
                                     break;
@@ -511,18 +591,37 @@ $(() => {
         //console.log(filterObject)
         if (filterObject.selectedBrands.size > 0)
             url += `brand=${formatArrayToUrl(filterObject.selectedBrands)}&`;
+
         if (filterObject.selectedBodyType.size > 0)
             url += `bodyType=${formatArrayToUrl(filterObject.selectedBodyType)}&`;
+
         if (filterObject.selectedTransmissions.size > 0)
             url += `transmission=${formatArrayToUrl(filterObject.selectedTransmissions)}&`;
+
+        if (filterObject.selectedFuelType.size > 0)
+            url += `fuelType=${formatArrayToUrl(filterObject.selectedFuelType)}&`;
+
         if (filterObject.selectedMinPrice != null)
             url += `minPrice=${filterObject.selectedMinPrice}&`;
+
         if (filterObject.selectedMaxPrice != null)
             url += `maxPrice=${filterObject.selectedMaxPrice}&`;
+
         if (filterObject.selectedMinMileage != null)
             url += `minMileage=${filterObject.selectedMinMileage}&`;
+
         if (filterObject.selectedMaxMileage != null)
             url += `maxMileage=${filterObject.selectedMaxMileage}&`;
+        
+        if (filterObject.selectedMinYear != null)
+            url += `minYear=${filterObject.selectedMinYear}&`;
+
+        if (filterObject.selectedMaxYear != null)
+            url += `maxYear=${filterObject.selectedMaxYear}&`;
+
+        if (filterObject.followedPublications != false)
+            url += `followedPublications&`;
+
         url = setOrdersOrder(url);
         console.log("URL: " + url)
         return removeAccents(url);
@@ -535,7 +634,7 @@ $(() => {
             // Consider we need to send the user coordinates with request of type distance
             if (filterObject[id][0] != false)
                 if (filterObject[id] == filterObject.orderDistance)
-                    url += `${id}=${filterObject[id][1]},${filterObject[id][2]['lat']},${filterObject[id][2]['long']}&`
+                    url += `${id}=${filterObject[id][1]},${filterObject[id][2].long},${filterObject[id][2].lat}&`
                 else
                     url += `${id}=${filterObject[id][1]}&`
         })
@@ -577,6 +676,7 @@ $(() => {
             orderMileage: [null, "asc"],
             orderDistance: [null, "asc"],
             orderDateAdded: [null, "asc"],
+            followedPublications:null,
         }
         $(".selected-element").removeClass("selected-element");
         $("#min_price").val('');
@@ -587,6 +687,7 @@ $(() => {
         $(`#val-max-kilometer-error`).remove();
         $('#amount-price').html(' ');
         $('#amount-kilometer').html(' ');
+        $('#followedPublications').prop("checked", false);
         $('.orderby-element > div > input').prop("checked", false);
         $(`#slider-range-price`).slider("values", [0, getHighestPriceItemFromServer()])
         $(`#slider-range-kilometer`).slider("values", [0, getHighestKilometerItemFromServer()])
@@ -602,7 +703,7 @@ $(() => {
     function CapitalizeFirstCase(str) {
         return str[0].toUpperCase() + str.slice(1).toLowerCase();
     }
-    function ShowNumberOfActiveFilters(element, number) {
+    function ShowNumberOfActiveFilters(element = "#number-filter", number = filterObject.numberSelectedFilters) {
         $(element).html('(' + number + ')');
     }
     function getHighestPriceItemFromServer() {
@@ -624,6 +725,36 @@ $(() => {
         let response;
         $.ajax({
             url: '/api/publications/maxKilometer',
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                //console.log(parseInt(data));
+                response = parseInt(data);
+            },
+            error: (xhr) => { console.log(xhr); }
+        });
+        return response;
+    }
+    function getHighestYearFromServer() {
+
+        let response;
+        $.ajax({
+            url: '/api/publications/maxYear',
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                //console.log(parseInt(data));
+                response = parseInt(data);
+            },
+            error: (xhr) => { console.log(xhr); }
+        });
+        return response;
+    }
+    function getMinYearFromServer() {
+
+        let response;
+        $.ajax({
+            url: '/api/publications/minYear',
             async: false,
             dataType: 'json',
             success: function (data) {

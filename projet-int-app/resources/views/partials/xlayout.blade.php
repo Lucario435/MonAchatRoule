@@ -183,7 +183,7 @@
 
 
 
-    @include('partials.xfooter')
+    {{-- @include('partials.xfooter') --}}
 </body>
 
 </html>

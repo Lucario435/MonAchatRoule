@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Auth;
 <div class="card-container">
     <!--Filters-->
 @if (count($publications) == 0)
-<span class="not-available">Aucune annonce disponible</span>
+<span class="not-available">Aucune annonce disponible <br> ou aucune respectant les critères de recherches</span>
 @endif
+
 @foreach ($publications as $publication)
 @if($publication->hidden == 1 || $publication->user_id == Auth::id())
  <div class="cardd">

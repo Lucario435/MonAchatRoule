@@ -13,7 +13,7 @@
 @endpush
 @section('content')
     @include('filters.menu')
-    <div class="container-sm">
+    <div class="container-sm" >
         <div class="col-4" id="filters-wrapper">
             @include('filters.filterPage')
         </div>
@@ -21,6 +21,8 @@
             <span id="content">
                 @include('publications.carte')
             </span>
+            @include('partials.xfooter')
         </div>
+        
     </div>
 @endsection

@@ -16,9 +16,16 @@ use App\Models\Bid;
 @extends('partials.xlayout')
 @section('title', "$publication->title")
 @section('content')
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-@push('css')
-    @vite(['resources/css/publication.css'])
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @push('css')
+        @vite(['resources/css/publication.css'])
+    @endpush
+    <!--BODY-->
+    @php
+        use Illuminate\Support\Facades\Auth;
+    @endphp
+    <div class="main-container-style xreducteur">
+        <div class="car-images ">
 
 @endpush
 <!--BODY-->
@@ -81,10 +88,14 @@ use App\Models\Bid;
                         <button id="arrowLeft" class="buttonArrow-left" title="Image précédente" id="prev-image"><</button>
                         <button id="arrowRight" class="buttonArrow-right" title="Prohaine image" id="next-image">></button>
                     </div>
-                </div>
-                @php
-                    $found = true;
-                @endphp
+                    @php
+                        $found = true;
+                    @endphp
+                @endif
+            @endforeach
+            @if ($found == false)
+                <img class="detail-no-image" title="Image du vendeur" src="{{ asset('img/noImage.jpg') }}"
+                    alt="Image de la {{ $publication->title }}">
             @endif
         @endforeach
         @if($found == false)
@@ -262,15 +273,6 @@ use App\Models\Bid;
         @endif
         <br>
     </div>
-</div>
-@endif
-<br>
-<style momo="PERMET DE BAISSER LE WIDTH">
-    @media (min-width: 768px){
-        .xreducteur{width: 40%;}
-    }
-</style>
-<div class="main-container-style xreducteur" >
     <br>
     <h4 class="detail-info-text">Informations du véhicule</h4>
     <hr>
@@ -283,77 +285,50 @@ use App\Models\Bid;
         <br>
         <br>
     </div>
-    <div class="car-info ">
-        <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/industrie.png')}}"/></div><div class="detail-labels"><label class="detail-info-text">Fabricant</label><p class="detail-text-emphasis">{{$publication->brand}}</p></div></div>
-        <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/compteur-de-vitesse.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Kilométrage</label><p class="detail-text-emphasis">{{$publication->kilometer}} km</p></div></div>
-        <!--<label>Année :</label><p>À rajouter</p>-->
-        <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/transmission-manuelle.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Transmission</label><p class="detail-text-emphasis">{{$publication->transmission}}</p></div></div>
-        <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/body-type.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Carosserie</label><p class="detail-text-emphasis">{{$publication->bodyType}}</p></div></div>
-        <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/couleurs.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Couleur</label><p class="detail-text-emphasis">{{$publication->color}}</p></div></div>
+    <script>
+        //With the help of chat gpt
+        // JavaScript to handle image cycling
+        document.addEventListener('DOMContentLoaded', function() {
+            let images = @json($images);
+            let currentIndex = 0;
+            const imageElement = document.getElementById('shown image');
+            const arrowLeft = document.getElementById('arrowLeft');
+            const arrowRight = document.getElementById('arrowRight');
 
-        <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/year.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Année</label><p class="detail-text-emphasis">{{$publication->year}}</p></div></div>
-        <div class="car-info-item"><div class="info-logo" style="width: 100%;"><img class="detail-icon" src="{{asset('img/essence.png')}}"/></div><div  class="detail-labels"><label class="detail-info-text">Type d'essence</label><p class="detail-text-emphasis">{{$publication->fuelType}}</p></div></div>
-
-        <div><a style="color: black;" class="noDec" href="http://google.com/maps?q={{$publication->postalCode}}"><div title="Google Maps vers {{$publication->postalCode}}" style="background-image: url({{asset('img/Google-Maps-Logo.png')}}); background-size: cover;"class="car-info-item location-hover"><div class="info-logo opacity" style="width: 100%;"><img class="detail-icon" src="{{asset('img/epingle.png')}}"/><div  class="detail-labels"><label class="detail-info-text">Emplacement</label><p class="detail-text-emphasis">{{$publication->postalCode}}</p></div></div></a></div>
-    </div>
-    </div>
-    <br> 
-    <div style="width: 100%; height: 4em;">
-    <div title="Signaler l'annonce" class="div-button-actions" style="float: right; width:fit-content;margin:20px;">
-        <a class="noDec alert-button-div"  title="Signaler l'annonce" href="">
-        <!--Ramener vers le controlleur pour ajouter un contact-->
-            <i class="fav-icon alert-hover div-button-actions fa-solid fa-triangle-exclamation"></i>
-        </a>
-    </div>
-    </div>
-<br>
-</div>
-<script>
-    //With the help of chat gpt
-    // JavaScript to handle image cycling
-    document.addEventListener('DOMContentLoaded', function () {
-        let images = @json($images);
-        let currentIndex = 0;
-        const imageElement = document.getElementById('shown image');
-        const arrowLeft = document.getElementById('arrowLeft');
-        const arrowRight = document.getElementById('arrowRight');
-        function showImage(index) {
-            if(index < 0)
-            {
-                index = images.length - 1
-            }
-            else
-            {
-                if(index >= images.length) {
-                    index = 0;
+            function showImage(index) {
+                if (index < 0) {
+                    index = images.length - 1
+                } else {
+                    if (index >= images.length) {
+                        index = 0;
+                    }
                 }
-            }
-            url = images[index].url;
-            currentIndex = index;
-            imageElement.style.opacity = 0;
+                url = images[index].url;
+                currentIndex = index;
+                imageElement.style.opacity = 0;
 
                 // Use a small delay to change the source after the fade-out effect
-            setTimeout(function () {
-                imageElement.style.opacity = 1;
+                setTimeout(function() {
+                    imageElement.style.opacity = 1;
                 }, 400);
                 // Fade in the new image
                 imageElement.src = "{{ asset('') }}" + url;
             }
 
-        arrowLeft.addEventListener('click', function () {
-            showImage(currentIndex - 1);
-        });
+            arrowLeft.addEventListener('click', function() {
+                showImage(currentIndex - 1);
+            });
 
-        arrowRight.addEventListener('click', function () {
-            showImage(currentIndex + 1);
+            arrowRight.addEventListener('click', function() {
+                showImage(currentIndex + 1);
+            });
         });
-    });
-</script>
-<!--Utile pour follow une annonce-->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </script>
+    <!--Utile pour follow une annonce-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $("#myForm").submit(function (e) {
+        $(document).ready(function() {
+            $("#myForm").submit(function(e) {
                 e.preventDefault();
                 $.ajax({
                     type: "POST",
@@ -361,13 +336,12 @@ use App\Models\Bid;
                     data: {
                         data: $("#data").val()
                     },
-                    success: function (response) {
+                    success: function(response) {
                         $("#result").html(response);
                     }
                 });
             });
         });
-        
     </script>
     <script>
     document.querySelector('.location-hover').addEventListener('mouseenter', function () {
@@ -440,4 +414,5 @@ use App\Models\Bid;
     
         setInterval(refreshDiv, 5000); // Call it every 5 seconds (5000 milliseconds)
     </script>
+    @include('partials.xfooter')
 @endsection
