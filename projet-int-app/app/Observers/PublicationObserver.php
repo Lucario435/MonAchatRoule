@@ -54,15 +54,18 @@ class PublicationObserver
         $newAttributes = $publication->getDirty();
     
         $changedAttributesWithText = [];
+        $string = "";
         foreach ($newAttributes as $attribute => $newValue) {
             $oldValue = $oldAttributes[$attribute];
             // $enFrancais = isset(self::eqTableFrench[$attribute]) ? self::eqTableFrench[$attribute] : $attribute;
             if(isset(self::eqTableFrench[$attribute])){
                 $enFrancais = self::eqTableFrench[$attribute];
                 if($enFrancais == 'description'){
-                    $changedAttributesWithText[] = "La $enFrancais à changée";
+                    $changedAttributesWithText[] = "$enFrancais à changée";
+                    $string .= "$enFrancais a changée <br>";
                 }else{
                     $changedAttributesWithText[] = "$enFrancais est passé de '$oldValue' à '$newValue'";
+                    $string .= "$enFrancais a changé <br>";
                 }
             }
             
@@ -75,7 +78,7 @@ class PublicationObserver
             sendNotification(
                 $sub->userid,
                 $publication->title,
-                $changedAttributesWithText,
+                $string,
                 url("publication/detail/{$publication->id}")
             );
         }

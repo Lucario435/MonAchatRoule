@@ -34,7 +34,7 @@
                         @if ($n->clicked)
                             <span style="float: right">Déjà vu <i class="fas fa-eye"></i></span>
                         @endif
-                        <a href="{{ route('notifications.click', ['nid' => $n->id]) }}"><p>{{ $n->msg() }}</p></a>
+                        <a href="{{ route('notifications.click', ['nid' => $n->id]) }}"><p>{!! $n->msg() !!}</p></a>
 
 
                     </div>
