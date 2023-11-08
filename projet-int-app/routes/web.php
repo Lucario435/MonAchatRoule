@@ -35,7 +35,7 @@ Route::get("/index",function(){
 });
 
 Route::get('/users',[UsersController::class,"index"]);
-Route::get('/users/{id}',[UsersController::class,"userProfile"]);
+Route::get('/users/{id}',[UsersController::class,"userProfile"])->name('userProfile');
 // login momo
 Route::post('/login',[UsersController::class,"authenticate"]);
 Route::get('/login',[UsersController::class,"login"])->name('login');
@@ -90,11 +90,20 @@ Route::post('/publication/edit/{id}', [PublicationController::class, 'update'])-
 Route::post('/publication', [PublicationController::class, 'store'])->name('publication.store');
 //Route to create the detail page
 Route::get('publication/detail/{id}', [PublicationController::class, 'detail'])->name('publication.detail');
+//Route to set a publication as sold
+Route::get('publication/sold/{id}', [PublicationController::class, 'markAsSold'])->name('publication.sold');
+//Route to delete a publication
+Route::get('publication/delete/{id}', [PublicationController::class, 'delete'])->name('publication.delete');
 //------------------------------------------------------------------------------------
 
 //Section for bids routes
 //------------------------------------------------------------------------------------
 Route::post('/bid', [BidController::class, 'store'])->name('bid.store');
+
+//Used to make a partial refresh in the detail page
+Route::get('/refresh-div/{id}', [BidController::class, 'refreshDiv'])->name('bid.refresh-div');
+
+Route::get('/refresh-price/{id}', [BidController::class, 'getHighestBidValue'])->name('bid.refresh-price');
 //------------------------------------------------------------------------------------
 
 //Section for image routes
@@ -120,7 +129,8 @@ Route::get('/publications/saved', [PublicationFollow::class, 'index'])->name('pu
 Route::get('publicaitonsfollow', [PublicationFollow::class, 'store'])->name('publicationfollow.store');
 //------------------------------------------------------------------------------------
 // Search by filter
-Route::get('/publications/search',[PublicationController::class,'search']);
+//Route::get('/publications/search',[PublicationController::class,'search']);
+Route::get('/refresh-div', [BidController::class, 'refreshDiv']);
 // Section for api/publications in order to filter
 Route::get('/api/publications/brands',function ()
     {

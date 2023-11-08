@@ -1,4 +1,6 @@
     @php
+    use App\Models\User;
+    use App\Models\Bid;
         $bidExist = False;
     @endphp
     @if($bids != null)
@@ -92,4 +94,3 @@
     @else
             <p style="font-weight: bolder;font-size:15px;">Aucune enchère pour le moment...</p>
     @endif
-</div>

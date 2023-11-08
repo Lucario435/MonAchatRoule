@@ -24,36 +24,79 @@ class PublicationController extends Controller
         $images = Image::all();
         return view('publications.index', ['publications' => $publications, 'images' => $images]);
     }
-
+    public function delete($id)
+    {
+        $publicationExist = Publication::where('id', $id)->first();
+        //Vérifier si l'annonce existe
+        if($publicationExist != null)
+        {
+            //Vérifier que l'annonce est à nous et que nous sommes connecté
+            $currentUser = Auth::id();
+            if($currentUser != null && $currentUser == $publicationExist->user_id)
+            {
+                //Vérifier si des enchères ont été mis sur l'annonce
+                $publicationBids = Bid::where('publication_id', $id)->get();
+                if(count($publicationBids) == 0)
+                {
+                    DB::table('publications')->delete($id);
+                    return redirect(route('publication.index'))->with('message', 'Votre annonce a été supprimée!');
+                }
+                else
+                {
+                    //Redirige vers la page détail
+                    return redirect(route('publication.detail', ['id' => $id]))->with('message', 'Votre annonce comporte des enchères et ne peut pas être supprimé!');
+                }
+            }
+            else
+            {
+                //Redirige vers la page détail
+                return redirect(route('publication.detail', ['id' => $id]))->with('message', 'Il faut être connecté et être propriétaire de cette annonce pour la supprimer!');
+            }
+        }
+        else
+        {
+             //Redirige vers la page index
+             return redirect(route('publication.index'))->with('message', 'Cette annonce n\'existe pas!');
+        }
+    }
     //Returns the detail page of a publication and it's values images are taken only in the html in a foreach
     public function detail($id)
     {
-        $followedPublications = Suiviannonce::where('publication_id', $id)->first();
-
-        $publicationBids = Bid::where('publication_id',$id)->get();
-
-        $currentUser = Auth::id();
-
-        $followed = false;
-
-        //Returns true if id current user has saved this publication
-        if($followedPublications != null && $currentUser != null)
+        $publicationExist = Publication::find($id);
+        //Vérifier que l'annonce est privée, on redirige vers l'index
+        if($publicationExist->hidden == 1)
         {
-            if ($followedPublications->userid == $currentUser && $followedPublications->publication_id == $id) {
-                $followed = true;
+            $followedPublications = Suiviannonce::where('publication_id', $id)->first();
+
+            $publicationBids = Bid::where('publication_id',$id)->get();
+
+            $currentUser = Auth::id();
+
+            $followed = false;
+
+            //Returns true if id current user has saved this publication
+            if($followedPublications != null && $currentUser != null)
+            {
+                if ($followedPublications->userid == $currentUser && $followedPublications->publication_id == $id) {
+                    $followed = true;
+                }
             }
+
+            $publication = Publication::find($id);
+            $images = Image::all();
+
+            if (!$publication) {
+                abort(404); // Handle the case when the item is not found.
+            }
+
+            $images = Image::where('publication_id', $publication->id)->get();
+
+            return view('publications.detail', ['publication' => $publication, 'images' => $images, 'followed' => $followed,'bids' => $publicationBids]);
         }
-
-        $publication = Publication::find($id);
-        $images = Image::all();
-
-        if (!$publication) {
-            abort(404); // Handle the case when the item is not found.
+        else
+        {
+            return redirect(route('publication.index'))->with('message', 'Cette annonce est privée!');
         }
-
-        $images = Image::where('publication_id', $publication->id)->get();
-
-        return view('publications.detail', ['publication' => $publication, 'images' => $images, 'followed' => $followed,'bids' => $publicationBids]);
     }
 
     //Returns the create publication page
@@ -124,10 +167,10 @@ class PublicationController extends Controller
     {
         $p = Publication::find($pid);
         if ($p == null) {
-            return to_route("index");
+            return redirect(route('publication.index'))->with('message', 'Cette annonce n\'existe pas!');
         }
-        if ($p->user_id != Auth::id()) {
-            return to_route("index");
+        if ($p->user_id != Auth::id() || null == Auth::id()) {
+            return redirect(route('publication.index'))->with('message', 'Vous n\'avez pas accès à cette page!');
         }
         return view('publications.create', ["isEdit" => true, "pid" => $pid, "publication" => $p]);
     }
@@ -135,10 +178,10 @@ class PublicationController extends Controller
     { //post
         $p = Publication::find($id);
         if ($p == null) {
-            return to_route("index");
+            return redirect(route('publication.index'))->with('message', 'Cette annonce n\'existe pas!');
         }
         if ($p->user_id != Auth::id()) {
-            return to_route("index");
+            return redirect(route('publication.index'))->with('message', 'Vous n\'avez pas accès à cette page!');
         }
         $data = $request->validate([
             //publication validation
@@ -285,6 +328,14 @@ class PublicationController extends Controller
                 }
             }
         )->get();
+    }
+    public function markAsSold($id)
+    {
+        $publication = Publication::find($id);
+
+        $publication->update(['publicationStatus' => 'vendu']);
+
+        return redirect(route('publication.detail', ['id' => $id]))->with('message', 'Votre annonce ' . $publication->title . ' s\'est vendu!');
     }
     private function getTravelDistance($wp1, $wp2)
     {

@@ -1,8 +1,9 @@
 @php
 use App\Models\User;
 use App\Models\Bid;
+    //Next thing to add is if there is a bid, the asked price will change
     $price = null;
-    if(Bid::count() >= 1)
+    if(Bid::where('publication_id', $publication->id)->count() >= 1)
     {
         $price = Bid::where('publication_id', $publication->id)
         ->orderBy('priceGiven', 'desc') // Order bids in descending order by amount
@@ -50,11 +51,11 @@ use App\Models\Bid;
         @method('post')
         <!--////////////-->
         <div style="background-color:white;width:fit-content;margin:auto;border-radius:25px;text-align:center;">
-            <p style="font-weight: bolder;margin:0;">Dépot minimum : {{$price + 50}} $</p>
+            <p class="price-refresher-50-text" style="font-weight: bolder;margin:0;">Dépot minimum : {{$price + 50}} $</p>
         </div>
         <br>
         <div style="background-color:white;width:fit-content;margin:auto;border-radius:25px;">
-            <input name="priceGiven" required min="{{$price + 50}}" style="color:black; background-color: transparent;border:none;width:100%;font-weight: bolder;text-align:center;" placeholder="{{$price + 50}}" type="number" />
+            <input class="price-refresher-50 refresher-input" name="priceGiven" required min="{{$price + 50}}" style="color:black; background-color: transparent;border:none;width:100%;font-weight: bolder;text-align:center;" placeholder="{{$price + 50}}" type="number" />
             <span style="font-weight: bolder;margin:0;color:white;position:absolute;">$</span>
             <input type="hidden" name="publication_id" value="{{$publication->id}}"/>
             <input type="hidden" name="bidStatus" value="Ok"/>
@@ -90,11 +91,68 @@ use App\Models\Bid;
                 <img class="detail-no-image" title="Image du vendeur" src="{{asset('img/noImage.jpg')}}" alt="Image de la {{$publication->title}}">
         @endif
     </div>
-    <div class="detail-state-text">
+</div>
+<br>
+<div class="main-container-style xreducteur">
+    <br>
+    <div class="button-container">
+        <a title="Voir le profil" class="noDec xreducteur div-button-actions" style="margin:auto;width:100%" href="{{ route('userProfile', ['id' => $publication->user_id]) }}">
+            <div class="button-div">
+                <div class="contact-icon">
+                    <i class="fav-icon div-button-actions fas fa-user" ></i>
+                </div>
+                    <label class="detail-labels div-button-actions">Voir le profil du vendeur</label>
+            </div>
+        </a>
+        <br>
+        <div class="action-buttons" style="grid-gap:1em;">
+            <a title="Contacter le vendeur" class="noDec xreducteur div-button-actions" style="margin:auto;width:100%" href="{{ route('messageUser', ['id' => $publication->user_id]) }}">
+                <div class="button-div">
+                    <div class="contact-icon">
+                        <i class="fav-icon div-button-actions fa-solid fa-envelope" ></i>
+                    </div>
+                        <label class="detail-labels div-button-actions">Contacter</label>
+                </div>
+            </a>
+            <!--Vérifier si déjà follow-->
+            <div title="Suivre l'état de l'annonce" class="div-button-actions" style="width:100%;">
+                <a class="noDec button-div"   href="{{ route('publicationfollow.store', ['publication_id' => $publication->id]) }}">
+                <!--Ramener vers le controlleur pour ajouter un contact-->
+                    @if($followed)  
+                        <i class="fav-icon div-button-actions fas fa-star" style="color: orange"></i>
+                    @else
+                        <i class="fav-icon div-button-actions fa-regular fa-star"></i>
+                    @endif
+                    <label class="detail-labels div-button-actions">Suivre</label>
+                </a>
+            </div>
+            @auth
+            @if(Auth::id() == $publication->user_id)    
+                <div title="Modifier l'annonce" class="div-button-actions" style="width:100%;">
+                    <a class="noDec button-div"  href="{{ route('publication.update', ['id' => $publication->id]) }}">
+                    <!--Ramener vers le controlleur pour ajouter un contact-->
+                        <i class="fav-icon div-button-actions fa-solid fa-pencil"></i>
+                        <label class="detail-labels div-button-actions">Modifier</label>
+                    </a>
+                </div>
+            @endif
+            @endauth
+        </div>
+    </div>
+    <br>
+</div>
+<br>
+<!--Section enchère-->
+@if ($publication->type == "1")
+<div class="main-container-style xreducteur">
+    <br>
+    <h4 class="detail-info-text">Détails de l'enchère</h4>
+    <hr>
+    <div class="detail-state-text" style="border-radius: 5px; margin:1em;">
         <!--Usefull link : https://www.educative.io/answers/how-to-create-a-countdown-timer-using-javascript-->
         @if ($publication->type == "1")
             <div class="card-bid">
-                <span>Enchère :</span>
+                <span>État de l'enchère : </span>
                 <span id="days{{$publication->id}}"></span>
                 <span id="hours{{$publication->id}}"></span>
                 <span id="mins{{$publication->id}}"></span>
@@ -139,7 +197,7 @@ use App\Models\Bid;
                         hoursElement.innerHTML = "";
                         minutesElement.innerHTML = "";
                         secondsElement.innerHTML = "";
-                        endElement.innerHTML = "Enchère terminé";
+                        endElement.innerHTML = " Terminé";
                     }
                 }, 1000);
             }
@@ -149,54 +207,6 @@ use App\Models\Bid;
             </script>
         @endif
     </div>
-</div>
-<br>
-<div class="main-container-style xreducteur">
-    <br>
-    <div class="button-container">
-        <div class="action-buttons" style="grid-gap:1em;">
-            <a title="Contacter le vendeur" class="noDec xreducteur div-button-actions" style="margin:auto;width:100%" href="">
-                <div class="button-div">
-                    <div class="contact-icon">
-                        <i class="fav-icon div-button-actions fa-solid fa-envelope" ></i>
-                    </div>
-                        <label class="detail-labels div-button-actions">Contacter</label>
-                </div>
-            </a>
-            <!--Vérifier si déjà follow-->
-            <div title="Suivre l'état de l'annonce" class="div-button-actions" style="width:100%;">
-                <a class="noDec button-div"   href="{{ route('publicationfollow.store', ['publication_id' => $publication->id]) }}">
-                <!--Ramener vers le controlleur pour ajouter un contact-->
-                    @if($followed)  
-                        <i class="fav-icon div-button-actions fas fa-star" style="color: orange"></i>
-                    @else
-                        <i class="fav-icon div-button-actions fa-regular fa-star"></i>
-                    @endif
-                    <label class="detail-labels div-button-actions">Suivre</label>
-                </a>
-            </div>
-            @auth
-            @if(Auth::id() == $publication->user_id)    
-                <div title="Modifier l'annonce" class="div-button-actions" style="width:100%;">
-                    <a class="noDec button-div"  href="{{ route('publication.update', ['id' => $publication->id]) }}">
-                    <!--Ramener vers le controlleur pour ajouter un contact-->
-                        <i class="fav-icon div-button-actions fa-solid fa-pencil"></i>
-                        <label class="detail-labels div-button-actions">Modifier</label>
-                    </a>
-                </div>
-            @endif
-            @endauth
-        </div>
-    </div>
-    <br>
-</div>
-<br>
-<!--Section enchère-->
-@if ($publication->type == "1")
-<div class="main-container-style xreducteur">
-    <br>
-    <h4 class="detail-info-text">Détails de l'enchère</h4>
-    <hr>
     <div class="bid-detail-grid" style="grid-gap:1em; margin: 1em">
         <div class="car-info-item d-flex align-items-center justify-content-center" style="width:100%;">
             <div class="">
@@ -209,7 +219,7 @@ use App\Models\Bid;
                     ->orderBy('priceGiven', 'desc') // Order bids in descending order by amount
                     ->first();
                 @endphp
-                <span class="detail-text-emphasis">{{$price}} $</span>
+                <span class="price-refresher detail-text-emphasis">{{$price}} $</span>
                 <br>
                 <br>
                 <span class="detail-info-text">État de l'annonce</span>
@@ -218,6 +228,7 @@ use App\Models\Bid;
                 <span class="detail-text-emphasis">{{$publication->publicationStatus}}</span>
                 <br>
                 <br>
+                
             </div>
         </div>
         <div class="car-info-item div-white-shadow" style="width:100%;">
@@ -226,111 +237,29 @@ use App\Models\Bid;
             <br>
             <br>
             <!--Container of the historic of bids-->
-            <div class="scroller" style="overflow-y: scroll;">
-                <!--Vérifier qu'il existe des bids-->
-                @php
-                    $bidExist = False;
-                @endphp
-                @if($bids != null)
-                    @foreach ($bids as $publicationBid)
-                        @php
-                            $bidExist = True;
-                        @endphp
-                    @endforeach
-                @endif
-                <!--Get le plus haut enchère-->
-                @if($bidExist)
-                    @php
-                        $highestBid = Bid::where('publication_id', $publication->id)
-                            ->orderBy('priceGiven', 'desc') // Order bids in descending order by amount
-                            ->first();
-                    @endphp
-                    @if($highestBid != null)
-                        @php
-                            //Get the usernames
-                            $user_id = $highestBid->user_id;
-                            $user = User::find($user_id);
-                            $username = $user->username;
-                        @endphp
-                        <div title="{{$highestBid->created_at}}" class="historic-bids-container">
-                            <i class="fav-icon fas fa-crown" style="color:goldenrod"></i><span class="text-emphasis text-adapt">{{$username}}</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">{{$highestBid->priceGiven}} $</span>
-                        </div>
-                    @endif
-                    <!--Get le deuxième plus haut enchère-->
-                    @php
-                        $secondHighestBid = Bid::where('publication_id', $publication->id)
-                            ->orderBy('priceGiven', 'desc') // Order bids in descending order by amount
-                            ->skip(1) // Skip the first highest bid
-                            ->take(1) // Take one record, which will be the second highest bid
-                            ->first();
-                    @endphp
-                    @if($secondHighestBid != null)
-                        @php
-                            //Get the usernames
-                            $user_id = $highestBid->user_id;
-                            $user = User::find($user_id);
-                            $username = $user->username;
-                        @endphp
-                        <div class="historic-bids-container">
-                            <i class="fav-icon fas fa-crown" style="color:gray"></i><span class="text-emphasis text-adapt">{{$username}}</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">{{$secondHighestBid->priceGiven}} $</span>
-                        </div>
-                    @endif
-                    <!--Get le troisième plus haut enchère-->
-                    @php
-                        $thirdHighestBid = Bid::where('publication_id', $publication->id)
-                            ->orderBy('priceGiven', 'desc') // Order bids in descending order by amount
-                            ->skip(2) // Skip the first highest bid
-                            ->take(1) // Take one record, which will be the second highest bid
-                            ->first();
-                    @endphp
-                    @if($thirdHighestBid != null)
-                        @php
-                            //Get the usernames
-                            $user_id = $highestBid->user_id;
-                            $user = User::find($user_id);
-                            $username = $user->username;
-                        @endphp
-                        <div class="historic-bids-container">
-                            <i class="fav-icon fas fa-crown" style="color:brown"></i><span class="text-emphasis text-adapt">{{$username}}</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">{{$thirdHighestBid->priceGiven}} $</span>
-                        </div>
-                    @endif
-                    <!--Get le reste des bids dans l'ordre du plus haut au plus bas-->
-                    @php
-                        $restOfBid = null;
-                        if(Bid::count() >= 4)
-                        {
-                            $restOfBid = Bid::where('publication_id', $publication->id)
-                                ->orderBy('priceGiven', 'desc') // Order bids in descending order by amount
-                                ->offset(3)
-                                ->limit(99999999999) // Skip the first highest bid
-                                ->get();
-                        }
-                    @endphp
-                    @if($restOfBid)
-                        @foreach ($restOfBid as $publicationBid)
-                            @php
-                                //Get the usernames
-                                $user_id = $highestBid->user_id;
-                                $user = User::find($user_id);
-                                $username = $user->username;
-                            @endphp
-                            <div class="historic-bids-container">
-                                <i class="fav-icon fas fa-crown" style="color:lightblue"></i><span class="text-emphasis text-adapt">{{$username}}</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">{{$publicationBid->priceGiven}} $</span>
-                            </div>
-                        @endforeach
-                    @endif
-                @else
-                        <p style="font-weight: bolder;font-size:15px;">Aucune enchère pour le moment...</p>
-                @endif
-            </div>
+            <div id="refreshed-div" class="scroller" style="overflow-y: scroll;">
+                <!--Content will show here after partial refresh-->
             </div>
         </div>
-        <div onclick="show()" title="Suivre l'état de l'annonce" class="div-button-actions" style=" margin:1em;">
-            <div class="noDec button-div" >
-                    <i class="fav-icon div-button-actions fas fa-hand-holding-usd"></i>
-                <label class="detail-labels div-button-actions">Déposer une enchère</label>
-            </div>
         </div>
+        @php
+            $dateNow = date('Y-m-d H:i:s')
+        @endphp
+        @if($publication->expirationOfBid >= $dateNow)
+            <div onclick="show()" title="Suivre l'état de l'annonce" class="div-button-actions" style="margin-left:1em;margin-right:1em;">
+                <div class="noDec button-div" >
+                        <i class="fav-icon div-button-actions fas fa-hand-holding-usd"></i>
+                    <label class="detail-labels div-button-actions">Déposer une enchère</label>
+                </div>
+            </div>
+        @else
+            <div title="Enchère" style="margin-left:1em;margin-right:1em;cursor:not-allowed;">
+                <div class="noDec button-div-inactiv">
+                        <i class="fav-icon fas fa-hand-holding-usd"></i>
+                    <label style="cursor:not-allowed;" class="detail-labels">Déposer une enchère</label>
+                </div>
+            </div>
+        @endif
         <br>
     </div>
 </div>
@@ -345,7 +274,7 @@ use App\Models\Bid;
     <br>
     <h4 class="detail-info-text">Informations du véhicule</h4>
     <hr>
-    <div class="car-info-item" style="margin: 1em;"><br><h4 class="detail-info-text">Prix demandé</h4><p class="detail-text-emphasis">{{$price}} $</p></div>
+    <div class="car-info-item" style="margin: 1em;"><br><h4 class="detail-info-text">Prix demandé</h4><p class=" price-refresher detail-text-emphasis">{{$price}} $</p></div>
     <div class="car-info-item" style="margin: 1em;">
         <br>
         <h4 class="detail-info-text">Description</h4> 
@@ -465,5 +394,50 @@ use App\Models\Bid;
             this.submit(); // "this" refers to the form
         }
     });
+    </script>
+    <script>
+        function refreshDiv() {
+            let $id = '{{$publication->id}}';
+            $.ajax({
+                url: "{{ route('bid.refresh-div', ['id' => ':id']) }}".replace(':id', $id),
+                type: 'GET',
+                success: function (data) {
+                    $('#refreshed-div').html(data);
+                }
+            });
+
+            //Adds a refresh on the prices
+            $.ajax({
+                url: "{{ route('bid.refresh-price', ['id' => ':id']) }}".replace(':id', $id),
+                type: 'GET',
+                success: function (data) {
+                    //Faire un foreach de chaque classe "price-refresher"
+                    var slides = document.getElementsByClassName("price-refresher");
+                    for (var i = 0; i < slides.length; i++) {
+                        slides[i].innerHTML = (data) + " $";
+                    }
+                    var slides = document.getElementsByClassName("price-refresher-50");
+                    for (var i = 0; i < slides.length; i++) {
+                        slides[i].innerHTML = (Number(data) + 50) + " $";
+                    }
+                    //with text
+                    var slides = document.getElementsByClassName("price-refresher-50-text");
+                    for (var i = 0; i < slides.length; i++) {
+                        slides[i].innerHTML = "Dépot minimum : " + (Number(data) + 50) + " $";
+                    }
+                    //For input and hol input.setAttribute("min", this.value);
+                    var slides = document.getElementsByClassName("refresher-input");
+                    for (var i = 0; i < slides.length; i++) {
+                        slides[i].setAttribute("min", Number(data) + 50);
+                        slides[i].setAttribute("placeholder",Number(data) + 50)
+                    }
+                }
+            });
+        }
+        
+        // Call refreshDiv initially and then every 5 seconds
+        refreshDiv(); // Call it initially to load the div content
+    
+        setInterval(refreshDiv, 5000); // Call it every 5 seconds (5000 milliseconds)
     </script>
 @endsection

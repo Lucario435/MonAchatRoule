@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\Publication;
 use Illuminate\Support\Facades\DB;
 //Models are a must to access database since Controller <=> Model <=> DB
 use App\Models\Bid;
@@ -13,7 +14,6 @@ class BidController extends Controller
     public function store(Request $request)
     {
         //Validation /////////To Do Jonathan : More validation
-        //Validate that the current sent bid is more than the previous highest bid on that publication
         $data = $request->validate([
             //publication validation
             'priceGiven' => 'required',
@@ -21,7 +21,7 @@ class BidController extends Controller
             'publication_id' => 'required',
         ]);
 
-        //Si l'utilisateur n'est pas connecté, on redirige vers la page connexion
+        //If the user isn't connected, it will redirect hum to connection page with a message
         if(Auth::check())
         {
             $data['user_id'] = Auth::id();
@@ -32,7 +32,37 @@ class BidController extends Controller
         }
         else
         {
-            return redirect(route('login'))->with('message', 'Vous devez être connecté pour déposer une enchère!');
+            //Validate that the current sent bid is more than the previous highest bid on that publication
+            $highestBid = Bid::where('publication_id', $data['publication_id'])
+            ->orderBy('priceGiven', 'desc') // Order bids in descending order by amount
+            ->first()->priceGiven;
+
+            if($highestBid + 50 <= $data['priceGiven'])
+            {
+                return redirect(route('login'))->with('message', 'Vous devez déposer une enchère plus élevé que la précédente!');
+            }
+            else
+            {
+                return redirect(route('login'))->with('message', 'Vous devez être connecté pour déposer une enchère!');
+            }
         }
+    }
+
+    public function refreshDiv($id)
+    {
+        //Need publication, and bid
+
+        $publication = Publication::find($id);
+
+        $publicationBids = Bid::where('publication_id',$id)->get();
+
+        return view('partials.bidlist')->with(['publication' => $publication,'bids' => $publicationBids]);
+    }
+
+    public function getHighestBidValue($id)
+    {
+        return Bid::where('publication_id', $id)
+        ->orderBy('priceGiven', 'desc') // Order bids in descending order by amount
+        ->first()->priceGiven;
     }
 }

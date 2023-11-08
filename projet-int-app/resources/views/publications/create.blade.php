@@ -1,5 +1,3 @@
-
-
 @extends('partials.xlayout')
 
 @section('title', "Page de publication")
@@ -33,15 +31,8 @@
         </div>
         <br>
         <hr>
-        <div style="margin: auto; width: 90%; display: grid; grid-template-columns: auto auto;">
-        <!--<a style="width:10rem;" href="{{ route('publication.index') }}" class="buttonEffect">RETOUR</a>-->
-        @if (isset($isEdit))
-            <a style="width:10rem;" href="{{ route('image.edit',["id" => $publication->id]) }}" class="buttonEffect">Gérer les images</a>
-        @endif
-
-            </div>
-
-            <br><br>
+            <!--<a style="width:10rem;" href="{{ route('publication.index') }}" class="buttonEffect">RETOUR</a>-->
+            <br>
             <!--For Security-->
             @csrf
             @method('post')
@@ -63,6 +54,11 @@
             <div>
                 <input class="inputForm" oninput="convertToUpperCase(this)" type="text" required name="postalCode" placeholder="Code postal ex: A1B" pattern="^[A-Z]\d[A-Z]" value="{{ isset($publication) ? $publication->postalCode : old('postalCode') }}"/>
             </div>
+            @if (isset($isEdit))
+                <div style="margin: auto; width: 90%;">
+                    <a style="width:10rem;" href="{{ route('image.edit',["id" => $publication->id]) }}" class="buttonEffect">Gérer les images</a>
+                </div>
+            @endif
             <br>
             <hr>
             <br>
@@ -181,7 +177,7 @@
             <div style="display: {{ (isset($publication) && $publication->type == 1) ? 'block' : 'none' }}" id="expirationOfBidInput">
                 <label>Date de fin de l'enchère</label>
                 <br>
-                <input class="inputForm" type="date" value="{{ isset($publication) ? $publication->expirationOfBid : date('Y-m-d', strtotime('+7 days')) }}" name="expirationOfBid" placeholder="date"/>
+                <input class="inputForm" type="date" min="{{date('Y-m-d')}}" value="{{ isset($publication) ? $publication->expirationOfBid : date('Y-m-d', strtotime('+7 days')) }}" name="expirationOfBid" placeholder="date"/>
             </div>
             <div style="display:block; align-items:center;">
                 <br>
@@ -205,7 +201,16 @@
             <br>
             <!--ul for spacing-->
             <ul>
-                <input class="buttonEffect" type="submit" value="{{ isset($isEdit)? "Éditer" : "Créer" }} l'annonce"/>
+                <input class="buttonEffect" type="submit" value="{{ isset($isEdit)? "Mettre à jour" : "Créer" }} l'annonce"/>
+                <br>
+                @if(isset($isEdit) && $publication->type == 0)
+                        <label>Votre annonce s'est vendu?</label>
+                        <a title="Afficher cette annonce comme 'vendu'" href="{{ route('publication.sold', ['id' =>"$publication->id"]) }}" class="buttonEffect">Afficher cette annonce comme 'vendu' !</a>
+                        <br>
+                @endif
+                @if(isset($isEdit))
+                    <a title="Supprimer l'annonce" href="{{ route('publication.delete', ['id' =>"$publication->id"]) }}" class="buttonEffect">Supprimer</a>
+                @endif
             </ul>
             <br>
         </form>
