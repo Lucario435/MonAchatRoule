@@ -67,7 +67,6 @@
 </div>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
     /* Ajoutez du CSS pour rendre le bouton carré sur les appareils mobiles */
     @media (orientation: portrait) {
@@ -98,7 +97,7 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        
+
         const menuIcon = document.querySelector(".menu-icon");
         const navLinks = document.querySelector(".nav ul");
 

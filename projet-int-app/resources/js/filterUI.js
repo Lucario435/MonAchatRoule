@@ -332,12 +332,12 @@ $(() => {
         // removed from last span: fas fa-exchange-alt fa-rotate-90
         return (`
         <div class="row orderby-element" id=mv_${inputName}>
-            <div class="col-1 p-0 
-                d-flex align-items-center justify-content-end 
+            <div class="col-1 p-0
+                d-flex align-items-center justify-content-end
                 fas fa-long-arrow-alt-up">
             </div>
-            <div class="col-1 p-0 
-                d-flex align-items-center justify-content-center 
+            <div class="col-1 p-0
+                d-flex align-items-center justify-content-center
                 fas fa-long-arrow-alt-down">
             </div>
 
@@ -350,7 +350,7 @@ $(() => {
                 </div>
             </label>
             <div class="col-1 arrows" order=${inputName}>
-                <span class=arrow-asc></span> 
+                <span class=arrow-asc></span>
             </div>
         </div>
         `);
@@ -430,14 +430,14 @@ $(() => {
                             `<div class='col-2 d-flex align-items-center justify-content-center p-0' style='color:black;'>
                                 <span class="car-${element.toLowerCase()} fa-2x"></span>
                             </div>` : `<div class='col-2'> </div>`}
-                        
+
                         <div class='col-9 text-start d-flex align-items-center'>
                             <span class="w-75" >${CapitalizeFirstCase(element)}</span>
                         </div>
                         <div class='col-1 p-1'>
                             <span >${nombre}</span>
                         </div>
-                    
+
                     </div>`;
 
 
@@ -447,7 +447,7 @@ $(() => {
                 $(`#label-${filter}`).after(
                     output
                 );
-                // Setting up listeners for selection of filter    
+                // Setting up listeners for selection of filter
                 $.each(elements, function (element, nombre) {
                     $(`div[${filter}=${element}]`).on("click", (ev) => {
                         //console.log(element);

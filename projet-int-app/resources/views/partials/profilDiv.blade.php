@@ -6,6 +6,7 @@
     use App\Models\User;
 
 @endphp
+<div>
 <div id="card1" class="cardprofilDiv four col profilDiv"
     @isset($addedCssProfilDiv)
         style="{{ $addedCssProfilDiv }}"
@@ -19,10 +20,10 @@
     <h3 class="name" style="color: white;"> {{ $user->getDisplayName()  }}</h3>
     <div class="info cf">
         <div class="four col"><span class="number">{{ $user->getNoteGlobale() }}</span>Note globale</div>
-        <div class="four col"><span class="number">{{ count($user->getAnnonces) }}</span>Annonces actives</div>
+        <div class="four col"><span class="number">{{ ($user->getPublicationsCountForDisplay()) }}</span>Annonces actives</div>
         {{-- <div class="four col"><span class="number">179</span>Likes</div> --}}
     </div>
-    <div class="options" style="display: none;">
+    <div class="options" style="">
         <ul>
             {{-- <li><span class="icon"><i class="fa fa-plus" aria-hidden="true"></i></span>Add to team</li> --}}
             {{-- <li><span class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></span>Send a message</li> --}}
@@ -31,17 +32,27 @@
                 <a class="btnBlueSendA" href="/messages/{{ $user->id }}"><button class="btnBlueSend">Contacter</button></a>
                 <a class="btnGraySendA" href="/report/?uid={{ $user->id }}"><button class="btnGraySend">Signaler</button></a>
             @endif
+            @if (Auth::user()->id == $user->id)
+            <a href="{{ route("user.edit") }}" class="btnBlueSendA"><button class="btnBlueSend">Modifier votre profil</button></a>
+            @endif
         </ul>
     </div>
 </div>
 
+</div>
 <style>
+    .btnEditProfil{
+        /* width: 100%;
+        background: rgb(0, 88, 211);
+        color: white;
+        border: none; */
+    }
     .btnBlueSendA{
         width: 100%;
     }
     .btnBlueSend{
         width: 100%;
-        background: var(--blueForms);
+        background: rgb(20, 104, 220);
         outline: solid 2px white;
         margin-bottom: 10px;
         padding: .5rem;

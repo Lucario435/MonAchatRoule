@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\VerifyEmailController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\BidController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PublicationFollow;
 use App\Http\Resources\PublicationResource;
 use App\Models\Publication;
@@ -34,8 +36,25 @@ Route::get("/index",function(){
     return to_route("index");
 });
 
+Route::get('/notifications',[NotificationController::class,"index"])->name("notifications");
+Route::get('/notifications/{nid}',[NotificationController::class,"click"])->name("notifications.click");
+Route::get('/notifications/del/{nid}',[NotificationController::class,"delete"])->name("notifications.delete");
+Route::post('/notifications/mdel',[NotificationController::class,"multidelete"])->name("notifications.multidelete");
+//messages momo
+Route::get('/messages/del/{id}',[ChatController::class,"userdelete"])->name("messages.userdelete");
+Route::get('/messages',[ChatController::class,"index"])->name("messages");
+Route::get("/messages/report/{id}",[ChatController::class,"reportuser"])->name("messages.reportuser");
+Route::get('/Chat/GetMessages',[ChatController::class,"get"])->name("getmessages");
+Route::get("/messages/blockmsg/{id}",[ChatController::class,"blockUserMsgs"])->name("messages.blockUserMsgs");
+Route::get('/messages/{id}',[ChatController::class,"index"])->name("messageUser");
+Route::get('/messages/{id}/{pid}',[ChatController::class,"index"])->name("messageUserFromPID");
+Route::get('/Chat/GetFriendsList',[ChatController::class,"GetFriendsList"])->name("GetFriendsList");
+Route::get("/Chat/SetCurrentTarget",[ChatController::class,"SetCurrentTarget"])->name("setcurrenttarget");
+Route::get("/Chat/Send",[ChatController::class,"Send"])->name("sendmessage");
 Route::get('/users',[UsersController::class,"index"]);
-Route::get('/users/{id}',[UsersController::class,"userProfile"])->name('userProfile');
+Route::get('/users/edit',[UsersController::class,"edit"])->name("user.edit");
+Route::post('/users/edit',[UsersController::class,"editPost"])->name("user.update");
+Route::get('/users/{id}',[UsersController::class,"userProfile"])->name("userProfile");
 // login momo
 Route::post('/login',[UsersController::class,"authenticate"]);
 Route::get('/login',[UsersController::class,"login"])->name('login');

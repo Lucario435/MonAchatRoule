@@ -8,6 +8,7 @@
 :root {
     /* Bleu */
     --blueheader: #004aad;
+    --report: rgb(0, 95, 219);
     --blueForms: rgb(115, 164, 255);
     --greenbutton: #27ae5f00;
     --greenbuttonhover: rgba(0, 159, 0, 0);
@@ -258,10 +259,12 @@ input[type="checkbox"]::before {
 
 input[type="checkbox"]:checked::before {
     transform: scale(1);
+    /* content: "✓"; make content have a checkmark */
+
 }
 
 input[type="checkbox"]:checked {
-    transform: scale(1);
+    transform: scale(1);/* content: "✓"; make content have a checkmark */
 }
 
 .erreur {
@@ -383,7 +386,7 @@ input[type="checkbox"]:checked {
         background: black;
     }
 
-   
+
     #orderby-list{
         font-size: 14px;
     }

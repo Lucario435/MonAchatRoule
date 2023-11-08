@@ -1,18 +1,19 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Models\Publication;
 use Illuminate\Database\Eloquent\Model;
 
-class ChatMessage extends Model
+class Chatmessage extends Model
 {
     protected $fillable = [
         'seen',
         'mcontent',
-        'annonces_id',
         'user_sender',
         'user_receiver',
+        "publication_id",
+        "hidden",
     ];
 
     public function publication()
