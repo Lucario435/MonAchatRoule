@@ -1,5 +1,6 @@
 <div class="page-on-top container-fluid w-100 h-auto scroll" id="page_filtre">
     <div class="grid text-start row-gap-5">
+        
         <div class="row pt-4">
             <label class="row w-100 p-0 m-0">
                 <div class="col-5">
@@ -20,6 +21,11 @@
                 <div class="col-2 d-flex align-items-center justify-content-end fas fa-times h-15"
                     id="close_page_filters"></div>
             </label>
+        </div>
+        <div class="pt-4 d-flex gap-2 ">
+            
+            <div class="align-items-center" style="width:fit-content"><input type="text" placeholder="titre de l'annonce" style="width:190px;"></div>
+            <div id="search-by-title" class="fas fa-search d-flex align-items-center justify-content-start mx-1" style="font-size: 19px;"></div>
         </div>
         <div class="row pb-3">
         </div>
@@ -130,7 +136,7 @@
 
             </span>
         </div>
-        <div class="row" style="min-height:100px;"></div>
+        <div class="row" style="min-height:200px;"></div>
         <div class="row text-center fixed-bottom" id="btn-search" style="background-color: green">
 
             <div class="col-8 d-flex align-items-center justify-content-end">Rechercher</div>

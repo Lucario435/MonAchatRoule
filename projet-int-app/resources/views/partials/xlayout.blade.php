@@ -136,8 +136,8 @@
     <!-- Include jQuery Toast CSS and JS files -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
-    <link rel="stylesheet" href="path/to/jquery.toast.min.css">
-    <script src="path/to/jquery.toast.min.js"></script>
+    {{-- <link rel="stylesheet" href="path/to/jquery.toast.min.css">
+    <script src="path/to/jquery.toast.min.js"></script> --}}
     @vite(['resources/css/app.css'])
     @vite(['resources/js/app.js'])
     @stack('css')

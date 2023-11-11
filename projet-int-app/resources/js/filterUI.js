@@ -320,7 +320,7 @@ $(() => {
     });
 
     // Submit the search
-    $("#btn-search").on("click", (e) => {
+    $("#btn-search","#search-by-title").on("click", (e) => {
 
         //console.log($(".erreur").length);
         if ($(".erreur").length > 0) {
@@ -505,7 +505,7 @@ $(() => {
 
                 // format to html
                 let output = `
-                <span id=${filter}-list class=>
+                <span id=${filter}-list class=scroll>
                 <div class="row" style="min-height: 10px;"></div>`;
                 //console.log(filterObject);
                 $.each(elements, function (element, nombre) {
