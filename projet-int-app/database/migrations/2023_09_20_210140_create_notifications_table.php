@@ -20,6 +20,7 @@ return new class extends Migration
 
             $table->string('mcontent', 1024)->default('');
             $table->tinyInteger('clicked')->default(0);
+            $table->tinyInteger('sent')->default(0);
             $table->string('notificationLink', 1024)->default('');
         });
     }

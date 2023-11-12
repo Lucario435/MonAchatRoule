@@ -13,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 
 class NotificationController extends Controller
 {
@@ -55,5 +56,20 @@ class NotificationController extends Controller
         }
 
         return to_route("notifications",["xalert" => "$numb élément(s) supprimé(s) avec succès!"]);
+    }
+    public function getUnsentNotifications(){
+        $user_id = Auth::id();
+        if($user_id != null){
+            
+            $notifications = notification::all()->where("sent",'=',0)->where("userid",'=',$user_id);
+            
+            // Set seen to 1 ... to stop from showing same notif
+            // $affected = DB::table('notifications')
+            //   ->where('sent','=', 0)->where("userid",'=',$user_id)
+            //   ->update(['sent' => 1]);
+            
+            return $notifications;
+        }
+        return false;
     }
 }

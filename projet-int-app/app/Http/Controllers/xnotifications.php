@@ -34,4 +34,13 @@ function clearNotifications($userid){
     } return false;
 }
 
+function getNotifications(){
+    $user_id = Auth::id();
+    if($user_id != null){
+        $notifications = notification::all()->where("sent",'=',0)->where("userid",'=',$user_id);
+        return $notifications;
+    }
+    return false;
+}
+
 ?>

@@ -57,13 +57,20 @@ class PublicationObserver
         $string = "";
         foreach ($newAttributes as $attribute => $newValue) {
             $oldValue = $oldAttributes[$attribute];
+            
             // $enFrancais = isset(self::eqTableFrench[$attribute]) ? self::eqTableFrench[$attribute] : $attribute;
             if(isset(self::eqTableFrench[$attribute])){
                 $enFrancais = self::eqTableFrench[$attribute];
                 if($enFrancais == 'description'){
                     $changedAttributesWithText[] = "$enFrancais à changée";
                     $string .= "$enFrancais a changée <br>";
-                }else{
+                }
+                else if($enFrancais == "Type d'annonce"){
+                    $toSend = $newValue == 1 ? "L'annonce est devenue une enchère" : "L'annonce n'est plus une enchère";
+                    $changedAttributesWithText[] = $toSend;
+                    $string .= '<b>'.$toSend.'</b>';
+                }
+                else{
                     $changedAttributesWithText[] = "$enFrancais est passé de '$oldValue' à '$newValue'";
                     $string .= "$enFrancais a changé <br>";
                 }

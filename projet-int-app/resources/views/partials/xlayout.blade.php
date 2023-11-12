@@ -138,8 +138,12 @@
 
     {{-- <link rel="stylesheet" href="path/to/jquery.toast.min.css">
     <script src="path/to/jquery.toast.min.js"></script> --}}
+    
+    @vite(['resources/css/jquery.toast.css'])
     @vite(['resources/css/app.css'])
     @vite(['resources/js/app.js'])
+    @vite(['resources/js/jquery.toast.js'])
+    @vite(['resources/js/refreshNotifications.js'])
     @stack('css')
     @stack('js')
 

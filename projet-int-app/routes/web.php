@@ -14,6 +14,9 @@ use App\Http\Controllers\PublicationFollow;
 use App\Http\Resources\PublicationResource;
 use App\Models\Publication;
 use App\Models\Image;
+use App\Models\notification;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -217,4 +220,8 @@ Route::get('/api/publications/newest',function ()
     {
         return Publication::all()->pluck('updated_at')->sortByDesc('updated_at')->first();
     }
+);
+
+// Route for getting last notifications
+Route::get('/api/notifications',[NotificationController::class,"getUnsentNotifications"]
 );

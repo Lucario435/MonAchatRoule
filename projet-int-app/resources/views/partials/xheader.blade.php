@@ -20,6 +20,7 @@
                     alertc.classList.add("hiddenalert");
                 }, delayInSeconds * 1000);
             });
+            
             </script>
     @endif
     <header>
@@ -129,5 +130,7 @@
         menuIcon.addEventListener("click", function() {
             navLinks.classList.toggle("active");
         });
+
+
     });
 </script>
