@@ -20,6 +20,7 @@ let filterObject = {
     orderDateAdded: [false, "asc"],
     followedPublications: false,
     errorMaxYear:null,
+    searchTitle:false,
 
 }
 
@@ -319,8 +320,20 @@ $(() => {
         $("#orderby-list").toggleClass("hidden");
     });
 
+    $("#title-search").on("input",(e)=>{
+        if($("#title-search").val() == ''){
+            filterObject.numberSelectedFilters--;
+            filterObject.searchTitle = false;
+            ShowNumberOfActiveFilters();
+        }else if(!filterObject.searchTitle){
+            filterObject.searchTitle = true;
+            filterObject.numberSelectedFilters++;
+            ShowNumberOfActiveFilters();
+        }
+    })
+
     // Submit the search
-    $("#btn-search","#search-by-title").on("click", (e) => {
+    $("#btn-search, #search-by-title").on("click", (e) => {
 
         //console.log($(".erreur").length);
         if ($(".erreur").length > 0) {
@@ -330,8 +343,15 @@ $(() => {
             setBackgroundColor("#btn-search", "green");
             if($(window).width() < MOBILE_WIDTH)
                 hideFilterPage();
+            
+            let searchTitle = $("#title-search").val().trim();
+            
+            if(searchTitle){
+                console.log($("#title-search").val());
+            }
+            
             $.ajax({
-                url: searchUrlBuilder('publications/search?'),
+                url: searchUrlBuilder(`publications/search?${searchTitle? 'title='+$("#title-search").val() : ''}`),
                 async: false,
                 dataType: 'html',
                 success: function (data) {
@@ -677,6 +697,7 @@ $(() => {
             orderDistance: [null, "asc"],
             orderDateAdded: [null, "asc"],
             followedPublications:null,
+            searchTitle:false,
         }
         $(".selected-element").removeClass("selected-element");
         $("#min_price").val('');
@@ -691,7 +712,7 @@ $(() => {
         $('.orderby-element > div > input').prop("checked", false);
         $(`#slider-range-price`).slider("values", [0, getHighestPriceItemFromServer()])
         $(`#slider-range-kilometer`).slider("values", [0, getHighestKilometerItemFromServer()])
-
+        $("#title-search").val('');
         setBackgroundColor("#btn-search", "green");
         ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
     }

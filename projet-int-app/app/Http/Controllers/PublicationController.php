@@ -355,7 +355,9 @@ class PublicationController extends Controller
                                 
                                 else if ($key == "maxYear")
                                     $query->Where("year", '<=', intval($value));
-
+                                
+                                else if ($key == "title")
+                                    $query->Where("title", 'like', "%$value%");
 
                                 else {
                                     ///dd(DB::getQueryLog());

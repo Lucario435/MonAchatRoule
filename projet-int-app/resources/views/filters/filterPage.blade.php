@@ -24,7 +24,7 @@
         </div>
         <div class="pt-4 d-flex gap-2 ">
             
-            <div class="align-items-center" style="width:fit-content"><input type="text" placeholder="titre de l'annonce" style="width:190px;"></div>
+            <div class="align-items-center" style="width:fit-content"><input name="title-search" id="title-search" type="text" placeholder="titre de l'annonce" style="width:190px;"></div>
             <div id="search-by-title" class="fas fa-search d-flex align-items-center justify-content-start mx-1" style="font-size: 19px;"></div>
         </div>
         <div class="row pb-3">
