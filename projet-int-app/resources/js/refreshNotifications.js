@@ -29,19 +29,21 @@ class NotificationPoper {
                 
                 for(var key in array){
                     console.log(array[key]);
-                    let message = JSON.parse(array[key]['mcontent'])['msg'].replace(/(<([^>]+)>)/gi, "");;
-                    let title = JSON.parse(array[key]['mcontent'])['title'].replace(/(<([^>]+)>)/gi, "");;
+                    let message = JSON.parse(array[key]['mcontent'])['msg'].replace(/(<(br)>)/gi,", ");
+                    message = message.replace(/(<\/?b>)/gi,'');
+                    let title = JSON.parse(array[key]['mcontent'])['title'].replace(/(<([^>]+)>)/gi, " ");;
                     Toastify({
                         text: title+' : '+message,
                         duration: 5000,
                         // destination: element['notificationLink'],
-                        position: "right",
+                        position: "center",
                         gravity: "bottom",
                         close:true,
                         stopOnFocus: true, // Prevents dismissing of toast on hover
                         style: {
                             background: "#008000",
                             borderRadius:"15px",
+                            fontSize:'20px',
                         },
                     }).showToast();
                 }

@@ -66,13 +66,13 @@ class PublicationObserver
                     $string .= "$enFrancais a changée <br>";
                 }
                 else if($enFrancais == "Type d'annonce"){
-                    $toSend = $newValue == 1 ? "L'annonce est devenue une enchère" : "L'annonce n'est plus une enchère";
+                    $toSend = $newValue == 1 ? "L'annonce est devenue une enchère. " : "L'annonce n'est plus une enchère. ";
                     $changedAttributesWithText[] = $toSend;
                     $string .= '<b>'.$toSend.'</b>';
                 }
                 else{
                     $changedAttributesWithText[] = "$enFrancais est passé de '$oldValue' à '$newValue'";
-                    $string .= "$enFrancais a changé <br>";
+                    $string .= "$enFrancais a changé<br>";
                 }
             }
             
