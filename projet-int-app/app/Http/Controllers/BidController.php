@@ -56,13 +56,20 @@ class BidController extends Controller
 
         $publicationBids = Bid::where('publication_id',$id)->get();
 
+
         return view('partials.bidlist')->with(['publication' => $publication,'bids' => $publicationBids]);
     }
 
     public function getHighestBidValue($id)
     {
-        return Bid::where('publication_id', $id)
+        $priceGiven = @Bid::where('publication_id', $id)
         ->orderBy('priceGiven', 'desc') // Order bids in descending order by amount
         ->first()->priceGiven;
+
+        if($priceGiven == null)
+            $priceGiven = Publication::find($id)->fixedPrice;
+
+        return $priceGiven;
+        
     }
 }
