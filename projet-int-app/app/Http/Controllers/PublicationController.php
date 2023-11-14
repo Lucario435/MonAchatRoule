@@ -207,8 +207,8 @@ class PublicationController extends Controller
 
         // Check if the publication exists
         if (!$publication) {
-            // Handle the case where the publication is not found, e.g., show an error message or redirect back
-            return redirect()->back()->with('error', 'Publication not found!');
+            // Handle the case where the publication is not found
+            return redirect()->back()->with('error', 'Publication introuvable.');
         }
         $data["user_id"] = Auth::id();
         // Update the publication with the validated data

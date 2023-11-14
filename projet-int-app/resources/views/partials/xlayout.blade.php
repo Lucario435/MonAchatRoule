@@ -133,8 +133,7 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Include jQuery Toast CSS and JS files -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    
 
     {{-- <link rel="stylesheet" href="path/to/jquery.toast.min.css">
     <script src="path/to/jquery.toast.min.js"></script> --}}
@@ -143,7 +142,7 @@
     @vite(['resources/css/app.css'])
     @vite(['resources/js/app.js'])
     @vite(['resources/js/jquery.toast.js'])
-    @vite(['resources/js/refreshNotifications.js'])
+    
     @stack('css')
     @stack('js')
 
