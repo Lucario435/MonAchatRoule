@@ -5,7 +5,7 @@
 @push('css')
     @vite(['resources/css/publication.css'])
 @endpush
-@section('title', 'Page de publication')
+@section('title', "Gestion d'images")
 {{-- valeur possible: $pid, $isEdit --}}
 @section('content')
 
@@ -18,38 +18,20 @@
                     @endforeach
                 </ul>
             @endif
+
             @if (isset($isEdit))
-                <form class="form-style" method="post" action="{{ route('image.update', ['id' => isset($pid) ? $pid : '']) }}"
+                <form class="form-style" method="post" action="{{ route('image.store', ['publication_id' => $pid]) }}"
                     enctype="multipart/form-data">
                     {{-- <input type="hidden" name="publication_id" value="{{ isset($pid) ? $pid : '' }}"> --}}
-                    <span>SUPPRIMEZ </span>
-                    @if (isset($ilist))
-                    <div class="imgdestroyer">
-                        @foreach ($ilist as $i)
-
-                                <a href="/image/delete/{{ $i->id }}"><img src="{{ asset($i->url)  }}" alt=""><sbutton>X</sbutton></a>
-
-                        @endforeach
-                    </div>
-                        <style>
-                            .imgdestroyer{display: flex;   justify-content: center; /* centers children elements horizontally */
-  align-items: center;}
-                            .imgdestroyer>a{width: 10rem; height: 10rem; position: relative;}
-                            .imgdestroyer>a>img{width:100%;}
-                            .imgdestroyer>a>sbutton{transition: .2s; display: block; color: white; font-weight: bolder; font-family: arial; position: absolute; top: 0; left: 0; background: rgb(194, 0, 0); width: 5rem; border: none; border-radius: 10px; outline: 2px solid rgb(255, 0, 0);}
-                            .imgdestroyer>a>sbutton:hover{background: rgb(140, 0, 0); transition: .2s; }
-                        </style>
-                    @endif
                 @else
-                    <form class="form-style" method="post" action="{{ route('image.store') }}"
+                    <form class="form-style" method="post" action="{{ route('image.store', ['publication_id' => $pid]) }}"
                         enctype="multipart/form-data">
             @endif
 
-            <div>
-                <h1>Ajoutez des images à votre annonce</h1>
-            </div>
+
             <br>
-            <a style="margin:0px;width:5em;" href="../publication" class="buttonEffect">RETOUR</a>
+
+
             <!--For Security-->
             @csrf
             @method('post')
@@ -57,53 +39,123 @@
 
             <!--Form Content-->
             <!--Gets all the owner's publication so he can link the uploaded images to the publication's id-->
-            <select style="width: fit-content;" name="publication_id">
 
-                @if (isset($plist))
-                    @if (count($plist) == 1)
-                        {{-- @php dump($plist); @endphp --}}
-                        <option selected value="{{ $plist[0]->id }}">{{ $plist[0]->title }}</option>
-                    @else
-                        @foreach ($plist as $p)
-                            <option value="{{ $p->id }}">{{ $p->title }}</option>
+
+            <div class="image-container" style="row-gap: 20px;display:block;">
+                @if (isset($ilist))
+                    <div class="text-wrap">
+                        <h2>Retirer des images de votre annonce</h2>
+                    </div>
+                    <span class="image-container" id="old-images" style="gap:1em;">
+                        @foreach (@$ilist as $i)
+                            <div class="image-preview">
+                                <img class="image-css" src="{{ asset($i->url) }}" alt="">
+
+                                <span id="{{ $i->id }}" class="remove-image image-from-db"
+                                    style="color:red;font-weight:bolder;">X</span>
+
+                            </div>
                         @endforeach
-                    @endif
-                @else
-                    <option disabled selected value="{{ isset($pid) ? $pid : '' }}">*Choisissez votre annonce*</option>
+                    </span>
                 @endif
 
-            </select><label class="important"> * </label>
-            <div id="image-container">
+                <hr class="my-3">
+                
+                <div class="text-wrap">
+                    <h2>Ajoutez des images à votre annonce</h2>
+                </div>
+                <span id="upload-input-container" style="margin:auto;width:fit-content">
+                    <input type="file" id="image-input" name="images[]" accept="image/*" multiple onclick="addInput(this)"
+                    onchange="handleImageUpload(this)"
+                    style="margin:10px 0px 10px 0px; opacity:0;position:relative;z-index:-1;display:none;">
+                    <label id="label-image-input" class="buttonEffect p-1" for="image-input">Téléverser</label>
+                </span>
+                <span class="image-container mt-3" id="new-images" style="gap:1em;"></span>
                 <!-- Les images uploadées seront affichées ici -->
             </div>
-            <br>{{ Auth::user()->publications }}
-            <input type="file" id="image-input" name="images[]" accept="image/*" multiple style="display:none;">
-            <button class="buttonEffect" type="button" onclick="document.getElementById('image-input').click();">Ajouter
-                une image</button>
-            <h4>Il faut être connecté pour ajouter des images sur une annonce dont vous êtes propriétaire.</h4>
+            {{-- <button class="buttonEffect" type="button" id="seeFilesName" onclick="myf()">See files</button> --}}
+            <div id="displayFileNames"></div>
+
+            {{-- <br>{{ Auth::user()->publications }} --}}
+            
+
+            {{-- <button class="buttonEffect" type="button" onclick="document.getElementById('image-input').click();">Téléverser
+                des images</button> --}}
+
+            <br>
             <hr>
+
             <!--Form Content-->
 
             <br>
-            <div>
+            <div class="d-flex gap-2" style="margin:auto;width:fit-content;">
+                <a href="{{ route('publication.detail', ['id' => $pid]) }}"><button type="button"
+                        class="buttonEffect">Annuler</button></a>
                 <input class="buttonEffect" type="submit" value="Soumettre" />
             </div>
             <br>
             </form>
             <div>
-
-
                 <script>
+                    $(() => {
+                        $(".image-from-db").on("click", (e) => {
+                            //console.log($(e.target).parent());
+                            $.ajax({
+                                url: `/image/delete/${e.target.id}`,
+                                async: true,
+                                success: function(data) {
+                                    //console.log($(e.target).parent()[0]);
+                                    $(e.target).parent().remove();
+                                },
+                                error: (xhr) => {
+                                    console.log(xhr);
+                                }
+                            });
+                        })
+                    });
+
                     //Source : https://codepen.io/mrtokachh/pen/LYGvPBj and chat gpt
-                    const imageContainer = document.getElementById('image-container');
+                    const imageContainer = document.getElementById('new-images');
 
-                    const imageInput = document.getElementById('image-input');
+                    var imageInput = document.getElementById('image-input');
 
-                    imageInput.addEventListener('change', handleImageUpload);
+                    //imageInput.addEventListener('change', handleImageUpload);
 
-                    function handleImageUpload() {
-                        const files = imageInput.files;
 
+
+                    function addInput(obj) {
+                        console.log(obj);
+                        $(obj).hide();
+                        $(obj).removeAttr("id");
+                        let newInput =
+                            `<input type="file" id="image-input" name="images[]" accept="image/*" multiple onclick=addInput(this) onchange=handleImageUpload(this) style="margin:10px 0px 10px 0px; opacity:0;position:relative;z-index:-1; display:none;">`;
+                        $("#upload-input-container").append(newInput);
+                        //$("#label-image-input").remove();
+                        // let newLabel = `<label id="label-image-input" class="buttonEffect p-1" for="image-input">Téléverser des images</label>`;
+                        // $("#upload-input-container").append(newLabel);
+                        //$(newInput).on("change",handleImageUpload(this));
+                        //imageInput = newInput;
+                    }
+
+                    function myf() {
+                        $('#displayFileNames').html('');
+                        let array = $("input[type=file]");
+                        console.log(array);
+                        for (let i = 0; i < array.length; i++) {
+                            let files = array[i].files;
+                            console.log("files.length > 0 => ", files.length > 0);
+                            for (let j = 0; j < array.length && files.length > 0; j++) {
+                                //console.log(files);
+                                if (files[j] != undefined)
+                                    $('#displayFileNames').append(files[j].name + '<br>');
+                            }
+                        }
+                    }
+
+                    function handleImageUpload(obj) {
+                        console.log(obj.files);
+                        const files = obj.files;
+                        console.log(`ligne 155 : ${obj.files}`)
                         for (let i = 0; i < files.length; i++) {
                             const file = files[i];
                             if (file.type.startsWith('image/')) {
@@ -117,8 +169,15 @@
                                 const removeButton = document.createElement('span');
                                 removeButton.className = 'remove-image';
                                 removeButton.innerText = 'X';
+                                removeButton.setAttribute('linked-image', file.name);
+                                // obj.setAttribute("linked-image",file.name);
                                 removeButton.addEventListener('click', () => {
                                     imageContainer.removeChild(imagePreview);
+                                    // If is multi image upload
+                                    console.log(obj.files);
+                                    
+                                    removeFileFromFileList(file.name, obj);
+                                    console.log(obj.files);
                                 });
 
                                 imagePreview.appendChild(img);
@@ -126,7 +185,29 @@
                                 imageContainer.appendChild(imagePreview);
                             }
                         }
+
+                        $(obj).off('change', handleImageUpload);
+
                     }
+
+                    function removeFileFromFileList(fileName, inputToModify) {
+                        //https://stackoverflow.com/a/64019766
+                        const dt = new DataTransfer()
+                        const input = inputToModify;
+                        const {
+                            files
+                        } = input
+                        console.log(`file name: ${fileName} `);
+                        for (let i = 0; i < files.length; i++) {
+                            console.log(`name to delete: ${fileName} , current index : ${files[i].name}`);
+                            const file = files[i]
+                            if (fileName !== files[i].name)
+                                dt.items.add(file) // here you exclude the file. thus removing it.
+                        }
+
+                        input.files = dt.files // Assign the updates list
+                    }
+
                     //Chat gpt
                 </script>
             @endsection

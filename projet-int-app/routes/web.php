@@ -131,7 +131,7 @@ Route::get('/refresh-price/{id}', [BidController::class, 'getHighestBidValue'])-
 //Section for image routes
 //------------------------------------------------------------------------------------
 //Route to show create image page
-Route::get('/image/create', [ImageController::class, 'create'])->middleware('verified')->name('image.create');
+Route::get('/image/create/{id}', [ImageController::class, 'create'])->middleware('verified')->name('image.create');
 //momo
 Route::get("/image/publication",function(){
     return to_route("index");

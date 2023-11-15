@@ -15,23 +15,39 @@ class ImageController extends Controller
     //Returns the create publication page
 
     //TO DO: Verify that the user is connected else redirect to connection page
-    public function create(){
+    public function create($pid){
         $plist = Auth::user()->getPublications;
+        foreach ($plist as $key => $value) {
+            if($pid == $plist[$key]->id)
+                $ptitle = $plist[$key]->title;
+        }
+        //dd($ptitle);
         // dump($plist);
-        return view('images.create',["plist" => $plist]);
+        return view('images.create',["plist" => $plist,"pid"=>$pid,"ptitle"=>$ptitle]);
     }
+
+
     public function edit_annonce(Request $r, $pid){
         $p = Publication::find($pid);
         if($p == null){
             return to_route("index");
         }
-        $ilist = $p->images;
+        $imageList = $p->images;
+        //dd($imageList);
         $plist = [$p];
-        return view("images.create",["pid" => $pid, "isEdit" => true, "ilist" => $ilist,"plist" => $plist]);
+        foreach ($plist as $key => $value) {
+            if($pid == $plist[$key]->id)
+                $ptitle = $plist[$key]->title;
+        }
+        return view("images.create",["pid" => $pid, "isEdit" => true, "ilist" => $imageList,"plist" => $plist,"ptitle"=>$ptitle]);
     }
-    public function edit_annonce_recu(Request $r,$pid){
+
+
+    public function edit_annonce_recu(Request $r){
         return $this->store($r);
     }
+
+
     public function deleteImage(Request $r, $iid){
         $img = Image::find($iid);if($img == null){return to_route("index");}
         $p = Publication::find($img->publication_id);if($p == null){return to_route("index");}
@@ -47,11 +63,13 @@ class ImageController extends Controller
 
 
     public function store(Request $request){
+        //dd($request);
         //Validation
-        $request->validate([
+        $data = $request->validate([
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:999999', // Adjust the allowed file types and size limit as needed
             "publication_id" => "required"
         ]);
+        //dd($data,"s");
         $p = Publication::find($request["publication_id"]);
         if($p == null){return to_route("index");}
         if($p->user_id != Auth::id() ){return to_route("index");}

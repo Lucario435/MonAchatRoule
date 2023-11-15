@@ -162,7 +162,7 @@ class PublicationController extends Controller
 
         //Redirect to index page
         //!!! In the future, the route will redirect to "mes annonces" or the page "détail" and the user will be able to see it on top of the list
-        return redirect(route('image.create'))->with('message', 'Publication créé avec succès!');
+        return redirect(route('image.create',["id"=>$newPublication->id]))->with('message', 'Publication créé avec succès!');
     }
     public function viewupdate(Request $r, $pid)
     {

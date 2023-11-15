@@ -80,7 +80,7 @@
 
             @foreach ($images as $image)
                 @if ($image->publication_id == $publication->id && !$found)
-                    <div class="image-container">
+                    <div class="image-container image-container-detail">
                         <img id="shown image" class="detail-image" src="{{ asset($image->url) }}" alt="Image description" />
                         <div class="image-buttons">
                             <button id="arrowLeft" class="buttonArrow-left" title="Image précédente" id="prev-image">
@@ -293,9 +293,7 @@
         <div class="car-info-item" style="margin: 1em;">
             <br>
             <h4 class="detail-info-text">Description</h4>
-            <br>
-            {{ $publication->description }}
-            <br>
+            <p style="margin:0;word-break:break-all; padding:1em; text-align:left;line-height:1.5em;">{{ $publication->description }}</p>
             <br>
         </div>
         <div class="car-info ">

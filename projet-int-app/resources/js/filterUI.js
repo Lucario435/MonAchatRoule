@@ -351,7 +351,7 @@ $(() => {
             }
             
             $.ajax({
-                url: searchUrlBuilder(`publications/search?${searchTitle? 'title='+$("#title-search").val() : ''}`),
+                url: searchUrlBuilder(`publications/search?${searchTitle? 'title='+$("#title-search").val()+'&' : ''}`),
                 async: false,
                 dataType: 'html',
                 success: function (data) {

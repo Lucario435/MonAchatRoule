@@ -259,14 +259,14 @@ padding-bottom: 100%;
     border-radius: 5px;
 }
 
-#image-container{
+.image-container > span{
     display: grid;
-    grid-template-columns: repeat( 2, minmax(10em, 10em) );
-    width: fit-content;
+    grid-template-columns: repeat( auto-fit, minmax(10em, 10em) );
+    justify-content: center;
     margin: auto;
 }
 @media (orientation:portrait) {
-    #image-container{
+    .image-container > span{
         display: grid;
         grid-template-columns: repeat( 1, minmax(10em, 10em) );
         width: 50%;
@@ -296,6 +296,8 @@ padding-bottom: 100%;
     background-repeat: no-repeat;
     min-width:-webkit-fill-available;
     height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 /*CSS for publication page index*/
@@ -559,7 +561,7 @@ display: flex;
     margin: auto;
     object-fit: contain;
 }
-.image-container {
+.image-container-detail {
     position: relative; /* Make the container a positioning context */
     background-color: black;
 }
