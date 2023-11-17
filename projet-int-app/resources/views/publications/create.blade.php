@@ -100,148 +100,52 @@
 
 
                 <select class="selectors" id="brand" name="brand" required>
-                    {{-- <option disabled selected value="">*Marque*</option>
-                    <option value="Acura">Acura</option>
-                    <option value="Alfa Romeo">Alfa Romeo</option>
-                    <option value="Audi">Audi</option>
-                    <option value="BMW">BMW</option>
-                    <option value="Buick">Buick</option>
-                    <option value="Cadillac">Cadillac</option>
-                    <option value="Chevrolet">Chevrolet</option>
-                    <option value="Chrysler">Chrysler</option>
-                    <option value="Dodge">Dodge</option>
-                    <option value="Ford">Ford</option>
-                    <option value="GMC">GMC</option>
-                    <option value="Honda">Honda</option>
-                    <option value="Hyundai">Hyundai</option>
-                    <option value="Infiniti">Infiniti</option>
-                    <option value="Jeep">Jeep</option>
-                    <option value="Kia">Kia</option>
-                    <option value="Lamborghini">Lamborghini</option>
-                    <option value="Lexus">Lexus</option>
-                    <option value="Lincoln">Lincoln</option>
-                    <option value="Mazda">Mazda</option>
-                    <option value="Mercedes-Benz">Mercedes-Benz</option>
-                    <option value="Nissan">Nissan</option>
-                    <option value="Porsche">Porsche</option>
-                    <option value="Ram">Ram</option>
-                    <option value="Subaru">Subaru</option>
-                    <option value="Tesla">Tesla</option>
-                    <option value="Toyota">Toyota</option>
-                    <option value="Volkswagen">Volkswagen</option>
-                    <option value="Volvo">Volvo</option>
-                    <option value="Autre">Autre</option> --}}
+
                 </select>
 
                 <script defer>
                     $(() => {
-                        const brand = [
-                            "*Marque*",
-                            "Acura",
-                            "Alfa Romeo",
-                            "Audi",
-                            "BMW",
-                            "Buick",
-                            "Cadillac",
-                            "Chevrolet",
-                            "Chrysler",
-                            "Dodge",
-                            "Ford",
-                            "GMC",
-                            "Honda",
-                            "Hyundai",
-                            "Infiniti",
-                            "Jeep",
-                            "Kia",
-                            "Lamborghini",
-                            "Lexus",
-                            "Lincoln",
-                            "Mazda",
-                            "Mercedes-Benz",
-                            "Nissan",
-                            "Porsche",
-                            "Ram",
-                            "Subaru",
-                            "Tesla",
-                            "Toyota",
-                            "Volkswagen",
-                            "Volvo",
-                            "Autre"
-                        ];
-                        const bodyType = [
-                            "*Carrosserie",
-                            "Berline",
-                            "VUS",
-                            "Camionnette",
-                            "Cabriolet",
-                            "Hatchback",
-                            "Fourgonnette",
-                            "Autre"
-                        ];
-                        const transmission = [
-                            "*Transmission*",
-                            "Manuelle",
-                            "Automatique",
-                            "Autre"
-                        ];
-                        const color = [
-                            "*Couleur*",
-                            "Blanche",
-                            "Noir",
-                            "Gris",
-                            "Rouge",
-                            "Bleu",
-                            "Vert",
-                            "Jaune",
-                            "Orange",
-                            "Autre"
-                        ];
-                        const fuelType = [
-                            "*Type d'essence",
-                            "Essence",
-                            "Diesel",
-                            "Électrique",
-                            "Autre",
-                        ];
+                        const data = {
+                            brand: [
+                                "*Marque*",
+                                "Acura", "Alfa Romeo", "Audi", "BMW", "Buick", "Cadillac", "Chevrolet", "Chrysler",
+                                "Dodge",
+                                "Ford", "GMC", "Honda", "Hyundai", "Infiniti", "Jeep", "Kia", "Lamborghini", "Lexus",
+                                "Lincoln",
+                                "Mazda", "Mercedes-Benz", "Nissan", "Porsche", "Ram", "Subaru", "Tesla", "Toyota",
+                                "Volkswagen", "Volvo", "Autre"
+                            ],
+                            bodyType: [
+                                "*Carrosserie",
+                                "Berline", "VUS", "Camionnette", "Cabriolet", "Hatchback", "Fourgonnette", "Autre"
+                            ],
+                            transmission: [
+                                "*Transmission*",
+                                "Manuelle", "Automatique", "Autre"
+                            ],
+                            color: [
+                                "*Couleur*",
+                                "Blanche", "Noir", "Gris", "Rouge", "Bleu", "Vert", "Jaune", "Orange", "Autre"
+                            ],
+                            fuelType: [
+                                "*Type d'essence",
+                                "Essence", "Diesel", "Électrique", "Autre"
+                            ]
+                        };
 
+                        function generateOptions(dataArray, selectedValue) {
+                            return $.map(dataArray, function(value) {
+                                const isSelected = (selectedValue === value) ? 'selected' : '';
+                                return `<option value='${value}' ${isSelected}>${value}</option>`;
+                            });
+                        }
 
-                        // @ devant $publication vient accepter le mot undefined pour utiliser et evite erreur
-                        let options = $.map(brand, function(n, i) {
+                        $("#brand").append(generateOptions(data.brand, "{{ @$publication->brand }}"));
+                        $("#bodyType").append(generateOptions(data.bodyType, "{{ @$publication->bodyType }}"));
+                        $("#transmission").append(generateOptions(data.transmission, "{{ @$publication->transmission }}"));
+                        $("#color").append(generateOptions(data.color, "{{ @$publication->color }}"));
+                        $("#fuelType").append(generateOptions(data.fuelType, "{{ @$publication->fuelType }}"));
 
-                            if (`{{ @$publication->brand }}` == n)
-                                return (`<option value=${n} selected>${n}</option>`);
-                            return (`<option value=${n}>${n}</option>`);
-                        });
-                        $("#brand").append(options);
-                        options = [];
-                        options = $.map(bodyType, function(n, i) {
-
-                            if (`{{ @$publication->bodyType }}` == n)
-                                return (`<option value=${n} selected>${n}</option>`);
-                            return (`<option value=${n}>${n}</option>`);
-                        });
-                        $("#bodyType").append(options);
-                        options = [];
-                        options = $.map(transmission, function(n, i) {
-                            if (`{{ @$publication->transmission }}` == n)
-                                return (`<option value=${n} selected>${n}</option>`);
-                            return (`<option value=${n}>${n}</option>`);
-                        });
-                        $("#transmission").append(options);
-                        options = [];
-                        options = $.map(color, function(n, i) {
-                            if (`{{ @$publication->color }}` == n)
-                                return (`<option value=${n} selected>${n}</option>`);
-                            return (`<option value=${n}>${n}</option>`);
-                        });
-                        $("#color").append(options);
-                        options = [];
-                        options = $.map(fuelType, function(n, i) {
-                            if (`{{ @$publication->fuelType }}` == n)
-                                return (`<option value=${n} selected>${n}</option>`);
-                            return (`<option value=${n}>${n}</option>`);
-                        });
-                        $("#fuelType").append(options);
 
 
 

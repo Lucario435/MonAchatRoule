@@ -158,6 +158,7 @@ class PublicationController extends Controller
 
         ///////////////////////////////////////////////////////////////////////////////
         //Insertion
+        
         $newPublication = Publication::create($data);
 
         //Redirect to index page
