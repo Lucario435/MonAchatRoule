@@ -1,5 +1,8 @@
 @extends('partials.xlayout')
-@section('title', "Annonces suivies")
+
+@section('title')
+<h1 id="xtitle">Annonces suivies</h1>
+@endsection
 
 @push('js')
     <script type='text/javascript'

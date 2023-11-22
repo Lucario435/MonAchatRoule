@@ -1,7 +1,7 @@
 @extends('partials.xlayout')
 
 
-@section('title', )
+@section('title')
     <h1 id="xtitle">Création de compte</h1>
 @endsection
 

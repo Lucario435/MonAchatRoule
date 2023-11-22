@@ -1,6 +1,8 @@
 @extends('partials.xlayout')
 
-@section('title', 'Page de publication')
+@section('title')
+    <h1 id="xtitle">Page de publication</h1>
+@endsection
 
 @section('content')
     <style momo="PERMET DE BAISSER LE WIDTH">

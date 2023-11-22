@@ -1,8 +1,9 @@
 @extends('partials.xlayout')
 
 
-<div id="xtitle">@section('title', "Accédez à votre compte")</div>
-
+@section('title')
+    <div id="xtitle">Accédez à votre compte</div>
+@endsection
 @section('content')
     <form action="/login" method="POST" style="width:350px; margin:auto;">
         @csrf

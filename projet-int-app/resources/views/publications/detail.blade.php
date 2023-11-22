@@ -12,9 +12,11 @@
     }
 @endphp
 @extends('partials.xlayout')
-<h1 id="x-title">
-    @section('title', "$publication->title")
-</h1>
+@section('title')
+    <h1 id="x-title">
+        {{$publication->title}}
+    </h1>
+@endsection
 @section('content')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--BODY-->

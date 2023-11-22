@@ -3,7 +3,9 @@
     use Illuminate\Support\Facades\Auth;
 @endphp
 
-@section('title', "Gestion d'images")
+@section('title')
+    <h1 id="xtitle">Gestion d'images</h1>
+@endsection
 {{-- valeur possible: $pid, $isEdit --}}
 @section('content')
 

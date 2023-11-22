@@ -1,6 +1,8 @@
 @extends('partials.xlayout')
 
-<div id="xtitle">@section('title', 'Confirmer votre courriel')</div>
+@section('title')
+<div id="xtitle">Confirmer votre courriel</div>
+@endsection
 
 @section('content')
     
