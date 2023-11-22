@@ -152,5 +152,22 @@ class UsersController extends Controller
 
         return to_route("user.edit",["xalert"=>"Profil mis à jour avec succès!"]);
     }
+    public function getAll(Request $request){
 
+        $users = User::all();
+        // filter by blocked or not
+        if ($request->query()) {
+            $params = [];
+            foreach($request->query() as $key => $value){
+                $params = [$key,$value];
+            }
+            //dd($params);
+            if($params[1] != 'none')
+                $users = $users->where($params[0],$params[1]);
+            //dd($users);
+            return view("admin.users-index",['users' => $users]);
+        }
+
+        return view("admin.users-index",['users' => $users]);
+    }
 }

@@ -2,16 +2,20 @@
 
 @section('content')
     <div class="container-sm mt-4" style="max-width:800px;">
-        <select id="status-selector" class="form-select" aria-label="Default select example"
+        <div class="row" style="margin-left:5px;">
+            <select
+            id="status-selector"
+            class="form-select col-6"
+            aria-label="Default select example"
             style="
-  margin:0;
-  margin-left:5px;
-  width:180px;
-  ">
-            <option value="none" selected>Tous status</option>
-            <option value="1">Traitée</option>
-            <option value="0">Intraitée</option>
-        </select>
+                margin:0;
+                width:180px;">
+                <option value="none" selected>Tous status</option>
+                <option value="1">Traitée</option>
+                <option value="0">Intraitée</option>
+            </select>
+            <a class="col d-flex align-items-center justify-content-end" href="/admin/users" style="margin-right:10px;">Liste des utilisateurs</a>
+        </div>
         <div id="container-signalements">@include('admin.list-signalements')</div>
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

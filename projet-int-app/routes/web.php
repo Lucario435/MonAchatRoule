@@ -232,4 +232,5 @@ Route::get('/api/notifications',[NotificationController::class,"getUnsentNotific
 Route::group(['middleware'=>'admin'],function(){
     Route::get('/admin',[SignalementController::class,"index"]);
     Route::post('/admin',[SignalementController::class,"process"]);
+    Route::get('admin/users',[UsersController::class,"getAll"]);
 });
