@@ -183,7 +183,7 @@ function initImageUploaders() {
         $(`#${controlId}`).css("left",`${controlIdLeft}px`);
         $(`#${controlId}`).css("top",`${controlIdTop}px`);
     });
-    initFormValidation();
+    //initFormValidation();
 }
 
 function ImageUploader_AttachEvent(controlId) {
