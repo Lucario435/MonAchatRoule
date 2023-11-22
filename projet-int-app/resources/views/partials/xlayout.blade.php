@@ -107,7 +107,7 @@
             }
         }
     </script>
-    @vite('resources/js/app.js')
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -138,10 +138,8 @@
     {{-- <link rel="stylesheet" href="path/to/jquery.toast.min.css">
     <script src="path/to/jquery.toast.min.js"></script> --}}
     
-    @vite(['resources/css/jquery.toast.css'])
+    @vite('resources/js/app.js')
     @vite(['resources/css/app.css'])
-    @vite(['resources/js/app.js'])
-    @vite(['resources/js/jquery.toast.js'])
     
     @stack('css')
     @stack('js')

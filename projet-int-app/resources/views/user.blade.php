@@ -6,12 +6,6 @@
     use App\Models\User;
     // $addedCssProfilDiv = "float: left;"
 @endphp
-@push('css')
-    @vite(['resources/css/publication.css'])
-@endpush
-@push('js')
-    @vite(['resources/js/snap_header_filters.js'])
-@endpush
 
 
 @section('title', 'Profil de ' . $user->getDisplayName())

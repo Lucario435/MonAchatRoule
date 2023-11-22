@@ -1,22 +1,12 @@
 @extends('partials.xlayout')
-@push('css')
-    @vite(['resources/css/register.css'])
-@endpush
+
 
 @section('title', )
     <h1 id="xtitle">Création de compte</h1>
 @endsection
 
 @section('content')
-    @push('js')
-        @vite(['resources/js/notification_checkbox_to_bool.js'])
-        @vite(['resources/js/show_hide_password.js'])
-        {{-- @vite(['resources/js/phone_number_formatter.js']) --}}
-        @vite(['resources/js/validation.js'])
-    @endpush
-    @push('css')
-        @vite(['resources/css/register.css'])
-    @endpush
+
     <form action="/register" method="POST" style="width:350px; margin:auto;">
         @csrf
 

@@ -3,9 +3,6 @@
 @section('title', 'Page de publication')
 
 @section('content')
-    @push('css')
-        @vite(['resources/css/publication.css'])
-    @endpush
     <style momo="PERMET DE BAISSER LE WIDTH">
         @media (min-width: 768px) {
             .xreducteur {

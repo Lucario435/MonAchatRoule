@@ -2,9 +2,7 @@
 @php
     use Illuminate\Support\Facades\Auth;
 @endphp
-@push('css')
-    @vite(['resources/css/publication.css'])
-@endpush
+
 @section('title', "Gestion d'images")
 {{-- valeur possible: $pid, $isEdit --}}
 @section('content')
