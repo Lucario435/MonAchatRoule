@@ -229,4 +229,4 @@ Route::get('/api/notifications',[NotificationController::class,"getUnsentNotific
 );
 
 // admin
-Route::view('/admin/','admin/index');
+Route::get('/admin',[SignalementController::class,"index"]);
