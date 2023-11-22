@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
     function myFunction() {
         //console.log(window.pageYOffset, ' > ', sticky)
-        if (window.pageYOffset > sticky) {
+        if (window.scrollY > sticky) {
             // header.classList.add("sticky");
             // sideFilters.classList.add("sticky-sidebar");
             toggleFixed();
