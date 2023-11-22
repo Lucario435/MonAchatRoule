@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Publication;
 use App\Models\Suiviannonce;
 use App\Models\Image;
+use Illuminate\Console\View\Components\Warn;
 use Illuminate\Support\Facades\Auth;
+
+use function Laravel\Prompts\error;
 
 class PublicationFollow extends Controller
 {
@@ -40,16 +43,34 @@ class PublicationFollow extends Controller
         $images = Image::all();
         return view('publicationfollow.index', ['publications' => $publicationsAllFiltered], ['images' => $images]);
     }
-
     //Inserts a publication into database (needs to pass validation tests before insertion)
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            //publication validation
-            'publication_id' => 'required',
-        ]);
-        $publication = Publication::find($data['publication_id']);
+    public function store($id, $show)
+    {   
+        $publication = Publication::find($id);
         $suiviannonces = Suiviannonce::all();
+        if($show)
+        {
+            //Does the publication exists
+            if($publication != null)
+            {
+                $currentUser = Auth::id();
+                
+                //Does the user exists
+                if ($currentUser != null) {
+                    //Does the user already has saved this publication
+                    foreach($suiviannonces as $suivi)
+                    {
+                        if($suivi->userid == $currentUser && $suivi->publication_id == $id)
+                        {
+                            return view('publications.followButton', ['followed' => true]);
+                            //return redirect()->route('publication.detail', ['id' => $id])->with('message', 'Publication retiré des annonces suivies!');
+                        }
+                    }
+                    return view('publications.followButton', ['followed' => false]);
+                }
+            }
+        }
+
         //Does the publication exists
         if($publication != null)
         {
@@ -60,18 +81,22 @@ class PublicationFollow extends Controller
                 //Does the user already has saved this publication
                 foreach($suiviannonces as $suivi)
                 {
-                    if($suivi->userid == $currentUser && $suivi->publication_id == $data['publication_id'])
+                    if($suivi->userid == $currentUser && $suivi->publication_id == $id)
                     {
                         $suivi->delete();
-                        return redirect()->route('publication.detail', ['id' => $data['publication_id']])->with('message', 'Publication retiré des annonces suivies!');
+                        return view('publications.followButton',['followed' => false])->with('message', 'Publication retiré des annonces suivies!');
+                        //return redirect()->route('publication.detail', ['id' => $id])->with('message', 'Publication retiré des annonces suivies!');
                     }
                 }
+                $data['publication_id'] = $id;
                 $data['userid'] = $currentUser;
                 //Insertion
                 $newPublicationFollow = suiviannonce::create($data);
-
-                //Redirect to index page
-                return redirect()->route('publication.detail', ['id' => $data['publication_id']])->with('message', 'Publication ajouté aux annonces suivies!');
+                return view('publications.followButton',['followed' => true])->with('message', 'Publication ajouté des annonces suivies!');
+            }
+            else
+            {
+                return redirect(route('login'))->with('message', 'Il faut être connecté pour effectuer cette action!');
             }
         }
     }

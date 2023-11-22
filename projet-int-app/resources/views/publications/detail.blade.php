@@ -22,7 +22,7 @@
     @php
         use Illuminate\Support\Facades\Auth;
     @endphp
-
+<br>
     <div id="popup-bid" style="display:none" class="popup-container">
         <div onclick="hide()" style="margin:1em;" class="popup-exit">
             <p class="popup-exit-text">X</p>
@@ -51,12 +51,12 @@
             @csrf
             @method('post')
             <!--////////////-->
-            <div style="background-color:white;width:fit-content;margin:auto;border-radius:25px;text-align:center;">
-                <p class="price-refresher-50-text" style="font-weight: bolder;margin:0;">Dépot minimum : {{ $price + 50 }}
+            <div style="width:fit-content;margin:auto;text-align:center;">
+                <p class="price-refresher-50-text" style="font-weight: bolder;margin:0;color:white;">Dépot minimum : {{ $price + 50 }}
                     $</p>
             </div>
             <br>
-            <div style="background-color:white;width:fit-content;margin:auto;border-radius:25px;">
+            <div style="background-color:white;width:fit-content;margin:auto;">
                 <input class="price-refresher-50 refresher-input" name="priceGiven" required min="{{ $price + 50 }}"
                     style="color:black; background-color: transparent;border:none;width:100%;font-weight: bolder;text-align:center;"
                     placeholder="{{ $price + 50 }}" type="number" />
@@ -85,7 +85,7 @@
                         <div class="image-buttons">
                             <button id="arrowLeft" class="buttonArrow-left" title="Image précédente" id="prev-image">
                                 < </button>
-                            <button id="arrowRight" class="buttonArrow-right" title="Prohaine image"
+                            <button id="arrowRight" class="buttonArrow-right" title="Prochaine image"
                             id="next-image">></button>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                 @endif
             @endforeach
             @if ($found == false)
-                <img class="detail-no-image" title="Image du vendeur" src="{{ asset('img/noImage.jpg') }}"
+                <img class="detail-no-image" title="Image du vendeur" src="{{ asset('img/ghost.png') }}"
                     alt="Image de la {{ $publication->title }}">
             @endif
         </div>
@@ -125,17 +125,7 @@
                     </div>
                 </a>
                 <!--Vérifier si déjà follow-->
-                <div title="Suivre l'état de l'annonce" class="div-button-actions" style="width:100%;">
-                    <a class="noDec button-div"
-                        href="{{ route('publicationfollow.store', ['publication_id' => $publication->id]) }}">
-                        <!--Ramener vers le controlleur pour ajouter un contact-->
-                        @if ($followed)
-                            <i class="fav-icon div-button-actions fas fa-star" style="color: orange"></i>
-                        @else
-                            <i class="fav-icon div-button-actions fa-regular fa-star"></i>
-                        @endif
-                        <label class="detail-labels div-button-actions">Suivre</label>
-                    </a>
+                <div id="followButton" title="Suivre l'état de l'annonce" class="div-button-actions" style="width:100%;">
                 </div>
                 @auth
                     @if (Auth::id() == $publication->user_id)
@@ -220,7 +210,7 @@
                 <div class="car-info-item d-flex align-items-center justify-content-center" style="width:100%;">
                     <div class="">
                         <br>
-                        <span class="detail-info-text">Enchère la plus haute</span>
+                        <span class="detail-info-text">Prix demandé</span>
                         <br>
                         <br>
                         @php
@@ -234,7 +224,13 @@
                         <span class="detail-info-text">État de l'annonce</span>
                         <br>
                         <br>
-                        <span class="detail-text-emphasis">{{ $publication->publicationStatus }}</span>
+                        @if($publication->publicationStatus == "En attente")
+                            <p style="color: rgb(109, 109, 109); padding: 0px;" class="detail-text-emphasis">{{$publication->publicationStatus}}</p>
+                        @elseif($publication->publicationStatus == "Vendu")
+                            <p style="color: red; padding: 0px;" class="detail-text-emphasis">{{$publication->publicationStatus}}</p>
+                        @else
+                            <p style="color: black; padding: 0px;" class="detail-text-emphasis">{{$publication->publicationStatus}}</p>
+                        @endif
                         <br>
                         <br>
 
@@ -254,7 +250,7 @@
             @php
                 $dateNow = date('Y-m-d H:i:s');
             @endphp
-            @if ($publication->expirationOfBid >= $dateNow)
+            @if ($publication->expirationOfBid >= $dateNow && $publication->publicationStatus != "En attente")
                 <div onclick="show()" title="Suivre l'état de l'annonce" class="div-button-actions"
                     style="margin-left:1em;margin-right:1em;">
                     <div class="noDec button-div">
@@ -263,7 +259,7 @@
                     </div>
                 </div>
             @else
-                <div title="Enchère" style="margin-left:1em;margin-right:1em;cursor:not-allowed;">
+                <div title="Il n'est plus disponible de déposer de nouvelles enchères" style="margin-left:1em;margin-right:1em;cursor:not-allowed;">
                     <div class="noDec button-div-inactiv">
                         <i class="fav-icon fas fa-hand-holding-usd"></i>
                         <label style="cursor:not-allowed;" class="detail-labels">Déposer une enchère</label>
@@ -282,13 +278,28 @@
             }
         }
     </style>
+    <br>
     <div class="main-container-style xreducteur">
         <br>
         <h4 class="detail-info-text">Informations du véhicule</h4>
         <hr>
-        <div class="car-info-item" style="margin: 1em;"><br>
-            <h4 class="detail-info-text">Prix demandé</h4>
-            <p class=" price-refresher detail-text-emphasis">{{ $price }} $</p>
+        <div class="action-buttons">
+            <div class="car-info-item" style="margin: 1em;">
+                <br>
+                <h4 class="detail-info-text">Prix demandé</h4>
+                <p class=" price-refresher detail-text-emphasis">{{ $price }} $</p>
+            </div>
+            <div class="car-info-item" style="margin: 1em;">
+                <br>
+                <h4 class="detail-info-text">État</h4>
+                @if($publication->publicationStatus == "En attente")
+                    <p style="color: rgb(109, 109, 109)" class="detail-text-emphasis">{{$publication->publicationStatus}}</p>
+                @elseif($publication->publicationStatus == "Vendu")
+                    <p style="color: red" class="detail-text-emphasis">{{$publication->publicationStatus}}</p>
+                @else
+                    <p style="color: black" class="detail-text-emphasis">{{$publication->publicationStatus}}</p>
+                @endif
+            </div>
         </div>
         <div class="car-info-item" style="margin: 1em;">
             <br>
@@ -390,17 +401,31 @@
                         index = 0;
                     }
                 }
+
                 url = images[index].url;
                 currentIndex = index;
-                imageElement.style.opacity = 0;
 
-                // Use a small delay to change the source after the fade-out effect
-                setTimeout(function() {
-                    imageElement.style.opacity = 1;
-                }, 400);
-                // Fade in the new image
+                imageElement.src = "{{ asset('') }}" + url;
+                imageElement.style.filter = 'blur(5px)';
+
+                // Use the load event to wait for the image to be downloaded
+                imageElement.onload = function() {
+                    // Update the source and reset opacity
+
+                    // Apply blur after a short delay
+                    setTimeout(function() {
+                        imageElement.style.filter = 'blur(0px)';
+                    }, 200);
+
+                    // Clear the onload event to avoid potential issues with future image loads
+                    imageElement.onload = null;
+                };
+
+                // Trigger the image load by assigning the source
                 imageElement.src = "{{ asset('') }}" + url;
             }
+
+            
 
             arrowLeft.addEventListener('click', function() {
                 showImage(currentIndex - 1);
@@ -413,23 +438,6 @@
     </script>
     <!--Utile pour follow une annonce-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("#myForm").submit(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    url: "process.php", // The PHP script to handle the POST request
-                    data: {
-                        data: $("#data").val()
-                    },
-                    success: function(response) {
-                        $("#result").html(response);
-                    }
-                });
-            });
-        });
-    </script>
     <script>
         document.querySelector('.location-hover').addEventListener('mouseenter', function() {
             document.querySelector('.opacity').classList.add('active');
@@ -458,8 +466,7 @@
                 this.submit(); // "this" refers to the form
             }
         });
-    </script>
-    <script>
+        
         function refreshDiv() {
             let $id = '{{ $publication->id }}';
             $.ajax({
@@ -503,5 +510,34 @@
         refreshDiv(); // Call it initially to load the div content
 
         setInterval(refreshDiv, 5000); // Call it every 5 seconds (5000 milliseconds)
-    </script>
+
+    function getFollowPublicationButton(){
+        let $id = {{$publication->id}}
+        $.ajax({
+            url: "{{ route('publicationfollow.store', ['id' => ':id', 'show' => ':show']) }}".replace(':id', $id).replace(':show', true),
+            type: 'GET',
+            success: function(data) {
+                updateFollowButton(data)
+            }
+        });
+    }
+
+    function followPublication() {
+        let $id = {{$publication->id}}
+        $.ajax({
+            url: "{{ route('publicationfollow.store', ['id' => ':id', 'show' => ':show']) }}".replace(':id', $id).replace(':show', false),
+            type: 'GET',
+            success: function(data) {
+                updateFollowButton(data)
+            }
+        });
+    }
+
+    function updateFollowButton(data){
+        $('#followButton').html(data);
+    }
+
+    getFollowPublicationButton();
+</script>
+@include('partials.xfooter')
 @endsection

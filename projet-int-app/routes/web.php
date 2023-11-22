@@ -88,7 +88,7 @@ function (EmailVerificationRequest $request) {
 
 // Story #9 page apropos
 Route::view('/a-propos','a-propos');
-Route::view('/about','a-propos');
+Route::view('/about','a-propos')->name("about");
 Route::get('/email/verify/unconfirmed',function(){
     return view("confirm-email",["email_verified_now" => 3]);
 })->name("verification.notice");
@@ -148,7 +148,9 @@ Route::post('/image', [ImageController::class, 'store'])->middleware("verified")
 //Route to show create image page
 Route::get('/publications/saved', [PublicationFollow::class, 'index'])->name('publicationfollow.index')->middleware("verified");
 //Route to store the follow on a publication
-Route::get('publicaitonsfollow', [PublicationFollow::class, 'store'])->name('publicationfollow.store');
+Route::get('publicationfollow/{id}/{show}', [PublicationFollow::class, 'store'])->name('publicationfollow.store');
+//Route to get the view of the followButton
+Route::get('publicationfollow')->name('publications.followButton');
 //------------------------------------------------------------------------------------
 // Search by filter
 Route::get('/publications/search',[PublicationController::class,'search']);
