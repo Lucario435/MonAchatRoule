@@ -48,8 +48,9 @@ class PublicationFollow extends Controller
     {   
         $publication = Publication::find($id);
         $suiviannonces = Suiviannonce::all();
-        if($show)
+        if($show == 'true')
         {
+            error_log('wow');
             //Does the publication exists
             if($publication != null)
             {
@@ -70,9 +71,8 @@ class PublicationFollow extends Controller
                 }
             }
         }
-
         //Does the publication exists
-        if($publication != null)
+        if($publication != null && $show == 'false')
         {
             $currentUser = Auth::id();
             
@@ -98,6 +98,10 @@ class PublicationFollow extends Controller
             {
                 return redirect(route('login'))->with('message', 'Il faut être connecté pour effectuer cette action!');
             }
+        }
+        else
+        {
+            return redirect(route('publication.index'))->with('message', 'Cette annonce existe plus!');
         }
     }
 }
