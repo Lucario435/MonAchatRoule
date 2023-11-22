@@ -149,7 +149,7 @@ hr{
 
 }
 .info{
-    margin: 0.5em 0em 0em 2.5em !important;
+    /* margin: 0.5em 0em 0em 2.5em !important; */
     min-height: 1em;
     content: "&nbsp;";
 }
