@@ -5,6 +5,7 @@
     <h1 id="xtitle">Création de compte</h1>
 @endsection
 <script type="module">
+    import initFormValidation from './validation.js';
     $(()=>{
         initFormValidation();
     })
