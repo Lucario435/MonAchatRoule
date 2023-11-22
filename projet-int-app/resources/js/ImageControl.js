@@ -56,6 +56,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 import './validation.js';
+import {initFormValidation} from './validation.js';
 let missingFileErrorMessage = "Veuillez sélectionner une image.";
 let maxImageSize = 15000000;
 var currentId = 0;
@@ -183,7 +184,7 @@ function initImageUploaders() {
         $(`#${controlId}`).css("left",`${controlIdLeft}px`);
         $(`#${controlId}`).css("top",`${controlIdTop}px`);
     });
-    //initFormValidation();
+    initFormValidation();
 }
 
 function ImageUploader_AttachEvent(controlId) {
