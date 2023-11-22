@@ -1,7 +1,7 @@
 // Added scroll listener
 // https://www.w3schools.com/howto/howto_js_sticky_header.asp
 // When the user scrolls the page, execute myFunction
-document.addEventListener("DOMContentLoaded", function () {
+$(() => {
     
     window.onscroll = function () {
         myFunction();
