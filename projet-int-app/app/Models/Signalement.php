@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Signalement extends Model
 {
+    // Defaults values for each of our data
+    protected $attributes = [
+        'user_resolved_by'=>null,
+    ];
+
     protected $fillable = [
         'user_sender',
         'user_target',
@@ -21,5 +26,9 @@ class Signalement extends Model
     public function target()
     {
         return $this->belongsTo(User::class, 'user_target');
+    }
+    public function resolvedByUser()
+    {
+        return $this->belongsTo(User::class, 'user_resolved_by');
     }
 }

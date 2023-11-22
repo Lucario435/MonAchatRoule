@@ -63,6 +63,9 @@
                     @auth
                         <li><a href="/users/{{ Auth::id() }}">Mes annonces</a></li>
                         <li><a href="/publication/create">Publier une annonce</a></li>
+                        @if(Auth()->user()->isAdmin())
+                            <li><a href="/admin">Centre des demandes</a></li>
+                        @endif
                         {{-- <li><a href="/publications/saved">Annonces suivies</a></li> --}}
                         <li id="btn-deco-mobile">
                             <form action="/logout" method="GET" class="d-flex align-items-top">
