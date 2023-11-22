@@ -23,7 +23,7 @@
     <span class="blocked" style="display:none;">{{ $user->is_blocked }}</span>
     @if ($user->is_blocked == 0)
         <div class="col-3 d-flex align-items-center justify-content-center" style="word-wrap:break-word;">
-            <button type="button" class="btn btn-primary inactive" id="{{ $user->id }}" data-bs-toggle="modal"
+            <button type="button" class="btn btn-primary " id="{{ $user->id }}" data-bs-toggle="modal"
                 data-bs-target="#blockUserModal" style="width:96px;">Bloquer</button>
             <span title="non-bloqué" class="fas fa-user-check"
                 style="
@@ -35,8 +35,8 @@
         </div>
     @elseif($user->is_blocked == 1)
         <div class="col-3 d-flex align-items-center justify-content-center" style="word-wrap:break-word;">
-            <button type="button" class="btn btn-primary inactive" data-bs-toggle="modal" data-bs-target="#unBlockUserModal" style="width:96px;">Débloquer</button>
-            <span title="bloqué" class="fas fa-check"
+            <button type="button" class="btn btn-primary" id="{{ $user->id }}" data-bs-toggle="modal" data-bs-target="#unBlockUserModal" style="width:96px;">Débloquer</button>
+            <span title="bloqué" class="fas fa-user-times"
                 style="
                     width: fit-content;
                     font-size:25px;
