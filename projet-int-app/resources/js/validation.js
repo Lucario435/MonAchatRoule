@@ -146,6 +146,6 @@ function addConflictValidation(serviceUrl, fieldName, submitBtnId) {
 }
 
 
-// $(() => {
-//     initFormValidation();
-// });
+$(() => {
+    initFormValidation();
+});

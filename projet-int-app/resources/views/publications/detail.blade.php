@@ -13,7 +13,7 @@
 @endphp
 @extends('partials.xlayout')
 @section('title')
-    <h1 id="x-title">
+    <h1 id="xtitle">
         {{$publication->title}}
     </h1>
 @endsection

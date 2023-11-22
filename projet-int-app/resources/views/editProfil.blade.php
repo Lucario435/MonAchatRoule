@@ -1,5 +1,7 @@
 @extends('partials.xlayout')
-
+@push('js')
+    <script type="text/javascript" src="{{ URL::asset ('js/validation.js') }}"></script>
+@endpush
 @section('title')
     <div id="xtitle">
         Modifier votre profil
