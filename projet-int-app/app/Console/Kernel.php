@@ -7,7 +7,9 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Queue\Jobs\Job;
 use App\Jobs\ContinuousTaskJob;
+use App\Mail\PublicationAuctionExpired;
 use App\Models\Publication;
+use Illuminate\Support\Facades\Mail;
 
 use function Laravel\Prompts\error;
 
@@ -20,25 +22,54 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
-        $schedule->call(function(){
+        $schedule->call(function () {
             //get les enchère qui sont de type enchères
             $encheres = Publication::all()
-            ->where('type', "1")
-            ->where('publicationStatus','En vente');
+                ->where('type', "1")
+                ->where('publicationStatus', 'En vente');
+
 
             //Pour chaque enchère
-            foreach($encheres as $enchere)
-            {
+            foreach ($encheres as $enchere) {
                 //On vérifie si cet enchère a déjà un flag En cours
-                if(strtotime($enchere->expirationOfBid) <= time())
-                {
+                if (strtotime($enchere->expirationOfBid) <= time()) {
                     // En attente | Vendu | En vente
                     $enchere->publicationStatus = 'En attente';
                     $enchere->save();
                     error_log("Enchère " . $enchere->title . " modifié dans la BD");
+
+                    $bidersEmail = DB::table('bids')
+                        ->join('publications', 'bids.publication_id', '=', 'publications.id')
+                        ->join('users', 'users.id', '=', 'bids.user_id')
+                        ->where('bids.publication_id', '=', $enchere->id)
+                        ->select('users.*')->get();
+
+                    foreach ($bidersEmail as $bider) {
+                        //dd($sub->email);
+                        try {
+                            //code...
+                            Mail::to($bider->email)->queue(new PublicationAuctionExpired ($enchere));
+                        } catch (\Throwable $th) {
+                            error_log("Error: ". $th);
+                        }
+                        
+                        
+                        $notificationWebsiteMessage = "L'enchère : $enchere->title que vous suiviez vient de se terminer.";
+
+                        try {
+                            sendNotification(
+                                $bider->id,
+                                $enchere->title,
+                                $notificationWebsiteMessage,
+                                url("publication/detail/{$enchere->id}")
+                            );
+                        } catch (\Throwable $th) {
+                            error_log("Error: ". $th);
+                        }
+                        
+                    }
                 }
             }
-
         })->everyTenSeconds();
     }
     protected $commands = [
@@ -49,7 +80,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

@@ -23,7 +23,7 @@ class NotificationController extends Controller
         if (Auth::user() == null) {
             return to_route("index");
         }
-        $nlist = Auth::user()->getNotifications;
+        $nlist = Auth::user()->getNotifications->sortByDesc('created_at');
 
         return view("notifications", ["nlist" => $nlist]);
     }

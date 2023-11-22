@@ -186,13 +186,15 @@
     @php
         use App\Models\User;
     @endphp
-    @if (User::find(Auth::id())->isAdmin())
-        <a href="/admin">
-            <div title="Vous êtes administrateur" class="fas fa-shield"
-                style="position: fixed;bottom:0px;right:0px;margin:10px;font-size:35px;color:white;
-                    background-color:#004aad;border-radius:5555px;padding:15px;">
-            </div>
-        </a>
+    @if(User::find(Auth::id()))
+        @if (User::find(Auth::id())->isAdmin())
+            <a href="/admin">
+                <div title="Vous êtes administrateur" class="fas fa-shield"
+                    style="position: fixed;bottom:0px;right:0px;margin:10px;font-size:35px;color:white;
+                        background-color:#004aad;border-radius:5555px;padding:15px;">
+                </div>
+            </a>
+        @endif
     @endif
 
 
