@@ -1,6 +1,6 @@
 @extends('partials.xlayout')
 
-@section('title', "Accueil")
+<div id="xtitle">@section('title', "Accueil")</div>
 
 @section('content')
     <h1>Bienvenue sur la page d'accueil</h1>

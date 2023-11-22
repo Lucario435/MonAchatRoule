@@ -1,9 +1,7 @@
 @extends('partials.xlayout')
 
 
-@section('title')
-    <h1 id="xtitle">Accédez à votre compte</h1>
-@endsection
+<div id="xtitle">@section('title', "Accédez à votre compte")</div>
 
 @section('content')
     <form action="/login" method="POST" style="width:350px; margin:auto;">
