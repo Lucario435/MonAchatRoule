@@ -55,7 +55,7 @@
 //  <span class="field-validation-valid text-danger" data-valmsg-for="PhotoImageData" data-valmsg-replace="true"></span>
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+import './validation';
 let missingFileErrorMessage = "Veuillez sélectionner une image.";
 let maxImageSize = 15000000;
 var currentId = 0;
