@@ -14,7 +14,7 @@
 @extends('partials.xlayout')
 @section('title')
     <h1 id="xtitle">
-        {{$publication->title}}
+        {{ $publication->title }}
     </h1>
 @endsection
 @section('content')
@@ -23,7 +23,7 @@
     @php
         use Illuminate\Support\Facades\Auth;
     @endphp
-<br>
+    <br>
     <div id="popup-bid" style="display:none" class="popup-container">
         <div onclick="hide()" style="margin:1em;" class="popup-exit">
             <p class="popup-exit-text">X</p>
@@ -53,7 +53,8 @@
             @method('post')
             <!--////////////-->
             <div style="width:fit-content;margin:auto;text-align:center;">
-                <p class="price-refresher-50-text" style="font-weight: bolder;margin:0;color:white;">Dépot minimum : {{ $price + 50 }}
+                <p class="price-refresher-50-text" style="font-weight: bolder;margin:0;color:white;">Dépot minimum :
+                    {{ $price + 50 }}
                     $</p>
             </div>
             <br>
@@ -86,8 +87,8 @@
                         <div class="image-buttons">
                             <button id="arrowLeft" class="buttonArrow-left" title="Image précédente" id="prev-image">
                                 < </button>
-                            <button id="arrowRight" class="buttonArrow-right" title="Prochaine image"
-                            id="next-image">></button>
+                                    <button id="arrowRight" class="buttonArrow-right" title="Prochaine image"
+                                        id="next-image">></button>
                         </div>
                     </div>
                     @php
@@ -129,7 +130,7 @@
                 <div id="followButton" title="Suivre l'état de l'annonce" class="div-button-actions" style="width:100%;">
                 </div>
                 @auth
-                    @if (Auth::id() == $publication->user_id)
+                    @if (Auth::id() == $publication->user_id || User::find(Auth::id())->isAdmin())
                         <div title="Modifier l'annonce" class="div-button-actions" style="width:100%;">
                             <a class="noDec button-div" href="{{ route('publication.update', ['id' => $publication->id]) }}">
                                 <!--Ramener vers le controlleur pour ajouter un contact-->
@@ -225,12 +226,15 @@
                         <span class="detail-info-text">État de l'annonce</span>
                         <br>
                         <br>
-                        @if($publication->publicationStatus == "En attente")
-                            <p style="color: rgb(109, 109, 109); padding: 0px;" class="detail-text-emphasis">{{$publication->publicationStatus}}</p>
-                        @elseif($publication->publicationStatus == "Vendu")
-                            <p style="color: red; padding: 0px;" class="detail-text-emphasis">{{$publication->publicationStatus}}</p>
+                        @if ($publication->publicationStatus == 'En attente')
+                            <p style="color: rgb(109, 109, 109); padding: 0px;" class="detail-text-emphasis">
+                                {{ $publication->publicationStatus }}</p>
+                        @elseif($publication->publicationStatus == 'Vendu')
+                            <p style="color: red; padding: 0px;" class="detail-text-emphasis">
+                                {{ $publication->publicationStatus }}</p>
                         @else
-                            <p style="color: black; padding: 0px;" class="detail-text-emphasis">{{$publication->publicationStatus}}</p>
+                            <p style="color: black; padding: 0px;" class="detail-text-emphasis">
+                                {{ $publication->publicationStatus }}</p>
                         @endif
                         <br>
                         <br>
@@ -251,7 +255,7 @@
             @php
                 $dateNow = date('Y-m-d H:i:s');
             @endphp
-            @if ($publication->expirationOfBid >= $dateNow && $publication->publicationStatus != "En attente")
+            @if ($publication->expirationOfBid >= $dateNow && $publication->publicationStatus != 'En attente')
                 <div onclick="show()" title="Suivre l'état de l'annonce" class="div-button-actions"
                     style="margin-left:1em;margin-right:1em;">
                     <div class="noDec button-div">
@@ -260,7 +264,8 @@
                     </div>
                 </div>
             @else
-                <div title="Il n'est plus disponible de déposer de nouvelles enchères" style="margin-left:1em;margin-right:1em;cursor:not-allowed;">
+                <div title="Il n'est plus disponible de déposer de nouvelles enchères"
+                    style="margin-left:1em;margin-right:1em;cursor:not-allowed;">
                     <div class="noDec button-div-inactiv">
                         <i class="fav-icon fas fa-hand-holding-usd"></i>
                         <label style="cursor:not-allowed;" class="detail-labels">Déposer une enchère</label>
@@ -293,19 +298,21 @@
             <div class="car-info-item" style="margin: 1em;">
                 <br>
                 <h4 class="detail-info-text">État</h4>
-                @if($publication->publicationStatus == "En attente")
-                    <p style="color: rgb(109, 109, 109)" class="detail-text-emphasis">{{$publication->publicationStatus}}</p>
-                @elseif($publication->publicationStatus == "Vendu")
-                    <p style="color: red" class="detail-text-emphasis">{{$publication->publicationStatus}}</p>
+                @if ($publication->publicationStatus == 'En attente')
+                    <p style="color: rgb(109, 109, 109)" class="detail-text-emphasis">
+                        {{ $publication->publicationStatus }}</p>
+                @elseif($publication->publicationStatus == 'Vendu')
+                    <p style="color: red" class="detail-text-emphasis">{{ $publication->publicationStatus }}</p>
                 @else
-                    <p style="color: black" class="detail-text-emphasis">{{$publication->publicationStatus}}</p>
+                    <p style="color: black" class="detail-text-emphasis">{{ $publication->publicationStatus }}</p>
                 @endif
             </div>
         </div>
         <div class="car-info-item" style="margin: 1em;">
             <br>
             <h4 class="detail-info-text">Description</h4>
-            <p style="margin:0;word-break:break-all; padding:1em; text-align:left;line-height:1.5em;">{{ $publication->description }}</p>
+            <p style="margin:0;word-break:break-all; padding:1em; text-align:left;line-height:1.5em;">
+                {{ $publication->description }}</p>
             <br>
         </div>
         <div class="car-info ">
@@ -426,7 +433,7 @@
                 imageElement.src = "{{ asset('') }}" + url;
             }
 
-            
+
 
             arrowLeft.addEventListener('click', function() {
                 showImage(currentIndex - 1);
@@ -467,7 +474,7 @@
                 this.submit(); // "this" refers to the form
             }
         });
-        
+
         function refreshDiv() {
             let $id = '{{ $publication->id }}';
             $.ajax({
@@ -512,33 +519,35 @@
 
         setInterval(refreshDiv, 5000); // Call it every 5 seconds (5000 milliseconds)
 
-    function getFollowPublicationButton(){
-        let $id = {{$publication->id}}
-        $.ajax({
-            url: "{{ route('publicationfollow.store', ['id' => ':id', 'show' => ':show']) }}".replace(':id', $id).replace(':show', true),
-            type: 'GET',
-            success: function(data) {
-                updateFollowButton(data)
-            }
-        });
-    }
+        function getFollowPublicationButton() {
+            let $id = {{ $publication->id }}
+            $.ajax({
+                url: "{{ route('publicationfollow.store', ['id' => ':id', 'show' => ':show']) }}".replace(':id',
+                    $id).replace(':show', true),
+                type: 'GET',
+                success: function(data) {
+                    updateFollowButton(data)
+                }
+            });
+        }
 
-    function followPublication() {
-        let $id = {{$publication->id}}
-        $.ajax({
-            url: "{{ route('publicationfollow.store', ['id' => ':id', 'show' => ':show']) }}".replace(':id', $id).replace(':show', false),
-            type: 'GET',
-            success: function(data) {
-                updateFollowButton(data)
-            }
-        });
-    }
+        function followPublication() {
+            let $id = {{ $publication->id }}
+            $.ajax({
+                url: "{{ route('publicationfollow.store', ['id' => ':id', 'show' => ':show']) }}".replace(':id',
+                    $id).replace(':show', false),
+                type: 'GET',
+                success: function(data) {
+                    updateFollowButton(data)
+                }
+            });
+        }
 
-    function updateFollowButton(data){
-        $('#followButton').html(data);
-    }
+        function updateFollowButton(data) {
+            $('#followButton').html(data);
+        }
 
-    getFollowPublicationButton();
-</script>
-@include('partials.xfooter')
+        getFollowPublicationButton();
+    </script>
+    @include('partials.xfooter')
 @endsection
