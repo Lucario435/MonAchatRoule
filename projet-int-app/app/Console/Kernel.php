@@ -15,7 +15,6 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->call(function(){
-            DB::table('signalements')->insert(['user_sender'=>1,'user_target'=>2,'status'=>1,'mcontent'=>'testt']); 
                        
         })->everyTenSeconds();
     }
