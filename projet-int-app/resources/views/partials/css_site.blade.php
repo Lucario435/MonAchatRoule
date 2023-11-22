@@ -113,6 +113,5 @@ h1 {
     margin: auto;
     text-align: center;
     padding-top: 1rem;
-    padding-bottom: 2rem;
 }
 </style>

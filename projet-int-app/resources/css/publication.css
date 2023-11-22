@@ -260,7 +260,19 @@ padding-bottom: 100%;
     background-size: contain;
     border-radius: 5px;
 }
-
+.icon-click{
+    border-radius: 5000px;
+    color:white;
+    background-color: #004aad;
+    transition: 0.5s;
+}
+.icon-click:hover{
+    cursor: pointer;
+    color:black;
+    background-color: white;
+    transform: scale(1.2);
+    transition: 0.5s;
+}
 .image-container > span{
     display: grid;
     grid-template-columns: repeat( auto-fit, minmax(10em, 10em) );

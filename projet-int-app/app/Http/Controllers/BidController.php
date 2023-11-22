@@ -20,15 +20,25 @@ class BidController extends Controller
             'bidStatus' => 'required',
             'publication_id' => 'required',
         ]);
-        
+
         //If the user isn't connected, it will redirect hum to connection page with a message
         if(Auth::check())
         {
-            $data['user_id'] = Auth::id();
-            ///////////////////////////////////////////////////////////////////////////////
-            //Insertion
-            $newBid = Bid::create($data);
-            return redirect(route('publication.detail', ['id' => $data['publication_id']]))->with('message', 'Votre enchère a été déposé avec succès!');
+            //If the publication bid is finished or not
+            if($this->bidEnded($data['publication_id']))
+            {
+                $data['user_id'] = Auth::id();
+                ///////////////////////////////////////////////////////////////////////////////
+                //Insertion
+                $newBid = Bid::create($data);
+                return redirect(route('publication.detail', ['id' => $data['publication_id']]))->with('message', 'Votre enchère a été déposé avec succès!');
+            }
+            else
+            {
+                //Redirect to detail page with message
+                return redirect(route('publication.detail', ['id' => $data['publication_id']]))->with('message', 'Cette enchère est terminé, elle ne peux plus reçevoir de dépôt...');
+
+            }
         }
         else
         {
@@ -48,6 +58,13 @@ class BidController extends Controller
         }
     }
 
+    //Returns a bool of if a publication bid has terminated or not
+    public function bidEnded($id)
+    {
+        $publication = Publication::find($id);
+        return strtotime($publication->expirationOfBid) <= time();
+    }
+
     public function refreshDiv($id)
     {
         //Need publication, and bid
@@ -56,8 +73,7 @@ class BidController extends Controller
 
         $publicationBids = Bid::where('publication_id',$id)->get();
 
-
-        return view('partials.bidlist')->with(['publication' => $publication,'bids' => $publicationBids]);
+        return view('partials.bidlist')->with(['publication' => $publication,'bids' => $publicationBids,'bidEnded' => $this->bidEnded($id)]);
     }
 
     public function getHighestBidValue($id)

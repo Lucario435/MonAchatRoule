@@ -127,8 +127,10 @@
                     </div>
                 </a>
                 <!--Vérifier si déjà follow-->
-                <div id="followButton" title="Suivre l'état de l'annonce" class="div-button-actions" style="width:100%;">
-                </div>
+                @if(Auth::id() != $publication->user_id)
+                    <div id="followButton" title="Suivre l'état de l'annonce" class="div-button-actions" style="width:100%;">
+                    </div>
+                @endif
                 @auth
                     @if (Auth::id() == $publication->user_id || User::find(Auth::id())->isAdmin())
                         <div title="Modifier l'annonce" class="div-button-actions" style="width:100%;">
@@ -255,7 +257,7 @@
             @php
                 $dateNow = date('Y-m-d H:i:s');
             @endphp
-            @if ($publication->expirationOfBid >= $dateNow && $publication->publicationStatus != 'En attente')
+            @if ($publication->expirationOfBid >= $dateNow && $publication->publicationStatus != 'En attente' && Auth::id() != $publication->user_id)
                 <div onclick="show()" title="Suivre l'état de l'annonce" class="div-button-actions"
                     style="margin-left:1em;margin-right:1em;">
                     <div class="noDec button-div">
@@ -264,7 +266,12 @@
                     </div>
                 </div>
             @else
-                <div title="Il n'est plus disponible de déposer de nouvelles enchères"
+                <div
+                    @if(Auth::id() == $publication->user_id)
+                        title="Il n'est pas possible de déposer une enchère sur sa propre enchère"
+                    @else
+                        title="Il n'est plus disponible de déposer de nouvelles enchères"
+                    @endif
                     style="margin-left:1em;margin-right:1em;cursor:not-allowed;">
                     <div class="noDec button-div-inactiv">
                         <i class="fav-icon fas fa-hand-holding-usd"></i>

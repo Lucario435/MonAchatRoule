@@ -50,7 +50,6 @@ class PublicationFollow extends Controller
         $suiviannonces = Suiviannonce::all();
         if($show == 'true')
         {
-            error_log('wow');
             //Does the publication exists
             if($publication != null)
             {
