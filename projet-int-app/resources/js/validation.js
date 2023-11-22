@@ -9,6 +9,7 @@ let defaultInvalidMessage = "Format invalide";
 let defaultCustomErrorMessage = "Champ invalide";
 let passwordTooShortMessage = `Le mot de passe doit faire aumoins 7 caractères`;
 export default function initFormValidation() {
+    console.log("Init form validation");
     $(".Alpha").each(function () {
         $(this).attr("pattern", String.raw`^[a-zA-Z\- 'ààâäæáãåāèéêëęėēîïīįíìôōøõóòöœùûüūúÿçćčńñÀÂÄÆÁÃÅĀÈÉÊËĘĖĒÎÏĪĮÍÌÔŌØÕÓÒÖŒÙÛÜŪÚŸÇĆČŃÑ]*$`);
     });
@@ -145,6 +146,6 @@ function addConflictValidation(serviceUrl, fieldName, submitBtnId) {
 }
 
 
-$(() => {
-    initFormValidation();
-});
+// $(() => {
+//     initFormValidation();
+// });
