@@ -15,7 +15,7 @@
         <div id="container-signalements">@include('admin.list-signalements')</div>
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Traiter le signalement</h1>
@@ -25,7 +25,12 @@
                     @csrf
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="modal-body">
-                        <textarea type="text-area" id="commentaire" placeholder="commentaire (optionnel)"></textarea>
+                        <p><b>Signalé:</b> <span id="signaled"></span></p>
+
+                        <br>
+                        <p><b>Raison:</b> <span id="p-description"></span></p>
+
+                        <textarea rows="8" cols="50" type="text-area" id="commentaire" placeholder="commentaire (optionnel)"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -44,7 +49,12 @@
             
             $(myModal).on('shown.bs.modal', function(event) {
                 let idSignalement = event.relatedTarget.id;
+                let description = $(event.relatedTarget).parent().parent().find(".description").html();
+                let signaled = $(event.relatedTarget).parent().parent().find(".signaled").html();
+                console.log(description);
                 console.log($(myModal).find('button[type="submit"]').attr('id', idSignalement));
+                $(myModal).find('#p-description').html(description);
+                $(myModal).find('#signaled').html(signaled);
                 myInput.focus();
             });
             

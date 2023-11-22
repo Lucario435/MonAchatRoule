@@ -10,16 +10,20 @@
         {{ $signalement->formatted_time }}
     </div> --}}
     <div class="col-2" style="word-wrap:break-word;">
-        {{ $signalement->target->username }}
+        {{ $signalement->sender->username }}
     </div>
     <div class="col-1 p-0" style="border-left: 1px solid; width:10px;">&nbsp;</div>
-    <div class="col-6" style="word-wrap:break-word;">
+    <div class="col-6 description"
+        style="white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-heigth: 50px;">
         {{ $signalement->mcontent }}
     </div>
+    <span class="signaled" style="display:none;">{{$signalement->target->username}}</span>
     @if ($signalement->status == 0)
         <div class="col-3 d-flex align-items-center justify-content-center" style="word-wrap:break-word;">
-            <button id="{{ $signalement->id }}" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#signalerModal">Traiter</button>
+            <button id="{{$signalement->id}}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signalerModal">Consulter</button>
             <span title="en attente : {{ $signalement->formatted_time }}" class="fas fa-clock"
                 style="
                 width: fit-content;
@@ -30,8 +34,7 @@
         </div>
     @elseif($signalement->status == 1)
         <div class="col-3 d-flex align-items-center justify-content-center" style="word-wrap:break-word;">
-            <button type="button" class="btn btn-primary inactive" disabled
-                id="{{ $signalement->id }}">Traiter</button>
+            <button type="button" class="btn btn-primary inactive" disabled id="{{$signalement->id}}">Consulter</button>
             <span title="traité par {{ $signalement->resolvedByUser->username }}" class="fas fa-check"
                 style="
                 width: fit-content;
