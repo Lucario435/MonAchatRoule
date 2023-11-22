@@ -233,4 +233,7 @@ Route::group(['middleware'=>'admin'],function(){
     Route::get('/admin',[SignalementController::class,"index"]);
     Route::post('/admin',[SignalementController::class,"process"]);
     Route::get('admin/users',[UsersController::class,"getAll"]);
+    Route::get('admin/users/list',[UsersController::class,"getUserList"]);
+    Route::post('admin/user/block/{id}', [UsersController::class,"block"]);
+    Route::post('admin/user/unblock/{id}', [UsersController::class,"unblock"]);
 });

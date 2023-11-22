@@ -55,9 +55,11 @@
                 let idSignalement = event.relatedTarget.id;
                 let description = $(event.relatedTarget).parent().parent().find(".description").html();
                 let signaled = $(event.relatedTarget).parent().parent().find(".signaled").html();
+                let targetId = $(event.relatedTarget).parent().parent().find(".target-id").html();
                 console.log(description);
                 console.log($(myModal).find('button[type="submit"]').attr('id', idSignalement));
                 $(myModal).find('#p-description').html(description);
+                $(myModal).find('#signaled').html(`<a href="/users/${targetId}" title="voir profil">${signaled}</a>`);
                 $(myModal).find('#signaled').html(signaled);
                 myInput.focus();
             });

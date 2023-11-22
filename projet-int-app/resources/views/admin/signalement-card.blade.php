@@ -21,6 +21,7 @@
         {{ $signalement->mcontent }}
     </div>
     <span class="signaled" style="display:none;">{{$signalement->target->username}}</span>
+    <span class="target-id" style="display:none;">{{$signalement->target->id}}</span>
     @if ($signalement->status == 0)
         <div class="col-3 d-flex align-items-center justify-content-center" style="word-wrap:break-word;">
             <button id="{{$signalement->id}}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signalerModal">Consulter</button>
