@@ -2,7 +2,15 @@ import './bootstrap';
 import * as toast from './jquery.toast';
 import * as maskedinput from './jquery.maskedinput';
 import * as jqueryui from './jquery-ui';
-import './resize';
+import './resize.js';
+import './filterUI.js';
+import './ImageControl.js';
+import './location.js';
+import './notification_checkbox_to_bool.js';
+import './refreshNotifications.js';
+import './show_hide_password.js';
+import './snap_header_filters.js';
+import './validation.js';
 
 var idleTime = 0;
 const minutesOfInactivity = 30; 

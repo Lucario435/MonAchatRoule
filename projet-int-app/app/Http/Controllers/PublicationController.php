@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 //Models are a must to access database since Controller <=> Model <=> DB
 use App\Models\Publication;
-use App\Models\suiviannonce;
+use App\Models\Suiviannonce;
 use App\Models\Image;
 use App\Models\Bid;
 use App\Models\User;
@@ -172,10 +172,10 @@ class PublicationController extends Controller
     {
         $p = Publication::find($pid);
         if ($p == null) {
-            return redirect(route('publication.index'))->with('message', 'Cette annonce n\'existe pas!');
+            return redirect(route('publication.index'))->with('message', "Cette annonce n'existe pas!");
         }
-        if ($p->user_id != Auth::id() || null == Auth::id()) {
-            return redirect(route('publication.index'))->with('message', 'Vous n\'avez pas accès à cette page!');
+        if ( $p->user_id != Auth::id() && !User::find(Auth::id())->isAdmin()  ) {
+            return redirect(route('publication.index'))->with('message', "Vous n'avez pas accès à cette page!");
         }
         return view('publications.create', ["isEdit" => true, "pid" => $pid, "publication" => $p]);
     }
@@ -183,10 +183,10 @@ class PublicationController extends Controller
     { //post
         $p = Publication::find($id);
         if ($p == null) {
-            return redirect(route('publication.index'))->with('message', 'Cette annonce n\'existe pas!');
+            return redirect(route('publication.index'))->with('message', "Cette annonce n'existe pas!");
         }
-        if ($p->user_id != Auth::id()) {
-            return redirect(route('publication.index'))->with('message', 'Vous n\'avez pas accès à cette page!');
+        if ( $p->user_id != Auth::id() || !User::find(Auth::id())->isAdmin() ) {
+            return redirect(route('publication.index'))->with('message', "Vous n'avez pas l'autorisation de modifier cette annonce!");
         }
         $data = $request->validate([
             //publication validation

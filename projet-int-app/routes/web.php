@@ -14,6 +14,7 @@ use App\Http\Controllers\PublicationFollow;
 use App\Http\Resources\PublicationResource;
 use App\Models\Publication;
 use App\Models\Image;
+use App\Http\Controllers\SignalementController;
 use App\Models\notification;
 
 
@@ -227,3 +228,13 @@ Route::get('/api/publications/newest',function ()
 // Route for getting last notifications
 Route::get('/api/notifications',[NotificationController::class,"getUnsentNotifications"]
 );
+
+// admin
+Route::group(['middleware'=>'admin'],function(){
+    Route::get('/admin',[SignalementController::class,"index"]);
+    Route::post('/admin',[SignalementController::class,"process"]);
+    Route::get('admin/users',[UsersController::class,"getAll"]);
+    Route::get('admin/users/list',[UsersController::class,"getUserList"]);
+    Route::post('admin/user/block/{id}', [UsersController::class,"block"]);
+    Route::post('admin/user/unblock/{id}', [UsersController::class,"unblock"]);
+});

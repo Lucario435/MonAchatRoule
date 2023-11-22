@@ -8,7 +8,8 @@ let defaultRequireMessage = "Obligatoire";
 let defaultInvalidMessage = "Format invalide";
 let defaultCustomErrorMessage = "Champ invalide";
 let passwordTooShortMessage = `Le mot de passe doit faire aumoins 7 caractères`;
-function initFormValidation() {
+export default function initFormValidation() {
+    console.log("Init form validation");
     $(".Alpha").each(function () {
         $(this).attr("pattern", String.raw`^[a-zA-Z\- 'ààâäæáãåāèéêëęėēîïīįíìôōøõóòöœùûüūúÿçćčńñÀÂÄÆÁÃÅĀÈÉÊËĘĖĒÎÏĪĮÍÌÔŌØÕÓÒÖŒÙÛÜŪÚŸÇĆČŃÑ]*$`);
     });
@@ -79,6 +80,7 @@ function initFormValidation() {
         $(this).on("invalid", function (event) {
             let validity = event.target.validity;
             console.log(event.target.value.length);
+            console.log(event.target);
             if(event.target.value.length < 6)
                 event.target.setCustomValidity(passwordTooShortMessage);
             else if (validity.valueMissing)

@@ -87,6 +87,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(notification::class,"userid");
     }
 
+    public function isAdmin(){
+        return $this->is_admin;
+    }
+
     //https://stackoverflow.com/questions/46841159/laravel-hasmany-and-belongsto-parameters
     /*
         To simplify the syntax, think of the return $this->hasMany('App\Comment', 'foreign_key', 'local_key'); parameters as:

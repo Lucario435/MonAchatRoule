@@ -1,6 +1,12 @@
 @extends('partials.xlayout')
-
-@section('title', 'Modifier votre profil')
+@push('js')
+    <script type="text/javascript" src="{{ URL::asset ('js/validation.js') }}"></script>
+@endpush
+@section('title')
+    <div id="xtitle">
+        Modifier votre profil
+    </div>
+@endsection
 
 @section('content')
     <div class="container">

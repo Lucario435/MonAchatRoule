@@ -6,15 +6,12 @@
     use App\Models\User;
     // $addedCssProfilDiv = "float: left;"
 @endphp
-@push('css')
-    @vite(['resources/css/publication.css'])
-@endpush
-@push('js')
-    @vite(['resources/js/snap_header_filters.js'])
-@endpush
 
 
-@section('title', 'Profil de ' . $user->getDisplayName())
+@section('title')
+<h1 id="xtitle">Profil de {{$user->getDisplayName()}}</h1>
+@endsection
+
 @section('content')
     <div class="userp mt-5">
     @include('partials.profilDiv')

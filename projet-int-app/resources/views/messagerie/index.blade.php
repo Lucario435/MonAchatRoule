@@ -79,7 +79,10 @@
 @extends('partials.xlayout')
 
 
-@section('title', "Messagerie")
+@section('title')
+    <h1 id="xtitle">Messagerie</h1>
+@endsection
+
 @section("content")
 <div class="container body-content">
     <div style="display:grid; grid-template-columns: 3rem auto; align-items:center">

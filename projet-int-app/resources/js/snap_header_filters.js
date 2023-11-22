@@ -1,7 +1,7 @@
 // Added scroll listener
 // https://www.w3schools.com/howto/howto_js_sticky_header.asp
 // When the user scrolls the page, execute myFunction
-document.addEventListener("DOMContentLoaded", function () {
+$(() => {
     
     window.onscroll = function () {
         myFunction();
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
     function myFunction() {
         //console.log(window.pageYOffset, ' > ', sticky)
-        if (window.pageYOffset > sticky) {
+        if (window.scrollY > sticky) {
             // header.classList.add("sticky");
             // sideFilters.classList.add("sticky-sidebar");
             toggleFixed();

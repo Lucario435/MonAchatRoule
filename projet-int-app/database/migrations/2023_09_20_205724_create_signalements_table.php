@@ -20,6 +20,10 @@ return new class extends Migration
             $table->unsignedBigInteger("user_target")->nullable();
             $table->foreign("user_target")->references("id")->on("users");
 
+            // Admin that resolves the issue (or user)
+            $table->unsignedBigInteger("user_resolved_by")->nullable();
+            $table->foreign("user_resolved_by")->references("id")->on("users");
+
             $table->integer('status')->default(0);
             $table->string('mcontent', 512)->default('');
         });

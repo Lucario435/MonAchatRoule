@@ -1,7 +1,7 @@
 @extends('partials.xlayout')
 
-@section('title', )
-<h1 id="xtitle">À propos</h1>
+@section('title')
+    <h1 id="xtitle">À propos </h1>
 @endsection
 
 @section('content')

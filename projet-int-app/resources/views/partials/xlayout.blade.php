@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
-<div title="Page principale">@section('appname', 'MonAchatRoule')</div>
+<div title="Page principale">
+    @section('appname', 'MonAchatRoule')
+</div>
 {{-- @section('appname', 'MonAchatRoule') --}}
 
 <head>
@@ -107,7 +109,7 @@
             }
         }
     </script>
-    @vite('resources/js/app.js')
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -121,7 +123,7 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
     </script>
     <style>
-        body{
+        body {
             min-width: 200px;
             min-height: 400px;
         }
@@ -133,16 +135,14 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    
+
 
     {{-- <link rel="stylesheet" href="path/to/jquery.toast.min.css">
     <script src="path/to/jquery.toast.min.js"></script> --}}
-    
-    @vite(['resources/css/jquery.toast.css'])
+
+    @vite('resources/js/app.js')
     @vite(['resources/css/app.css'])
-    @vite(['resources/js/app.js'])
-    @vite(['resources/js/jquery.toast.js'])
-    
+
     @stack('css')
     @stack('js')
 
@@ -152,10 +152,11 @@
 <body>
     @include('partials.xheader')
 
+    <div style="min-height:90px;"></div>
 
-    <h1 id="xtitle">
-        @yield('title'){{-- ici on mettra le nom de la page, doit etre défini dans le yield  --}}
-    </h1>
+
+    @yield('title'){{-- ici on mettra le nom de la page, doit etre défini dans le yield  --}}
+
 
 
     @yield('content')
@@ -182,6 +183,17 @@
             }).showToast();
         }
     </script>
+    @php
+        use App\Models\User;
+    @endphp
+    @if (User::find(Auth::id())->isAdmin())
+        <a href="/admin">
+            <div title="Vous êtes administrateur" class="fas fa-shield"
+                style="position: fixed;bottom:0px;right:0px;margin:10px;font-size:35px;color:white;
+                    background-color:#004aad;border-radius:5555px;padding:15px;">
+            </div>
+        </a>
+    @endif
 
 
 
