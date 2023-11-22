@@ -52,6 +52,7 @@
                 <div class="bar"></div>
             </div>
             <div class="app-name">
+                
                 <a href="/" style="text-decoration: none; color:white;">
                     <h1>@yield('appname')</h1>
                 </a>
@@ -72,9 +73,7 @@
                                 </button>
                             </form>
                         </li>
-                        <li>
-
-                        </li>
+                        <br>
                     @endauth
                 </ul>
             </nav>

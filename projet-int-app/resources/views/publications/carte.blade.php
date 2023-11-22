@@ -88,7 +88,7 @@ use Illuminate\Support\Facades\Auth;
             @endif
         @endforeach
         @if($found == false)
-                <img class="card-image" src="{{asset('img/noImage.jpg')}}"/>
+                <img class="card-image" src="{{asset('img/ghost.png')}}"/>
         @endif
     </div>
     <div style="max-width:10em; overflow:hidden" class="card-title">{{$publication->title}}</div style="width:300px;">

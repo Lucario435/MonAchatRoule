@@ -18,8 +18,9 @@ header {
 }
 
 .header-container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
+    justify-content: center;
     align-items: center;
     max-width: 90%;
     margin: 0 auto;

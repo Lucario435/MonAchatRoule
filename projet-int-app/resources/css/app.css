@@ -5,6 +5,10 @@
 
 
 /* Reset some default styles for better consistency */
+#xheader{
+    z-index: 9999999;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
 :root {
     /* Bleu */
     --blueheader: #004aad;
@@ -13,13 +17,12 @@
     --greenbutton: #27ae5f00;
     --greenbuttonhover: rgba(0, 159, 0, 0);
     --notification-color: rgb(12, 85, 232);
-    --mobileWidth: 768px;
-    --linearGradiantBlue:linear-gradient(to left, #006eff, #004aad);
-}
+    --mobileWidth: 768px;}
 
 html,
 body {
     height: 100%;
+    background-color: #e7e7e7;
 }
 
 body,
@@ -37,16 +40,6 @@ li {
     color: white;
     /* White text color */
     padding: 10px 0;
-}
-
-/* Center the header content */
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 20px;
 }
 
 /* Style the website title (h1) */
@@ -134,7 +127,7 @@ li {
 
 /* Styles pour l'en-tête */
 header{
-    background-image: linear-gradient(to left, #006eff, #004aad);
+    background-image: linear-gradient(to right, #001b3d, #004aad);
     color: white;
     padding: 20px 0;
 }
@@ -237,7 +230,7 @@ h1 {
         font-weight: lighter;
         top: 85px !important;
         width: auto;
-        background-image: linear-gradient(to left, #006eff, #004aad);
+        background-image: linear-gradient(to right, #001b3d, #004aad)
     }
 
     #btn-deco-desktop {
@@ -331,7 +324,7 @@ input[type="checkbox"]:checked {
 #page_filtre {
     display: block;
     min-height: 100%;
-    background-color: var(--blueheader);
+    background-color: #1b1b1b;
     color: white;
 }
 
@@ -461,7 +454,7 @@ input[type="checkbox"]:checked {
 
     .content {
         margin-top: 105px;
-        margin-left: 22%;
+        margin-left: 250px;
         margin-right: auto;
         /* height: 500px;
         display: block;

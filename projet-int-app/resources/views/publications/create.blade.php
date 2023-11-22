@@ -67,7 +67,7 @@
                     value="{{ isset($publication) ? $publication->fixedPrice : old('fixedPrice') }}" />
             </div>
             <div>
-                <input class="inputForm" oninput="convertToUpperCase(this)" type="text" required name="postalCode"
+                <input id="postalReg" oninput="validatePostalCode(this)" class="inputForm" oninput="convertToUpperCase(this)" type="text" required name="postalCode"
                     placeholder="Code postal ex: A1B" pattern="^[A-Z]\d[A-Z]"
                     value="{{ isset($publication) ? $publication->postalCode : old('postalCode') }}" />
             </div>
@@ -116,7 +116,7 @@
                                 "Volkswagen", "Volvo", "Autre"
                             ],
                             bodyType: [
-                                "*Carrosserie",
+                                "*Carrosserie*",
                                 "Berline", "VUS", "Camionnette", "Cabriolet", "Hatchback", "Fourgonnette", "Autre"
                             ],
                             transmission: [
@@ -128,7 +128,7 @@
                                 "Blanche", "Noir", "Gris", "Rouge", "Bleu", "Vert", "Jaune", "Orange", "Autre"
                             ],
                             fuelType: [
-                                "*Type d'essence",
+                                "*Type d'essence*",
                                 "Essence", "Diesel", "Électrique", "Autre"
                             ]
                         };
@@ -173,29 +173,86 @@
                 </select>
             </div>
             <div style="display:block; align-items:center;">
-                <br>
-                <label class="form-text-styling">Type d'annonce</label>
-                <!--0=No Bid 1= With Bid-->
-                <br>
-                <div style="display: flex;
-                align-items: center;
-                justify-content: center;">
-                    <input class="custom-radio" type="radio" name="type" value="0"
-                        {{ isset($publication) && $publication->type == 0 ? 'checked' : '' }}
-                        onchange="toggleExpirationInput(false)" />
-                    <label class="width10">Prix fixe</label>
-                </div>
-                <br>
-                <div style="display: flex;
-                align-items: center;
-                justify-content: center;">
-                    <input class="custom-radio" type="radio" name="type" value="1"
-                        {{ isset($publication) && $publication->type == 1 ? 'checked' : '' }}
-                        onchange="toggleExpirationInput(true)" />
-                    <label class="width10">Enchère</label>
+                <style>
+                    .switch {
+                    position: relative;
+                    display: inline-block;
+                    width: 60px;
+                    height: 34px;
+                    }
+
+                    .switch input { 
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                    }
+
+                    .slider {
+                    position: absolute;
+                    cursor: pointer;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: #ccc;
+                    -webkit-transition: .4s;
+                    transition: .4s;
+                    }
+
+                    .slider:before {
+                    position: absolute;
+                    content: "";
+                    height: 26px;
+                    width: 26px;
+                    left: 4px;
+                    bottom: 4px;
+                    background-color: white;
+                    -webkit-transition: .4s;
+                    transition: .4s;
+                    }
+
+                    input:checked + .slider {
+                    background-color: #004aad;
+                    }
+
+                    input:focus + .slider {
+                    box-shadow: 0 0 1px #004aad;
+                    }
+
+                    input:checked + .slider:before {
+                    -webkit-transform: translateX(26px);
+                    -ms-transform: translateX(26px);
+                    transform: translateX(26px);
+                    }
+
+                    /* Rounded sliders */
+                    .slider.round {
+                    border-radius: 34px;
+                    }
+
+                    .slider.round:before {
+                    border-radius: 50%;
+                    }
+                </style>
+                <input type="hidden" name="type" value="0"/>
+                <div class="switches_styling">
+                    <span style="white-space: nowrap;" class="detail-text-emphasis">Prix fixe</span>
+                    <label for="checkbox_1" class="switch" style="display: flex;
+                    align-items: center;
+                    justify-content: center;margin:auto;">
+                            <input id="checkbox_1" class="custom-radio" type="checkbox" name="type"
+                            @if(isset($publication))
+                                {{ $publication->type == 1 ? 'checked value=1' : 'value=0' }}
+                            @else
+                                value="0"
+                            @endif
+                            onchange="toggleExpirationInput()" />
+                            <span class="slider round"></span>
+                    </label>
+                    <span class="detail-text-emphasis">Enchère</span>
                 </div>
             </div>
-            <br>
+
             <div style="display: {{ isset($publication) && $publication->type == 1 ? 'block' : 'none' }}"
                 id="expirationOfBidInput">
                 <label>Date de fin de l'enchère</label>
@@ -204,27 +261,22 @@
                     value="{{ isset($publication) ? $publication->expirationOfBid : date('Y-m-d', strtotime('+7 days')) }}"
                     name="expirationOfBid" placeholder="date" />
             </div>
-            <div style="display:block; align-items:center;">
-                <br>
-                <label class="form-text-styling">Visibilité</label>
-                <br>
-                <!--0=Not visible 1= visible-->
-                <div style="display: flex;
+            <input type="hidden" name="hidden" value="0"/>
+            <div class="switches_styling">
+                <span class="detail-text-emphasis">Privé</span>
+                <label for="checkbox_2" class="switch" style="display: flex;
                 align-items: center;
-                justify-content: center;">
-                    <input class="customRadio" type="radio" name="hidden" value="1"
-                        {{ isset($publication) && $publication->hidden == 1 ? 'checked' : '' }} />
-                    <label class="width10">Publique</label>
-                </div>
-                <br>
-                <div
-                    style="display: flex;
-                    align-items: center;
-                    justify-content: center;">
-                    <input class="customRadio" type="radio" name="hidden" value="0"
-                        {{ isset($publication) && $publication->hidden == 0 ? 'checked' : '' }} />
-                    <label class="width10">Privée</label>
-                </div>
+                justify-content: center;margin:auto;">
+                        <input id="checkbox_2" class="custom-radio" type="checkbox" name="hidden"
+                        @if(isset($publication))
+                            {{ $publication->hidden == 1 ? 'checked value=1' : 'value=0' }}
+                        @else
+                            value="0"
+                        @endif
+                            onchange="togglePublicInput()" />
+                        <span class="slider round"></span>
+                </label>
+                <span class="detail-text-emphasis">Publique</span>
             </div>
             <br>
             <!--ul for spacing-->
@@ -248,28 +300,65 @@
             <br>
             </form>
         </div>
-        <script>
-            function toggleExpirationInput(show) {
-                var expirationInput = document.getElementById("expirationOfBidInput");
-                //Makes the style change if the param (show) is true or false
-                if (show) {
-                    expirationInput.style.display = "";
-                } else {
-                    expirationInput.style.display = "none";
-                }
-            }
+<script>
+    let isPublic = false;
+    if(document.getElementById("checkbox_2").value == 1)
+    {
+        let isPublic = true;
+    }
+    function togglePublicInput() {
+        var expirationInput = document.getElementById("expirationOfBidInput");
+        //Makes the style change if the param (show) is true or false
+        if (isPublic) {
+            document.getElementById("checkbox_2").value = 0
+            isPublic = false;
+        } else {
+            document.getElementById("checkbox_2").value = 1
+            isPublic = true;
+        }
+    }
 
-            function convertToUpperCase(input) {
-                input.value = input.value.toUpperCase();
-            }
-        </script>
-        <script>
-            document.querySelector('#hintActivator').addEventListener('mouseenter', function() {
-                document.querySelector('#hint').classList.add('active');
-            });
-            document.querySelector('#hintActivator').addEventListener('mouseleave', function() {
-                document.querySelector('#hint').classList.remove('active');
-            });
-        </script>
-    </body>
+    let showExpiration = false;
+    if(document.getElementById("checkbox_1").value == 1)
+    {
+        showExpiration = true;
+    }
+    function toggleExpirationInput() {
+        var expirationInput = document.getElementById("expirationOfBidInput");
+        //Makes the style change if the param (show) is true or false
+        if (showExpiration) {
+            document.getElementById("checkbox_1").value = 0
+            expirationInput.style.display = "none";
+            showExpiration = false;
+        } else {
+            document.getElementById("checkbox_1").value = 1
+            expirationInput.style.display = "";
+            showExpiration = true;
+        }
+    }
+
+    function validatePostalCode(input) {
+        // Remove any non-alphanumeric characters except the first letter
+        let sanitizedInput = input.value.replace(/[^A-Za-z0-9]/g, '');
+        
+        // Ensure the first character is a letter
+        if (/^[A-Z]\d[A-Z]$/.test(sanitizedInput) && sanitizedInput.length <= 3) 
+        {
+            // Update the input value
+            input.value = sanitizedInput.toUpperCase();
+        } else {
+            // Clear the input if the pattern is not met
+            input.value = sanitizedInput.slice(0, -1).toUpperCase();
+            input.value = sanitizedInput.slice(0, 3).toUpperCase();
+        }
+    }
+
+    document.querySelector('#hintActivator').addEventListener('mouseenter', function() {
+        document.querySelector('#hint').classList.add('active');
+    });
+    document.querySelector('#hintActivator').addEventListener('mouseleave', function() {
+        document.querySelector('#hint').classList.remove('active');
+    });
+</script>
+</body>
 @endsection

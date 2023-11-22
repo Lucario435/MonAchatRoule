@@ -16,6 +16,8 @@ use Hamcrest\Type\IsNumeric;
 use Illuminate\Database\Eloquent\Casts\Json;
 use Mockery\Undefined;
 
+use function Laravel\Prompts\error;
+
 class PublicationController extends Controller
 {
     //Returns the main publications page and the object "publication" so we can get it and show it in the page
@@ -64,14 +66,15 @@ class PublicationController extends Controller
     public function detail($id)
     {
         $publicationExist = Publication::find($id);
+
+        $currentUser = Auth::id();
         //Vérifier que l'annonce est privée, on redirige vers l'index
-        if($publicationExist->hidden == 1)
+        if($publicationExist->hidden == 1 || $currentUser == $publicationExist->user_id)
         {
             $followedPublications = Suiviannonce::where('publication_id', $id)->first();
 
             $publicationBids = Bid::where('publication_id',$id)->get();
 
-            $currentUser = Auth::id();
 
             $followed = false;
 
@@ -109,7 +112,6 @@ class PublicationController extends Controller
     //Inserts a publication into database (needs to pass validation tests before insertion)
     public function store(Request $request)
     {
-
         //Validation /////////To Do Jonathan : More validation
         $data = $request->validate([
             //publication validation
@@ -133,6 +135,7 @@ class PublicationController extends Controller
             'color' => 'nullable'
 
         ]);
+
         //Validation of the user ID
         /*
         if(null != getUID())
@@ -148,13 +151,13 @@ class PublicationController extends Controller
             return redirect(route('login'));
         }*/
 
-        //Temporairement, c'est le id 1 qui publie les annonces à effacer quand le login fonctionnera
+        //Temporairement, c'est le id 1 qui publie les annonces à effacer quand le login fdonctionnera
         //else{
         $data['user_id'] = Auth::id();
         //}
 
         //The default status of the publication will be "ok"
-        $data['publicationStatus'] = 'ok';
+        $data['publicationStatus'] = 'En vente';
 
         ///////////////////////////////////////////////////////////////////////////////
         //Insertion
