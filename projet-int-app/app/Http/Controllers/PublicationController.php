@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 //Models are a must to access database since Controller <=> Model <=> DB
 use App\Models\Publication;
-use App\Models\suiviannonce;
+use App\Models\Suiviannonce;
 use App\Models\Image;
 use App\Models\Bid;
 use App\Models\User;
