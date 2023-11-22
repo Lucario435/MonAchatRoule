@@ -20,7 +20,7 @@ class BidController extends Controller
             'bidStatus' => 'required',
             'publication_id' => 'required',
         ]);
-
+        
         //If the user isn't connected, it will redirect hum to connection page with a message
         if(Auth::check())
         {
