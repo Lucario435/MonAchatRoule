@@ -1,11 +1,10 @@
 @extends('partials.xlayout')
 
-@section('title', 'Page de publication')
+@section('title')
+    <h1 id="xtitle">Page de publication</h1>
+@endsection
 
 @section('content')
-    @push('css')
-        @vite(['resources/css/publication.css'])
-    @endpush
     <style momo="PERMET DE BAISSER LE WIDTH">
         @media (min-width: 768px) {
             .xreducteur {

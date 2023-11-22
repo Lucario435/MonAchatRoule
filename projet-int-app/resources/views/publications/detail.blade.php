@@ -12,12 +12,13 @@
     }
 @endphp
 @extends('partials.xlayout')
-@section('title', "$publication->title")
+@section('title')
+    <h1 id="xtitle">
+        {{$publication->title}}
+    </h1>
+@endsection
 @section('content')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @push('css')
-        @vite(['resources/css/publication.css'])
-    @endpush
     <!--BODY-->
     @php
         use Illuminate\Support\Facades\Auth;

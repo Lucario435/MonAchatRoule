@@ -1,17 +1,9 @@
 @extends('partials.xlayout')
-@push('css')
-    @vite(['resources/css/register.css'])
-@endpush
-@push('js')
-    @vite(['resources/js/notification_checkbox_to_bool.js'])
-    @vite(['resources/js/show_hide_password.js'])
-    @vite(['resources/js/phone_number_formatter.js'])
-@endpush
+
 
 @section('title')
-    <h1 id="xtitle">Accédez à votre compte</h1>
+    <div id="xtitle">Accédez à votre compte</div>
 @endsection
-
 @section('content')
     <form action="/login" method="POST" style="width:350px; margin:auto;">
         @csrf

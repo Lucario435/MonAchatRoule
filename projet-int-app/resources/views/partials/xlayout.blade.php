@@ -107,7 +107,7 @@
             }
         }
     </script>
-    @vite('resources/js/app.js')
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -138,10 +138,8 @@
     {{-- <link rel="stylesheet" href="path/to/jquery.toast.min.css">
     <script src="path/to/jquery.toast.min.js"></script> --}}
     
-    @vite(['resources/css/jquery.toast.css'])
+    @vite('resources/js/app.js')
     @vite(['resources/css/app.css'])
-    @vite(['resources/js/app.js'])
-    @vite(['resources/js/jquery.toast.js'])
     
     @stack('css')
     @stack('js')
@@ -152,10 +150,11 @@
 <body>
     @include('partials.xheader')
 
-
-    <h1 id="xtitle">
-        @yield('title'){{-- ici on mettra le nom de la page, doit etre défini dans le yield  --}}
-    </h1>
+    <div style="min-height:90px;"></div>
+    
+    
+    @yield('title'){{-- ici on mettra le nom de la page, doit etre défini dans le yield  --}}
+    
 
 
     @yield('content')

@@ -2,7 +2,9 @@
 @import './jquery.toast.css';
 @import 'car-makes-icons/dist/style.css';
 @import '/node_modules/jquery-ui/dist/themes/base/jquery-ui.css';
-
+@import './publication.css';
+@import './register.css';
+@import './scrollbar.css';
 
 /* Reset some default styles for better consistency */
 #xheader{

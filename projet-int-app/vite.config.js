@@ -24,4 +24,7 @@ export default defineConfig({
             '$': 'jQuery',
         },
     },
+    build: {
+        target: 'esnext', // or a target that supports top-level await
+    },
 });

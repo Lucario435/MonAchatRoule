@@ -2,7 +2,7 @@
     <!--Usefull link : https://www.fundaofwebit.com/laravel-8/how-to-show-success-message-in-laravel-8-->
     <!-- Include jQuery Toast CSS and JS files -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    @vite(['resources/js/refreshNotifications.js'])
+
     @if (session()->has('message'))
         {{-- <div class="alert alert-success" id="success">
             {{ session()->get('message') }}
