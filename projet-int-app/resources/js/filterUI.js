@@ -264,8 +264,8 @@ $(() => {
             let maxYear = getHighestYearFromServer();
             let minYear = getMinYearFromServer();
 
-            console.log(typeof (minYear));
-            console.log(minYear);
+            //console.log(typeof (minYear));
+            //console.log(minYear);
             createSlider("year", minYear, maxYear, "#amount-year", "selectedMinYear", "selectedMaxYear", " ",1)
 
             $("#min_year").on("input", function (ev) {
@@ -643,7 +643,7 @@ $(() => {
             url += `followedPublications&`;
 
         url = setOrdersOrder(url);
-        console.log("URL: " + url)
+        //console.log("URL: " + url)
         return removeAccents(url);
     }
     function setOrdersOrder(url) {
@@ -811,7 +811,7 @@ $(() => {
             location['distance'] = getTravelDistance(userCoordinates, destination);
             //console.log(location);
         });
-        console.log(locations);
+        //console.log(locations);
 
         return locations;
     }
@@ -828,7 +828,7 @@ $(() => {
             async: false,
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 response = data;
             },
             error: (xhr) => { console.log(xhr); }

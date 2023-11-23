@@ -55,40 +55,25 @@
                 
                 let userId = $(myModal).find('button[type="submit"]').attr('id');
                 let formId = $(event.currentTarget)[0].id;
-               
-                
+                   
                 event.preventDefault();
                 
-                console.log(userId);
-                //console.log(url, 'the form submited...');
-
-
                 let url = `user/block/${userId}`;
-                console.log(url);
                 let token = $(event.currentTarget).find('meta[name="csrf-token"]').attr('content');
-                console.log(token);
+                //console.log(token);
                 sendAjax(url, token);
-
-                
-
-                
+               
             });
 
             $(formUnblock).on('submit',function(event){
                 let userId = $(myModalUnblock).find('button[type="submit"]').attr('id');
                 let formId = $(event.currentTarget)[0].id;
-               
-                
+                   
                 event.preventDefault();
                 
-                console.log(userId);
-                //console.log(url, 'the form submited...');
-
-
                 let url = `user/unblock/${userId}`;
-                console.log(url);
                 let token = $(event.currentTarget).find('meta[name="csrf-token"]').attr('content');
-                console.log(token);
+
                 sendAjax(url, token);
             })
 
@@ -103,8 +88,7 @@
                     type: "POST",
                     url: url,
                 }).done(function(data) {
-                    console.log(data);
-        
+                    //console.log(data);
                     refreshUsersList();
 
                 });
@@ -123,7 +107,7 @@
 
             $(select).on('change', function(event) {
                 let selectedStatus = event.target.value;
-                console.log(selectedStatus);
+                //console.log(selectedStatus);
 
                 $.ajax({
                     type: "GET",

@@ -38,7 +38,7 @@
                 Microsoft.Maps.Events.addHandler(directionsManager, 'directionsUpdated', function(eventArgs) {
                     if (eventArgs && eventArgs.route[0]) {
                         var routeSummary = eventArgs;
-                        console.log(routeSummary.routeSummary[0].distance);
+                        //console.log(routeSummary.routeSummary[0].distance);
                     }
                 });
                 

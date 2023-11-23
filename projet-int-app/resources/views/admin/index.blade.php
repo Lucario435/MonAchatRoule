@@ -56,8 +56,8 @@
                 let description = $(event.relatedTarget).parent().parent().find(".description").html();
                 let signaled = $(event.relatedTarget).parent().parent().find(".signaled").html();
                 let targetId = $(event.relatedTarget).parent().parent().find(".target-id").html();
-                console.log(description);
-                console.log($(myModal).find('button[type="submit"]').attr('id', idSignalement));
+                //console.log(description);
+                $(myModal).find('button[type="submit"]').attr('id', idSignalement);
                 $(myModal).find('#p-description').html(description);
                 $(myModal).find('#signaled').html(`<a href="/users/${targetId}" title="voir profil">${signaled}</a>`);
                 $(myModal).find('#signaled').html(signaled);
@@ -70,7 +70,7 @@
                     commentaire: $("#commentaire").val(),
                     id: $(myModal).find('button[type="submit"]').attr('id'),
                 };
-                console.log(commentaire);
+                //console.log(commentaire);
                 let commentaireString = JSON.stringify(commentaire);
                 $.ajaxSetup({
                     headers: {
@@ -83,10 +83,10 @@
                     contentType: "application/json",
                     data: commentaireString,
                 }).done(function(data) {
-                    console.log(data);
+                    //console.log(data);
                     if (data['status'] == 1) {
-                        console.log($(".container-sm").find(`button[id=${commentaire.id}]`),
-                            ' bouton off...');
+                        //console.log($(".container-sm").find(`button[id=${commentaire.id}]`),
+                         //   ' bouton off...');
                         $(".container-sm").find(`button[id=${commentaire.id}]`).prop('disabled',
                             true);
                         $(".container-sm").find(`button[id=${commentaire.id}]`).next("span.fas")
@@ -99,7 +99,7 @@
             });
             $(select).on('change',function(event){
               let selectedStatus = event.target.value;
-              console.log(selectedStatus);
+              //console.log(selectedStatus);
               $.ajax({
                     type: "GET",
                     url: `admin?status=${selectedStatus}`,

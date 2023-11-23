@@ -124,7 +124,7 @@
 
 
                     function addInput(obj) {
-                        console.log(obj);
+                        //console.log(obj);
                         $(obj).hide();
                         $(obj).removeAttr("id");
                         let newInput =
@@ -140,10 +140,10 @@
                     function myf() {
                         $('#displayFileNames').html('');
                         let array = $("input[type=file]");
-                        console.log(array);
+                        //console.log(array);
                         for (let i = 0; i < array.length; i++) {
                             let files = array[i].files;
-                            console.log("files.length > 0 => ", files.length > 0);
+                            //console.log("files.length > 0 => ", files.length > 0);
                             for (let j = 0; j < array.length && files.length > 0; j++) {
                                 //console.log(files);
                                 if (files[j] != undefined)
@@ -153,9 +153,9 @@
                     }
 
                     function handleImageUpload(obj) {
-                        console.log(obj.files);
+                        //console.log(obj.files);
                         const files = obj.files;
-                        console.log(`ligne 155 : ${obj.files}`)
+                        //console.log(`ligne 155 : ${obj.files}`)
                         for (let i = 0; i < files.length; i++) {
                             const file = files[i];
                             if (file.type.startsWith('image/')) {
@@ -174,10 +174,10 @@
                                 removeButton.addEventListener('click', () => {
                                     imageContainer.removeChild(imagePreview);
                                     // If is multi image upload
-                                    console.log(obj.files);
+                                    //console.log(obj.files);
                                     
                                     removeFileFromFileList(file.name, obj);
-                                    console.log(obj.files);
+                                    //console.log(obj.files);
                                 });
 
                                 imagePreview.appendChild(img);
@@ -197,9 +197,9 @@
                         const {
                             files
                         } = input
-                        console.log(`file name: ${fileName} `);
+                        //console.log(`file name: ${fileName} `);
                         for (let i = 0; i < files.length; i++) {
-                            console.log(`name to delete: ${fileName} , current index : ${files[i].name}`);
+                            //console.log(`name to delete: ${fileName} , current index : ${files[i].name}`);
                             const file = files[i]
                             if (fileName !== files[i].name)
                                 dt.items.add(file) // here you exclude the file. thus removing it.

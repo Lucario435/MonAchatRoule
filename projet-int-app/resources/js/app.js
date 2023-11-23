@@ -13,7 +13,7 @@ import './snap_header_filters.js';
 import './validation.js';
 
 var idleTime = 0;
-const minutesOfInactivity = 30; 
+const minutesOfInactivity = 15; 
 $(
     function () {
         // https://stackoverflow.com/a/4029518 
@@ -32,7 +32,14 @@ $(
             idleTime = idleTime + 1;
             console.log(idleTime);
             if (idleTime >= minutesOfInactivity) {
-                window.location.reload();
+                $.ajax({
+                    url: '/logout',
+                    async: false,
+                    success: function (data) {
+                        window.location.reload();
+                    },
+                    error: (xhr) => { console.log(xhr); }
+                });
             }
         }
     }

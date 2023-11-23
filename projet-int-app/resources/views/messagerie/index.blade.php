@@ -328,7 +328,7 @@
     // setInterval(() => { ajaxActionCall("/Chat/IsTargetTyping", UpdateTyping); }, 3000);
 
     function UpdateTyping(show) {
-        console.log(show);
+        //console.log(show);
         if (show)
             $("#typing").show();
         else

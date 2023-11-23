@@ -53,7 +53,7 @@
             }
 
             static redirectToEndSessionAction() {
-                console.log(this.EndSessionAction)
+                //console.log(this.EndSessionAction);
                 window.location = this.EndSessionAction;
             }
 
