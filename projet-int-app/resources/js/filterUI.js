@@ -99,7 +99,7 @@ $(() => {
         selectedElement.fadeIn(200);
     });
     $("#followedPublications").on("change",function(event){
-        console.log('t');
+        //console.log('t');
         filterObject.followedPublications = isCheckboxChecked($("#followedPublications"));
         if(isCheckboxChecked($("#followedPublications")))
             filterObject.numberSelectedFilters++;
@@ -119,7 +119,7 @@ $(() => {
     });
 
     $("#order").on("click", function (event) {
-        console.log("click on order")
+        //console.log("click on order")
     })
 
     // Each filter and it's options/UI
@@ -337,7 +337,7 @@ $(() => {
 
         //console.log($(".erreur").length);
         if ($(".erreur").length > 0) {
-            console.log("Il ya des erreurs");
+            //console.log("Il ya des erreurs");
         }
         else {
             setBackgroundColor("#btn-search", "green");
@@ -347,7 +347,7 @@ $(() => {
             let searchTitle = $("#title-search").val().trim();
             
             if(searchTitle){
-                console.log($("#title-search").val());
+                //console.log($("#title-search").val());
             }
             
             $.ajax({
@@ -381,10 +381,10 @@ $(() => {
         if (element.currentTarget.name === "orderDistance" && checkedState) {
             // There is a problem with a div displaying above filters when asking for user location or denied user location
             const coordinateUser = {long:UserLocation[0],lat:UserLocation[1]};
-            console.log(coordinateUser);
+            //console.log(coordinateUser);
             filterObject = { ...filterObject, [key]: [checkedState, orderType, coordinateUser] }
             //let codesPostales = getCodesPostalesFromServer();
-            console.log(filterObject[key]);
+            //console.log(filterObject[key]);
 
 
             //let locations = getDistancesFromLocations([coordinateUser.lat, coordinateUser.long], codesPostales);
@@ -530,11 +530,11 @@ $(() => {
                 //console.log(filterObject);
                 $.each(elements, function (element, nombre) {
                     output += `
-                    <div class="row w-100 m-auto ${filterObject[element] ? 'selected-element' : ''}" ${filter}=${element} >
+                    <div class="row w-100 m-auto ${filterObject[element] ? 'selected-element' : ''}" ${filter}="${element}" >
 
                         ${filter == "brand" ?
                             `<div class='col-2 d-flex align-items-center justify-content-center p-0' style='color:black;'>
-                                <span class="car-${element.toLowerCase()} fa-2x"></span>
+                                <span class="car-${element.toLowerCase().replace(' ','-')} fa-2x"></span>
                             </div>` : `<div class='col-2'> </div>`}
 
                         <div class='col-9 text-start d-flex align-items-center'>
@@ -555,10 +555,12 @@ $(() => {
                 );
                 // Setting up listeners for selection of filter
                 $.each(elements, function (element, nombre) {
-                    $(`div[${filter}=${element}]`).on("click", (ev) => {
-                        //console.log(element);
-                        $(`div[${filter}=${element}]`).toggleClass("selected-element");
-                        if ($(`div[${filter}=${element}]`).hasClass("selected-element")) {
+                    $(`div[${filter}="${element}"]`).on("click", (ev) => {
+                        console.log(element);
+                        $(`div[${filter}="${element}"]`).toggleClass("selected-element");
+                        console.log(`div[${filter}="${element}"]`);
+                        if ($(`div[${filter}="${element}"]`).hasClass("selected-element")) {
+                            console.log(`div[${filter}="${element}"]`);
                             switch (selectedList) {
                                 case 'selectedBrands':
                                     filterObject.selectedBrands.add(element);
@@ -597,7 +599,7 @@ $(() => {
                             filterObject.numberSelectedFilters--;
                             ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
                         }
-                        filterObject[element] = $(`div[${filter}=${element}]`).hasClass("selected-element");
+                        filterObject[element] = $(`div[${filter}="${element}"]`).hasClass("selected-element");
                         //console.log(filterObject[element]);
                     });
                 })
@@ -647,9 +649,9 @@ $(() => {
         return removeAccents(url);
     }
     function setOrdersOrder(url) {
-        console.log($("#orderby-list > div"));
+        //console.log($("#orderby-list > div"));
         $("#orderby-list > div").each(function (i, e) {
-            console.log(jQuery(e).attr("id"));
+            //console.log(jQuery(e).attr("id"));
             let id = jQuery(e).attr("id").slice(3);
             // Consider we need to send the user coordinates with request of type distance
             if (filterObject[id][0] != false)

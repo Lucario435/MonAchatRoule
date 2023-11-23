@@ -48,15 +48,19 @@ class PublicationFollow extends Controller
     {   
         $publication = Publication::find($id);
         $suiviannonces = Suiviannonce::all();
+        //dd($show);
         if($show == 'true')
         {
             //Does the publication exists
+            //dd($publication != null);
             if($publication != null)
             {
                 $currentUser = Auth::id();
                 
                 //Does the user exists
+                //dd(Auth::check(), $currentUser);
                 if ($currentUser != null) {
+                    //dd('ligne 63');
                     //Does the user already has saved this publication
                     foreach($suiviannonces as $suivi)
                     {
@@ -71,13 +75,17 @@ class PublicationFollow extends Controller
             }
         }
         //Does the publication exists
+        //dd($publication != null && $show == 'false');
         if($publication != null && $show == 'false')
         {
             $currentUser = Auth::id();
             
             //Does the user exists
+            //dd('currentUser: ',$currentUser);
+            //dd($currentUser != null);
             if ($currentUser != null) {
                 //Does the user already has saved this publication
+                //dd('ligne 88');
                 foreach($suiviannonces as $suivi)
                 {
                     if($suivi->userid == $currentUser && $suivi->publication_id == $id)
@@ -95,12 +103,17 @@ class PublicationFollow extends Controller
             }
             else
             {
+                //dd('ligne 106');
                 return redirect(route('login'))->with('message', 'Il faut être connecté pour effectuer cette action!');
             }
         }
         else
         {
-            return redirect(route('publication.index'))->with('message', 'Cette annonce existe plus!');
+            //dd('ligne 112');
+            if(Auth::check())
+                return redirect(route('publication.index'))->with('message', 'Cette annonce existe plus!');
+            else
+                return response()->json(['error'=>'requires user to be connected']);
         }
     }
 }

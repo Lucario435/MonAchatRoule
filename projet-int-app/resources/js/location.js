@@ -79,7 +79,7 @@ export function getDistanceByTransportMethod(waypointA, waypointB) {
             if (eventArgs && eventArgs.route[0]) {
                 var routeSummary = eventArgs;
                 let distance = routeSummary.routeSummary[0].distance;
-                console.log(distance);
+                //console.log(distance);
                 return distance;
             }
         });
@@ -113,7 +113,7 @@ export function getTravelDistance(wp1, wp2) {
         async: false,
         dataType: 'json',
         success: function (data) {
-            console.log(data.resourceSets[0].resources[0].travelDistance);
+            //console.log(data.resourceSets[0].resources[0].travelDistance);
             response = data.resourceSets[0].resources[0].travelDistance;
         },
         error: (xhr) => { console.log(xhr); }

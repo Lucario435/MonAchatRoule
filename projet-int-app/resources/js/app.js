@@ -30,7 +30,7 @@ $(
 
         function timerIncrement() {
             idleTime = idleTime + 1;
-            console.log(idleTime);
+            //console.log(idleTime);
             if (idleTime >= minutesOfInactivity) {
                 $.ajax({
                     url: '/logout',

@@ -528,6 +528,7 @@
 
         function getFollowPublicationButton() {
             let $id = {{ $publication->id }}
+            //console.log('getFollowPublicationButton');
             $.ajax({
                 url: "{{ route('publicationfollow.store', ['id' => ':id', 'show' => ':show']) }}".replace(':id',
                     $id).replace(':show', true),
@@ -539,7 +540,8 @@
         }
 
         function followPublication() {
-            let $id = {{ $publication->id }}
+            let $id = {{ $publication->id }};
+            //console.log('followPublication');
             $.ajax({
                 url: "{{ route('publicationfollow.store', ['id' => ':id', 'show' => ':show']) }}".replace(':id',
                     $id).replace(':show', false),
@@ -551,6 +553,7 @@
         }
 
         function updateFollowButton(data) {
+            //console.log('followbtn data: ',data);
             $('#followButton').html(data);
         }
 

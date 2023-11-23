@@ -25,10 +25,10 @@ class NotificationPoper {
         if (list.length > 0) {
             let array = JSON.parse(list);
             //console.log(typeof(array),array);
-            console.log(array);
+            //console.log(array);
 
             for (var key in array) {
-                console.log(array[key]);
+                //console.log(array[key]);
                 let message = JSON.parse(array[key]['mcontent'])['msg'].replace(/(<(br)>)/gi, ", ");
                 message = message.replace(/(<\/?b>)/gi, '');
                 let title = JSON.parse(array[key]['mcontent'])['title'].replace(/(<([^>]+)>)/gi, " ");;
@@ -76,7 +76,7 @@ class NotificationPoper {
     }
 
     static redirectToEndSessionAction() {
-        console.log(this.EndSessionAction)
+        //console.log(this.EndSessionAction)
         window.location = this.EndSessionAction;
     }
 
