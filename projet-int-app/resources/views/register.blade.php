@@ -8,7 +8,7 @@
     <script type="text/javascript" src="{{ URL::asset ('js/validation.js') }}"></script>
 @endpush
 @push('css')
-    <link rel="stylesheet" src="{{ URL::asset ('css/register.css') }}>
+    <link rel="stylesheet" href="{{ URL::asset ('css/register.css') }}">
 @endpush
 @section('content')
 

@@ -1,8 +1,11 @@
 @extends('partials.xlayout')
-
+@push('css')
+    <link rel="stylesheet" href="{{ URL::asset ('css/register.css') }}">
+@endpush
 
 @section('title')
-    <div id="xtitle">Accédez à votre compte</div>
+<div id="xtitle">Accédez à
+    votre compte</div>
 @endsection
 @section('content')
     <form action="/login" method="POST" style="width:350px; margin:auto;">
@@ -11,7 +14,8 @@
             <label for="email" class="form-label">Courriel</label>
             <div class="grid-icon-input">
                 <i class="fas fa-envelope fa-lg icon-in-grid"></i>
-                <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" required>
+                <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}"
+                    required>
             </div>
             <div class="info">
                 @error('email')
@@ -38,5 +42,4 @@
     <div class="mb-3 signForm signin mt-5">
         <p>Pas encore de compte?<a href="{{ url('/register') }}"><br> Inscrivez-vous</a>.</p>
     </div>
-
 @endsection
