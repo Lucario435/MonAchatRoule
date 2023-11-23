@@ -7,6 +7,9 @@
 @push('js')
     <script type="text/javascript" src="{{ URL::asset ('js/validation.js') }}"></script>
 @endpush
+@push('css')
+    <link rel="stylesheet" src="{{ URL::asset ('css/register.css') }}>
+@endpush
 @section('content')
 
     <form action="/register" method="POST" style="width:350px; margin:auto;">
