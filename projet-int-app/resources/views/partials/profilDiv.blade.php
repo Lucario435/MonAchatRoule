@@ -32,7 +32,7 @@
                 <a class="btnBlueSendA" href="/messages/{{ $user->id }}"><button class="btnBlueSend">Contacter</button></a>
                 <a class="btnGraySendA" href="/report/?uid={{ $user->id }}"><button class="btnGraySend">Signaler</button></a>
             @endif
-            @if (Auth::user()->id == $user->id)
+            @if (@Auth::user()->id == $user->id)
             <a href="{{ route("user.edit") }}" class="btnBlueSendA"><button class="btnBlueSend">Modifier votre profil</button></a>
             @endif
         </ul>

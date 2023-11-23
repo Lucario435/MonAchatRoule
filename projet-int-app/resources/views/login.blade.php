@@ -1,11 +1,11 @@
 @extends('partials.xlayout')
 @push('css')
-    <link rel="stylesheet" href="{{ URL::asset ('css/register.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/register.css') }}">
 @endpush
 
 @section('title')
-<div id="xtitle">Accédez à
-    votre compte</div>
+    <div id="xtitle">Accédez à
+        votre compte</div>
 @endsection
 @section('content')
     <form action="/login" method="POST" style="width:350px; margin:auto;">
@@ -38,8 +38,12 @@
         </div>
         <button type="submit" class="btn btn-lg btn-primary d-flex justify-content-center"
             style="width:200px;margin:auto;">Se connecter</button>
+
     </form>
     <div class="mb-3 signForm signin mt-5">
         <p>Pas encore de compte?<a href="{{ url('/register') }}"><br> Inscrivez-vous</a>.</p>
     </div>
+    @error('error')
+        <div class="erreur text-center pt-5">{{ @$message }}</div>
+    @enderror
 @endsection

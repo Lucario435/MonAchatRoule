@@ -77,7 +77,8 @@ class UsersController extends Controller
                 $request->session()->put('userid', $user["id"]);
                 $request->session()->put('user', $user);
                 $request->session()->put("loggedin", true);
-                sendNotification($user->id, "Bienvenue sur le site!", "Merci d'utiliser notre site pour trouver votre prochain véhicule. Bonne route!", "about");
+                if(!$user->is_blocked)
+                    sendNotification($user->id, "Bienvenue sur le site!", "Merci d'utiliser notre site pour trouver votre prochain véhicule. Bonne route!", "about");
 
                 return redirect()->intended('index');
             } else {
