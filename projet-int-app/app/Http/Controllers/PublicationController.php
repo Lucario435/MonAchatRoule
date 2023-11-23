@@ -185,8 +185,10 @@ class PublicationController extends Controller
         if ($p == null) {
             return redirect(route('publication.index'))->with('message', "Cette annonce n'existe pas!");
         }
-        if ( $p->user_id != Auth::id() || !User::find(Auth::id())->isAdmin() ) {
-            return redirect(route('publication.index'))->with('message', "Vous n'avez pas l'autorisation de modifier cette annonce!");
+        if ( $p->user_id != Auth::id()) {
+            if(!User::find(Auth::id())->isAdmin()){
+                return redirect(route('publication.index'))->with('message', "Vous n'avez pas l'autorisation de modifier cette annonce!");
+            }
         }
         $data = $request->validate([
             //publication validation

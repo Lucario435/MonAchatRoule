@@ -135,7 +135,9 @@
                         function generateOptions(dataArray, selectedValue) {
                             return $.map(dataArray, function(value) {
                                 const isSelected = (selectedValue === value) ? 'selected' : '';
-                                return `<option value='${value}' ${isSelected}>${value}</option>`;
+                                const notSelectable = value.includes('*') ? 'disabled selected hidden' : '';
+                                const valueB = notSelectable ? '' : value;
+                                return `<option value='${valueB}' ${isSelected} ${notSelectable}>${value}</option>`;
                             });
                         }
 
@@ -144,11 +146,9 @@
                         $("#transmission").append(generateOptions(data.transmission, "{{ @$publication->transmission }}"));
                         $("#color").append(generateOptions(data.color, "{{ @$publication->color }}"));
                         $("#fuelType").append(generateOptions(data.fuelType, "{{ @$publication->fuelType }}"));
-
-
-
-
                     });
+
+
                 </script>
             </div>
             <div>
