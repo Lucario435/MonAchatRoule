@@ -66,6 +66,7 @@
                     name="username" 
                     id="username"
                     value="{{ old('username') }}" 
+                    RequireMessage="Veuillez entrer un pseudonyme"
                     required>
             </div>
             <div class="info">
@@ -86,6 +87,7 @@
                     name="phone" 
                     id="phone" 
                     value="{{ old('phone') }}"
+                    RequireMessage="Veuillez entrer un numéro de téléphone"
                     required>
             </div>
             <div class="info">
@@ -155,14 +157,6 @@
         <button type="submit" class="btn btn-lg btn-primary d-flex justify-content-center"
             style="width:200px;margin:auto;">Créer</button>
     </form>
-    <script type="module">
-        $(
-            function() {
-                //$.toast("tes3");
-
-            }
-        );
-    </script>
     <div class="mb-3 signForm signin mt-5">
         <p>Vous avez déjà un compte?<a href="{{ url('/login') }}"><br> Connectez vous</a>.</p>
     </div>

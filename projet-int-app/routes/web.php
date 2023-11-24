@@ -106,7 +106,7 @@ Route::get('/users/register',[UsersController::class,"register"]);
 //Route to show main page
 Route::get('/publication', [PublicationController::class, 'index'])->name('publication.index');
 //Route to create show publication page
-Route::get('/publication/create', [PublicationController::class, 'create'])->middleware('verified')->name('publication.create');
+Route::get('/publication/create', [PublicationController::class, 'create'])->middleware(['auth','verified'])->name('publication.create');
 Route::get('/publication/edit/{id}', [PublicationController::class, 'viewupdate'])->middleware('verified')->name('publication.getupdateview');
 Route::post('/publication/edit/{id}', [PublicationController::class, 'update'])->middleware('verified')->name('publication.update');
 //Route to create the publication (SAVE)

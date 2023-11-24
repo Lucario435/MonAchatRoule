@@ -8,6 +8,7 @@ use App\Models\Publication;
 use Illuminate\Support\Facades\DB;
 //Models are a must to access database since Controller <=> Model <=> DB
 use App\Models\Bid;
+use App\Models\Suiviannonce;
 
 class BidController extends Controller
 {
@@ -25,12 +26,17 @@ class BidController extends Controller
         if(Auth::check())
         {
             //If the publication bid is finished or not
-            if($this->bidEnded($data['publication_id']))
+            if(!$this->bidEnded($data['publication_id']))
             {
                 $data['user_id'] = Auth::id();
                 ///////////////////////////////////////////////////////////////////////////////
                 //Insertion
                 $newBid = Bid::create($data);
+                /// Ajoute a la liste des annonces suivis la premire fois que user bid
+                $isFollowing = Suiviannonce::all()->where('publication_id',$data['publication_id'])->where('userid',Auth::id());
+                if(!count($isFollowing)){
+                    Suiviannonce::create(['userid'=>Auth::id(),'publication_id'=>$data['publication_id']]);
+                }
                 return redirect(route('publication.detail', ['id' => $data['publication_id']]))->with('message', 'Votre enchère a été déposé avec succès!');
             }
             else

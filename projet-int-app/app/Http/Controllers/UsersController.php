@@ -45,6 +45,8 @@ class UsersController extends Controller
     {
         $attributes = $r->validated();
         $attributes["userimage"] = "";
+        $attributes["is_admin"] = 0;
+        $attributes["is_blocked"] = 0;
         $user = User::create($attributes);
         // event qui signale au mailsender un nouveau user vient de sinscrire
         if ($user == null) {
