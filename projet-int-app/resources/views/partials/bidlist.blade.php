@@ -91,7 +91,7 @@
             @foreach ($restOfBid as $publicationBid)
                 @php
                     //Get the usernames
-                    $user_id = $$publicationBid->user_id;
+                    $user_id = $publicationBid->user_id;
                     $user = User::find($user_id);
                     $username = $user->username;
                 @endphp

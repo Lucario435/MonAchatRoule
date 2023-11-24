@@ -33,10 +33,7 @@ class BidController extends Controller
                 //Insertion
                 $newBid = Bid::create($data);
                 /// Ajoute a la liste des annonces suivis la premire fois que user bid
-                $isFollowing = Suiviannonce::all()->where('publication_id',$data['publication_id'])->where('userid',Auth::id());
-                if(!count($isFollowing)){
-                    Suiviannonce::create(['userid'=>Auth::id(),'publication_id'=>$data['publication_id']]);
-                }
+                $this->UserFollowPublication($data['publication_id'],Auth::id());
                 return redirect(route('publication.detail', ['id' => $data['publication_id']]))->with('message', 'Votre enchère a été déposé avec succès!');
             }
             else
@@ -93,5 +90,11 @@ class BidController extends Controller
 
         return $priceGiven;
         
+    }
+    private function UserFollowPublication($publicationId,$userId){
+        $isFollowing = Suiviannonce::all()->where('publication_id',$publicationId)->where('userid',$userId);
+        if(!count($isFollowing)){
+            Suiviannonce::create(['userid'=>$userId,'publication_id'=>$publicationId]);
+        }
     }
 }
