@@ -19,7 +19,8 @@
     ></div>
     <h3 class="name" style="color: white;"> {{ $user->getDisplayName()  }}</h3>
     <div class="info cf">
-        <div class="four col"><span class="number">{{ $user->getNoteGlobale() }}</span>Note globale</div>
+        <style>.goldx{color: #ffc700}</style>
+        <div class="four col"><span class="number goldx">{{ $user->getNoteGlobale() }} ★</span>Selon les évaluations</div>
         <div class="four col"><span class="number">{{ ($user->getPublicationsCountForDisplay()) }}</span>Annonces actives</div>
         {{-- <div class="four col"><span class="number">179</span>Likes</div> --}}
     </div>
@@ -29,11 +30,12 @@
             {{-- <li><span class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></span>Send a message</li> --}}
            @if($user->id != Auth::id())
                 {{-- Allo: {{ Auth::id() }} --}}
-                <a class="btnBlueSendA" href="/messages/{{ $user->id }}"><button class="btnBlueSend">Contacter</button></a>
-                <a class="btnGraySendA" href="/report/?uid={{ $user->id }}"><button class="btnGraySend">Signaler</button></a>
+                <a class="btnBlueSendA" href="/messages/{{ $user->id }}"><button class="btnBlueSend btn btn-primary">Contacter</button></a>
+                <br><br>
+                <a class="btnGraySendA" href="/report/?usertarget={{ $user->id }}"><button class="btnGraySend btn btn-secondary">Signaler</button></a>
             @endif
-            @if (@Auth::user()->id == $user->id)
-            <a href="{{ route("user.edit") }}" class="btnBlueSendA"><button class="btnBlueSend">Modifier votre profil</button></a>
+            @if (Auth::id() == $user->id)
+            <a href="{{ route("user.edit") }}" class="btnBlueSendA"><button class="btnBlueSend btn btn-primary">Modifier votre profil</button></a>
             @endif
         </ul>
     </div>
@@ -48,10 +50,11 @@
         border: none; */
     }
     .btnBlueSendA{
-        width: 100%;
+        /* width: 100%; */
     }
     .btnBlueSend{
-        width: 100%;
+         width: 100%;
+         /*
         background: rgb(20, 104, 220);
         outline: solid 2px white;
         margin-bottom: 10px;
@@ -60,15 +63,16 @@
         box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 20px;
         border: none;
         color: white;
-        transition: .2s ease;
+        transition: .2s ease; */
     }
     .btnBlueSend:hover{
-        padding: .7rem;
+        /* padding: .7rem;
         background: rgb(0, 88, 211);
-        font-weight: bold;
+        font-weight: bold; */
     }
     .btnGraySend{
-        width: 100%;
+         width: 100%;
+         /*
         background: rgb(105, 105, 105);
         outline: solid 2px white;
         margin-bottom: 10px;
@@ -77,12 +81,12 @@
         box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 20px;
         border: none;
         color: white;
-        transition: .2s ease;
+        transition: .2s ease; */
     }
     .btnGraySend:hover{
-        padding: .7rem;
+        /* padding: .7rem;
         background: rgb(69, 69, 69);
-        font-weight: bold;
+        font-weight: bold; */
     }
     .profilDiv {
         width: 10rem;
@@ -218,9 +222,10 @@
 }
 
 .profilDiv{
-background: var(--blueheader);
+background: rgb(41, 41, 41);
 color: white;
 font-weight: bold;
-outline: solid 2px black;
+/* outline: solid 2px black; */
+box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.6) !important;
 }
 </style>

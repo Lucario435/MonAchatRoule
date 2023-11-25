@@ -23,7 +23,7 @@
                     alertc.classList.add("hiddenalert");
                 }, delayInSeconds * 1000);
             });
-            
+
         </script> --}}
         <script>
             $(()=>{
@@ -52,7 +52,7 @@
                 <div class="bar"></div>
             </div>
             <div class="app-name">
-                
+
                 <a href="/" style="text-decoration: none; color:white;">
                     <h1>@yield('appname')</h1>
                 </a>
@@ -71,7 +71,8 @@
                             <form action="/logout" method="GET" class="d-flex align-items-top">
                                 @csrf
                                 <button type="submit" class="d-flex align-items-center btn-disconnect" id="btn-deco" style="gap: 20px;">
-                                    <i class="fas fa-sign-out-alt"></i><div>Se deconnecter</div>
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <div>Se deconnecter</div>
 
                                 </button>
                             </form>
@@ -81,24 +82,31 @@
                 </ul>
             </nav>
 
-            <div style="display: grid; grid-template-columns: auto auto;gap:20px;">
+            <div style="width:15rem; display: grid; grid-template-rows: auto; grid-template-columns: auto auto auto;gap:auto;">
                 @auth
                     {{-- <form action="/logout" method="GET">
                         <button class="login-button redlogout-button">
                             <i class="fas fa-sign-out-alt"></i>
                         </button>
                     </form> --}}
-                   
+
+                    <div style="display: flex;
+                    justify-content: center;
+                    align-items: center; gap:4px;">
+                        <a class="" href="/notifications"><i style="color: white; font-size: 2rem" class="fa fa-bell"></i></a>
+                        <a class="" href="/messages"><i style="color: white; font-size: 2rem;" class="fa fa-message"></i></a>
+
+                    </div>
                     <a href="/users/{{ Auth::id() }}">
                         <div class="imgProfile" style="background-image: url('{{ Auth::user()->getImage() }}')"></div>
-                        
                     </a>
-                    <form action="/logout" method="GET" class="d-flex align-items-top">
+
+                    <form action="/logout" method="GET" class="d-flex align-items-top" style="align-items:center; height: 100%; display:flex;">
                         @csrf
                         <button type="submit" class="d-flex align-items-center btn-disconnect" id="btn-deco-desktop"
-                            style="gap: 15px;">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <div>Se deconnecter</div>
+                            style="gap: 0px; font-size:2rem;">
+                            <i class="fas fa-sign-out-alt xihover"></i>
+                            {{-- <div>Se deconnecter</div> --}}
 
                         </button>
                     </form>
@@ -117,6 +125,13 @@
 
 
 <style>
+    .header-container{
+
+    }
+    .xihover:hover{
+        /* color:black;
+        transition:.2s; */
+    }
     /* Ajoutez du CSS pour rendre le bouton carré sur les appareils mobiles */
     @media (orientation: portrait) {
         .login-button {

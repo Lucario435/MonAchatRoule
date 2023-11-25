@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Image;
 use App\Models\Publication;
+use App\Models\rating;
 use Illuminate\Http\Request;
 use App\Models\User;
 use GuzzleHttp\Middleware;
@@ -120,7 +121,14 @@ class UsersController extends Controller
             return to_route("index");
         $plist = User::find($uid)->getPublications;
         $images = Image::all();
-        return view("user", ["uid" => $uid, "user" => User::find($uid), "publications" => $plist, "images" => $images]);
+        $ratingsTemp = rating::all();
+        $ratings = [];
+        foreach ($ratingsTemp as $key => $value) {
+            if($value->userid == $uid){
+                $ratings[] = $value;
+            }
+        }
+        return view("user",["uid" => $uid, "ratings"=>$ratings,"user" => User::find($uid), "publications" => $plist, "images" => $images]);
     }
     public function edit(Request $r)
     {
@@ -164,8 +172,7 @@ class UsersController extends Controller
 
         $user->save(); //il chiale encore
 
-
-        return to_route("user.edit", ["xalert" => "Profil mis à jour avec succès!"]);
+        return to_route("user.edit",["xalert"=>"Profil mis à jour avec succès!"]);
     }
     public function getAll(Request $request)
     {

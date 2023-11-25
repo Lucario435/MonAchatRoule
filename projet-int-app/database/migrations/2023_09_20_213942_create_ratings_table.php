@@ -26,8 +26,8 @@ return new class extends Migration
             $table->string('commentaire', 128)->nullable()->default('');
             $table->integer('etoiles');
 
-            $table->unsignedBigInteger("annonces_id")->nullable();
-            $table->foreign("annonces_id")->references("id")->on("annonces");
+            $table->unsignedBigInteger("publication_id")->nullable();
+            $table->foreign("publication_id")->references("id")->on("publications");
         });
     }
 

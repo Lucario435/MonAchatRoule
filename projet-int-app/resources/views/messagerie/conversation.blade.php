@@ -10,9 +10,16 @@
         <div class="aboveouterspangridex">
         <div class="outerspangridex">
             <span class="spangridex">{{ $targetUser->getDisplayName() }}</span>
-            <a style="color:var(--report); margin-left: .5rem;" href="{{ route("messages.reportuser",["id" => $targetUser->id]) }}"><i class="fas fa-flag"></i></a>
+            {{-- <a style="color:var(--report); margin-left: .5rem;" href="{{ route("messages.reportuser",["id" => $targetUser->id]) }}"><i class="fas fa-flag"></i></a>
             <a style="color:var(--report); margin-left: .5rem;" href="{{ route("messages.blockUserMsgs",["id" => $targetUser->id]) }}"><i class="fas fa-ban"></i></a>
+         --}}
+         <div style="width: 1rem;">&nbsp;</div>
+         <a title="Signaler l'usager" style="color:var(--report); margin-left: .5rem;"href="{{ route('messages.reportuser', ['id' => $targetUser->id, 'usertarget' => $targetUser->id]) }}"><i class="fas fa-flag"></i></a>
+         <a title="Bloquer l'usager" style="color:var(--report); margin-left: .5rem;"href="{{ route('messages.blockUserMsgs', ['id' => $targetUser->id]) }}"><i class="fas fa-ban"></i></a>
+        {{-- {!! $ahrefMarkBuyer !!} --}}
+        <a title="Marquer comme acheteur" style="color:var(--markBuyer); margin-left: .5rem;"href='{{ route("messages.markAsBuyer", ["uid" => $targetUser->id]) }}'><i class="fa-solid fa-user-check"></i></a>
         </div>
+
         @if (isset($targetUserPString))
         <span>{!! $targetUserPString !!}</span>
 @endif
@@ -62,6 +69,9 @@
         display: grid;
         grid-template-columns: 6rem auto;
         height: 100%;
+    }
+    :root{
+        --report: rgb(255,255,255);
     }
     .aboveouterspangridex:nth-child(1n){
         display: grid;
@@ -150,7 +160,7 @@
         border-radius: 8px;
         color: white;
         font-weight: bolder;
-        overflow-wrap: break-word;
+        /* overflow-wrap: break-word; */
 
     }
 

@@ -82,9 +82,10 @@
 @section('title')
     <h1 id="xtitle">Messagerie</h1>
 @endsection
+{{-- @section('title', "Vos messages") --}}
 
 @section("content")
-<div class="container body-content">
+<div class="container body-content wholeMessages">
     <div style="display:grid; grid-template-columns: 3rem auto; align-items:center">
         <!-- Assurez-vous d'ajouter le code pour déterminer si l'utilisateur est administrateur ou non -->
 
@@ -147,6 +148,7 @@
         overflow-y: auto;
         background-color: #f2f2f2;
         padding: .5rem;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     }
 
     .messagesPanel {
@@ -156,7 +158,7 @@
         background-color: #ffffff;
         border: 1px solid #ccc;
         padding: 10px;
-
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     }
     ::-webkit-scrollbar {
     width: 10px;
@@ -186,6 +188,7 @@
 
 #message {
     flex: 1; /* Let the input take up remaining space */
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     max-width: calc(100% - 36px); /* Set maximum width for the input */
     margin-right: 10px; /* Add spacing between input and button */
 }
@@ -204,13 +207,14 @@
     color: black;
     transition: .2s;
     font-size: 1.7rem;
-    /* border-bottom: solid 3px cornflowerblue; */
+    /* border-bottom: solid 1px cornflowerblue; */
 }
 
     .bleuTileContact{
         width: 100%;
         height: 6rem;
-        background: cornflowerblue;
+        background: var(--blueheader);
+        opacity: .9;
         color: white;
         font-size: 1.5rem;
         box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;

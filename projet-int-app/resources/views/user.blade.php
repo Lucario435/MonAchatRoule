@@ -17,14 +17,31 @@
     @include('partials.profilDiv')
     <br><br>
     <div style="width: 100%;">
-        @include('publications.carte')
+        <div style="height: fit-content">
+            {{-- a la base c 25 rem --}}
+            @include('publications.carte')
+        </div>
+        <br><br>
 
     </div>
 </div>
+@if (count($ratings) != 0)
+<div class="commentairesRecu">
+    <br><br>
+    <h4 style="text-align: center;">Évaluations reçus des autres utilisateurs</h4>
+    <br>
+    @include("partials.profilReviews")
+</div>
+@endif
+
 @include('partials.xfooter')
 @endsection
 
 <style>
+    .commentairesRecu{
+        margin: auto;
+        width:fit-content;
+    }
 /* .userp{
 display: grid;
 grid-template-columns: auto auto;

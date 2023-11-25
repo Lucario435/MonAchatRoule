@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 <div class="card-container">
     <!--Filters-->
 @if (count($publications) == 0)
-<span class="not-available">Aucune annonce disponible <br> ou aucune respectant les critères de recherches</span>
+<span class="not-available">Aucune annonce à afficher</span>
 @endif
 
 @foreach ($publications as $publication)
@@ -40,24 +40,24 @@ use Illuminate\Support\Facades\Auth;
 
                     var now = new Date().getTime();
                     var timeleft = countDownDate - now;
-                    
+
                     // Calculating the days, hours, minutes and seconds left
                     var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
                     var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
                     var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
-                    
+
                     // Result is output to the specific element
                     daysElement.innerHTML = days + "j ";
                     hoursElement.innerHTML = hours + "h ";
                     minutesElement.innerHTML = minutes + "m ";
                     secondsElement.innerHTML = seconds + "s ";
-                        
+
                     // Display the message when countdown is over
                     if (timeleft < 0) {
                         clearInterval(myfunc);
                         daysElement.innerHTML = "";
-                        hoursElement.innerHTML = ""; 
+                        hoursElement.innerHTML = "";
                         minutesElement.innerHTML = "";
                         secondsElement.innerHTML = "";
                         endElement.innerHTML = "Enchère terminé";
@@ -95,9 +95,9 @@ use Illuminate\Support\Facades\Auth;
     <div class="card-price">{{$publication->fixedPrice}}$</div>
     <br>
     <br>
-    <br> 
+    <br>
     @if(@$publication->distance)<div class="card-kilometer" style="display: block">proximité: {{$publication->distance}} km</div>@endif
-    
+
     @if($publication->user_id == Auth::id() && $publication->hidden == 0)
         <div class="d-flex align-items-center" style="float: right;"><div class="card-kilometer fas fa-eye-slash "></div><p class="card-kilometer" style="color: red;float:left; font-weight:bolder;">Privée</p></div>
     @elseif($publication->user_id == Auth::id() && $publication->hidden == 1)
@@ -105,7 +105,7 @@ use Illuminate\Support\Facades\Auth;
     @else
         <br>
     @endif
-   
+
     <hr style="color: black">
     <div class="card-kilometer">{{$publication->kilometer}} km</div>
     <a title="Google Maps" href="http://google.com/maps?q={{$publication->postalCode}}">

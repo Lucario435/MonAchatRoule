@@ -25,7 +25,18 @@ class NotificationController extends Controller
         }
         $nlist = Auth::user()->getNotifications->sortByDesc('created_at');
 
-        return view("notifications", ["nlist" => $nlist]);
+        $response = response()->view("notifications",["nlist" => $nlist]);
+
+        // Set Cache-Control header
+        $response->header('Cache-Control', 'no-cache, no-store, must-revalidate');
+
+        // Set Pragma header
+        $response->header('Pragma', 'no-cache');
+
+        // Set Expires header
+        $response->header('Expires', '0');
+
+        return $response;
     }
     public function click(Request $r, $nid)
     {

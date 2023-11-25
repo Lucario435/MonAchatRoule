@@ -31,4 +31,12 @@ class Signalement extends Model
     {
         return $this->belongsTo(User::class, 'user_resolved_by');
     }
+    public function getStatusString(){
+        if($this->status == 1)
+            return "seen";
+        if($this->status == 2)
+            return "ok";
+
+        return "unseen";
+    }
 }

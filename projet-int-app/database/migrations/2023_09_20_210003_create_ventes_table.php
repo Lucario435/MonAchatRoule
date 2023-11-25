@@ -20,8 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger("seller_id");
             $table->foreign("seller_id")->references("id")->on("users");
 
-            $table->unsignedBigInteger("annonces_id")->nullable();
-            $table->foreign("annonces_id")->references("id")->on("annonces");
+            $table->unsignedBigInteger("publication_id")->nullable();
+            $table->foreign("publication_id")->references("id")->on("publications");
         });
     }
 

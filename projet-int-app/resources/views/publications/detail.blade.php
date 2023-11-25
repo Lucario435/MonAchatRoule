@@ -118,7 +118,7 @@
             <br>
             <div class="action-buttons" style="grid-gap:1em;">
                 <a title="Contacter le vendeur" class="noDec xreducteur div-button-actions" style="margin:auto;width:100%"
-                    href="{{ route('messageUser', ['id' => $publication->user_id]) }}">
+                    href="{{ route('messageUserFromPID', ['id' => $publication->user_id, "pid"=>$publication->id]) }}">
                     <div class="button-div">
                         <div class="contact-icon">
                             <i class="fav-icon div-button-actions fa-solid fa-envelope"></i>

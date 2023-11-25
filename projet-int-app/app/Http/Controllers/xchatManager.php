@@ -83,7 +83,10 @@ function sendMessage(User $sender, User $receiver, $msgChat, $pid = null) {
     $message->mcontent = $msgChat;//json_encode(["msg"=>$msgChat]);
     $message->user_sender = $sender->id;
     $message->user_receiver = $receiver->id;
-    $message->publication_id = isset($pid) ? $pid : null; // If applicable, set the announcement ID
+    if(!is_null($pid))
+        if(Publication::find($pid) != null)
+        $message->publication_id = $pid;
+
     $message->seen = false;
     $message->hidden = false;
     $message->save();

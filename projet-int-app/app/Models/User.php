@@ -50,7 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getNoteGlobale(){
         $ratings = rating::where('userid', $this->id)->pluck('etoiles');
         $avg = $ratings->avg();
-        if($avg == null){return 0;}
+        if($avg == null){return "N/A ";}
         return $avg;
     }
     public function getImage(){
