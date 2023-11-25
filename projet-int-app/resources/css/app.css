@@ -380,6 +380,7 @@ input[type="checkbox"]:checked {
 
 @media (max-width:800px) {
 
+
     .sticky-sidebar {
         position: absolute;
     }
@@ -461,6 +462,7 @@ input[type="checkbox"]:checked {
 }
 
 @media (min-width: 800px) {
+
     .scroll::-webkit-scrollbar {
         width: .5em;
     }
@@ -525,6 +527,23 @@ input[type="checkbox"]:checked {
 
     }
 
+}
+@media(min-width:400px){
+    .center-childrens > * {
+        margin: auto;
+        max-width: 350px;
+    }
+}
+@media(max-width:400px){
+    .center-childrens > * {
+        margin: auto;
+        max-width: 90vw;
+    }
+}
+
+
+.padding-input{
+    padding-left: 35px;
 }
 
 

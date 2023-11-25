@@ -4,17 +4,16 @@
 @endpush
 
 @section('title')
-    <div id="xtitle">Accédez à
-        votre compte</div>
+    <div id="xtitle">Se connecter</div>
 @endsection
 @section('content')
-    <form action="/login" method="POST" style="width:350px; margin:auto;">
+    <form class="center-childrens" action="/login" method="POST" style="padding:5px;">
         @csrf
         <div class="mb-3">
             <label for="email" class="form-label">Courriel</label>
             <div class="grid-icon-input">
-                <i class="fas fa-envelope fa-lg icon-in-grid"></i>
-                <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}"
+                <span class="fas fa-envelope fa-lg icon-in-grid"></span>
+                <input type="email" class="form-control padding-input" name="email" id="email" value="{{ old('email') }}"
                     required>
             </div>
             <div class="info">
@@ -25,9 +24,9 @@
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Mot de passe</label>
-            <div class="grid-icon-input" style="grid-template-columns:35px auto 0px; ">
+            <div class="grid-icon-input" style="grid-template-columns:0px auto 0px; ">
                 <i class="fas fa-lock fa-lg icon-in-grid"></i>
-                <input type="password" class="form-control" name="password" id="password" required>
+                <input  type="password" class="form-control padding-input" name="password" id="password" required>
                 <span class="icon fa fa-eye-slash" id="toggleShowPassword"></span>
             </div>
             <div class="info">

@@ -82,7 +82,7 @@
                 </ul>
             </nav>
 
-            <div style="width:15rem; display: grid; grid-template-rows: auto; grid-template-columns: auto auto auto;gap:auto;">
+            <div style="display: grid; grid-template-rows: auto; grid-template-columns: auto auto auto;gap:auto;">
                 @auth
                     {{-- <form action="/logout" method="GET">
                         <button class="login-button redlogout-button">

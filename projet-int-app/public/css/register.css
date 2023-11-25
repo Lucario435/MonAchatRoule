@@ -62,7 +62,6 @@ select{ margin-left: var(--paddingLeftForm); }
 }
 
 .signin {
-    background-color: #f1f1f1;
     text-align: center;
 }
 
@@ -137,11 +136,14 @@ hr{
 }
 .grid-icon-input{
     display: grid;
-    grid-template-columns:35px auto;
+    grid-template-columns: 0px auto;
     column-gap:0px;
 }
 .icon-in-grid{
     margin: .5em .3em;
+    position: relative;
+    background-color: #0084CE;
+    z-index: 1;
     color:var(--blueheader);
 }
 .erreur{
@@ -153,11 +155,16 @@ hr{
     min-height: 1em;
     content: "&nbsp;";
 }
-body{
-    /* height: 1250px; */
-}
+/* body{
+    height: 1250px;
+} */
 #toggleShowPassword{
     color: var(--blueheader);
     margin-top: 10px;
     margin-left: -25px;
+}
+
+fieldset{
+    padding:15px; 
+    border: 1px solid rgba(4, 103, 232, 0.98); 
 }
