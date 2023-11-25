@@ -226,9 +226,10 @@ Route::get('/api/publications/minYear',function ()
 
 
 // Bing map test
-Route::get('map',function() {
-    return view("map");
-});
+// Route::get('map',function() {
+//     return view("map");
+// });
+
 // Get code postales
 Route::get('/api/publications/postalcodes',function ()
     {

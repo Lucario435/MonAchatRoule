@@ -24,6 +24,7 @@ require "xnotifications.php";
 class ChatController extends Controller
 {
     public function index(Request $r, $id = null, $pid = null){
+        if(Auth::user() == null){return to_route("index");}
         if($id != null){
             if(User::find($id)->first() != null){
                 $r->session()->put('cmselected', User::find($id));
