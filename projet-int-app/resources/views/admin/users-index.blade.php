@@ -5,7 +5,7 @@
     <div class="container-sm mt-4" style="max-width:800px;">
         <div class="row" style="margin-left:5px;">
             <select id="status-selector" class="form-select col-6" aria-label="Default select example"
-                style="
+            style="
         margin:0;
         width:180px;
         ">
@@ -13,9 +13,9 @@
                 <option value="1">Bloqué</option>
                 <option value="0">Non-bloqué</option>
             </select>
-            <a class="col d-flex align-items-center justify-content-end" href="/admin" style="margin-right:10px;">Liste des
-                demandes</a>
         </div>
+        <a class="col d-flex align-items-center justify-content-end" href="/admin" style="margin-right:10px;">Liste des
+            demandes</a>
         <div id="container-users">@include('admin.list-users')</div>
     </div>
 

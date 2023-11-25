@@ -1,5 +1,5 @@
 @if(@$user->id != Auth::id())
-    <div class="row align-items-center"
+    <div class="row align-items-center user-card"
         style="
         background-color:gainsboro;
         margin:15px 5px 0px 5px;
@@ -10,16 +10,16 @@
         {{-- <div class="col-2" style="word-wrap:break-word;">
             {{ $signalement->formatted_time }}
         </div> --}}
-        <div class="col-sm-2 username" style="word-wrap:break-word;">
+        <div class="col-sm-2 center-text-sm username" style="word-wrap:break-word;">
             {{ $user->username }}
         </div>
-        <div class="col-sm-1 p-0" style="border-left: 1px solid; width:10px;">&nbsp;</div>
-        <div class="col-sm-6 description"
+        <div class="col-sm-1 p-0 separator"></div>
+        <div class="col-sm-6 description center-text-sm"
             style="white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-heigth: 50px;">
-            {{ $user->name }},{{ $user->surname }}
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-heigth: 50px;">
+            {{ $user->email }}
         </div>
         <span class="blocked" style="display:none;">{{ $user->is_blocked }}</span>
         @if ($user->is_blocked == 0)

@@ -1,4 +1,4 @@
-<div class="row align-items-center"
+<div class="row align-items-center signalement-card"
     style="
     background-color:gainsboro;
     margin:15px 5px 0px 5px;
@@ -9,11 +9,11 @@
     {{-- <div class="col-2" style="word-wrap:break-word;">
         {{ $signalement->formatted_time }}
     </div> --}}
-    <div class="col-2" style="word-wrap:break-word;">
+    <div class="col-sm-2 center-text-sm" style="word-wrap:break-word;">
         {{ $signalement->sender->username }}
     </div>
-    <div class="col-1 p-0" style="border-left: 1px solid; width:10px;">&nbsp;</div>
-    <div class="col-6 description"
+    <div class="col-sm-1 p-0 separator"></div>
+    <div class="col-sm-6 description center-text-sm"
         style="white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -23,7 +23,7 @@
     <span class="signaled" style="display:none;">{{$signalement->target->username}}</span>
     <span class="target-id" style="display:none;">{{$signalement->target->id}}</span>
     @if ($signalement->status == 0)
-        <div class="col-3 d-flex align-items-center justify-content-center" style="word-wrap:break-word;">
+        <div class="col-sm-3 d-flex align-items-center justify-content-center" style="word-wrap:break-word;">
             <button id="{{$signalement->id}}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signalerModal">Consulter</button>
             <span title="en attente : {{ $signalement->formatted_time }}" class="fas fa-clock"
                 style="
@@ -34,7 +34,7 @@
             </span>
         </div>
     @elseif($signalement->status == 1)
-        <div class="col-3 d-flex align-items-center justify-content-center" style="word-wrap:break-word;">
+        <div class="col-sm-3 d-flex align-items-center justify-content-center" style="word-wrap:break-word;">
             <button type="button" class="btn btn-primary inactive" disabled id="{{$signalement->id}}">Consulter</button>
             <span title="traité par {{ $signalement->resolvedByUser->username }}" class="fas fa-check"
                 style="

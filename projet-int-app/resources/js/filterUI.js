@@ -518,7 +518,7 @@ $(() => {
                     async: false,
                     success: function (data) {
                         elements = data;
-                        console.log(data);
+                        //console.log(data);
                     },
                     error: (xhr) => { console.log(xhr); }
                 });

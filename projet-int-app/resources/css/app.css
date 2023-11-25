@@ -6,10 +6,11 @@
 @import './scrollbar.css';
 
 /* Reset some default styles for better consistency */
-#xheader{
+#xheader {
     z-index: 9999999;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
+
 :root {
     /* Bleu */
     --blueheader: #004aad;
@@ -18,7 +19,8 @@
     --greenbutton: #27ae5f00;
     --greenbuttonhover: rgba(0, 159, 0, 0);
     --notification-color: rgb(12, 85, 232);
-    --mobileWidth: 768px;}
+    --mobileWidth: 768px;
+}
 
 html,
 body {
@@ -127,7 +129,7 @@ li {
 }
 
 /* Styles pour l'en-tête */
-header{
+header {
     background-image: linear-gradient(to right, #001b3d, #004aad);
     color: white;
     padding: 20px 0;
@@ -301,7 +303,8 @@ input[type="checkbox"]:checked::before {
 }
 
 input[type="checkbox"]:checked {
-    transform: scale(1);/* content: "✓"; make content have a checkmark */
+    transform: scale(1);
+    /* content: "✓"; make content have a checkmark */
 }
 
 .erreur {
@@ -325,6 +328,7 @@ input[type="checkbox"]:checked {
     min-height: 100%;
     background-color: #1b1b1b;
     color: white;
+    z-index: 55;
 }
 
 /* from font awesome site */
@@ -409,6 +413,51 @@ input[type="checkbox"]:checked {
     #close_page_filters {
         justify-content: center !important;
     }
+
+
+
+}
+
+@media (max-width:575px) {
+
+    /* for user card in admin page*/
+    .center-text-sm {
+        text-align: center;
+    }
+
+    .separator {
+        width: 150px;
+        margin: auto;
+        border-bottom: 1px solid black;
+    }
+
+    .user-card,
+    .signalement-card {
+        margin-top: 35px !important;
+        margin-bottom: 35px !important;
+    }
+
+    .user-card>*,
+    .signalement-card>* {
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
+    }
+
+    a.col {
+        position: relative;
+        top: 30px;
+        right: -5px;
+    }
+}
+
+@media(min-width:576px) {
+
+    /* for user card in admin page*/
+    .separator {
+        width: 5px;
+        height: 25px;
+        border-left: 1px solid black;
+    }
 }
 
 @media (min-width: 800px) {
@@ -425,7 +474,7 @@ input[type="checkbox"]:checked {
     }
 
 
-    #orderby-list{
+    #orderby-list {
         font-size: 14px;
     }
 
@@ -475,7 +524,11 @@ input[type="checkbox"]:checked {
         font-size: 25px;
 
     }
+
 }
-footer{
+
+
+
+footer {
     font-size: 19px;
 }
