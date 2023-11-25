@@ -11,6 +11,7 @@ use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PublicationFollow;
+use App\Http\Controllers\ReportController;
 use App\Http\Resources\PublicationResource;
 use App\Models\Publication;
 use App\Models\Image;
@@ -31,7 +32,9 @@ Route::get('/', function () {
     $images = Image::all();
     return view('publications.index', ['publications' => $publications, 'images' => $images]);
 })->name('index');
-
+Route::get("/errorx",function(){
+    return to_route("index");//,["xalert"=>"Une erreur est survenue"]);
+})->name("error");
 Route::get("/index",function(){
     return to_route("index");
 });
@@ -41,13 +44,24 @@ Route::get('/notifications/{nid}',[NotificationController::class,"click"])->name
 Route::get('/notifications/del/{nid}',[NotificationController::class,"delete"])->name("notifications.delete");
 Route::post('/notifications/mdel',[NotificationController::class,"multidelete"])->name("notifications.multidelete");
 //messages momo
+Route::get("/rs",function(){
+    return view("messagerie.rateSeller",["vid" => 1, "uid"=>1]);
+});
 Route::get('/messages/del/{id}',[ChatController::class,"userdelete"])->name("messages.userdelete");
 Route::get('/messages',[ChatController::class,"index"])->name("messages");
+Route::post("/bought/set/",[ChatController::class,"markAsBuyerPost"])->name("messages.markAsBuyerPost");
+Route::get("/bought/{uid}",[ChatController::class,"markAsBuyer"])->name("messages.markAsBuyer");;
+Route::get("/rateseller/{uid}/{vid}",[ChatController::class,"rateSeller"])->name("messages.rateSellerLeg");
+Route::get("/eval/{uid}/{vid}",[ChatController::class,"rateSeller"])->name("messages.rateSeller");
+Route::get("/evalx/edit/{rid}",[ChatController::class,"rateSellerEdit"])->name("messages.rateSellerEdit");
+Route::post("/evalx/editdone/",[ChatController::class,"rateSellerEditPost"])->name("messages.rateSellerEditPost");
+Route::get("/evalx/del/{rid}",[ChatController::class,"rateSellerDelete"])->name("messages.rateSellerDelete");
+Route::post("/evalsend",[ChatController::class,"rateSellerPost"])->name("messages.rateSellerPost");
 Route::get("/messages/report/{id}",[ChatController::class,"reportuser"])->name("messages.reportuser");
 Route::get('/Chat/GetMessages',[ChatController::class,"get"])->name("getmessages");
 Route::get("/messages/blockmsg/{id}",[ChatController::class,"blockUserMsgs"])->name("messages.blockUserMsgs");
 Route::get('/messages/{id}',[ChatController::class,"index"])->name("messageUser");
-Route::get('/messages/{id}/{pid}',[ChatController::class,"index"])->name("messageUserFromPID");
+Route::get('/messages/{id}/{pid}',[ChatController::class,"messageUserFromPID"])->name("messageUserFromPID");
 Route::get('/Chat/GetFriendsList',[ChatController::class,"GetFriendsList"])->name("GetFriendsList");
 Route::get("/Chat/SetCurrentTarget",[ChatController::class,"SetCurrentTarget"])->name("setcurrenttarget");
 Route::get("/Chat/Send",[ChatController::class,"Send"])->name("sendmessage");
@@ -62,8 +76,13 @@ Route::get("/logout",[UsersController::class,"logout"]);
 Route::get("/favoris",function(){
     return view("favoris");
 })->middleware("verified");
-
-// Temporaire avant commit login de mohammed - chahine
+//report momo
+Route::get("/report",[ReportController::class,"reportView"])->middleware('verified')->name("report");
+Route::get("/report/create",function(){
+    return to_route("report");
+});
+Route::post("/report/create",[ReportController::class,"reportPost"])->middleware('verified')->name("report.post");
+// Temporaire avant commit login de momo - chahine
 Route::get('/login',[UsersController::class,"login"])->name('login');
 Route::post('/login',[UsersController::class,"authenticate"]);
 
@@ -108,6 +127,7 @@ Route::post('/publication/edit/{id}', [PublicationController::class, 'update'])-
 //Route to create the publication (SAVE)
 Route::post('/publication', [PublicationController::class, 'store'])->name('publication.store');
 //Route to create the detail page
+Route::get("/publication/{id}",[PublicationController::class,"detail"]);
 Route::get('publication/detail/{id}', [PublicationController::class, 'detail'])->name('publication.detail');
 //Route to set a publication as sold
 Route::get('publication/sold/{id}', [PublicationController::class, 'markAsSold'])->name('publication.sold');

@@ -20,7 +20,18 @@ class NotificationController extends Controller
         if(Auth::user() == null){return to_route("index");}
         $nlist = Auth::user()->getNotifications;
 
-        return view("notifications",["nlist" => $nlist]);
+        $response = response()->view("notifications",["nlist" => $nlist]);
+
+        // Set Cache-Control header
+        $response->header('Cache-Control', 'no-cache, no-store, must-revalidate');
+
+        // Set Pragma header
+        $response->header('Pragma', 'no-cache');
+
+        // Set Expires header
+        $response->header('Expires', '0');
+
+        return $response;
     }
     public function click(Request $r, $nid){
         if(Auth::user() == null){return to_route("index");}
@@ -53,7 +64,6 @@ class NotificationController extends Controller
                 notification::where("id",$n->id)->delete();
             }
         }
-
         return to_route("notifications",["xalert" => "$numb élément(s) supprimé(s) avec succès!"]);
     }
 }

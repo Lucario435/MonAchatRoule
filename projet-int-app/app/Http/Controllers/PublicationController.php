@@ -64,6 +64,7 @@ class PublicationController extends Controller
     public function detail($id)
     {
         $publicationExist = Publication::find($id);
+        if($publicationExist == null) return to_route("index");
         //Vérifier que l'annonce est privée, on redirige vers l'index
         if($publicationExist->hidden == 1)
         {
@@ -87,7 +88,9 @@ class PublicationController extends Controller
             $images = Image::all();
 
             if (!$publication) {
-                abort(404); // Handle the case when the item is not found.
+                // echo "salut";
+                return to_route("errox");
+                //abort(404); // Handle the case when the item is not found.
             }
 
             $images = Image::where('publication_id', $publication->id)->get();
@@ -235,7 +238,7 @@ class PublicationController extends Controller
         $boolFollowedPublications = false;
 
         foreach ($params as $key => $item) {
-            //dd($item);   
+            //dd($item);
             if (substr($key, 0, 5) == $orderByCommand) {
                 $orderByRequest[$eqTable[$key]] = explode(',', $item);
                 $order = $eqTable[$key];
@@ -267,7 +270,7 @@ class PublicationController extends Controller
             //dd($filteringCriterias);
             $publications = $this->getFilteredPublications($filteringCriterias);
             //dd($publications,DB::getQueryLog());
-            
+
             if ($boolRequestDistances) {
 
                 foreach ($publications as $key => $value) {
@@ -288,7 +291,7 @@ class PublicationController extends Controller
                     ->select('publications.*')
                     ->get();
                 //dd($publications);
-                $images = DB::table("images")   
+                $images = DB::table("images")
                 ->join('publications', 'images.publication_id', '=', 'publications.id')
                 ->join('suiviannonces', 'suiviannonces.publication_id', '=', 'publications.id')
                 ->select(['images.id','images.publication_id','images.user_id','images.url'])
@@ -321,7 +324,7 @@ class PublicationController extends Controller
 
         }
 
-        
+
 
         //dd($publications);
 
@@ -349,10 +352,10 @@ class PublicationController extends Controller
 
                                 else if ($key == "maxMileage")
                                     $query->Where("kilometer", '<=', ($value));
-                                
+
                                 else if ($key == "minYear")
                                     $query->Where("year", '>=', intval($value));
-                                
+
                                 else if ($key == "maxYear")
                                     $query->Where("year", '<=', intval($value));
 
@@ -371,7 +374,6 @@ class PublicationController extends Controller
     public function markAsSold($id)
     {
         $publication = Publication::find($id);
-
         $publication->update(['publicationStatus' => 'vendu']);
 
         return redirect(route('publication.detail', ['id' => $id]))->with('message', 'Votre annonce ' . $publication->title . ' s\'est vendu!');

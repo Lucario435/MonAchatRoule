@@ -70,7 +70,11 @@
                     }
                 }
             }
-
+            $noSpaceContent = str_replace(' ', '', $content);
+            if(strip_tags($parsedContent) == $noSpaceContent){
+                return $content;
+            }
+            // echo  $parsedContent . " " . $noSpaceContent;
             return $parsedContent;
         }
     }

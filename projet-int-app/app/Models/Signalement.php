@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,5 +21,13 @@ class Signalement extends Model
     public function target()
     {
         return $this->belongsTo(User::class, 'user_target');
+    }
+    public function getStatusString(){
+        if($this->status == 1)
+            return "seen";
+        if($this->status == 2)
+            return "ok";
+
+        return "unseen";
     }
 }
