@@ -161,7 +161,7 @@ hr{
 #toggleShowPassword{
     color: var(--blueheader);
     margin-top: 10px;
-    margin-left: -25px;
+    margin-left: -35px;
 }
 
 fieldset{

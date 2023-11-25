@@ -26,20 +26,20 @@
 
         </script> --}}
         <script>
-            $(()=>{
+            $(() => {
                 Toastify({
-                text: '{{session()->get('message')}}',
-                duration: 5000,
-                position: "center",
-                gravity: "bottom",
-                close: true,
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                style: {
-                    background: "#008000",
-                    borderRadius: "15px",
-                    fontSize: '20px',
-                },
-            }).showToast();
+                    text: '{{ session()->get('message') }}',
+                    duration: 5000,
+                    position: "center",
+                    gravity: "bottom",
+                    close: true,
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "#008000",
+                        borderRadius: "15px",
+                        fontSize: '20px',
+                    },
+                }).showToast();
 
             })
         </script>
@@ -63,14 +63,16 @@
                     @auth
                         <li><a href="/users/{{ Auth::id() }}">Mes annonces</a></li>
                         <li><a href="/publication/create">Publier une annonce</a></li>
-                        @if(Auth()->user()->isAdmin())
+                        {{-- <li><a href="/messages">Messagerie</a></li> --}}
+                        @if (Auth()->user()->isAdmin())
                             <li><a href="/admin">Centre des demandes</a></li>
                         @endif
                         {{-- <li><a href="/publications/saved">Annonces suivies</a></li> --}}
                         <li id="btn-deco-mobile">
                             <form action="/logout" method="GET" class="d-flex align-items-top">
                                 @csrf
-                                <button type="submit" class="d-flex align-items-center btn-disconnect" id="btn-deco" style="gap: 20px;">
+                                <button type="submit" class="d-flex align-items-center btn-disconnect" id="btn-deco"
+                                    style="gap: 20px;">
                                     <i class="fas fa-sign-out-alt"></i>
                                     <div>Se deconnecter</div>
 
@@ -82,39 +84,38 @@
                 </ul>
             </nav>
 
-            <div style="display: grid; grid-template-rows: auto; grid-template-columns: auto auto auto;gap:auto;">
+            <div class="grid-for-header">
                 @auth
-                    {{-- <form action="/logout" method="GET">
-                        <button class="login-button redlogout-button">
-                            <i class="fas fa-sign-out-alt"></i>
-                        </button>
-                    </form> --}}
 
-                    <div style="display: flex;
-                    justify-content: center;
-                    align-items: center; gap:4px;">
-                        <a class="" href="/notifications"><i style="color: white; font-size: 2rem" class="fa fa-bell"></i></a>
-                        <a class="" href="/messages"><i style="color: white; font-size: 2rem;" class="fa fa-message"></i></a>
+                    <div
+                        style="
+                        display: flex;
+                        justify-content: center;
+                        align-items: center; 
+                        gap:15px;
+                        ">
+                        <a class="d-flex align-items-center noDec" href="/notifications"><i
+                                style="color: white;font-size:20px;" class="fa fa-bell"></i></a>
+                        <a class="d-flex align-items-center noDec no-mobile" href="/messages"><i
+                                style="color: white;font-size:20px; " class="fa fa-message"></i></a>
 
                     </div>
+
                     <a href="/users/{{ Auth::id() }}">
                         <div class="imgProfile" style="background-image: url('{{ Auth::user()->getImage() }}')"></div>
                     </a>
 
-                    <form action="/logout" method="GET" class="d-flex align-items-top" style="align-items:center; height: 100%; display:flex;">
+                    <form action="/logout" method="GET" style="align-items:center; height: 100%; display:flex;">
                         @csrf
                         <button type="submit" class="d-flex align-items-center btn-disconnect" id="btn-deco-desktop"
-                            style="gap: 0px; font-size:2rem;">
+                            style="gap: 0px; font-size:20px;">
                             <i class="fas fa-sign-out-alt xihover"></i>
                             {{-- <div>Se deconnecter</div> --}}
 
                         </button>
                     </form>
                 @else
-                    <a href="/login">
-                        <button class="login-button">
-                            <i class="fas fa-sign-in-alt"></i>
-                        </button>
+                    <a class="fas fa-sign-in-alt" href="/login" style="color:inherit; text-decoration:none;">
                     </a>
                 @endauth
             </div>
@@ -125,13 +126,15 @@
 
 
 <style>
-    .header-container{
-
+    .header-container {
+        height: 50px;
     }
-    .xihover:hover{
+
+    .xihover:hover {
         /* color:black;
         transition:.2s; */
     }
+
     /* Ajoutez du CSS pour rendre le bouton carré sur les appareils mobiles */
     @media (orientation: portrait) {
         .login-button {
@@ -145,17 +148,41 @@
             justify-content: center;
             /* Centre l'icône horizontalement */
         }
+
+        .no-mobile {
+            display: none !important;
+        }
+
+        .grid-for-header {
+            grid-template-columns: auto auto !important;
+            column-gap: 5px !important;
+        }
+        .header-container{
+            padding: 0 5px 0 5px !important;
+        }
+
+        .imgProfile{
+            margin: 0 .5rem 0 .5rem !important;
+        }
+
     }
 
     /* Ajoutez le style pour l'image de profil ici */
     .imgProfile {
-        width: 3rem;
-        height: 3rem;
-        margin-left: 1rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        margin: 0 1rem 0 1rem;
         border-radius: 100%;
         outline: 3px solid var(--blueForms);
         background-size: cover;
         background-repeat: no-repeat;
+    }
+
+    .grid-for-header {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: auto auto auto;
+        gap: auto;
     }
 </style>
 
