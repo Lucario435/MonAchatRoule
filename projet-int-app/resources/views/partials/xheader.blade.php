@@ -63,7 +63,7 @@
                     @auth
                         <li><a href="/users/{{ Auth::id() }}">Mes annonces</a></li>
                         <li><a href="/publication/create">Publier une annonce</a></li>
-                        {{-- <li><a href="/messages">Messagerie</a></li> --}}
+                        <li id="messagerie-li"><a href="/messages">Messagerie</a></li>
                         @if (Auth()->user()->isAdmin())
                             <li><a href="/admin">Centre des demandes</a></li>
                         @endif
@@ -165,6 +165,10 @@
             margin: 0 .5rem 0 .5rem !important;
         }
 
+        #messagerie-li{
+            display: block !important;
+        }
+
     }
 
     /* Ajoutez le style pour l'image de profil ici */
@@ -183,6 +187,9 @@
         grid-template-rows: auto;
         grid-template-columns: auto auto auto;
         gap: auto;
+    }
+    #messagerie-li{
+        display: none;
     }
 </style>
 
