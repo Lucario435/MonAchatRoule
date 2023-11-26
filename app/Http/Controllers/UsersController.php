@@ -172,7 +172,7 @@ class UsersController extends Controller
 
         $user->save(); //il chiale encore
 
-        return to_route("user.edit",["xalert"=>"Profil mis à jour avec succès!"]);
+        return to_route("userProfile",["id"=>$user->id,"xalert"=>"Profil mis à jour avec succès!"]);
     }
     public function getAll(Request $request)
     {
