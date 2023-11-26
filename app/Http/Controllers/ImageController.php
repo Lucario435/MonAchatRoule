@@ -44,6 +44,7 @@ class ImageController extends Controller
 
 
     public function edit_annonce_recu(Request $r){
+        error_log($r);
         return $this->store($r);
     }
 
@@ -77,9 +78,10 @@ class ImageController extends Controller
         foreach ($request->file('images.*') as $imagefile) {
             $image = new Image;
             //Creates the path of the imagefile
-            $path = $imagefile->store('/images/resource', ['disk' =>   'my_files']);
+            $path = $imagefile->store('/images/resource', ['disk' => 'my_files']);
             //Inserts the url path to the model
             $image->url = strval($path);
+            error_log("image id:$image->id, url : $image->url ");
             //The default publication id is 2 but will be the choosen one in the page once the connexion is done
             $image->publication_id = $request["publication_id"];
             $image->user_id = Auth::id();
