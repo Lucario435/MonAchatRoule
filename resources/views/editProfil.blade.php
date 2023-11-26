@@ -94,10 +94,5 @@
             /* border-radius: 100%; */
         }
     </style>
- @push('js')
- @vite(['resources/js/notification_checkbox_to_bool.js'])
- @vite(['resources/js/show_hide_password.js'])
- {{-- @vite(['resources/js/phone_number_formatter.js']) --}}
- @vite(['resources/js/validation.js'])
-@endpush
+
 @endsection
