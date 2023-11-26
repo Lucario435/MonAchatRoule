@@ -85,6 +85,7 @@ class ImageController extends Controller
             Log::info("path; $path");
             Log::info("image id:$image->id, url : $image->url ");
             Log::info("$image ");
+            dd($path);
             //The default publication id is 2 but will be the choosen one in the page once the connexion is done
             $image->publication_id = $request["publication_id"];
             $image->user_id = Auth::id();
