@@ -82,8 +82,8 @@ class ImageController extends Controller
             $path = $imagefile->store('/images/resource', ['disk' => 'my_files']);
             //Inserts the url path to the model
             $image->url = strval($path);
-            error_log("path; $path");
-            error_log("image id:$image->id, url : $image->url ");
+            Log::info("path; $path");
+            Log::info("image id:$image->id, url : $image->url ");
             Log::info("$image ");
             //The default publication id is 2 but will be the choosen one in the page once the connexion is done
             $image->publication_id = $request["publication_id"];
