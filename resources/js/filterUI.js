@@ -21,10 +21,9 @@ let filterObject = {
     followedPublications: false,
     errorMaxYear:null,
     searchTitle:false,
-
 }
 
-const MOBILE_WIDTH = 769;
+const MOBILE_WIDTH = 799;
 
 const removeAccents = str =>
     str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -66,6 +65,7 @@ $(() => {
         console.log(filterObject[key]);
         $(a).toggleClass("arrow-desc");
         $(a).toggleClass("arrow-asc");
+        search();
         //console.log(a);
     });
     $(".fa-long-arrow-alt-up").on("click", function (event) {
@@ -80,11 +80,9 @@ $(() => {
             );
             selectedElement.fadeIn(200);
         }
-
         //console.log(selectedElement.attr("id"));
-
-
         //console.log("prev element:", prevElementId);
+        search();
     });
     $(".fa-long-arrow-alt-down").on("click", function (event) {
         let selectedElement = $(event.target).parent();
@@ -97,6 +95,7 @@ $(() => {
         }
         selectedElement.hide();
         selectedElement.fadeIn(200);
+        search();
     });
     $("#followedPublications").on("change",function(event){
         //console.log('t');
@@ -106,6 +105,7 @@ $(() => {
         else
             filterObject.numberSelectedFilters--;
         ShowNumberOfActiveFilters();
+        search();
     })
     // The Boutons filter and order
 
@@ -336,30 +336,10 @@ $(() => {
     $("#btn-search, #search-by-title").on("click", (e) => {
 
         //console.log($(".erreur").length);
-        if ($(".erreur").length > 0) {
-            //console.log("Il ya des erreurs");
-        }
-        else {
-            setBackgroundColor("#btn-search", "green");
-            if($(window).width() < MOBILE_WIDTH)
-                hideFilterPage();
-            
-            let searchTitle = $("#title-search").val().trim();
-            
-            if(searchTitle){
-                //console.log($("#title-search").val());
-            }
-            
-            $.ajax({
-                url: searchUrlBuilder(`publications/search?${searchTitle? 'title='+$("#title-search").val()+'&' : ''}`),
-                async: false,
-                dataType: 'html',
-                success: function (data) {
-                    $("#content").html(data);
-                },
-                error: (xhr) => { console.log(xhr); }
-            });
-            ShowNumberOfActiveFilters("#active_filters_main", filterObject.numberSelectedFilters)
+        //search();
+        if($(window).width() <= MOBILE_WIDTH){
+            //console.log($(window).width());
+            hideFilterPage();
         }
 
     });
@@ -394,6 +374,8 @@ $(() => {
             //testGetDist();
             //getTravelDistance([45.6261632,-73.8656256],[]);
         }
+
+        search();
     });
 
     listFilterDataFromServer("brand", "brands", "selectedBrands");
@@ -493,6 +475,7 @@ $(() => {
                 }
                 filterObject[selectedElementMax] = ui.values[1];
                 filterObject[selectedElementMin] = ui.values[0];
+                search();
             },
 
         });
@@ -600,6 +583,7 @@ $(() => {
                             ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
                         }
                         filterObject[element] = $(`div[${filter}="${element}"]`).hasClass("selected-element");
+                        search();
                         //console.log(filterObject[element]);
                     });
                 })
@@ -647,6 +631,37 @@ $(() => {
         url = setOrdersOrder(url);
         //console.log("URL: " + url)
         return removeAccents(url);
+    }
+    function search(){
+        if ($(".erreur").length > 0) {
+            //console.log("Il ya des erreurs");
+        }
+        else {
+            
+            setBackgroundColor("#btn-search", "green");
+            //console.log($(window).width());
+            // if($(window).width() <= MOBILE_WIDTH){
+            //     console.log($(window).width());
+            //     hideFilterPage();
+            // }
+            
+            let searchTitle = $("#title-search").val().trim();
+            
+            // if(searchTitle){
+            //     //console.log($("#title-search").val());
+            // }
+            
+            $.ajax({
+                url: searchUrlBuilder(`publications/search?${searchTitle? 'title='+$("#title-search").val()+'&' : ''}`),
+                async: false,
+                dataType: 'html',
+                success: function (data) {
+                    $("#content").html(data);
+                },
+                error: (xhr) => { console.log(xhr); }
+            });
+            ShowNumberOfActiveFilters("#active_filters_main", filterObject.numberSelectedFilters)
+        }
     }
     function setOrdersOrder(url) {
         //console.log($("#orderby-list > div"));
@@ -721,6 +736,7 @@ $(() => {
         $("#title-search").val('');
         setBackgroundColor("#btn-search", "green");
         ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
+        search();
     }
     function HideMenuAfterSearch() {
         $("#page_filtre").hide();

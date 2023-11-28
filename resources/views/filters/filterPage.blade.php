@@ -141,7 +141,7 @@
         <div class="row" style="min-height:200px;"></div>
         <div role="button"  class="row text-center user-select-none fixed-bottom" id="btn-search" style="background-color: green">
 
-            <div class="col-8 d-flex align-items-center justify-content-end">Rechercher</div>
+            <div class="col-8 d-flex align-items-center justify-content-end">Voir les résultats</div>
             <div class="col-4 fas fa-search px-3 d-flex align-items-center justify-content-start"></div>
 
         </div>
