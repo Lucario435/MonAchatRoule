@@ -49,7 +49,7 @@
             <div class="menu-icon">
                 <i class="fa fa-bars" style="font-size: 1.5em;color:white;"></i>
             </div>
-            <div class="app-name" style="width:20%;">
+            <div class="app-name">
                 <a href="/"
                     style="text-decoration: none; color:white;font-family: Trajan Pro;
                 font-style: italic;

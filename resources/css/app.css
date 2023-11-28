@@ -188,16 +188,16 @@ header {
     display: none !important;
 }
 
-.app-name{
+/* .app-name{
     width: fit-content !important;
-}
+} */
 
 
 /* menu hamberger pour mobile */
 @media (max-width: 1200px) {
     .app-name {
         text-align: center;
-        width: 60% !important;
+        width: 60%;
     }
     .grid-for-header{
         width: 20% !important;
@@ -258,7 +258,10 @@ header {
 }
 @media (min-width: 1201px){
     .grid-for-header{
-        width: fit-content !important;
+        width: 20% !important;
+    }
+    .app-name {
+        width: 20%;
     }
 }
 
