@@ -69,7 +69,7 @@
                         @endif
                         {{-- <li><a href="/publications/saved">Annonces suivies</a></li> --}}
                         <li class="div-with-slash" id="btn-deco-mobile">
-                            <form action="/logout" method="GET" class="d-flex align-items-top">
+                            <form action="/logout" method="GET" class="d-flex align-items-top" style="width:fit-content;">
                                 @csrf
                                 <button type="submit" class="d-flex align-items-center btn-disconnect" id="btn-deco"
                                     style="gap: 20px;">
@@ -105,7 +105,8 @@
                         <div class="imgProfile" style="background-image: url('{{ Auth::user()->getImage() }}')"></div>
                     </a>
 
-                    <form action="/logout" method="GET" style="align-items:center; height: 100%; display:flex;">
+                    <form action="/logout" method="GET"
+                        style="align-items:center; height: 100%; display:flex;width:fit-content;">
                         @csrf
                         <button type="submit" class="d-flex align-items-center btn-disconnect" id="btn-deco-desktop"
                             style="gap: 0px; font-size:20px;">
@@ -173,7 +174,9 @@
         #app-name-title {
             font-size: 1.1rem !important;
         }
-
+        .grid-for-header{
+            margin-left:45px;
+        }
     }
 
     #app-name-title {
@@ -193,10 +196,13 @@
 
     .grid-for-header {
         width: 20%;
-        display: grid;
+        display: flex;
+        align-items: center;
+        justify-content: right;
+        /* display: grid;
         grid-template-rows: auto;
         grid-template-columns: repeat(auto-fit, minmax(10px, 1fr)) !important;
-        column-gap: 5px;
+        column-gap: 5px; */
     }
 
     #messagerie-li {
