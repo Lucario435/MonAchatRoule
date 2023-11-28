@@ -153,7 +153,6 @@
         }
 
         .grid-for-header {
-            grid-template-columns: auto auto !important;
             column-gap: 5px !important;
         }
         .header-container{
@@ -185,7 +184,7 @@
         width: 20%;
         display: grid;
         grid-template-rows: auto;
-        grid-template-columns: repeat(auto-fit,minmax(40px,1fr));
+        grid-template-columns: repeat(auto-fit,minmax(40px,1fr)) !important;
         gap: auto;
     }
     #messagerie-li{
