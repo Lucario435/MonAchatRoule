@@ -292,7 +292,6 @@
             }
         }
     </style>
-    <br>
     <div class="main-container-style xreducteur">
         <br>
         <h4 class="detail-info-text">Informations du véhicule</h4>
