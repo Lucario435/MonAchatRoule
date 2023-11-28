@@ -26,9 +26,11 @@
             @endphp
             <div title="{{$highestBid->created_at}}" class="historic-bids-container">
                 <i class="fav-icon fas fa-crown" style="color:goldenrod"></i><span class="text-emphasis text-adapt">{{$username}}</span><span style="padding: 5px">|</span><span class="text-emphasis text-adapt">{{$highestBid->priceGiven}} $</span>
-                @if($bidEnded && Auth::id() == $publication->user_id)
-                    <a title="Contacter" href="{{ route('messageUser', ['id' => $user_id]) }}" class="icon-click fav-icon fas fa-envelope noDec" style="padding: 5px"></a>
-                @endif
+                @auth
+                    @if($bidEnded && Auth::id() == $publication->user_id)
+                        <a title="Contacter" href="{{ route('messageUser', ['id' => $user_id]) }}" class="icon-click fav-icon fas fa-envelope noDec" style="padding: 5px"></a>
+                    @endif
+                @endauth
             </div>
         @endif
         <!--Get le deuxième plus haut enchère-->

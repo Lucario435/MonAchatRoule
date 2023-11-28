@@ -24,7 +24,8 @@ class BidController extends Controller
 
         //If the user isn't connected, it will redirect hum to connection page with a message
         if(Auth::check())
-        {
+        {   
+            $publication = Publication::find($data['publication_id']);
             //If the publication bid is finished or not
             if(!$this->bidEnded($data['publication_id']))
             {
@@ -40,7 +41,6 @@ class BidController extends Controller
             {
                 //Redirect to detail page with message
                 return redirect(route('publication.detail', ['id' => $data['publication_id']]))->with('message', 'Cette enchère est terminé, elle ne peux plus reçevoir de dépôt...');
-
             }
         }
         else

@@ -117,8 +117,26 @@ select{
     display: block;
     margin: auto;
     font-weight: bold;
+    border: none;
     text-decoration: none;
-    border: 1px solid gray;
+    padding: 5px;
+}
+.buttonEffectRed{
+    height: 2em;
+    background-color: darkred;
+    color:white;
+    border-radius: 5px;
+    width: fit-content;
+    display: block;
+    margin: auto;
+    font-weight: bold;
+    padding: 5px;
+    text-decoration: none;
+}
+.buttonEffectRed:hover{
+    background-color: #e7e7e7;
+    color: darkred;
+    cursor: pointer;
 }
 hr{
     width: 90%;
@@ -128,7 +146,7 @@ hr{
     margin-left: auto;
 }
 .buttonEffect:hover{
-    background-color: white;
+    background-color: #e7e7e7;;
     color:#004aad;
     cursor: pointer;
 }
@@ -313,29 +331,80 @@ padding-bottom: 100%;
     width: 100%;
     object-fit: cover;
 }
-
+.comparator-case2{
+    background-color: white;
+    padding: 0.5em;
+    text-align: center;
+    margin-bottom: 1em;
+    border-radius: 5px;
+}
+.comparator-case{
+    background-color: white;
+    padding: 0.2em;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bolder;
+}
+.shadow-display{
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2); 
+}
+.comparator-container2{
+    display: grid;
+    margin: 1em;
+    height: fit-content;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1em;
+    justify-content: center;
+}
+.comparator-container{
+    display: grid;
+    margin: 1em;
+    height: fit-content;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1em;
+    justify-content: center;
+}
+.bootBlueBtn{
+    background-color:#004aad; 
+    color:white;
+}
+.bootBlueBtn:hover{
+    color: black;
+    background-color: rgb(228, 228, 228);
+}
+.comparator-row{
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1em;
+    justify-content: center;
+}
 /*CSS for publication page index*/
 .card-container{
+    position: relative;
     display: grid;
-    grid-template-columns: repeat( auto-fit, minmax(300px, 300px) );
+    grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
     grid-gap: 1em;
     justify-content: center;
 }
 .cardd{
+    border-radius: 5px;
     transition: 0.5s;
     text-align: center;
-    background-color: white;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2); 
 }
 
 .cardd:hover{
     transition: 0.5s;
-    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 20px;
+    box-shadow:  rgba(0, 0, 0, 0.5) 5px 5px 25px;
     text-align: center;
     cursor: pointer;
 }
 .card-image{
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
     width: 100%;
-    height: 160px;
+    height: 200px;
     margin: auto;
     object-fit: cover;
     transition: 0.5;
@@ -386,11 +455,15 @@ padding-bottom: 100%;
     color: white;
     background-color: gray;
 }
+.fwter{
+    position: relative;
+    bottom: 0px;
+}
 .card-price{
+    z-index: 9999;
     color: white;
-    background-image: linear-gradient(to right, #006eff , #004aad);
-    box-shadow: inset 0px 0px 10px 3px rgba(0, 0, 0, 0.6);
-    border-bottom-left-radius: 50px;
+    background-color:  #004aad;
+    border-bottom-left-radius: 500px;
     font-weight: bolder;
     text-transform: uppercase;
     float: right;
@@ -417,7 +490,7 @@ padding-bottom: 100%;
     color: green;
 }
 .card-location-icon{
-    height: 18px;
+    height: 24px;
     float: right;
     margin: 5px;
 }
@@ -457,9 +530,11 @@ padding-bottom: 100%;
 }
 /*CSS for the card state like "vendu, time remaining etc"*/
 .card-state-text{
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
     position: absolute;
-    width: 300px;
-    background-color: darkred;
+    width: 100%;
+    background-color: rgba(0, 74, 173, 0.8);
 }
 .card-bid{
     color: white;
@@ -688,6 +763,7 @@ display: flex;
     text-decoration: none;
     height: fit-content;
     display: block;
+    position: relative;
 }
 .button-container{
     width: 85%;
@@ -766,6 +842,23 @@ display: flex;
     font-weight: bolder;
     color: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.button-div-filter{
+    text-align: center;
+    margin: auto;
+    background-image: linear-gradient(to right, #001b3d, #004aad);
+    color: white;
+    border-radius: 5px;
+    transition: 0.3s;
+    font-weight: bolder;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.button-div-filter:hover{
+    transition: 0.3s;
+    cursor: pointer;
+    color: black;
+    background-image: linear-gradient(to right, #ccc, #ccc);
 }
 .button-div-inactiv{
     cursor: not-allowed;

@@ -11,6 +11,7 @@ use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PublicationFollow;
+use App\Http\Controllers\ComparatorController;
 use App\Http\Controllers\ReportController;
 use App\Http\Resources\PublicationResource;
 use App\Models\Publication;
@@ -137,6 +138,8 @@ Route::get('publication/detail/{id}', [PublicationController::class, 'detail'])-
 Route::get('publication/sold/{id}', [PublicationController::class, 'markAsSold'])->name('publication.sold');
 //Route to delete a publication
 Route::get('publication/delete/{id}', [PublicationController::class, 'delete'])->name('publication.delete');
+//Route to go to comparator
+Route::get('comparator/{car1}/{car2}', [ComparatorController::class, 'index'])->name('comparators.index');
 //------------------------------------------------------------------------------------
 
 //Section for bids routes

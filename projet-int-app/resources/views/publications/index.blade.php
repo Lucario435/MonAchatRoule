@@ -11,7 +11,7 @@
 @endpush
 @section('content')
     @include('filters.menu')
-    <div class="container-sm" >
+    <div class="container-fluid" >
         <div class="col-4" id="filters-wrapper">
             @include('filters.filterPage')
         </div>
@@ -21,6 +21,5 @@
             </span>
             @include('partials.xfooter')
         </div>
-        
     </div>
 @endsection

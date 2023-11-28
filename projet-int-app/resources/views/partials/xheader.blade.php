@@ -47,28 +47,27 @@
     <header>
         <div class="header-container">
             <div class="menu-icon">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
+                <i class="fa fa-bars" style="font-size: 1.5em;color:white;"></i>
             </div>
             <div class="app-name">
-
-                <a href="/" style="text-decoration: none; color:white;">
+                <a href="/" style="text-decoration: none; color:white;font-family: Trajan Pro;
+                font-style: italic;
+                font-weight: bold;font-size:25px;text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);">
                     <h1>@yield('appname')</h1>
                 </a>
             </div>
             <nav class="nav">
                 <ul class="ul-menu">
-                    <li><a href="/publication">Trouver un véhicule</a></li>
+                    <li class="div-with-slash"><a href="/publication">Trouver un véhicule</a></li>
                     @auth
-                        <li><a href="/users/{{ Auth::id() }}">Mes annonces</a></li>
-                        <li><a href="/publication/create">Publier une annonce</a></li>
-                        <li id="messagerie-li"><a href="/messages">Messagerie</a></li>
+                        <li class="div-with-slash"><a href="/users/{{ Auth::id() }}">Mes annonces</a></li>
+                        <li class="div-with-slash"><a href="/publication/create">Publier une annonce</a></li>
+                        <li class="div-with-slash" id="messagerie-li"><a href="/messages">Messagerie</a></li>
                         @if (Auth()->user()->isAdmin())
-                            <li><a href="/admin">Centre des demandes</a></li>
+                            <li class="div-with-slash"><a href="/admin">Centre des demandes</a></li>
                         @endif
                         {{-- <li><a href="/publications/saved">Annonces suivies</a></li> --}}
-                        <li id="btn-deco-mobile">
+                        <li class="div-with-slash" id="btn-deco-mobile">
                             <form action="/logout" method="GET" class="d-flex align-items-top">
                                 @csrf
                                 <button type="submit" class="d-flex align-items-center btn-disconnect" id="btn-deco"
@@ -95,9 +94,9 @@
                         gap:15px;
                         ">
                         <a class="d-flex align-items-center noDec" href="/notifications"><i
-                                style="color: white;font-size:20px;" class="fa fa-bell"></i></a>
+                                style="color: white;font-size:1.5em;" class="fa fa-bell"></i></a>
                         <a class="d-flex align-items-center noDec no-mobile" href="/messages"><i
-                                style="color: white;font-size:20px; " class="fa fa-message"></i></a>
+                                style="color: white;font-size:1.5em; " class="fa fa-message"></i></a>
 
                     </div>
 
@@ -183,6 +182,7 @@
     }
 
     .grid-for-header {
+        width: 20%;
         display: grid;
         grid-template-rows: auto;
         grid-template-columns: auto auto auto;

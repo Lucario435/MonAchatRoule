@@ -76,7 +76,12 @@ use Illuminate\Support\Facades\Auth;
     <div>
         @if($publication->publicationStatus == "vendu")
             <div>
-                <div class="card-kilometer" style="background-color:white;transform:translateY(130px);position:absolute;color:red;border-top-right-radius:10px;border-top-left-radius:10px;font-weight:bolder;font-size:larger;">Vendu</div>
+                <div class="card-kilometer" style="background-color:rgba(255,255,255,0.8);transform:translateY(170px);position:absolute;color:red;border-top-right-radius:10px;border-top-left-radius:10px;font-weight:bolder;font-size:larger;">Vendu</div>
+            </div>
+        @endif
+        @if($publication->publicationStatus == "En attente")
+            <div>
+                <div class="card-kilometer" style="background-color:rgba(255,255,255,0.8);transform:translateY(170px);position:absolute;color:rgb(87, 87, 87);border-top-right-radius:10px;border-top-left-radius:10px;font-weight:bolder;font-size:larger;">En attente</div>
             </div>
         @endif
         @foreach ($images as $image)
@@ -92,7 +97,7 @@ use Illuminate\Support\Facades\Auth;
         @endif
     </div>
     <div style="max-width:10em; overflow:hidden" class="card-title">{{$publication->title}}</div style="width:300px;">
-    <div class="card-price">{{$publication->fixedPrice}}$</div>
+    <div class="card-price">{{$publication->fixedPrice}} $</div>
     <br>
     <br>
     <br>
@@ -103,7 +108,7 @@ use Illuminate\Support\Facades\Auth;
     @elseif($publication->user_id == Auth::id() && $publication->hidden == 1)
         <div class="d-flex align-items-center" style="float: right;"><p class="card-kilometer fas fa-eye"></p><p class="card-kilometer" style="color: green;float:left;font-weight:bolder;">Publique</p></div>
     @else
-        <br>
+        <div style="height: 24px;margin:5px;"></div>
     @endif
 
     <hr style="color: black">

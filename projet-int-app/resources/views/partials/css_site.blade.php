@@ -27,9 +27,6 @@ header {
     padding: 0 20px;
 }
 
-h1 {
-    font-size: 24px;
-}
 
 .nav ul {
     list-style-type: none;

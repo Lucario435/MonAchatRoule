@@ -43,7 +43,7 @@
         </div>
         <br>
         <p style="color:white; font-size:1rem; text-align:center;margin:0;">Avant de déposer une enchère, <br>veuillez lire
-            les <a style="color: white;" href="">politiques des enchères</a> de MonAchatRoule®
+            les <a style="cursor:pointer;color: white;text-decoration:underline;">politiques des enchères</a> de MonAchatRoule®
         </p>
         <br>
         <br>
@@ -127,10 +127,12 @@
                     </div>
                 </a>
                 <!--Vérifier si déjà follow-->
-                @if(Auth::id() != $publication->user_id)
-                    <div id="followButton" title="Suivre l'état de l'annonce" class="div-button-actions" style="width:100%;">
-                    </div>
-                @endif
+                @auth
+                    @if(Auth::id() != $publication->user_id)
+                        <div id="followButton" title="Suivre l'état de l'annonce" class="div-button-actions" style="width:100%;">
+                        </div>
+                    @endif
+                @endauth
                 @auth
                     @if (Auth::id() == $publication->user_id || User::find(Auth::id())->isAdmin())
                         <div title="Modifier l'annonce" class="div-button-actions" style="width:100%;">
@@ -258,7 +260,7 @@
                 $dateNow = date('Y-m-d H:i:s');
             @endphp
             @if ($publication->expirationOfBid >= $dateNow && $publication->publicationStatus != 'En attente' && Auth::id() != $publication->user_id)
-                <div onclick="show()" title="Suivre l'état de l'annonce" class="div-button-actions"
+                <div onclick="show()" class="div-button-actions"
                     style="margin-left:1em;margin-right:1em;">
                     <div class="noDec button-div">
                         <i class="fav-icon div-button-actions fas fa-hand-holding-usd"></i>
@@ -270,7 +272,7 @@
                     @if(Auth::id() == $publication->user_id)
                         title="Il n'est pas possible de déposer une enchère sur sa propre enchère"
                     @else
-                        title="Il n'est plus disponible de déposer de nouvelles enchères"
+                        title="Il n'est plus possible de déposer de nouvelles enchères"
                     @endif
                     style="margin-left:1em;margin-right:1em;cursor:not-allowed;">
                     <div class="noDec button-div-inactiv">
@@ -283,7 +285,6 @@
         </div>
         </div>
     @endif
-    <br>
     <style momo="PERMET DE BAISSER LE WIDTH">
         @media (max-width: 920px) {
             .xreducteur {
@@ -315,10 +316,10 @@
                 @endif
             </div>
         </div>
-        <div class="car-info-item" style="margin: 1em;">
+        <div class="car-info-item" style="margin-left: 1em;margin-right:1em;">
             <br>
             <h4 class="detail-info-text">Description</h4>
-            <p style="margin:0;word-break:break-all; padding:1em; text-align:left;line-height:1.5em;">
+            <p style="margin:0;word-break:break-all; padding:1em; text-align:left;line-height:1.5em;font-weight:bolder">
                 {{ $publication->description }}</p>
             <br>
         </div>
@@ -396,7 +397,6 @@
             </a>
         </div>
     </div>
-    <br>
     </div>
     <script>
         //With the help of chat gpt

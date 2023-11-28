@@ -40,6 +40,12 @@
             <br>
             <hr>
             <!--<a style="width:10rem;" href="{{ route('publication.index') }}" class="buttonEffect">RETOUR</a>-->
+            @if (isset($isEdit))
+            <div style="margin: auto; width: 90%;">
+                <a style="width:10rem;" href="{{ route('image.edit', ['id' => $publication->id]) }}"
+                    class="buttonEffect">Gérer les images</a>
+            </div>
+            @endif
             <br>
             <!--For Security-->
             @csrf
@@ -70,12 +76,6 @@
                     placeholder="Code postal ex: A1B" pattern="^[A-Z]\d[A-Z]"
                     value="{{ isset($publication) ? $publication->postalCode : old('postalCode') }}" />
             </div>
-            @if (isset($isEdit))
-                <div style="margin: auto; width: 90%;">
-                    <a style="width:10rem;" href="{{ route('image.edit', ['id' => $publication->id]) }}"
-                        class="buttonEffect">Gérer les images</a>
-                </div>
-            @endif
             <br>
             <hr>
             <br>
@@ -280,8 +280,8 @@
             <br>
             <!--ul for spacing-->
             <ul>
-                <input class="buttonEffect" type="submit"
-                    value="{{ isset($isEdit) ? 'Mettre à jour' : 'Créer' }} l'annonce" />
+                <input class="btn btn-lg d-flex justify-content-center bootBlueBtn" style="margin: auto; width:200px;" type="submit"
+                    value="{{ isset($isEdit) ? 'Mettre à jour' : 'Créer' }}" />
                 <br>
                 @if (isset($isEdit) && $publication->type == 0)
                     <label>Votre annonce s'est vendu?</label>
@@ -293,7 +293,7 @@
                 @endif
                 @if (isset($isEdit))
                     <a title="Supprimer l'annonce" href="{{ route('publication.delete', ['id' => "$publication->id"]) }}"
-                        class="buttonEffect">Supprimer</a>
+                        class="buttonEffectRed">Supprimer</a>
                 @endif
             </ul>
             <br>
@@ -359,5 +359,6 @@
         document.querySelector('#hint').classList.remove('active');
     });
 </script>
+@include('partials.xfooter')
 </body>
 @endsection
