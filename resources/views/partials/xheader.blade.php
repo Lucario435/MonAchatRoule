@@ -50,10 +50,11 @@
                 <i class="fa fa-bars" style="font-size: 1.5em;color:white;"></i>
             </div>
             <div class="app-name">
-                <a href="/" style="text-decoration: none; color:white;font-family: Trajan Pro;
+                <a href="/"
+                    style="text-decoration: none; color:white;font-family: Trajan Pro;
                 font-style: italic;
-                font-weight: bold;font-size:25px;text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);">
-                    <h1>@yield('appname')</h1>
+                font-weight: bold;text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);">
+                    <span id="app-name-title">@yield('appname')</span>
                 </a>
             </div>
             <nav class="nav">
@@ -114,7 +115,8 @@
                         </button>
                     </form>
                 @else
-                    <a class="fas fa-sign-in-alt" href="/login" style="color:inherit; text-decoration:none;margin-left:auto;">
+                    <a class="fas fa-sign-in-alt" href="/login"
+                        style="color:inherit; text-decoration:none;margin-left:auto;">
                     </a>
                 @endauth
             </div>
@@ -155,18 +157,27 @@
         .grid-for-header {
             column-gap: 5px !important;
         }
-        .header-container{
+
+        .header-container {
             padding: 0 5px 0 5px !important;
         }
 
-        .imgProfile{
+        .imgProfile {
             margin: 0 .5rem 0 .5rem !important;
         }
 
-        #messagerie-li{
+        #messagerie-li {
             display: block !important;
         }
 
+        #app-name-title {
+            font-size: 1.1rem !important;
+        }
+
+    }
+
+    #app-name-title {
+        font-size: 1.4rem;
     }
 
     /* Ajoutez le style pour l'image de profil ici */
@@ -184,10 +195,11 @@
         width: 20%;
         display: grid;
         grid-template-rows: auto;
-        grid-template-columns: repeat(auto-fit,minmax(40px,1fr)) !important;
-        gap: auto;
+        grid-template-columns: repeat(auto-fit, minmax(10px, 1fr)) !important;
+        column-gap: 5px;
     }
-    #messagerie-li{
+
+    #messagerie-li {
         display: none;
     }
 </style>
