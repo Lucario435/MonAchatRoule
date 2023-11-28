@@ -65,7 +65,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Publication::class, 'user_id');
     }
     public function userrels() {
-        return $this->hasMany(Userrels::class, 'user_sender', 'id')
+        return $this->hasMany(userrels::class, 'user_sender', 'id')
                     ->orWhere('user_target', 'id');
     }
     public Function getPublicationsCountForDisplay(){
