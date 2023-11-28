@@ -114,7 +114,7 @@
                         </button>
                     </form>
                 @else
-                    <a class="fas fa-sign-in-alt" href="/login" style="color:inherit; text-decoration:none;">
+                    <a class="fas fa-sign-in-alt" href="/login" style="color:inherit; text-decoration:none;margin-left:auto;">
                     </a>
                 @endauth
             </div>
@@ -185,7 +185,8 @@
         width: 20%;
         display: grid;
         grid-template-rows: auto;
-        grid-template-columns: auto auto auto;
+        /* grid-template-columns: auto auto auto; */
+        grid-template-columns: repeat(auto-fit,minmax(40px,1fr));
         gap: auto;
     }
     #messagerie-li{
