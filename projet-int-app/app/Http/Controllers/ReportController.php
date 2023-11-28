@@ -29,6 +29,7 @@ class ReportController extends Controller
         if(Auth::user() == null) to_route("index");
         // $sign = new Signalement();
         $attributes = [
+            "user_resolved_by" => null,
             'user_sender' => Auth::id(),
             'user_target' => $r->input("user_target") == -1 ? null : $r->input("user_target") ,
             'status' => 0,

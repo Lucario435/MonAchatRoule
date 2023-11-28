@@ -13,11 +13,16 @@
     @endisset>
     <div class="image-wrapper"
     @if($user->getImage() != null)
-        style="background-image: url('{{ $user->getImage() }}')"
+        style="margin-bottom:.3rem; background-image: url('{{ $user->getImage() }}')"
     @endif
 
     ></div>
     <h3 class="name" style="color: white;"> {{ $user->getDisplayName()  }}</h3>
+        <h5 class="h5phone" style="margin-top:-.5rem; height:1rem; color: gray;">
+            @if ($phoneD)
+                {{ $user->phone }}
+            @endif
+        </h5>
     <div class="info cf">
         <style>.goldx{color: #ffc700}</style>
         <div class="four col"><span class="number goldx">{{ $user->getNoteGlobale() }} ★</span>Selon les évaluations</div>
@@ -51,6 +56,9 @@
     }
     .btnBlueSendA{
         /* width: 100%; */
+    }
+    .h5phone{
+        margin-bottom: 1rem;
     }
     .btnBlueSend{
          width: 100%;

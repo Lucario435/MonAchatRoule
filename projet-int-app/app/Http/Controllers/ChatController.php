@@ -15,6 +15,7 @@ use App\Models\vente;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
+use App\Models\Bid;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 
@@ -59,8 +60,9 @@ class ChatController extends Controller
         $u2 = User::find($id)->first();
 
         $conv = getConversation($u1,$u2);
+        $oldMsgPlusUtilisé =  $u2->getDisplayName(). "</i> !";
         if(count($conv) == 0)
-            return view("messagerie.noMessage",["u2" => $u2, "xmsg" => "Débutez votre conversation avec <i>" . $u2->getDisplayName(). "</i> !"]);
+            return view("messagerie.noMessage",["u2" => $u2, "xmsg" => "Débutez une conversation!"]);
 
         $seenConv = getConversationSideOfU1($u2,$u1);
         foreach($seenConv as $chat){
@@ -257,6 +259,20 @@ class ChatController extends Controller
             return view("messagerie.markedAsBuyerSuccessful");
         }
         return to_route("index",["xalert"=>"Une erreur est survenue"]);
+    }
+    public function sellerSeeBiddersEnd(Request $r,$pid){
+        if(Auth::user() == null) return to_route("error");
+        $p = Publication::find($pid);
+        if($p == null) return to_route("error");
+        if(Auth::id() != $p->user_id) return to_route("error");
+
+        $publicationBids = Bid::where('publication_id',$pid)
+        ->orderBy('priceGiven', 'desc')->get(); // Order bids in descending order by amount
+
+        if(count($publicationBids) > 0){
+            return view("messagerie.sellerSeeBiddersEnd",["p"=>$p ,"bids" => $publicationBids]);
+        }
+        return to_route("index",["xalert"=>"Aucune enchères déposées sur votre annonce!"]);
     }
     public function send(Request $r){
         if($r->input("message") == null)

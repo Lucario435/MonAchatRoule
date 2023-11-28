@@ -144,7 +144,7 @@
     @vite(['resources/css/app.css'])
 
     @stack('css')
-    
+
     @stack('js')
 
 
@@ -155,8 +155,15 @@
 
     <div style="min-height:90px;"></div>
 
-
-    @yield('title'){{-- ici on mettra le nom de la page, doit etre défini dans le yield  --}}
+    @php
+        $cleanedTitle = strip_tags(View::getSection('title'));
+    @endphp
+    <h1 id="xtitle">
+        {{ $cleanedTitle }} {{-- @yield("title") --}}
+    </h1>
+    <br>
+    {{-- réglé le bug de non fonctionnement avec les titles, il faut pas mettre de balise dans le
+        setter de variable section --}}
 
 
 

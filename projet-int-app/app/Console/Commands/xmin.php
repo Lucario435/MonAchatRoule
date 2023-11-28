@@ -4,14 +4,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class RefreshBidsCommand extends Command
+class xmin extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'refresh:bids';
+    protected $signature = 'app:xmin';
 
     /**
      * The console command description.
@@ -25,8 +25,9 @@ class RefreshBidsCommand extends Command
      */
     public function handle()
     {
-        //This is the actual command that executes every 1min
-        $this->info('Hello command executed successfully.');
+        //executer chaque min
 
+        // print("slaut");
+        $this->info("salut");
     }
 }

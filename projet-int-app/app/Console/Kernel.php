@@ -21,13 +21,14 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command("xmin")->everyMinute();
+
 
         $schedule->call(function () {
             //get les enchère qui sont de type enchères
             $encheres = Publication::all()
                 ->where('type', "1")
                 ->where('publicationStatus', 'En vente');
-
 
             //Pour chaque enchère
             foreach ($encheres as $enchere) {
@@ -37,6 +38,10 @@ class Kernel extends ConsoleKernel
                     $enchere->publicationStatus = 'En attente';
                     $enchere->save();
                     error_log("Enchère " . $enchere->title . " modifié dans la BD");
+
+                    sendNotification($enchere->user_id,
+                    "Votre enchère s'est terminée!","Jetez un coup d'oeil sur les offres reçues"
+                    ,"/auction/ended/".$enchere->id);
 
                     $bidersEmail = DB::table('bids')
                         ->join('publications', 'bids.publication_id', '=', 'publications.id')
@@ -52,8 +57,8 @@ class Kernel extends ConsoleKernel
                         } catch (\Throwable $th) {
                             error_log("Error: ". $th);
                         }
-                        
-                        
+
+
                         $notificationWebsiteMessage = "L'enchère : $enchere->title que vous suiviez vient de se terminer.";
 
                         try {
@@ -66,7 +71,7 @@ class Kernel extends ConsoleKernel
                         } catch (\Throwable $th) {
                             error_log("Error: ". $th);
                         }
-                        
+
                     }
                 }
             }
