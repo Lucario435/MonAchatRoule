@@ -8,6 +8,7 @@ use App\Models\Publication;
 use App\Models\rating;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\userrels;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
@@ -128,13 +129,27 @@ class UsersController extends Controller
                 $ratings[] = $value;
             }
         }
-        return view("user",["uid" => $uid, "ratings"=>$ratings,"user" => User::find($uid), "publications" => $plist, "images" => $images]);
+        $phoneD = false;
+        $usrls = userrels::all();
+        foreach ($usrls as $key => $value) {
+            if($value->reltype == "phoneD" && $value->user_sender == $uid){
+                $phoneD = true;
+            }
+        }
+        return view("user",["uid" => $uid,"phoneD"=>$phoneD, "ratings"=>$ratings,"user" => User::find($uid), "publications" => $plist, "images" => $images]);
     }
     public function edit(Request $r)
     {
         if (Auth::user() == null) return to_route("index");
-
-        return view("editProfil", ["user" => Auth::user()]);
+        //save num telephone
+        $usrls = userrels::all();
+        $phoneD = false;
+        foreach ($usrls as $key => $value) {
+            if($value->reltype == "phoneD" && $value->user_sender == Auth::id()){
+                $phoneD = true;
+            }
+        }
+        return view("editProfil", ["user" => Auth::user(),"phoneDisplay"=>$phoneD]);
     }
     public function editPost(Request $request)
     {
@@ -146,7 +161,8 @@ class UsersController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
             'phone' => 'nullable|string|max:20',
             'userimage' => 'image|mimes:jpeg,png,jpg,gif|max:20000',
-            'email_notification' => 'boolean'
+            'email_notification' => 'boolean',
+            'phone_display' => 'boolean'
         ]);
 
         $user->name = $request->input('name');
@@ -166,12 +182,23 @@ class UsersController extends Controller
             if ($user->userimage) {
                 Storage::delete($public_path . $user->userimage);
             }
-
             $user->userimage = $public_path . $imageName;
         }
 
+        $usrls = userrels::all();
+        if($request->input("phone_display") == true){
+            $attr = ["reltype"=>"phoneD", "user_sender"=>Auth::id(), "user_target"=>Auth::id()];
+            $u = userrels::create($attr);
+            if($u){
+                $u->save();
+            }
+        } else{
+            foreach ($usrls as $key => $value) {
+                if($value->reltype == "phoneD" && $value->user_sender == Auth::id())
+                    $value->delete();
+            }
+        }
         $user->save(); //il chiale encore
-
         return to_route("user.edit",["xalert"=>"Profil mis à jour avec succès!"]);
     }
     public function getAll(Request $request)

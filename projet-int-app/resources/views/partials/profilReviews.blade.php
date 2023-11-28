@@ -24,8 +24,8 @@
     <div class="comment-section">
         <p>{{ $rat->commentaire }}</p>
     </div>
-
 </div>
+<br>
 @endforeach
 </div>
 <style>

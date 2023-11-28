@@ -72,6 +72,12 @@
                         Activer les notifications par email
                     </label>
                 </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="phone_display" name="phone_display" value="1" @if($phoneDisplay) checked @endif>
+                    <label class="form-check-label" for="phone_display">
+                        Afficher le numéro de téléphone sur le profil
+                    </label>
+                </div>
             </div>
             <br>
 

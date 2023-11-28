@@ -390,7 +390,7 @@
     <br>
     <div style="width: 100%; height: 4em;">
         <div title="Signaler l'annonce" class="div-button-actions" style="float: right; width:fit-content;margin:20px;">
-            <a class="noDec alert-button-div" title="Signaler l'annonce" href="">
+            <a class="noDec alert-button-div" title="Signaler l'annonce" href="{{ route("report",["hideText"=>"PID=$publication->id"]) }}">
                 <!--Ramener vers le controlleur pour ajouter un contact-->
                 <i class="fav-icon alert-hover div-button-actions fa-solid fa-triangle-exclamation"></i>
             </a>

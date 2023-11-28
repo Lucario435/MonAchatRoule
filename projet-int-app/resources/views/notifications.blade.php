@@ -29,12 +29,12 @@
                         <a class="ndelindiv" style="margin-left: 1rem;" href="{{ route('notifications.delete', ['nid' => $n->id]) }}">
                             <i class="fas fa-trash-alt"></i> <!-- Font Awesome delete icon -->
                         </a>
-                        <span style="float: right;" title="{{ $n->created_at }}">
+                        <span class="spanCreatedAt" style="float: right;" title="{{ $n->created_at }}">
                             <i class="fas fa-clock"></i> {{ dateFr($n->created_at) }}
                         </span>
                         <br>
                         @if ($n->clicked)
-                            <span style="float: right">Déjà vu <i class="fas fa-eye"></i></span>
+                            <span class="spanRead" style="float: right">Déjà vu <i class="fas fa-eye"></i></span>
                         @endif
                         <a href="{{ route('notifications.click', ['nid' => $n->id]) }}"><p>{!! $n->msg() !!}</p></a>
 
@@ -56,6 +56,18 @@
         @media screen and (max-width: 768px) {
             .notifcenterWidth {
                 width: 90%;
+            }
+            .spanCreatedAt{
+                float:none !important;
+                /* width:100% !important; */
+                display: block;
+
+            }
+            .spanRead{
+                float: none !important;
+                width: 100% !important;
+                display: block;
+                color: gray;
             }
         }
         .reddishbtn{

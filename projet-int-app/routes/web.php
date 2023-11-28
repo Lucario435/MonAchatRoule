@@ -61,6 +61,7 @@ Route::get("/evalx/edit/{rid}",[ChatController::class,"rateSellerEdit"])->name("
 Route::post("/evalx/editdone/",[ChatController::class,"rateSellerEditPost"])->name("messages.rateSellerEditPost");
 Route::get("/evalx/del/{rid}",[ChatController::class,"rateSellerDelete"])->name("messages.rateSellerDelete");
 Route::post("/evalsend",[ChatController::class,"rateSellerPost"])->name("messages.rateSellerPost");
+Route::get('/auction/ended/{pid}',[ChatController::class,"sellerSeeBiddersEnd"])->name("messages.sellerSeeBiddersEnd");
 Route::get("/messages/report/{id}",[ChatController::class,"reportuser"])->name("messages.reportuser");
 Route::get('/Chat/GetMessages',[ChatController::class,"get"])->name("getmessages");
 Route::get("/messages/blockmsg/{id}",[ChatController::class,"blockUserMsgs"])->name("messages.blockUserMsgs");
