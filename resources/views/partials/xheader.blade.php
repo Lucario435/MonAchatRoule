@@ -185,7 +185,6 @@
         width: 20%;
         display: grid;
         grid-template-rows: auto;
-        /* grid-template-columns: auto auto auto; */
         grid-template-columns: repeat(auto-fit,minmax(40px,1fr));
         gap: auto;
     }
