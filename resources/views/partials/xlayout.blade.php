@@ -158,10 +158,10 @@
     @php
         $cleanedTitle = strip_tags(View::getSection('title'));
     @endphp
-    <h1 id="xtitle">
+    <h1 id="xtitle" style="height: fit-content;">
         {{ $cleanedTitle }} {{-- @yield("title") --}}
     </h1>
-    <br>
+    
     {{-- réglé le bug de non fonctionnement avec les titles, il faut pas mettre de balise dans le
         setter de variable section --}}
 

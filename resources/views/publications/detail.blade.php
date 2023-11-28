@@ -23,7 +23,7 @@
     @php
         use Illuminate\Support\Facades\Auth;
     @endphp
-    <br>
+
     <div id="popup-bid" style="display:none" class="popup-container">
         <div onclick="hide()" style="margin:1em;" class="popup-exit">
             <p class="popup-exit-text">X</p>
