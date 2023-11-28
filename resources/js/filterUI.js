@@ -437,24 +437,24 @@ $(() => {
         // removed from last span: fas fa-exchange-alt fa-rotate-90
         return (`
         <div class="row orderby-element" id=mv_${inputName}>
-            <div class="col-1 p-0
+            <div role="button"  class="col-1 p-0
                 d-flex align-items-center justify-content-end
                 fas fa-long-arrow-alt-up">
             </div>
-            <div class="col-1 p-0
+            <div role="button"  class="col-1 p-0
                 d-flex align-items-center justify-content-center
                 fas fa-long-arrow-alt-down">
             </div>
 
             <div class="col-1 d-flex align-items-center justify-content-end p-0" style=width:40px>
-                <input class=input-checkmark id=${inputName} name=${inputName} type="checkbox">
+                <input role="button"  class=input-checkmark id=${inputName} name=${inputName} type="checkbox">
             </div>
-            <label class="col-6 text-start d-flex align-items-center" for=${inputName}>
+            <label role="button"  class="col-6 text-start d-flex align-items-center" for=${inputName}>
                 <div>
                     ${labelText}
                 </div>
             </label>
-            <div class="col-1 arrows" order=${inputName}>
+            <div role="button"  class="col-1 arrows" order=${inputName}>
                 <span class=arrow-asc></span>
             </div>
         </div>
@@ -530,7 +530,7 @@ $(() => {
                 //console.log(filterObject);
                 $.each(elements, function (element, nombre) {
                     output += `
-                    <div class="row w-100 m-auto ${filterObject[element] ? 'selected-element' : ''}" ${filter}="${element}" >
+                    <div role="button" class="row w-100 m-auto ${filterObject[element] ? 'selected-element' : ''}" ${filter}="${element}" >
 
                         ${filter == "brand" ?
                             `<div class='col-2 d-flex align-items-center justify-content-center p-0' style='color:black;'>
