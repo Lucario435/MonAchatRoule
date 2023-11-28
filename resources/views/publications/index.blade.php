@@ -1,7 +1,7 @@
 @extends('partials.xlayout')
 
 @push('css')
-    @vite(['resources/css/publication.css'])
+    <link rel="stylesheet" href="{{ URL::asset('css/publication.css') }}">
 @endpush
 @push('js')
     <script type='text/javascript'

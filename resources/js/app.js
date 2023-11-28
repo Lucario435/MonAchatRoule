@@ -1,7 +1,7 @@
-import './bootstrap';
-import * as toast from './jquery.toast';
-import * as maskedinput from './jquery.maskedinput';
-import * as jqueryui from './jquery-ui';
+import './bootstrap.js';
+import * as toast from './jquery.toast.js';
+import * as maskedinput from './jquery.maskedinput.js';
+import * as jqueryui from './jquery-ui.js';
 import './resize.js';
 import './filterUI.js';
 import './ImageControl.js';

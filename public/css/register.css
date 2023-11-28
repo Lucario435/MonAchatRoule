@@ -22,7 +22,7 @@ input{
     padding-left: .5rem;
     font-weight: 800;
     display: inline-block;   */
-    max-width: 330px;
+    /* max-width: 330px; */
     border: none;
     outline: solid gray 1px;
     background: #f1f1f1;
@@ -166,5 +166,5 @@ hr{
 
 fieldset{
     padding:15px; 
-    border: 1px solid rgba(4, 103, 232, 0.98); 
+    border: 1px solid grey; 
 }

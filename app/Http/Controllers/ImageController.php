@@ -7,6 +7,7 @@ use App\Models\Publication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class ImageController extends Controller
 {
@@ -44,6 +45,7 @@ class ImageController extends Controller
 
 
     public function edit_annonce_recu(Request $r){
+        error_log($r);
         return $this->store($r);
     }
 
@@ -75,11 +77,14 @@ class ImageController extends Controller
         if($p->user_id != Auth::id() ){return to_route("index");}
         if($request->file('images.*') == null){return to_route("index");}
         foreach ($request->file('images.*') as $imagefile) {
-            $image = new Image;
+            $image = new Image();
             //Creates the path of the imagefile
-            $path = $imagefile->store('/images/resource', ['disk' =>   'my_files']);
+            $path = $imagefile->store('/images/resource', ['disk' => 'my_files']);
             //Inserts the url path to the model
             $image->url = strval($path);
+            // Log::info("path; $path");
+            // Log::info("image id:$image->id, url : $image->url ");
+            // Log::info("$image ");
             //The default publication id is 2 but will be the choosen one in the page once the connexion is done
             $image->publication_id = $request["publication_id"];
             $image->user_id = Auth::id();

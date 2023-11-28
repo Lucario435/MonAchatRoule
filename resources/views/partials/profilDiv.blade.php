@@ -48,6 +48,9 @@
 
 </div>
 <style>
+    form{
+        margin: 0;
+    }
     .btnEditProfil{
         /* width: 100%;
         background: rgb(0, 88, 211);
