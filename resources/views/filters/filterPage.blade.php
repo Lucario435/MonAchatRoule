@@ -31,6 +31,7 @@
         </div>
         <div class="row pb-3 user-select-none">
         </div>
+        @if(Auth::check())
         <div class="row pb-3 user-select-none">
 
             <label role="button"  class="col-4" for="followedPublications" style="width: 140px">
@@ -41,6 +42,7 @@
             </div>
             <div class="col-7"></div>
         </div>
+        @endif
         <div class="row pb-3 user-select-none">
             <label role="button"  id="label-brand" class="row w-100 p-0 m-0">
                 <div class="col-8 ">
