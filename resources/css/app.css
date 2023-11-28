@@ -481,7 +481,7 @@ input[type="checkbox"]:checked {
 
     #filters-wrapper>* {
         height: 100%;
-        max-width: 250px;
+        max-width: 300px;
         margin-left: 0;
         /* position: fixed;*/
         padding-top: 0px;
@@ -494,7 +494,7 @@ input[type="checkbox"]:checked {
 
     .content {
         margin-top: 2em;
-        margin-left: 250px;
+        margin-left: 300px;
         margin-right: auto;
         /* height: 500px;
         display: block;
@@ -517,7 +517,7 @@ input[type="checkbox"]:checked {
 
     }
     #btn-search{
-        display: none;
+        display: none !important;
     }
 
 }

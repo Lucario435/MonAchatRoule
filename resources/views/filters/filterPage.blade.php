@@ -24,8 +24,8 @@
         </div>
         <div class="pt-4 d-flex gap-2 ">
             
-            <div class="align-items-center" style="width:fit-content">
-                <input  name="title-search" id="title-search" type="text" placeholder="titre de l'annonce" style="width:190px;">
+            <div class="align-items-center" style="width:88%">
+                <input class="w-100"  name="title-search" id="title-search" type="text" placeholder="titre de l'annonce" >
             </div>
             <div role="button"  id="search-by-title" class="fas fa-search d-flex align-items-center justify-content-start mx-1" style="font-size: 19px;"></div>
         </div>
@@ -139,10 +139,12 @@
             </span>
         </div>
         <div class="row" style="min-height:200px;"></div>
-        <div role="button"  class="row text-center user-select-none fixed-bottom" id="btn-search" style="background-color: green">
 
-            <div class="col-8 d-flex align-items-center justify-content-end">Voir les résultats</div>
-            <div class="col-4 fas fa-search px-3 d-flex align-items-center justify-content-start"></div>
+        <div role="button" class="d-flex justify-content-center user-select-none fixed-bottom" id="btn-search" style="background-color: green;">
+            <div style="width:fit-content !important;">
+                Voir les résultats
+            </div>
+            <i class="fas fa-search px-3 d-flex align-items-center justify-content-start"></i>
 
         </div>
     </div>
