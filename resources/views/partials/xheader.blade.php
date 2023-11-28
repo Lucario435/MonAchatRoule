@@ -49,7 +49,7 @@
             <div class="menu-icon">
                 <i class="fa fa-bars" style="font-size: 1.5em;color:white;"></i>
             </div>
-            <div class="app-name">
+            <div class="app-name" style="width:20%;">
                 <a href="/"
                     style="text-decoration: none; color:white;font-family: Trajan Pro;
                 font-style: italic;
@@ -63,7 +63,8 @@
                     @auth
                         <li class="div-with-slash"><a href="/users/{{ Auth::id() }}">Mes annonces</a></li>
                         <li class="div-with-slash"><a href="/publication/create">Publier une annonce</a></li>
-                        <li class="div-with-slash" id="messagerie-li"><a href="/messages">Messagerie</a></li>
+                        <li class="div-with-slash messagerie-li" id=""><a href="/messages">Messagerie</a></li>
+                        <li class="div-with-slash messagerie-li"><a href="/notifications">Notifications</a></li>
                         @if (Auth()->user()->isAdmin())
                             <li class="div-with-slash"><a href="/admin">Centre des demandes</a></li>
                         @endif
@@ -94,7 +95,7 @@
                         align-items: center; 
                         gap:15px;
                         ">
-                        <a class="d-flex align-items-center noDec" href="/notifications"><i
+                        <a class="d-flex align-items-center noDec no-mobile" href="/notifications"><i
                                 style="color: white;font-size:1.5em;" class="fa fa-bell"></i></a>
                         <a class="d-flex align-items-center noDec no-mobile" href="/messages"><i
                                 style="color: white;font-size:1.5em; " class="fa fa-message"></i></a>
@@ -167,16 +168,14 @@
             margin: 0 .5rem 0 .5rem !important;
         }
 
-        #messagerie-li {
+        .messagerie-li {
             display: block !important;
         }
 
         #app-name-title {
             font-size: 1.1rem !important;
         }
-        .grid-for-header{
-            margin-left:45px;
-        }
+      
     }
 
     #app-name-title {
@@ -195,7 +194,6 @@
     }
 
     .grid-for-header {
-        width: 20%;
         display: flex;
         align-items: center;
         justify-content: right;
@@ -205,7 +203,7 @@
         column-gap: 5px; */
     }
 
-    #messagerie-li {
+    .messagerie-li {
         display: none;
     }
 </style>

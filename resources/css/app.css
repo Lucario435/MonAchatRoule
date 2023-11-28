@@ -55,40 +55,8 @@ li {
     font-size: 24px;
 }
 
-.div-with-slash:after {
-	content: '';
-	position: absolute;
-	background-color: rebeccapurple;
-	z-index: -1;
-}
-.div-with-slash:hover {
-	color: #FFF;
-}
 
-/* Directions */
-.div-with-slash.left:after {
-	left: -.3em;
-	top: 0;
-	height: 100%;
-	width: .08em;
-	transform: skew(-20deg);
-	transition: width .2s;
-}
-.div-with-slash.left:hover:after {
-	width: calc(100% + .6em);
-}
 
-.div-with-slash.right:after {
-	right: -.3em;
-	top: 0;
-	height: 100%;
-	width: .08em;
-	transform: skew(-20deg);
-	transition: width .2s;
-}
-.div-with-slash.right:hover:after {
-	width: calc(100% + .6em);
-}
 
 /* Style the navigation menu */
 .nav ul {
@@ -220,12 +188,24 @@ header {
     display: none !important;
 }
 
+.app-name{
+    width: fit-content !important;
+}
+
+
 /* menu hamberger pour mobile */
 @media (max-width: 1200px) {
     .app-name {
-        margin: auto;
+        text-align: center;
+        width: 60% !important;
     }
-
+    .grid-for-header{
+        width: 20% !important;
+    }
+    .div-with-slash{
+        margin-left: 55px !important;
+    
+    }
     .nav ul {
         display: none;
         flex-direction: column;
@@ -276,7 +256,11 @@ header {
         display: block !important;
     }
 }
-
+@media (min-width: 1201px){
+    .grid-for-header{
+        width: fit-content !important;
+    }
+}
 
 /* ICI C HUMAIN vvv */
 
