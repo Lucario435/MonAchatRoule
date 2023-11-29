@@ -182,6 +182,7 @@
 	border-radius: 100%;
 	background-size: cover;
 	background-repeat: no-repeat;
+    background-position: center;
 }
 
 #card1 .info .four{

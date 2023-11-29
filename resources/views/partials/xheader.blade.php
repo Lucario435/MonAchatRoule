@@ -191,6 +191,7 @@
         outline: 3px solid var(--blueForms);
         background-size: cover;
         background-repeat: no-repeat;
+        background-position:center;
     }
 
     .grid-for-header {
