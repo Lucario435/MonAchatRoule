@@ -47,13 +47,13 @@
     <header>
         <div class="header-container">
             <div class="menu-icon">
-                <i class="fa fa-bars" style="font-size: 1.5em;color:white;"></i>
+                <i title="Menu" class="fa fa-bars" style="font-size: 1.5em;color:white;"></i>
             </div>
             <div class="app-name app-name-logo-grid">
                 <div class="app-logo"></div>
                 <a href="/"
                     style="text-decoration: none; color:white;font-family: Trajan Pro;font-style: italic;font-weight: bold;text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);">
-                    <span id="app-name-title">@yield('appname')</span>
+                    <span title="Page principale" id="app-name-title">@yield('appname')</span>
                 </a>
             </div>
             <nav class="nav">
@@ -94,14 +94,14 @@
                         align-items: center; 
                         gap:15px;
                         ">
-                        <a class="d-flex align-items-center noDec no-mobile" href="/notifications"><i
+                        <a class="d-flex align-items-center noDec no-mobile" title="Notifications" href="/notifications"><i
                                 style="color: white;font-size:1.5em;" class="fa fa-bell"></i></a>
-                        <a class="d-flex align-items-center noDec no-mobile" href="/messages"><i
+                        <a title="Messagerie" class="d-flex align-items-center noDec no-mobile" href="/messages"><i
                                 style="color: white;font-size:1.5em; " class="fa fa-message"></i></a>
 
                     </div>
 
-                    <a href="/users/{{ Auth::id() }}">
+                    <a title="Voir mon profil" href="/users/{{ Auth::id() }}">
                         <div class="imgProfile" style="background-image: url('{{ Auth::user()->getImage() }}')"></div>
                     </a>
 
