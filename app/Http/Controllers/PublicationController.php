@@ -240,6 +240,7 @@ class PublicationController extends Controller
         $boolRequestDistances = false;
         $boolFollowedPublications = false;
 
+        //dd($params);
         foreach ($params as $key => $item) {
             //dd($item);   
             if (substr($key, 0, 5) == $orderByCommand) {
@@ -251,8 +252,8 @@ class PublicationController extends Controller
                     $boolRequestDistances = true;
                 }
             } else {
-                //dd($key);
                 if (strtolower($key) == "followedpublications") {
+                    //dd($key);                    
                     $boolFollowedPublications = true;
                 } else {
                     $filteringCriterias[$key] = explode(',', $item);
@@ -271,8 +272,19 @@ class PublicationController extends Controller
         DB::enableQueryLog();
         if (count($filteringCriterias) > 0) {
             //dd($filteringCriterias);
-            $publications = $this->getFilteredPublications($filteringCriterias);
+
+            $collection = DB::table('publications');
+
+            if ($boolFollowedPublications) {
+                //dd($boolFollowedPublications);
+                $collection = DB::table('publications')->join('suiviannonces', 'suiviannonces.publication_id', '=', 'publications.id')
+                    ->where('suiviannonces.userid','=',Auth::id())
+                    ->select('publications.*');
+            }
+
+            $publications = $this->getFilteredPublications($filteringCriterias, $collection);
             //dd($publications,DB::getQueryLog());
+
             
             if ($boolRequestDistances) {
 
@@ -288,6 +300,7 @@ class PublicationController extends Controller
             //dd($publications);
         } else {
             if ($boolFollowedPublications) {
+                //dd($boolFollowedPublications);
                 $publications = DB::table('publications')
                     ->join('suiviannonces', 'suiviannonces.publication_id', '=', 'publications.id')
                     ->where('suiviannonces.userid','=',Auth::id())
@@ -333,11 +346,12 @@ class PublicationController extends Controller
 
         return view('publications.carte', ['publications' => $publications, 'images' => $images]);
     }
-    private function getFilteredPublications($filteringCriterias)
+    private function getFilteredPublications($filteringCriterias, $collection)
     {
         // Inspired by this source
         // https://stackoverflow.com/q/61479114
-        return DB::table('publications')->where(
+        // DB::table('publications')
+        return $collection->where(
             function ($query) use ($filteringCriterias) {
                 foreach ($filteringCriterias as $key => $item) {
                     $query->where(
