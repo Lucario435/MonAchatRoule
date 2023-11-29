@@ -115,7 +115,7 @@ class ChatController extends Controller
         //$targetUser = $targetUser->first();
         $connected = Auth::user();
 
-        if(($connected->$this->getPublicationsCountForDisplay()) == 1){
+        if(($connected->getPublicationsCountForDisplay()) == 1){
             $ps = $connected->getPublications;
             $p = null;
             foreach ($ps as $key => $value) {
@@ -153,13 +153,13 @@ class ChatController extends Controller
             }
         }
         $pid = $v->publication_id;
-        return view("messagerie.rateSeller",["uid"=>$uid,"pid"=>$pid,"vid" => $vid]);
+        return view("messagerie.rateSeller",["uid"=>$uid,"pid"=>$pid,"vid" => $vid,"v"=>$v]);
     }
     public function rateSellerEdit(Request $r, $rid){
         if(Auth::user() == null) return to_route("index",["xalert"=>"Connectez vous"]);
         $rat = rating::find($rid);
         if($rat == null) return to_route("index",["xalert"=>"Mauvais rating"]);
-        $v = vente::find($rat->id);
+        $v = vente::find($rat->ventes_id);
         return view("messagerie.rateSellerEdit",["rid"=>$rid,"v"=>$v,"oldMsg"=>$rat->commentaire]);
     }
     public function rateSellerEditPost(Request $r){

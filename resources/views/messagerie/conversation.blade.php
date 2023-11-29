@@ -9,7 +9,7 @@
         <img class="imgProfx" src="{{ $targetUser->getImage() }}" alt="">
         <div class="aboveouterspangridex">
         <div class="outerspangridex">
-            <span class="spangridex">{{ $targetUser->getDisplayName() }}</span>
+            <span class="spangridex pusername">{{ $targetUser->getDisplayName() }}</span>
             {{-- <a style="color:var(--report); margin-left: .5rem;" href="{{ route("messages.reportuser",["id" => $targetUser->id]) }}"><i class="fas fa-flag"></i></a>
             <a style="color:var(--report); margin-left: .5rem;" href="{{ route("messages.blockUserMsgs",["id" => $targetUser->id]) }}"><i class="fas fa-ban"></i></a>
          --}}
@@ -21,8 +21,15 @@
         </div>
 
         @if (isset($targetUserPString))
-        <span>{!! $targetUserPString !!}</span>
-@endif
+            <span class="mobilePString">{!! $targetUserPString !!}</span>
+        @endif
+        <style>
+            @media (orientation:portrait){
+                .mobilePString{display: none;}
+                .pusername{­height:100%; max-height: 100% !important;}
+                .bleuTileContact{font-size: 1.2rem !important;}
+            }
+        </style>
     </div>
 
     </span>

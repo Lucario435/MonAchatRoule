@@ -35,7 +35,7 @@
 
             <div class="form-group">
                 <label for="commentaire">Entrez un commentaire <span style="color:Red;">*</span> </label>
-                <textarea required name="commentaire" class="form-control" rows="4">{{ $oldMsg }}</textarea>
+                <textarea required name="commentaire" maxlength="300" class="form-control" rows="4">{{ $oldMsg }}</textarea>
             </div>
 
             <!-- Hidden inputs for the rest of the attributes -->
