@@ -57,7 +57,10 @@ class ChatController extends Controller
         if($id == null){return view("messagerie.noMessage", ["xmsg" => "Sélectionnez un contact!"]);}
         if(User::find($id) == null){return to_route("index");}
         $u1 = Auth::user();
-        $u2 = User::find($id)->first();
+        $u2 = $id;
+        if(gettype($id) == "string" || gettype($id) == "integer"){
+            $u2 = User::find($id);
+        }
 
         $conv = getConversation($u1,$u2);
         $oldMsgPlusUtilisé =  $u2->getDisplayName(). "</i> !";

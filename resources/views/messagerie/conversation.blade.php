@@ -112,6 +112,7 @@
     }
 
     .imgProfx {
+        object-fit: cover;
         vertical-align: middle;
         width: 4rem;
         height: 4rem;
