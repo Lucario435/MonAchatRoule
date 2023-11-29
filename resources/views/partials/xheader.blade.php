@@ -175,7 +175,7 @@
     }
     @media(orientation: landscape){
         .messagerie-li {
-            display: none ;
+            display: none !important;
         }
     }
     #app-name-title {
