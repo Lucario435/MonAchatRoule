@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Cookie;
 
 class ReportController extends Controller
 {
-    //
     public function reportView(Request $r){
         if(Auth::user() == null) to_route("index");
 
@@ -33,7 +32,7 @@ class ReportController extends Controller
             'user_sender' => Auth::id(),
             'user_target' => $r->input("user_target") == -1 ? null : $r->input("user_target") ,
             'status' => 0,
-            'mcontent' => json_encode(["msg"=>$r->input("msg"), "hideText"=>$r->input("hideText")])
+            'mcontent' => json_encode(["msg"=>$r->input("mcontent"), "hideText"=>$r->input("hideText")])
         ];
         $sign = Signalement::create($attributes);
         if($sign)

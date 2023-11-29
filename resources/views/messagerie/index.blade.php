@@ -114,7 +114,7 @@
 </div>
 <style>
     :root{
-        --bigPanelHeight: 26rem;
+        --bigPanelHeight: 40rem;
     }
     .bigPanel{
         height: 20rem;
@@ -138,7 +138,7 @@
             padding: .65rem !important;
         }
         :root{
-        --bigPanelHeight: 20rem;
+        --bigPanelHeight: 30rem;
     }
     }
     .friendsListContainer {

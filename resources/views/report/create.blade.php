@@ -16,14 +16,19 @@
             @endif>
             <option value="-1">Aucun</option>
                 @foreach($users as $user)
+                @if($user->id == Auth::id()) @continue @endif
                     <option value="{{ $user->id }}"
-
                         @if (request("usertarget") != null && request("usertarget") == $user->id)
-                            selected="true"
+                            selected
+                            {{-- marche pas? 2023-11-28--}}
                         @endif
-
                         >
+
                         {{ $user->getDisplayName() }}</option>
+                        @if (request("usertarget") != null && request("usertarget") == $user->id)
+                        {{-- FIX quik --}}
+                            <input type="hidden" name="user_target" value="{{ $user->id }}">
+                        @endif
                 @endforeach
             </select>
         </div>

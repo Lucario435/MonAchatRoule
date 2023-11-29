@@ -12,16 +12,25 @@
     <div class="col-sm-2 center-text-sm" style="word-wrap:break-word;">
         {{ $signalement->sender->username }}
     </div>
+    @php
+        $sigData = json_decode($signalement->mcontent,true);
+    @endphp
     <div class="col-sm-1 p-0 separator"></div>
     <div class="col-sm-6 description center-text-sm"
         style="white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             max-heigth: 50px;">
-        {{ $signalement->mcontent }}
+        {{ $sigData["msg"] }}
     </div>
-    <span class="signaled" style="display:none;">{{$signalement->target->username}}</span>
-    <span class="target-id" style="display:none;">{{$signalement->target->id}}</span>
+
+    <div class="meta" style="display: none;">{{ $sigData["hideText"] != null ? $sigData["hideText"] : "Aucune" }}</div>
+
+    @if ($signalement->target != null)
+        <span class="signaled" style="display:none;">{{$signalement->target->username}}</span>
+        <span class="target-id" style="display:none;">{{$signalement->target->id}}</span>
+    @endif
+
     @if ($signalement->status == 0)
         <div class="col-sm-3 d-flex align-items-center justify-content-center" style="word-wrap:break-word;">
             <button id="{{$signalement->id}}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signalerModal">Consulter</button>

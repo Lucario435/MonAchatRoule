@@ -14,7 +14,6 @@ class SignalementController extends Controller
 
         $signalements = Signalement::all()->sortBy('status');
 
-
         foreach ($signalements as $key => $value) {
             $signalements[$key]->formatted_time = $signalements[$key]->created_at->format('d-m H:i');
         }

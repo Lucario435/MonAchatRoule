@@ -15,8 +15,8 @@
     <div class="userp mt-5">
     @include('partials.profilDiv')
     <br><br>
-    <div style="width: 100%;">
-        <div style="height: fit-content">
+    <div style="width: 100%; float:right;">
+        <div class="beforeCarte" style="height: fit-content; width:fit-content; float:unset; margin:auto; ">
             {{-- a la base c 25 rem --}}
             @include('publications.carte')
         </div>
@@ -62,6 +62,9 @@ grid-template-rows: auto auto;
 @media (orientation:portrait) {
     .userp {
         flex-direction: column;
+    }
+    .beforeCarte{
+        float:unset !important;
     }
 }
 </style>

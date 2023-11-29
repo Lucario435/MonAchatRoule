@@ -33,6 +33,7 @@
 
                         <br>
                         <p><b>Raison:</b> <span id="p-description"></span></p>
+                        <p><b>Informations associées:</b> <span id="p-meta"></span></p>
 
                         <textarea rows="8" cols="50" type="text-area" id="commentaire" placeholder="commentaire (optionnel)"></textarea>
                     </div>
@@ -50,20 +51,22 @@
             const myInput = document.getElementById('commentaire');
             const form = document.getElementById('form-process-signalement');
             const select = $("#status-selector");
-            
+
             $(myModal).on('shown.bs.modal', function(event) {
                 let idSignalement = event.relatedTarget.id;
                 let description = $(event.relatedTarget).parent().parent().find(".description").html();
+                let metad = $(event.relatedTarget).parent().parent().find(".meta").html();
                 let signaled = $(event.relatedTarget).parent().parent().find(".signaled").html();
                 let targetId = $(event.relatedTarget).parent().parent().find(".target-id").html();
                 //console.log(description);
                 $(myModal).find('button[type="submit"]').attr('id', idSignalement);
                 $(myModal).find('#p-description').html(description);
+                $(myModal).find('#p-meta').html(metad);
                 $(myModal).find('#signaled').html(`<a href="/users/${targetId}" title="voir profil">${signaled}</a>`);
                 $(myModal).find('#signaled').html(signaled);
                 myInput.focus();
             });
-            
+
             //https://www.digitalocean.com/community/tutorials/submitting-ajax-forms-with-jquery
             $(form).on('submit', function(event) {
                 let commentaire = {
@@ -106,7 +109,7 @@
                     contentType: "application/json",
                 }).done(function(data) {
                     $('#container-signalements').html(data);
-                    
+
                 });
             })
         })

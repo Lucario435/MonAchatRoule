@@ -30,22 +30,23 @@
 </div>
 <style>
     .rating-container {
-        /* display: flex; */
-        /* flex-wrap: wrap; */
-        /* justify-content: center; */
+       display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     }
     .rating-block {
             background-color: #fff;
             border-radius: 8px;
             padding: .5rem;
             margin-bottom: 20px;
+
             /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
             box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
             width: 40rem;
             max-width: 70% !important;
             margin:auto;
             transition: .2s;
-
+            margin-top: 20px;
             flex: 0 0 calc(50% - 20px); /* Two columns, accounting for margin */
         }
         .rating-block:hover{
