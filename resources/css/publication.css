@@ -414,7 +414,14 @@ input[type="radio"]:hover {
     background-color: #004aad;
     color: white;
 }
-
+.bootRedBtn {
+    background-color: darkred;
+    color: white;
+}
+.bootRedBtn:hover {
+    background-color: rgb(228, 228, 228);
+    color: black;
+}
 .bootBlueBtn:hover {
     color: black;
     background-color: rgb(228, 228, 228);

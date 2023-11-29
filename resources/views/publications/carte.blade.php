@@ -4,7 +4,19 @@ use Illuminate\Support\Facades\Auth;
 <div class="card-container">
     <!--Filters-->
 @if (count($publications) == 0)
+<style>
+.card-container{
+    grid-template-columns: repeat(auto-fit, minmax(0px, 1fr));
+}
+.not-available{
+    text-align: center;
+}
+</style>
+<div style="margin: auto; text-align:center;">
+<i class="fa-regular fa-circle-xmark" style="font-size: 3em;color:gray"></i>
+<br>
 <span class="not-available">Aucune annonce à afficher</span>
+</div>
 @endif
 
 @foreach ($publications as $publication)

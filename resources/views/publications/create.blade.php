@@ -39,10 +39,11 @@
             </div>
             <br>
             <hr>
+            <br>
             <!--<a style="width:10rem;" href="{{ route('publication.index') }}" class="buttonEffect">RETOUR</a>-->
             @if (isset($isEdit))
             <div style="margin: auto; width: 90%;">
-                <a style="width:10rem;" href="{{ route('image.edit', ['id' => $publication->id]) }}"
+                <a class="btn btn-lg d-flex justify-content-center bootBlueBtn" style="margin: auto; width:200px;" href="{{ route('image.edit', ['id' => $publication->id]) }}"
                     class="buttonEffect">Gérer les images</a>
             </div>
             @endif
@@ -292,7 +293,7 @@
                     <br>
                 @endif
                 @if (isset($isEdit))
-                    <a title="Supprimer l'annonce" href="{{ route('publication.delete', ['id' => "$publication->id"]) }}"
+                    <a class="btn btn-lg d-flex justify-content-center bootRedBtn" style="margin: auto; width:200px;" title="Supprimer l'annonce" href="{{ route('publication.delete', ['id' => "$publication->id"]) }}"
                         class="buttonEffectRed">Supprimer</a>
                 @endif
             </ul>
