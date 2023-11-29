@@ -19,7 +19,7 @@
         <div id="container-signalements">@include('admin.list-signalements')</div>
     </div>
     <div class="modal fade" id="signalerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Traiter le signalement</h1>
@@ -32,7 +32,7 @@
                         <p><b>Signalé:</b> <span id="signaled"></span></p>
 
                         <br>
-                        <p><b>Raison:</b> <span id="p-description"></span></p>
+                        <p style="overflow-y: scroll; height:10em;"><b>Raison:</b> <span id="p-description"></span></p>
                         <p><b>Informations associées:</b> <span id="p-meta"></span></p>
 
                         <textarea rows="8" cols="50" type="text-area" id="commentaire" placeholder="commentaire (optionnel)"></textarea>

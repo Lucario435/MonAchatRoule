@@ -9,7 +9,7 @@
                 @csrf
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <div class="modal-body">
-                    <p>Êtes-vous sûr de vouloir débloquer <b><span id="pseudo"></span></b></p>
+                    <p >Êtes-vous sûr de vouloir débloquer <b><span id="pseudo"></span></b></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
