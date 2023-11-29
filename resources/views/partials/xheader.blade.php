@@ -1,4 +1,4 @@
-<div id="xheader">
+<div id="xheader" style="width:90%">
     <!--Usefull link : https://www.fundaofwebit.com/laravel-8/how-to-show-success-message-in-laravel-8-->
     <!-- Include jQuery Toast CSS and JS files -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -49,11 +49,10 @@
             <div class="menu-icon">
                 <i class="fa fa-bars" style="font-size: 1.5em;color:white;"></i>
             </div>
-            <div class="app-name">
+            <div class="app-name app-name-logo-grid">
+                <div class="app-logo"></div>
                 <a href="/"
-                    style="text-decoration: none; color:white;font-family: Trajan Pro;
-                font-style: italic;
-                font-weight: bold;text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);">
+                    style="text-decoration: none; color:white;font-family: Trajan Pro;font-style: italic;font-weight: bold;text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);">
                     <span id="app-name-title">@yield('appname')</span>
                 </a>
             </div>
@@ -107,10 +106,10 @@
                     </a>
 
                     <form action="/logout" method="GET"
-                        style="align-items:center; height: 100%; display:flex;width:fit-content;">
+                        style="align-items:center; height: 100%; display:flex;width:fit-content;margin:0px;S" >
                         @csrf
                         <button type="submit" class="d-flex align-items-center btn-disconnect" id="btn-deco-desktop"
-                            style="gap: 0px; font-size:20px;">
+                            style="gap: 0px; font-size:24px;">
                             <i class="fas fa-sign-out-alt xihover"></i>
                             {{-- <div>Se deconnecter</div> --}}
 
@@ -169,15 +168,16 @@
         }
 
         .messagerie-li {
-            display: block !important;
+            display: block ;
         }
 
-        #app-name-title {
-            font-size: 1.1rem !important;
-        }
       
     }
-
+    @media(orientation: landscape){
+        .messagerie-li {
+            display: none !important;
+        }
+    }
     #app-name-title {
         font-size: 1.4rem;
     }

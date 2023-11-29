@@ -402,7 +402,7 @@ $(() => {
     function showOnlyFilterPage() {
         $("#content").hide();
         $("#xheader").hide();
-        $("#footer").hide();
+        $("footer").hide();
         $("#xtitle").hide();
         $("#menu").hide();
         $("#page_filtre").show();
@@ -410,7 +410,7 @@ $(() => {
     function hideFilterPage() {
         $("#content").show();
         $("#xheader").show();
-        $("#footer").show();
+        $("footer").show();
         $("#xtitle").show();
         $("#menu").show();
         $("#page_filtre").hide();
