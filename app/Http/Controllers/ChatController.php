@@ -112,7 +112,7 @@ class ChatController extends Controller
         //$targetUser = $targetUser->first();
         $connected = Auth::user();
 
-        if(($connected->getPublicationsCountForDisplay()) == 1){
+        if(($connected->$this->getPublicationsCountForDisplay()) == 1){
             $ps = $connected->getPublications;
             $p = null;
             foreach ($ps as $key => $value) {
@@ -254,7 +254,7 @@ class ChatController extends Controller
             $p->update(['publicationStatus' => 'vendu']);
             $p->save();
             if($v != null){
-                notifUserBought($targetUser,$v);
+                $this->notifUserBought($targetUser,$v);
             }
             return view("messagerie.markedAsBuyerSuccessful");
         }
