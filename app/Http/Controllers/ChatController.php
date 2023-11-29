@@ -159,7 +159,7 @@ class ChatController extends Controller
         if(Auth::user() == null) return to_route("index",["xalert"=>"Connectez vous"]);
         $rat = rating::find($rid);
         if($rat == null) return to_route("index",["xalert"=>"Mauvais rating"]);
-        $v = vente::find($rat->id);
+        $v = vente::find($rat->ventes_id);
         return view("messagerie.rateSellerEdit",["rid"=>$rid,"v"=>$v,"oldMsg"=>$rat->commentaire]);
     }
     public function rateSellerEditPost(Request $r){
