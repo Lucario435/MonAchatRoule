@@ -49,11 +49,10 @@
             <div class="menu-icon">
                 <i class="fa fa-bars" style="font-size: 1.5em;color:white;"></i>
             </div>
-            <div class="app-name">
+            <div class="app-name app-name-logo-grid">
+                <div class="app-logo"></div>
                 <a href="/"
-                    style="text-decoration: none; color:white;font-family: Trajan Pro;
-                font-style: italic;
-                font-weight: bold;text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);">
+                    style="text-decoration: none; color:white;font-family: Trajan Pro;font-style: italic;font-weight: bold;text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);">
                     <span id="app-name-title">@yield('appname')</span>
                 </a>
             </div>
@@ -169,15 +168,16 @@
         }
 
         .messagerie-li {
-            display: block !important;
+            display: block ;
         }
 
-        #app-name-title {
-            font-size: 1.1rem !important;
-        }
       
     }
-
+    @media(orientation: landscape){
+        .messagerie-li {
+            display: none ;
+        }
+    }
     #app-name-title {
         font-size: 1.4rem;
     }

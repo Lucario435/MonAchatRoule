@@ -194,7 +194,7 @@ header {
 
 
 /* menu hamberger pour mobile */
-@media (max-width: 1200px) {
+@media (max-width: 1500px) {
     .app-name {
         text-align: center;
         width: 60%;
@@ -255,8 +255,10 @@ header {
     #btn-deco-mobile {
         display: block !important;
     }
+
 }
-@media (min-width: 1201px){
+@media (min-width: 1501px){
+
     .grid-for-header{
         width: 20% !important;
     }
@@ -400,7 +402,13 @@ input[type="checkbox"]:checked {
 
 @media (max-width:799px) {
 
-
+    .app-logo{
+        height: 35px !important;
+        width: 35px !important;
+    }
+    #app-name-title {
+        font-size: 1.1rem !important;
+    }
     .sticky-sidebar {
         position: absolute;
     }
@@ -565,13 +573,28 @@ input[type="checkbox"]:checked {
     }
 }
 
-
 .padding-input{
     padding-left: 35px;
 }
 
-
-
 footer {
     font-size: 19px;
+}
+
+.app-logo{
+    background-image: url(../../public/img/mon_achat_roule.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height:50px;
+    width: 50px;
+}
+
+.app-name-logo-grid{
+    display: grid;
+    grid-template-columns: 50px 130px;
+    align-items: center;
+    column-gap: 5px;
+    justify-content: center;
+    margin: 0 10px 0 10px;
 }
