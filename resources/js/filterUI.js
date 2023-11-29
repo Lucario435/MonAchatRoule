@@ -19,8 +19,8 @@ let filterObject = {
     orderDistance: [false, "asc"],
     orderDateAdded: [false, "asc"],
     followedPublications: false,
-    errorMaxYear:null,
-    searchTitle:false,
+    errorMaxYear: null,
+    searchTitle: false,
 }
 
 const MOBILE_WIDTH = 799;
@@ -40,7 +40,7 @@ $(() => {
             showFilterPage();
             hideMenuFilter();
         }
-        else{
+        else {
             //hideFilterPage();
             showMenuFilter();
         }
@@ -97,10 +97,10 @@ $(() => {
         selectedElement.fadeIn(200);
         search();
     });
-    $("#followedPublications").on("change",function(event){
+    $("#followedPublications").on("change", function (event) {
         //console.log('t');
         filterObject.followedPublications = isCheckboxChecked($("#followedPublications"));
-        if(isCheckboxChecked($("#followedPublications")))
+        if (isCheckboxChecked($("#followedPublications")))
             filterObject.numberSelectedFilters++;
         else
             filterObject.numberSelectedFilters--;
@@ -266,7 +266,7 @@ $(() => {
 
             //console.log(typeof (minYear));
             //console.log(minYear);
-            createSlider("year", minYear, maxYear, "#amount-year", "selectedMinYear", "selectedMaxYear", " ",1)
+            createSlider("year", minYear, maxYear, "#amount-year", "selectedMinYear", "selectedMaxYear", " ", 1)
 
             $("#min_year").on("input", function (ev) {
 
@@ -320,24 +320,34 @@ $(() => {
         $("#orderby-list").toggleClass("hidden");
     });
 
-    $("#title-search").on("input",(e)=>{
-        if($("#title-search").val() == ''){
+    $("#title-search").on("input", (e) => {
+        if ($("#title-search").val() == '') {
             filterObject.numberSelectedFilters--;
             filterObject.searchTitle = false;
             ShowNumberOfActiveFilters();
-        }else if(!filterObject.searchTitle){
+        } else if (!filterObject.searchTitle) {
             filterObject.searchTitle = true;
             filterObject.numberSelectedFilters++;
             ShowNumberOfActiveFilters();
         }
-    })
+    });
+    $("#title-search").on("keydown", (e) => {
+        if (e.which === 13) {
+            search();
+            if ($(window).width() <= MOBILE_WIDTH) {
+                //console.log($(window).width());
+
+                hideFilterPage();
+            }
+        }
+    });
 
     // Submit the search
     $("#btn-search").on("click", (e) => {
 
         //console.log($(".erreur").length);
         //search();
-        if($(window).width() <= MOBILE_WIDTH){
+        if ($(window).width() <= MOBILE_WIDTH) {
             //console.log($(window).width());
             hideFilterPage();
         }
@@ -347,9 +357,9 @@ $(() => {
 
         //console.log('by title');
         search();
-        if($(window).width() <= MOBILE_WIDTH){
+        if ($(window).width() <= MOBILE_WIDTH) {
             //console.log($(window).width());
-            
+
             hideFilterPage();
         }
 
@@ -372,7 +382,7 @@ $(() => {
 
         if (element.currentTarget.name === "orderDistance" && checkedState) {
             // There is a problem with a div displaying above filters when asking for user location or denied user location
-            const coordinateUser = {long:UserLocation[0],lat:UserLocation[1]};
+            const coordinateUser = { long: UserLocation[0], lat: UserLocation[1] };
             //console.log(coordinateUser);
             filterObject = { ...filterObject, [key]: [checkedState, orderType, coordinateUser] }
             //let codesPostales = getCodesPostalesFromServer();
@@ -396,16 +406,16 @@ $(() => {
 
     listFilterDataFromServer("transmission", "transmissions", "selectedTransmissions");
 
-    listFilterDataFromServer("fuelType",'fuelTypes',"selectedFuelType")
+    listFilterDataFromServer("fuelType", 'fuelTypes', "selectedFuelType")
 
-    function isCheckboxChecked(chkbox){
+    function isCheckboxChecked(chkbox) {
 
         return $(chkbox).is(":checked");
     }
-    function showMenuFilter(){
+    function showMenuFilter() {
         $("#menu").show();
     }
-    function hideMenuFilter(){
+    function hideMenuFilter() {
         $("#menu").hide();
     }
     function showFilterPage() {
@@ -472,15 +482,15 @@ $(() => {
             //console.log("max kilo changed " + filterObject.selectedMaxMileage);
         }
     }
-    function createSlider(fitler, minVal = 0, maxVal, htmlElement, selectedElementMin, selectedElementMax, sign = '',step = 500) {
+    function createSlider(fitler, minVal = 0, maxVal, htmlElement, selectedElementMin, selectedElementMax, sign = '', step = 500) {
         $(`#slider-range-${fitler}`).slider({
             range: true,
             min: minVal,
             max: maxVal,
-            step:step,
+            step: step,
             values: [minVal, maxVal],
             slide: function (event, ui) {
-                $(`${htmlElement}`).html(ui.values[0]  + " - " + ui.values[1] + `${sign} `);
+                $(`${htmlElement}`).html(ui.values[0] + " - " + ui.values[1] + `${sign} `);
                 if (filterObject[selectedElementMax] == null && filterObject[selectedElementMin] == null) {
                     filterObject.numberSelectedFilters++;
                     ShowNumberOfActiveFilters("#number-filter", filterObject.numberSelectedFilters);
@@ -492,7 +502,7 @@ $(() => {
 
         });
         $(`#amount-${fitler}`).html($(`#slider-range-${fitler}`).slider("values", 0) + ' - ' +
-            $(`#slider-range-${fitler}`).slider("values", 1) + ` ${sign}` );
+            $(`#slider-range-${fitler}`).slider("values", 1) + ` ${sign}`);
     }
     function setBackgroundColor(element, color) {
         if ($("#erreur").length == 0 && color == "green")
@@ -529,7 +539,7 @@ $(() => {
 
                         ${filter == "brand" ?
                             `<div class='col-2 d-flex align-items-center justify-content-center p-0' style='color:black;'>
-                                <span class="car-${element.toLowerCase().replace(' ','-')} fa-2x"></span>
+                                <span class="car-${element.toLowerCase().replace(' ', '-')} fa-2x"></span>
                             </div>` : `<div class='col-2'> </div>`}
 
                         <div class='col-9 text-start d-flex align-items-center'>
@@ -565,7 +575,7 @@ $(() => {
                                     break;
                                 case 'selectedBodyType':
                                     filterObject.selectedBodyType.add(element);
-                                    break;                        
+                                    break;
                                 case 'selectedFuelType':
                                     filterObject.selectedFuelType.add(element);
                                     break;
@@ -630,7 +640,7 @@ $(() => {
 
         if (filterObject.selectedMaxMileage != null)
             url += `maxMileage=${filterObject.selectedMaxMileage}&`;
-        
+
         if (filterObject.selectedMinYear != null)
             url += `minYear=${filterObject.selectedMinYear}&`;
 
@@ -644,27 +654,27 @@ $(() => {
         //console.log("URL: " + url)
         return removeAccents(url);
     }
-    function search(){
+    function search() {
         if ($(".erreur").length > 0) {
             //console.log("Il ya des erreurs");
         }
         else {
-            
+
             setBackgroundColor("#btn-search", "green");
             //console.log($(window).width());
             // if($(window).width() <= MOBILE_WIDTH){
             //     console.log($(window).width());
             //     hideFilterPage();
             // }
-            
+
             let searchTitle = $("#title-search").val().trim();
-            
+
             // if(searchTitle){
             //     //console.log($("#title-search").val());
             // }
-            
+
             $.ajax({
-                url: searchUrlBuilder(`publications/search?${searchTitle? 'title='+$("#title-search").val()+'&' : ''}`),
+                url: searchUrlBuilder(`publications/search?${searchTitle ? 'title=' + $("#title-search").val() + '&' : ''}`),
                 async: false,
                 dataType: 'html',
                 success: function (data) {
@@ -729,8 +739,8 @@ $(() => {
             orderDistance: [false, "asc"],
             orderDateAdded: [false, "asc"],
             followedPublications: false,
-            errorMaxYear:null,
-            searchTitle:false,
+            errorMaxYear: null,
+            searchTitle: false,
         }
         $(".selected-element").removeClass("selected-element");
         $("#min_price").val('');
