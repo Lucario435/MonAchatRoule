@@ -9,17 +9,20 @@
         async defer>
     </script>
 @endpush
+<div style="padding-bottom:7em; min-height:100%" >
 @section('content')
+
     @include('filters.menu')
-    <div class="container-fluid" >
-        <div class="col-4" id="filters-wrapper">
-            @include('filters.filterPage')
-        </div>
-        <div class="col content">
-            <span id="content">
-                @include('publications.carte')
-            </span>
-            @include('partials.xfooter')
-        </div>
+    <div class="container-fluid">
+            <div class="col-4" id="filters-wrapper">
+                @include('filters.filterPage')
+            </div>
+            <div class="col content">
+                <span id="content">
+                    @include('publications.carte')
+                </span>
+            </div>
     </div>
+</div>
+@include('partials.xfooter')
 @endsection
