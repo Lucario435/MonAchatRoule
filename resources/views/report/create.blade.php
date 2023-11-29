@@ -36,7 +36,7 @@
         <input type="hidden" name="hideText" value="{{ request("hideText") }}">
         <button type="submit" class="btn btn-primary">Envoyer le signalement</button>
 
-        <a href="/"><button type="button" class="btn btn-secondary">Retour</button></a>
+        <a href={{url()->previous()}}><button type="button" class="btn btn-secondary">Retour</button></a>
 
     </form>
 </div>
