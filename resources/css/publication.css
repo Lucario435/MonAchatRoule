@@ -432,13 +432,7 @@ input[type="radio"]:hover {
 .card-container {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(27x0px, 1fr));
-}
-
-/*CSS for publication page index*/
-.card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     grid-gap: 1em;
     justify-content: center;
 }
@@ -446,6 +440,7 @@ input[type="radio"]:hover {
 .cardd {
     border-radius: 5px;
     transition: 0.5s;
+    background-color: white;
     text-align: center;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
 }

@@ -11,7 +11,7 @@
 @endpush
 @section('content')
 <br>
-<a style="margin: 1em;" href="{{ route("messages") }}"><button type="button" class="btn btn-secondary">Retour</button></a>
+<a style="margin: 1em;" href="{{ route("publication.index") }}"><button type="button" class="btn btn-secondary">Retour</button></a>
 <br>
 <div style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;padding-top:1em;padding-bottom:1em;margin:1em;">
     <div class="comparator-container2">

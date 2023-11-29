@@ -1,5 +1,4 @@
 @extends('partials.xlayout')
-
 @php
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Redirect;
@@ -11,7 +10,7 @@
 @section('title')
 <h1 id="xtitle">Profil de {{$user->getDisplayName()}}</h1>
 @endsection
-
+<div style="padding-bottom:0em;min-height:100%">
 @section('content')
     <div class="userp mt-5">
     @include('partials.profilDiv')
@@ -33,7 +32,7 @@
     @include("partials.profilReviews")
 </div>
 @endif
-
+</div>
 @include('partials.xfooter')
 @endsection
 
