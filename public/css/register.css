@@ -147,7 +147,7 @@ hr{
     color:var(--blueheader);
 }
 .erreur{
-   margin: none !important;
+    margin: 5px 0px 5px 0px;
 
 }
 .info{
