@@ -42,7 +42,7 @@
 
             /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
             box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-            width: 40rem;
+            width: 60rem;
             max-width: 70% !important;
             margin:auto;
             transition: .2s;

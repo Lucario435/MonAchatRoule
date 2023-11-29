@@ -153,7 +153,7 @@ class ChatController extends Controller
             }
         }
         $pid = $v->publication_id;
-        return view("messagerie.rateSeller",["uid"=>$uid,"pid"=>$pid,"vid" => $vid]);
+        return view("messagerie.rateSeller",["uid"=>$uid,"pid"=>$pid,"vid" => $vid,"v"=>$v]);
     }
     public function rateSellerEdit(Request $r, $rid){
         if(Auth::user() == null) return to_route("index",["xalert"=>"Connectez vous"]);
