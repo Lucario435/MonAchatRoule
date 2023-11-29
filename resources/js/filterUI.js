@@ -333,7 +333,7 @@ $(() => {
     })
 
     // Submit the search
-    $("#btn-search, #search-by-title").on("click", (e) => {
+    $("#btn-search").on("click", (e) => {
 
         //console.log($(".erreur").length);
         //search();
@@ -343,6 +343,18 @@ $(() => {
         }
 
     });
+    $("#search-by-title").on("click", (e) => {
+
+        //console.log('by title');
+        search();
+        if($(window).width() <= MOBILE_WIDTH){
+            //console.log($(window).width());
+            
+            hideFilterPage();
+        }
+
+    });
+
 
     // Reset filters
     $("#label-reset").on("click", function (event) {
