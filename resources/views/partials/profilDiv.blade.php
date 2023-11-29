@@ -7,7 +7,7 @@
 
 @endphp
 <div>
-<div id="card1" class="cardprofilDiv four col profilDiv"
+<div style="margin-right: 1em;" id="card1" class="cardprofilDiv four col profilDiv"
     @isset($addedCssProfilDiv)
         style="{{ $addedCssProfilDiv }}"
     @endisset>

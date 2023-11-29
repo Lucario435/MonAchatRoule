@@ -16,7 +16,7 @@
     @include('partials.profilDiv')
     <br><br>
     <div style="width: 100%; float:right;">
-        <div class="beforeCarte" style="height: fit-content; width:fit-content; float:unset; margin:auto; ">
+        <div class="beforeCarte" style="height: fit-content; float:unset; margin:auto; ">
             {{-- a la base c 25 rem --}}
             @include('publications.carte')
         </div>

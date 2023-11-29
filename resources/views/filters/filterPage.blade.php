@@ -1,13 +1,13 @@
 <div class="page-on-top container-fluid w-100 h-auto scroll" id="page_filtre">
     <div class="grid text-start row-gap-5">
-        
+
         <div class="row pt-4 user-select-none">
             <label class="row w-100 p-0 m-0">
                 <div class="col-5">
                     <div class="row" style="width:200px;">
 
                         <div class="col-8">
-                            <label role="button"  id="label-reset">
+                            <label role="button" id="label-reset">
                                 <span>
                                     <span class="fas fa-trash" id="text-reset-filter" class="w-75 p-0"></span>
                                     <span id=number-filter>(0)</span>
@@ -23,28 +23,31 @@
             </label>
         </div>
         <div class="pt-4 d-flex gap-2 ">
-            
-            <div class="align-items-center" style="width:88%">
-                <input class="w-100"  name="title-search" id="title-search" type="text" placeholder="titre de l'annonce" >
-            </div>
-            <div role="button"  id="search-by-title" class="fas fa-search d-flex align-items-center justify-content-start mx-1" style="font-size: 19px;"></div>
-        </div>
-        <div class="row pb-3 user-select-none">
-        </div>
-        @if(Auth::check())
-        <div class="row pb-3 user-select-none">
 
-            <label role="button"  class="col-4" for="followedPublications" style="width: 140px">
-                Annonces suivis
-            </label>
-            <div  class="col-1 d-flex align-items-center">
-                <input role="button"  type="checkbox" id="followedPublications">
+            <div class="align-items-center" style="width:88%">
+                <input class="w-100" name="title-search" id="title-search" type="text"
+                    placeholder="titre de l'annonce">
             </div>
-            <div class="col-7"></div>
+            <div role="button" id="search-by-title"
+                class="fas fa-search d-flex align-items-center justify-content-start mx-1" style="font-size: 19px;">
+            </div>
         </div>
+        <div class="row pb-3 user-select-none">
+        </div>
+        @if (Auth::check())
+            <div class="row pb-3 user-select-none">
+
+                <label role="button" class="col-4" for="followedPublications" style="width: 140px">
+                    Annonces suivis
+                </label>
+                <div class="col-1 d-flex align-items-center">
+                    <input role="button" type="checkbox" id="followedPublications">
+                </div>
+                <div class="col-7"></div>
+            </div>
         @endif
         <div class="row pb-3 user-select-none">
-            <label role="button"  id="label-brand" class="row w-100 p-0 m-0">
+            <label role="button" id="label-brand" class="row w-100 p-0 m-0">
                 <div class="col-8 ">
                     Marques
                 </div>
@@ -55,7 +58,7 @@
             </label>
         </div>
         <div class="row pb-3 user-select-none">
-            <label role="button"  id="label-body" class="row w-100 p-0 m-0">
+            <label role="button" id="label-body" class="row w-100 p-0 m-0">
                 <div class="col-8">
                     Type de carroserie
                 </div>
@@ -66,7 +69,7 @@
             </label>
         </div>
         <div class="row pb-3 user-select-none">
-            <label role="button"  id="label-transmission" class="row w-100 p-0 m-0">
+            <label role="button" id="label-transmission" class="row w-100 p-0 m-0">
                 <div class="col-8">
                     Transmission
                 </div>
@@ -77,7 +80,7 @@
             </label>
         </div>
         <div class="row pb-3 user-select-none">
-            <label role="button"  id="label-fuelType" class="row w-100 p-0 m-0">
+            <label role="button" id="label-fuelType" class="row w-100 p-0 m-0">
                 <div class="col-8">
                     Type de carburant
                 </div>
@@ -88,12 +91,12 @@
             </label>
         </div>
         <div class="row pb-3 user-select-none">
-            <label role="button"  id="label-year" class="row w-100 p-0 m-0">
+            <label role="button" id="label-year" class="row w-100 p-0 m-0">
                 <div class="col-3">
                     Année
                 </div>
                 <div id="amount-year" class="col-7 d-flex align-items-end justify-content-end">
-                    
+
                 </div>
                 <div
                     class="col-1 d-flex align-items-center justify-content-center fas fa-caret-down flex-grow-1 ms-auto">
@@ -101,12 +104,12 @@
             </label>
         </div>
         <div class="row pb-3 user-select-none">
-            <label role="button"  id="label-price" class="row w-100 p-0 m-0">
+            <label role="button" id="label-price" class="row w-100 p-0 m-0">
                 <div class="col-3">
                     Prix
                 </div>
                 <div id="amount-price" class="col-7 d-flex align-items-end justify-content-end">
-                    
+
                 </div>
                 <div
                     class="col-1 d-flex align-items-center justify-content-center fas fa-caret-down flex-grow-1 ms-auto">
@@ -114,7 +117,7 @@
             </label>
         </div>
         <div class="row pb-3 user-select-none">
-            <label role="button"  id="label-kilometer" class="row w-100 p-0 m-0">
+            <label role="button" id="label-kilometer" class="row w-100 p-0 m-0">
                 <div class="col-3">
                     Kilométrage
                 </div>
@@ -126,7 +129,7 @@
             </label>
         </div>
         <div class="row pb-3 user-select-none">
-            <div role="button"  id="label-trier" class="row w-100 p-0 m-0">
+            <div role="button" id="label-trier" class="row w-100 p-0 m-0">
                 <div class="col-8">
                     Trier par
                 </div>
@@ -142,7 +145,8 @@
         </div>
         <div class="row" style="min-height:200px;"></div>
 
-        <div role="button" class="d-flex justify-content-center user-select-none fixed-bottom" id="btn-search" style="background-color: green;">
+        <div role="button" class="d-flex justify-content-center user-select-none fixed-bottom" id="btn-search"
+            style="background-color: green;">
             <div style="width:fit-content !important;">
                 Voir les résultats
             </div>

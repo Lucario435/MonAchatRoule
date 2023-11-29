@@ -64,11 +64,11 @@
                 <div class="text-wrap">
                     <h2>Ajoutez des images à votre annonce</h2>
                 </div>
-                <span id="upload-input-container" style="margin:auto;width:fit-content">
+                <span id="upload-input-container" style="display: block">
                     <input type="file" id="image-input" name="images[]" accept="image/*" multiple onclick="addInput(this)"
                     onchange="handleImageUpload(this)"
                     style="margin:10px 0px 10px 0px; opacity:0;position:relative;z-index:-1;display:none;">
-                    <label id="label-image-input" class="buttonEffect p-1" for="image-input">Téléverser</label>
+                    <label id="label-image-input" class="btn btn-lg d-flex justify-content-center bootBlueBtn" style="decoration:none;margin: auto; width:200px;" for="image-input">Téléverser</label>
                 </span>
                 <span class="image-container mt-3" id="new-images" style="gap:1em;"></span>
                 <!-- Les images uploadées seront affichées ici -->
@@ -89,9 +89,9 @@
 
             <br>
             <div class="d-flex gap-2" style="margin:auto;width:fit-content;">
-                <a href="{{ route('publication.detail', ['id' => $pid]) }}"><button type="button"
-                        class="buttonEffect">Annuler</button></a>
-                <input class="buttonEffect" type="submit" value="Soumettre" />
+                <a style="text-decoration:none" href="{{ route('publication.detail', ['id' => $pid]) }}"><button type="button"
+                    class="btn btn-lg d-flex justify-content-center btn-secondary" style="text-decoration:none !important;margin: auto;">Annuler</button></a>
+                <input class="btn btn-lg d-flex justify-content-center bootBlueBtn" style="margin: auto;" type="submit" value="Soumettre" />
             </div>
             <br>
             </form>

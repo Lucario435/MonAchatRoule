@@ -7,7 +7,7 @@
 let defaultRequireMessage = "Obligatoire";
 let defaultInvalidMessage = "Format invalide";
 let defaultCustomErrorMessage = "Champ invalide";
-let passwordTooShortMessage = `Le mot de passe doit faire aumoins 7 caractères`;
+// let passwordTooShortMessage = `Le mot de passe doit faire aumoins 7 caractères`;
 function initFormValidation() {
     //console.log("Init form validation");
     $(".Alpha").each(function () {

@@ -80,8 +80,8 @@ export default function initFormValidation() {
         $(this).on("invalid", function (event) {
             let validity = event.target.validity;
             //console.log(event.target.value.length);
-            //console.log(event.target);
-            if(event.target.value.length < 6)
+            console.log(event.target.id);
+            if(event.target.type == 'password' && event.target.value.length < 7)
                 event.target.setCustomValidity(passwordTooShortMessage);
             else if (validity.valueMissing)
                 event.target.setCustomValidity(RequireMessage);
