@@ -106,10 +106,10 @@
                     </a>
 
                     <form action="/logout" method="GET"
-                        style="align-items:center; height: 100%; display:flex;width:fit-content;">
+                        style="align-items:center; height: 100%; display:flex;width:fit-content;margin:0px;S" >
                         @csrf
                         <button type="submit" class="d-flex align-items-center btn-disconnect" id="btn-deco-desktop"
-                            style="gap: 0px; font-size:20px;">
+                            style="gap: 0px; font-size:24px;">
                             <i class="fas fa-sign-out-alt xihover"></i>
                             {{-- <div>Se deconnecter</div> --}}
 
