@@ -300,7 +300,7 @@ class ChatController extends Controller
         return to_route("messageUser",["xalert" => "Message supprimé avec succès", "id" => $otherUserId]);
     }
     public function reportuser(Request $r, $id){
-        return to_route("report",["hideText"=>"TargetUserId:$id","usertarget"=>$id]);
+        return to_route("report",["hideText"=>"fromMessages,ReportedUser=$id","usertarget"=>$id]);
     }
     public function blockUserMsgs(Request $r, $id) {
         // Check if the current user is authenticated

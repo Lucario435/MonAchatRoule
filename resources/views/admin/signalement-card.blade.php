@@ -26,7 +26,7 @@
 
     <div class="meta" style="display: none;">{{ $sigData["hideText"] != null ? $sigData["hideText"] : "Aucune" }}</div>
 
-    @if ($signalement->target != null)
+    @if ($signalement->user_target != null)
         <span class="signaled" style="display:none;">{{$signalement->target->username}}</span>
         <span class="target-id" style="display:none;">{{$signalement->target->id}}</span>
     @endif
