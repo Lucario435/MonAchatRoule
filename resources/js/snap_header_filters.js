@@ -34,7 +34,7 @@ $(() => {
             // sideFilters.classList.add("sticky-sidebar");
             toggleFixed();
         } else{
-            adjustWidth();
+            //adjustWidth();
         }
     }
 
