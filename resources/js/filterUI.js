@@ -41,7 +41,7 @@ $(() => {
             hideMenuFilter();
         }
         else{
-            hideFilterPage();
+            //hideFilterPage();
             showMenuFilter();
         }
     });
