@@ -115,7 +115,7 @@ $(() => {
     });
 
     $("#close_page_filters").on("click", function (event) {
-        hideFilterPage()
+        //hideFilterPage()
     });
 
     $("#order").on("click", function (event) {
