@@ -54,7 +54,7 @@ $(() => {
         var parentwidth = $("body").width();
         //var parentwidth =  $(window).width();
         $(header).width(parentwidth);
-        console.log(`parentWidth : ${ parentwidth}`)
+        //console.log(`parentWidth : ${ parentwidth}`)
         $(sideFilters).width('350px');
     }
 });
