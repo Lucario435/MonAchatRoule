@@ -115,7 +115,7 @@ class ChatController extends Controller
         //$targetUser = $targetUser->first();
         $connected = Auth::user();
 
-        if(($connected->$this->getPublicationsCountForDisplay()) == 1){
+        if(($connected->getPublicationsCountForDisplay()) == 1){
             $ps = $connected->getPublications;
             $p = null;
             foreach ($ps as $key => $value) {
