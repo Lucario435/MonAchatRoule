@@ -36,7 +36,7 @@ $(() => {
         let height = $(window).height();
         //console.log('resize', $(window).width(), $(window).height());
         if (viewPortDesktopWidth <= width) {
-            //hideFilterPage();
+            hideFilterPage();
             showFilterPage();
             hideMenuFilter();
         }
@@ -115,7 +115,7 @@ $(() => {
     });
 
     $("#close_page_filters").on("click", function (event) {
-        //hideFilterPage()
+        hideFilterPage()
     });
 
     $("#order").on("click", function (event) {
