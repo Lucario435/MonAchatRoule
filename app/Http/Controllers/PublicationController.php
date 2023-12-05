@@ -216,7 +216,7 @@ class PublicationController extends Controller
             // Handle the case where the publication is not found
             return redirect()->back()->with('error', 'Publication introuvable.');
         }
-        $data["user_id"] = Auth::id();
+        
         // Update the publication with the validated data
         $publication->update($data);
         return redirect(route('image.edit', ["id" => $publication->id]))->with('message', 'Publication mise à jour avec succès!');
