@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 @endif
 
 @foreach ($publications as $publication)
-@if($publication->hidden == 1 || $publication->user_id == Auth::id() || (Auth()->user() && Auth()->user()->isAdmin()))
+@if($publication->hidden == 0 || $publication->user_id == Auth::id() || (Auth()->user() && Auth()->user()->isAdmin()))
  <div class="cardd">
     <a class="noDec" title="Plus d'informations" href="{{ route('publication.detail', ['id' => $publication->id]) }}">
     <div class="card-state-text">
@@ -115,9 +115,9 @@ use Illuminate\Support\Facades\Auth;
     <br>
     @if(@$publication->distance)<div class="card-kilometer" style="display: block">proximité: {{$publication->distance}} km</div>@endif
 
-    @if( (Auth()->user() && Auth()->user()->isAdmin()) || $publication->user_id == Auth::id() && $publication->hidden == 0 )
+    @if( (Auth()->user() && Auth()->user()->isAdmin()) || $publication->user_id == Auth::id() && $publication->hidden == 1 )
         <div class="d-flex align-items-center" style="float: right;"><div class="card-kilometer fas fa-eye-slash "></div><p class="card-kilometer" style="color: red;float:left; font-weight:bolder;">Privée</p></div>
-    @elseif($publication->user_id == Auth::id() && $publication->hidden == 1)
+    @elseif($publication->user_id == Auth::id() && $publication->hidden == 0)
         <div class="d-flex align-items-center" style="float: right;"><p class="card-kilometer fas fa-eye"></p><p class="card-kilometer" style="color: green;float:left;font-weight:bolder;">Publique</p></div>
     @else
         <div style="height: 24px;margin:5px;"></div>

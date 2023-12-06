@@ -310,10 +310,10 @@
         var expirationInput = document.getElementById("expirationOfBidInput");
         //Makes the style change if the param (show) is true or false
         if (isPublic) {
-            document.getElementById("checkbox_2").value = 0
+            document.getElementById("checkbox_2").value = 1
             isPublic = false;
         } else {
-            document.getElementById("checkbox_2").value = 1
+            document.getElementById("checkbox_2").value = 0
             isPublic = true;
         }
     }
