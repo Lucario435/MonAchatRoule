@@ -446,7 +446,7 @@ class PublicationController extends Controller
 
         $publication->update(['publicationStatus' => 'vendu']);
 
-        return redirect(route('publication.detail', ['id' => $id]))->with('message', 'Votre annonce ' . $publication->title . ' s\'est vendu!');
+        return redirect(route('publication.detail', ['id' => $id]))->with('message', 'Votre annonce ' . $publication->title . " est vendu!");
     }
     private function getTravelDistance($wp1, $wp2)
     {
