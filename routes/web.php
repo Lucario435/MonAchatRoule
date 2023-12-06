@@ -53,7 +53,7 @@ Route::get("/rs",function(){
     return view("messagerie.rateSeller",["vid" => 1, "uid"=>1]);
 });
 Route::get('/messages/del/{id}',[ChatController::class,"userdelete"])->name("messages.userdelete");
-Route::get('/messages',[ChatController::class,"index"])->name("messages");
+Route::get('/messages',[ChatController::class,"index"])->middleware('verified')->name("messages");
 Route::post("/bought/set/",[ChatController::class,"markAsBuyerPost"])->name("messages.markAsBuyerPost");
 Route::get("/bought/{uid}",[ChatController::class,"markAsBuyer"])->name("messages.markAsBuyer");;
 Route::get("/rateseller/{uid}/{vid}",[ChatController::class,"rateSeller"])->name("messages.rateSellerLeg");
