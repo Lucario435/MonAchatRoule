@@ -1,7 +1,11 @@
 @extends('partials.xlayout')
 
 @section('title')
-    <h1 id="xtitle">Page de publication</h1>
+    @if(isset($isEdit))
+        <h1 id="xtitle">{{$publication->title}}</h1>
+    @else
+        <h1 id="xtitle">Page de publication</h1>
+    @endif
 @endsection
 
 @section('content')
@@ -261,7 +265,7 @@
                     value="{{ isset($publication) ? $publication->expirationOfBid : date('Y-m-d', strtotime('+7 days')) }}"
                     name="expirationOfBid" placeholder="date" />
             </div>
-            <input type="hidden" name="hidden" value="0"/>
+            <input type="hidden" name="hidden" value="1"/>
             <div class="switches_styling">
                 <span class="detail-text-emphasis">Privé</span>
                 <label for="checkbox_2" class="switch" style="display: flex;
@@ -271,7 +275,7 @@
                         @if(isset($publication))
                             {{ $publication->hidden == 0 ? 'checked value=0' : 'value=1' }}
                         @else
-                            value="0"
+                            checked value="0"
                         @endif
                             onchange="togglePublicInput()" />
                         <span class="slider round"></span>
@@ -301,21 +305,16 @@
             </form>
         </div>
 <script>
-    let isPublic = false;
-    if(document.getElementById("checkbox_2").value == 1)
-    {
-        let isPublic = true;
-    }
+
     function togglePublicInput() {
-        var expirationInput = document.getElementById("expirationOfBidInput");
         //Makes the style change if the param (show) is true or false
-        if (isPublic) {
+        console.log('togglePublic');
+        if (document.getElementById("checkbox_2").value == 0) {
             document.getElementById("checkbox_2").value = 1
-            isPublic = false;
         } else {
             document.getElementById("checkbox_2").value = 0
-            isPublic = true;
         }
+        // console.log(document.getElementById("checkbox_2").value);
     }
 
     let showExpiration = false;

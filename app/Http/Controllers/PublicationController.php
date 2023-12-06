@@ -182,6 +182,7 @@ class PublicationController extends Controller
     public function update(Request $request, $id)
     { //post
         $p = Publication::find($id);
+        
         if ($p == null) {
             return redirect(route('publication.index'))->with('message', "Cette annonce n'existe pas!");
         }
@@ -207,7 +208,7 @@ class PublicationController extends Controller
             'brand' => 'nullable',
             'color' => 'nullable'
         ]);
-
+        // dd($data['hidden']);
         // Find the publication by ID
         $publication = Publication::find($id);
 
