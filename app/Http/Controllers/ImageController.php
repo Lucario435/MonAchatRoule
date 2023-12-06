@@ -16,66 +16,91 @@ class ImageController extends Controller
     //Returns the create publication page
 
     //TO DO: Verify that the user is connected else redirect to connection page
-    public function create($pid){
+    public function create($pid)
+    {
         $plist = Auth::user()->getPublications;
         foreach ($plist as $key => $value) {
-            if($pid == $plist[$key]->id)
+            if ($pid == $plist[$key]->id)
                 $ptitle = $plist[$key]->title;
         }
         //dd($ptitle);
         // dump($plist);
-        return view('images.create',["plist" => $plist,"pid"=>$pid,"ptitle"=>$ptitle]);
+        return view('images.create', ["plist" => $plist, "pid" => $pid, "ptitle" => $ptitle]);
     }
 
 
-    public function edit_annonce(Request $r, $pid){
+    public function edit_annonce(Request $r, $pid)
+    {
         $p = Publication::find($pid);
-        if($p == null){
+        if ($p == null) {
             return to_route("index");
         }
         $imageList = $p->images;
         //dd($imageList);
         $plist = [$p];
         foreach ($plist as $key => $value) {
-            if($pid == $plist[$key]->id)
+            if ($pid == $plist[$key]->id)
                 $ptitle = $plist[$key]->title;
         }
-        return view("images.create",["pid" => $pid, "isEdit" => true, "ilist" => $imageList,"plist" => $plist,"ptitle"=>$ptitle]);
+        return view("images.create", ["pid" => $pid, "isEdit" => true, "ilist" => $imageList, "plist" => $plist, "ptitle" => $ptitle]);
     }
 
 
-    public function edit_annonce_recu(Request $r){
+    public function edit_annonce_recu(Request $r)
+    {
         error_log($r);
         return $this->store($r);
     }
 
 
-    public function deleteImage(Request $r, $iid){
-        $img = Image::find($iid);if($img == null){return to_route("index");}
-        $p = Publication::find($img->publication_id);if($p == null){return to_route("index");}
-        if($img == null){return to_route("index");}
-        if($p->user_id != Auth::id()){
+    public function deleteImage(Request $r, $iid)
+    {
+        $img = Image::find($iid);
+        if ($img == null) {
+            return to_route("index");
+        }
+        $p = Publication::find($img->publication_id);
+        if ($p == null) {
+            return to_route("index");
+        }
+        if ($img == null) {
+            return to_route("index");
+        }
+        if ($p->user_id != Auth::id()) {
             return to_route("index");
         }
         Storage::delete($img->url);
         $img->delete();
 
-        return to_route("index",["message" => "L'image a été supprimé"]);
+        return to_route("index", ["message" => "L'image a été supprimé"]);
     }
 
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         //dd($request);
         //Validation
-        $data = $request->validate([
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:999999', // Adjust the allowed file types and size limit as needed
-            "publication_id" => "required"
-        ]);
+        $data = $request->validate(
+            [
+                'images.*' => 'required|image|mimes:jpeg,png,jpg,webp,pdf|max:999999', // Adjust the allowed file types and size limit as needed
+                "publication_id" => "required"
+            ],
+            [
+                'images.*.mimes' => "Le format d'image doit être de type: jpeg, png, jpg, webp, pdf",
+                'images.*.max' => "L'image est trop volumineuse ."
+            ]
+        );
         //dd($data,"s");
         $p = Publication::find($request["publication_id"]);
-        if($p == null){return to_route("index");}
-        if($p->user_id != Auth::id() ){return to_route("index");}
-        if($request->file('images.*') == null){return to_route("index");}
+        if ($p == null) {
+            return to_route("index");
+        }
+        if ($p->user_id != Auth::id()) {
+            return to_route("index");
+        }
+        if ($request->file('images.*') == null) {
+            return to_route("index");
+        }
         foreach ($request->file('images.*') as $imagefile) {
             $image = new Image();
             //Creates the path of the imagefile
