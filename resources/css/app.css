@@ -494,7 +494,6 @@ input[type="checkbox"]:checked {
     }
 
     .content {
-        margin-top: 2em;
         margin-left: 300px;
         margin-right: auto;
         /* height: 500px;
