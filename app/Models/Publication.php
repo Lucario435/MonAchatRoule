@@ -26,6 +26,7 @@ class Publication extends Model
         //Car info
         'fixedPrice',
         'kilometer',
+        
         //MISSING carburant and year
         'year',
         'fuelType',
@@ -43,7 +44,9 @@ class Publication extends Model
     public function images(){
         return $this->hasMany(Image::class,"publication_id");
     }
-
+    public function messages(){
+        return $this->hasMany(Chatmessage::class, "publication_id");
+    }
     public function brands(){
         return DB::table('publications')->pluck('brand');
     }

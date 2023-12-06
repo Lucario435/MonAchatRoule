@@ -11,7 +11,10 @@ use App\Models\Publication;
 use App\Models\Suiviannonce;
 use App\Models\Image;
 use App\Models\Bid;
+use App\Models\Chatmessage;
+use App\Models\rating;
 use App\Models\User;
+use App\Models\vente;
 use Hamcrest\Type\IsNumeric;
 use Illuminate\Database\Eloquent\Casts\Json;
 use Mockery\Undefined;
@@ -41,11 +44,52 @@ class PublicationController extends Controller
                 $publicationBids = Bid::where('publication_id', $id)->get();
                 if(count($publicationBids) == 0)
                 {
+                    //1. Vérifier si déjà des messages, on les mets à null
+                    $messages = Chatmessage::where('publication_id', $id)->get();
+
+                    foreach ($messages as $message)
+                    {
+                        $message->update(['publication_id' => null]);
+                    }
+
+                    //2. Vérifier si il existe des images relié à cette publication et les delete
+                    $images = Image::where('publication_id', $id)->get();
+
+                    foreach ($images as $image)
+                    {
+                        $image->delete();
+                    }
+
+                    //3. Vérifier si il existe des évalutaions relié à cette publication et mettre le pid à null
+                    $ratings = rating::where('publication_id', $id)->get();
+
+                    foreach ($ratings as $rating)
+                    {
+                        $rating->update(['publication_id' => null]);
+                        $rating->update(['ventes_id' => null]);
+                    }
+
+                    //4. Vérifier si il existe des follows relié à cette publication et delete
+                    $follows = Suiviannonce::where('publication_id', $id)->get();
+
+                    foreach ($follows as $follow)
+                    {
+                        $follow->delete();
+                    }
+
+                    //5. Vérifier si il existe des ventes relié à cette publication et delete
+                    $sells = vente::where('publication_id', $id)->get();
+
+                    foreach ($sells as $sell)
+                    {
+                        $sell->delete();
+                    }
+
                     DB::table('publications')->delete($id);
                     return redirect(route('publication.index'))->with('message', 'Votre annonce a été supprimée!');
                 }
                 else
-                {
+                {  
                     //Redirige vers la page détail
                     return redirect(route('publication.detail', ['id' => $id]))->with('message', 'Votre annonce comporte des enchères et ne peut pas être supprimé!');
                 }
@@ -62,6 +106,7 @@ class PublicationController extends Controller
              return redirect(route('publication.index'))->with('message', 'Cette annonce n\'existe pas!');
         }
     }
+
     //Returns the detail page of a publication and it's values images are taken only in the html in a foreach
     public function detail($id)
     {
