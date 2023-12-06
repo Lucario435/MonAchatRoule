@@ -36,7 +36,7 @@ class UsersController extends Controller
     public function login()
     {
         if(User::find(Auth::id()))
-            redirect(route('index'));
+            redirect(route('publication.index'));
         return view("login");
     }
 
