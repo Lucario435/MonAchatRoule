@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label for="user_target">Utilisateur à signaler</label>
                 <select class="form-control" id="user_target" name="user_target"
-                    @if (request('usertarget') != null) disabled style="cursor:not-allowed;" @endif>
+                    @if (request('usertarget') != null) style="cursor:not-allowed;" @endif>
                     <option value="-1">Aucun</option>
 
                     @foreach ($users as $user)
@@ -24,11 +24,12 @@
                         >
 
                                 {{ $user->getDisplayName() }}</option>
-                            @if (request('usertarget') != null && request('usertarget') == $user->id)
+
+                        @endif
+                        @if (request('usertarget') != null && request('usertarget') == $user->id)
                                 {{-- FIX quik --}}
                                 <input type="hidden" name="user_target" value="{{ $user->id }}">
                             @endif
-                        @endif
                     @endforeach
 
 
