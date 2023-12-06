@@ -13,12 +13,13 @@
                 <select class="form-control" id="user_target" name="user_target"
                     @if (request('usertarget') != null) disabled style="cursor:not-allowed;" @endif>
                     <option value="-1">Aucun</option>
+
                     @foreach ($users as $user)
                         @if ($user->id != Auth::id())
                             <option value="{{ $user->id }}"
                                 @if (request('usertarget') != null && request('usertarget') == $user->id) selected
                         {{-- marche pas? 2023-11-28 --}}
-                        @endif>
+                        >
 
                                 {{ $user->getDisplayName() }}</option>
                             @if (request('usertarget') != null && request('usertarget') == $user->id)
@@ -27,6 +28,8 @@
                             @endif
                         @endif
                     @endforeach
+
+
                 </select>
             </div>
             <br>
