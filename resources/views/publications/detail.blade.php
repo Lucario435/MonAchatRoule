@@ -117,6 +117,8 @@
             </a>
             <br>
             <div class="action-buttons" style="grid-gap:1em;">
+                <!--Vérifier si propriétaire-->
+                @if($publication->user_id != Auth::id())
                 <a title="Contacter le vendeur" class="noDec xreducteur div-button-actions" style="margin:auto;width:100%"
                     href="{{ route('messageUserFromPID', ['id' => $publication->user_id, "pid"=>$publication->id]) }}">
                     <div class="button-div">
@@ -126,6 +128,7 @@
                         <label class="detail-labels div-button-actions">Contacter</label>
                     </div>
                 </a>
+                @endif
                 <!--Vérifier si déjà follow-->
                 @auth
                     @if(Auth::id() != $publication->user_id)
