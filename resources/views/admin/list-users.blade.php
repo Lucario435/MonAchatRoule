@@ -4,3 +4,4 @@
 @foreach ($users as $user)
     @include('admin.user-card')
 @endforeach
+<div class="row" style="height:50px;"></div>
