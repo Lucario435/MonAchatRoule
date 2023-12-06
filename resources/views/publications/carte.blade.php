@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 @endif
 
 @foreach ($publications as $publication)
-@if($publication->hidden == 1 || $publication->user_id == Auth::id() || Auth()->user()->isAdmin())
+@if($publication->hidden == 1 || $publication->user_id == Auth::id() || (Auth()->user() && Auth()->user()->isAdmin()))
  <div class="cardd">
     <a class="noDec" title="Plus d'informations" href="{{ route('publication.detail', ['id' => $publication->id]) }}">
     <div class="card-state-text">
