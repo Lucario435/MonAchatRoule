@@ -35,6 +35,8 @@ class UsersController extends Controller
     }
     public function login()
     {
+        if(User::find(Auth::id()))
+            redirect(route('index'));
         return view("login");
     }
 
