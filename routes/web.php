@@ -44,44 +44,44 @@ Route::get("/index",function(){
     return to_route("index");
 });
 
-Route::get('/notifications',[NotificationController::class,"index"])->name("notifications");
-Route::get('/notifications/{nid}',[NotificationController::class,"click"])->name("notifications.click");
-Route::get('/notifications/del/{nid}',[NotificationController::class,"delete"])->name("notifications.delete");
-Route::post('/notifications/mdel',[NotificationController::class,"multidelete"])->name("notifications.multidelete");
+Route::get('/notifications',[NotificationController::class,"index"])->name("notifications")->middleware(['auth','verified']);
+Route::get('/notifications/{nid}',[NotificationController::class,"click"])->name("notifications.click")->middleware(['auth','verified']);
+Route::get('/notifications/del/{nid}',[NotificationController::class,"delete"])->name("notifications.delete")->middleware(['auth','verified']);
+Route::post('/notifications/mdel',[NotificationController::class,"multidelete"])->name("notifications.multidelete")->middleware(['auth','verified']);
 //messages momo
-Route::get("/rs",function(){
-    return view("messagerie.rateSeller",["vid" => 1, "uid"=>1]);
-});
-Route::get('/messages/del/{id}',[ChatController::class,"userdelete"])->name("messages.userdelete");
-Route::get('/messages',[ChatController::class,"index"])->middleware('verified')->name("messages");
-Route::post("/bought/set/",[ChatController::class,"markAsBuyerPost"])->name("messages.markAsBuyerPost");
-Route::get("/bought/{uid}",[ChatController::class,"markAsBuyer"])->name("messages.markAsBuyer");;
-Route::get("/rateseller/{uid}/{vid}",[ChatController::class,"rateSeller"])->name("messages.rateSellerLeg");
-Route::get("/eval/{uid}/{vid}",[ChatController::class,"rateSeller"])->name("messages.rateSeller");
+// Route::get("/rs",function(){
+    // return view("messagerie.rateSeller",["vid" => 1, "uid"=>1]);
+// })->middleware(['auth','verified']);
+Route::get('/messages/del/{id}',[ChatController::class,"userdelete"])->name("messages.userdelete")->middleware(['auth','verified']);
+Route::get('/messages',[ChatController::class,"index"])->middleware('verified')->name("messages")->middleware(['auth','verified']);
+Route::post("/bought/set/",[ChatController::class,"markAsBuyerPost"])->name("messages.markAsBuyerPost")->middleware(['auth','verified']);
+Route::get("/bought/{uid}",[ChatController::class,"markAsBuyer"])->name("messages.markAsBuyer")->middleware(['auth','verified']);
+Route::get("/rateseller/{uid}/{vid}",[ChatController::class,"rateSeller"])->name("messages.rateSellerLeg")->middleware(['auth','verified']);
+Route::get("/eval/{uid}/{vid}",[ChatController::class,"rateSeller"])->name("messages.rateSeller")->middleware(['auth','verified']);
 Route::get("/evalx/edit/{rid}",[ChatController::class,"rateSellerEdit"])->name("messages.rateSellerEdit");
-Route::post("/evalx/editdone/",[ChatController::class,"rateSellerEditPost"])->name("messages.rateSellerEditPost");
-Route::get("/evalx/del/{rid}",[ChatController::class,"rateSellerDelete"])->name("messages.rateSellerDelete");
-Route::post("/evalsend",[ChatController::class,"rateSellerPost"])->name("messages.rateSellerPost");
-Route::get('/auction/ended/{pid}',[ChatController::class,"sellerSeeBiddersEnd"])->name("messages.sellerSeeBiddersEnd");
-Route::get("/messages/report/{id}",[ChatController::class,"reportuser"])->name("messages.reportuser");
-Route::get('/Chat/GetMessages',[ChatController::class,"get"])->name("getmessages");
-Route::get("/messages/blockmsg/{id}",[ChatController::class,"blockUserMsgs"])->name("messages.blockUserMsgs");
-Route::get('/messages/{id}',[ChatController::class,"index"])->name("messageUser");
-Route::get('/messages/{id}/{pid}',[ChatController::class,"messageUserFromPID"])->name("messageUserFromPID");
-Route::get('/Chat/GetFriendsList',[ChatController::class,"GetFriendsList"])->name("GetFriendsList");
-Route::get("/Chat/SetCurrentTarget",[ChatController::class,"SetCurrentTarget"])->name("setcurrenttarget");
-Route::get("/Chat/Send",[ChatController::class,"Send"])->name("sendmessage");
-Route::get('/users',[UsersController::class,"index"]);
-Route::get('/users/edit',[UsersController::class,"edit"])->name("user.edit");
-Route::post('/users/edit',[UsersController::class,"editPost"])->name("user.update");
-Route::get('/users/{id}',[UsersController::class,"userProfile"])->name("userProfile");
+Route::post("/evalx/editdone/",[ChatController::class,"rateSellerEditPost"])->name("messages.rateSellerEditPost")->middleware(['auth','verified']);
+Route::get("/evalx/del/{rid}",[ChatController::class,"rateSellerDelete"])->name("messages.rateSellerDelete")->middleware(['auth','verified']);
+Route::post("/evalsend",[ChatController::class,"rateSellerPost"])->name("messages.rateSellerPost")->middleware(['auth','verified']);
+Route::get('/auction/ended/{pid}',[ChatController::class,"sellerSeeBiddersEnd"])->name("messages.sellerSeeBiddersEnd")->middleware(['auth','verified']);
+Route::get("/messages/report/{id}",[ChatController::class,"reportuser"])->name("messages.reportuser")->middleware(['auth','verified']);
+Route::get('/Chat/GetMessages',[ChatController::class,"get"])->name("getmessages")->middleware(['auth','verified'])->middleware(['auth','verified']);
+Route::get("/messages/blockmsg/{id}",[ChatController::class,"blockUserMsgs"])->name("messages.blockUserMsgs")->middleware(['auth','verified']);
+Route::get('/messages/{id}',[ChatController::class,"index"])->name("messageUser")->middleware(['auth','verified']);
+Route::get('/messages/{id}/{pid}',[ChatController::class,"messageUserFromPID"])->name("messageUserFromPID")->middleware(['auth','verified']);
+Route::get('/Chat/GetFriendsList',[ChatController::class,"GetFriendsList"])->name("GetFriendsList")->middleware(['auth','verified']);
+Route::get("/Chat/SetCurrentTarget",[ChatController::class,"SetCurrentTarget"])->name("setcurrenttarget")->middleware(['auth','verified']);
+Route::get("/Chat/Send",[ChatController::class,"Send"])->name("sendmessage")->middleware(['auth','verified']);
+Route::get('/users',[UsersController::class,"index"])->middleware(['auth','verified']);
+Route::get('/users/edit',[UsersController::class,"edit"])->name("user.edit")->middleware(['auth','verified']);
+Route::post('/users/edit',[UsersController::class,"editPost"])->name("user.update")->middleware(['auth','verified']);
+Route::get('/users/{id}',[UsersController::class,"userProfile"])->name("userProfile");//->middleware(['auth','verified']);
 // login momo
 Route::post('/login',[UsersController::class,"authenticate"]);
 Route::get('/login',[UsersController::class,"login"])->name('login');
 Route::get("/logout",[UsersController::class,"logout"]);
 Route::get("/favoris",function(){
     return view("favoris");
-})->middleware("verified");
+})->middleware(['auth','verified']);
 //report momo
 Route::get("/report",[ReportController::class,"reportView"])->middleware('verified')->name("report");
 Route::get("/report/create",function(){
