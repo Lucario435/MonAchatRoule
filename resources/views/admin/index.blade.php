@@ -35,7 +35,7 @@
                         <p style="overflow-y: scroll; height:10em;"><b>Raison:</b> <span id="p-description"></span></p>
                         <p><b>Informations associées:</b> <span id="p-meta"></span></p>
 
-                        <textarea rows="8" cols="50" type="text-area" id="commentaire" placeholder="commentaire (optionnel)"></textarea>
+                        <textarea rows="2" cols="50" type="text-area" id="commentaire" placeholder="commentaire (optionnel)"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
