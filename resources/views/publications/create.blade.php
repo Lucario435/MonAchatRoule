@@ -269,7 +269,7 @@
                 justify-content: center;margin:auto;">
                         <input id="checkbox_2" class="custom-radio" type="checkbox" name="hidden"
                         @if(isset($publication))
-                            {{ $publication->hidden == 1 ? 'checked value=1' : 'value=0' }}
+                            {{ $publication->hidden == 0 ? 'checked value=0' : 'value=1' }}
                         @else
                             value="0"
                         @endif
