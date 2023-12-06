@@ -321,7 +321,7 @@
         <div class="car-info-item" style="margin-left: 1em;margin-right:1em;">
             <br>
             <h4 class="detail-info-text">Description</h4>
-            <p style="margin:0;word-break:break-all; padding:1em; text-align:left;line-height:1.5em;font-weight:bolder">
+            <p style="margin:0;padding:1em; text-align:left;line-height:1.5em;font-weight:bolder">
                 {{ $publication->description }}</p>
             <br>
         </div>
