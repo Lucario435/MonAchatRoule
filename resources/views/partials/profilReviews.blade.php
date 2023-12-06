@@ -17,7 +17,7 @@
         @endfor
         <!-- Add or remove stars as needed -->
     </span>
-    @if ($rat->user_target == Auth::id())
+    @if ($rat->user_target == Auth::id() || $isAdmin)
     <a href="{{ route("messages.rateSellerEdit",["rid"=>$rat->id]) }}" style="float:right"><button class="btn btn-primary">Modifier</button></a>
     @endif
 

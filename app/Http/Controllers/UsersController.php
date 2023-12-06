@@ -140,7 +140,10 @@ class UsersController extends Controller
                 $phoneD = true;
             }
         }
-        return view("user",["uid" => $uid,"phoneD"=>$phoneD, "ratings"=>$ratings,"user" => User::find($uid), "publications" => $plist, "images" => $images]);
+        $isAdmin = false;
+        if(Auth::user() != null)
+            $isAdmin = Auth::user()->is_admin;
+        return view("user",["uid" => $uid,"phoneD"=>$phoneD, "ratings"=>$ratings,"isAdmin"=>$isAdmin, "user" => User::find($uid), "publications" => $plist, "images" => $images]);
     }
     public function edit(Request $r)
     {
