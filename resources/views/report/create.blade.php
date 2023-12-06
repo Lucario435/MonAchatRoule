@@ -17,7 +17,9 @@
                     @foreach ($users as $user)
                         @if ($user->id != Auth::id())
                             <option value="{{ $user->id }}"
-                                @if (request('usertarget') != null && request('usertarget') == $user->id) selected
+                                @if (request('usertarget') != null && request('usertarget') == $user->id)
+                                selected
+                                @endif
                         {{-- marche pas? 2023-11-28 --}}
                         >
 
