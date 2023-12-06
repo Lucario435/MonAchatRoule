@@ -290,10 +290,9 @@
                 <br>
                 @if (isset($isEdit) && $publication->type == 0)
                     <label>Votre annonce s'est vendu?</label>
-                    <a title="Afficher cette annonce comme 'vendu'"
+                    <a title="Afficher comme vendu"
                         href="{{ route('publication.sold', ['id' => "$publication->id"]) }}"
-                        class="buttonEffect">Afficher
-                        cette annonce comme 'vendu' !</a>
+                        class="btn btn-lg d-flex justify-content-center bootBlueBtn" style="margin: auto; width:250px;">Afficher comme vendu</a>
                     <br>
                 @endif
                 @if (isset($isEdit))
