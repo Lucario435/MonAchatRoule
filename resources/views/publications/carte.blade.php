@@ -1,5 +1,6 @@
 @php
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 @endphp
 <div class="card-container">
     <!--Filters-->
@@ -21,9 +22,18 @@ use Illuminate\Support\Facades\Auth;
 
 @foreach ($publications as $publication)
 @if($publication->hidden == 0 || $publication->user_id == Auth::id() || (Auth()->user() && Auth()->user()->isAdmin()))
-    @if ($publication->user->is_blocked)
-        @continue
-    @endif
+    @php
+        $isblocked = false;
+        $u = User::find($publication->user_id);
+        try {
+            $isblocked = $u->is_blocked;
+        } catch (\Throwable $th) {
+            $isblocked = false;
+        }
+       @endphp
+       @if ($isblocked)
+           @continue
+       @endif
 <div class="cardd">
     <a class="noDec" title="Plus d'informations" href="{{ route('publication.detail', ['id' => $publication->id]) }}">
     <div class="card-state-text">
