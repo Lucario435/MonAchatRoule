@@ -388,6 +388,7 @@
         </div>
     </div>
     <br>
+    @if(Auth()->user())
     <div style="width: 100%; height: 4em;">
         <div title="Signaler l'annonce" class="div-button-actions" style="float: right; width:fit-content;margin:20px;">
             <a class="noDec alert-button-div" title="Signaler l'annonce" href="{{ route("report",["hideText"=>"PID=$publication->id"]) }}">
@@ -396,6 +397,7 @@
             </a>
         </div>
     </div>
+    @endif
     </div>
     <script>
         //With the help of chat gpt
