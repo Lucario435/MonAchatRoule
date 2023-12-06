@@ -661,29 +661,26 @@ $(() => {
         else {
 
             setBackgroundColor("#btn-search", "green");
-            //console.log($(window).width());
-            // if($(window).width() <= MOBILE_WIDTH){
-            //     console.log($(window).width());
-            //     hideFilterPage();
-            // }
 
             let searchTitle = $("#title-search").val().trim();
 
-            // if(searchTitle){
-            //     //console.log($("#title-search").val());
-            // }
+            showLoadingGif();
 
             $.ajax({
                 url: searchUrlBuilder(`publications/search?${searchTitle ? 'title=' + $("#title-search").val() + '&' : ''}`),
-                async: false,
+                async: true,
                 dataType: 'html',
-                success: function (data) {
+                success: function (data) {                    
                     $("#content").html(data);
                 },
                 error: (xhr) => { console.log(xhr); }
             });
+
             ShowNumberOfActiveFilters("#active_filters_main", filterObject.numberSelectedFilters)
         }
+    }
+    function showLoadingGif(){
+        $("#content").html(`<div class=loadingGif></div>`);
     }
     function setOrdersOrder(url) {
         //console.log($("#orderby-list > div"));

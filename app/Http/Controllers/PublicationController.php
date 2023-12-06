@@ -89,7 +89,7 @@ class PublicationController extends Controller
                     return redirect(route('publication.index'))->with('message', 'Votre annonce a été supprimée!');
                 }
                 else
-                {  
+                {
                     //Redirige vers la page détail
                     return redirect(route('publication.detail', ['id' => $id]))->with('message', 'Votre annonce comporte des enchères et ne peut pas être supprimé!');
                 }
@@ -111,7 +111,11 @@ class PublicationController extends Controller
     public function detail($id)
     {
         $publicationExist = Publication::find($id);
+        if($publicationExist == null)
+            return to_route("index");
 
+        if($publicationExist->user->is_blocked)
+            return to_route("index",["xalert"=>"Annonce indisponible"]);
         $currentUser = Auth::id();
         //Vérifier que l'annonce est privée, on redirige vers l'index
         if($publicationExist->hidden == 0 || $currentUser == $publicationExist->user_id || (User::find($currentUser) && User::find($currentUser)->isAdmin()))
@@ -206,7 +210,7 @@ class PublicationController extends Controller
 
         ///////////////////////////////////////////////////////////////////////////////
         //Insertion
-        
+
         $newPublication = Publication::create($data);
 
         //Redirect to index page
@@ -227,7 +231,7 @@ class PublicationController extends Controller
     public function update(Request $request, $id)
     { //post
         $p = Publication::find($id);
-        
+
         if ($p == null) {
             return redirect(route('publication.index'))->with('message', "Cette annonce n'existe pas!");
         }
@@ -262,7 +266,7 @@ class PublicationController extends Controller
             // Handle the case where the publication is not found
             return redirect()->back()->with('error', 'Publication introuvable.');
         }
-        
+
         // Update the publication with the validated data
         $publication->update($data);
         return redirect(route('image.edit', ["id" => $publication->id]))->with('message', 'Publication mise à jour avec succès!');
@@ -288,7 +292,7 @@ class PublicationController extends Controller
 
         //dd($params);
         foreach ($params as $key => $item) {
-            //dd($item);   
+            //dd($item);
             if (substr($key, 0, 5) == $orderByCommand) {
                 $orderByRequest[$eqTable[$key]] = explode(',', $item);
                 $order = $eqTable[$key];
@@ -299,7 +303,7 @@ class PublicationController extends Controller
                 }
             } else {
                 if (strtolower($key) == "followedpublications") {
-                    //dd($key);                    
+                    //dd($key);
                     $boolFollowedPublications = true;
                 } else {
                     $filteringCriterias[$key] = explode(',', $item);
@@ -331,7 +335,7 @@ class PublicationController extends Controller
             $publications = $this->getFilteredPublications($filteringCriterias, $collection);
             //dd($publications,DB::getQueryLog());
 
-            
+
             if ($boolRequestDistances) {
 
                 foreach ($publications as $key => $value) {
@@ -353,7 +357,7 @@ class PublicationController extends Controller
                     ->select('publications.*')
                     ->get();
                 //dd($publications);
-                $images = DB::table("images")   
+                $images = DB::table("images")
                 ->join('publications', 'images.publication_id', '=', 'publications.id')
                 ->join('suiviannonces', 'suiviannonces.publication_id', '=', 'publications.id')
                 ->select(['images.id','images.publication_id','images.user_id','images.url'])
@@ -386,7 +390,7 @@ class PublicationController extends Controller
 
         }
 
-        
+
 
         //dd($publications);
 
@@ -415,13 +419,13 @@ class PublicationController extends Controller
 
                                 else if ($key == "maxMileage")
                                     $query->Where("kilometer", '<=', ($value));
-                                
+
                                 else if ($key == "minYear")
                                     $query->Where("year", '>=', intval($value));
-                                
+
                                 else if ($key == "maxYear")
                                     $query->Where("year", '<=', intval($value));
-                                
+
                                 else if ($key == "title")
                                     $query->Where("title", 'like', "%$value%");
 

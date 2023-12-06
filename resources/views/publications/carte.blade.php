@@ -21,7 +21,10 @@ use Illuminate\Support\Facades\Auth;
 
 @foreach ($publications as $publication)
 @if($publication->hidden == 0 || $publication->user_id == Auth::id() || (Auth()->user() && Auth()->user()->isAdmin()))
- <div class="cardd">
+    @if ($publication->user->is_blocked)
+        @continue
+    @endif
+<div class="cardd">
     <a class="noDec" title="Plus d'informations" href="{{ route('publication.detail', ['id' => $publication->id]) }}">
     <div class="card-state-text">
         <!--Usefull link : https://www.educative.io/answers/how-to-create-a-countdown-timer-using-javascript-->

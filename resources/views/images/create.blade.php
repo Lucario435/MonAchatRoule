@@ -11,21 +11,25 @@
 
     <body>
         <div class="align-center">
-            @if ($errors->any())
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
+            
 
             @if (isset($isEdit))
                 <form class="form-style" method="post" action="{{ route('image.store', ['publication_id' => $pid]) }}"
                     enctype="multipart/form-data">
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <span class="erreur">{{ $error }}</span>
+                        @endforeach
+                    @endif
                     {{-- <input type="hidden" name="publication_id" value="{{ isset($pid) ? $pid : '' }}"> --}}
                 @else
                     <form class="form-style" method="post" action="{{ route('image.store', ['publication_id' => $pid]) }}"
                         enctype="multipart/form-data">
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <span class="erreur">{{ $error }}</span>
+                        @endforeach
+                    @endif
             @endif
 
 

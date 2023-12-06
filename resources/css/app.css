@@ -604,3 +604,13 @@ footer {
     justify-content: center;
     margin: 0 10px 0 10px;
 }
+
+.loadingGif{
+    background-image:url("../../public/img/Loading_icon.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height:400px;
+    width:50%;
+    margin: auto;
+}

@@ -49,7 +49,7 @@
             <div class="menu-icon">
                 <i title="Menu" class="fa fa-bars" style="font-size: 1.5em;color:white;"></i>
             </div>
-            <div class="app-name app-name-logo-grid">
+            <div class="app-name app-name-logo-grid" onclick="window.location.href='/';">
                 <div class="app-logo"></div>
                 <a href="/"
                     style="text-decoration: none; color:white;font-family: Trajan Pro;font-style: italic;font-weight: bold;text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);">

@@ -62,7 +62,7 @@
                     value="{{ isset($publication) ? $publication->title : old('title') }}" />
             </div>
             <div>
-                <textarea type="textarea" rows="9" maxlength="500" required name="description" placeholder="Description">{{ isset($publication) ? $publication->description : old('description') }}</textarea>
+                <textarea type="textarea" rows="9" maxlength="20000" required name="description" placeholder="Description">{{ isset($publication) ? $publication->description : old('description') }}</textarea>
             </div>
             <div id="hintActivator">
                 <div>
