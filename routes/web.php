@@ -83,11 +83,11 @@ Route::get("/favoris",function(){
     return view("favoris");
 })->middleware(['auth','verified']);
 //report momo
-Route::get("/report",[ReportController::class,"reportView"])->middleware('verified')->name("report");
+Route::get("/report",[ReportController::class,"reportView"])->middleware(['auth','verified'])->name("report");
 Route::get("/report/create",function(){
     return to_route("report");
 });
-Route::post("/report/create",[ReportController::class,"reportPost"])->middleware('verified')->name("report.post");
+Route::post("/report/create",[ReportController::class,"reportPost"])->middleware(['auth','verified'])->name("report.post");
 // Temporaire avant commit login de momo - chahine
 Route::get('/login',[UsersController::class,"login"])->name('login');
 Route::post('/login',[UsersController::class,"authenticate"]);
@@ -156,24 +156,24 @@ Route::get('/refresh-price/{id}', [BidController::class, 'getHighestBidValue'])-
 //Section for image routes
 //------------------------------------------------------------------------------------
 //Route to show create image page
-Route::get('/image/create/{id}', [ImageController::class, 'create'])->middleware('verified')->name('image.create');
+Route::get('/image/create/{id}', [ImageController::class, 'create'])->middleware(['auth','verified'])->name('image.create');
 //momo
 Route::get("/image/publication",function(){
     return to_route("index");
 });
-Route::get('/image/delete/{id}', [ImageController::class, 'deleteImage'])->middleware('verified')->name('image.delete');
-Route::get('/image/edit/{id}', [ImageController::class, 'edit_annonce'])->middleware('verified')->name('image.edit');
-Route::post('/image/edit/{id}', [ImageController::class, 'edit_annonce_recu'])->middleware('verified')->name('image.update');
+Route::get('/image/delete/{id}', [ImageController::class, 'deleteImage'])->middleware(['auth','verified'])->name('image.delete');
+Route::get('/image/edit/{id}', [ImageController::class, 'edit_annonce'])->middleware(['auth','verified'])->name('image.edit');
+Route::post('/image/edit/{id}', [ImageController::class, 'edit_annonce_recu'])->middleware(['auth','verified'])->name('image.update');
 //Route to create the images (SAVE)
-Route::post('/image', [ImageController::class, 'store'])->middleware("verified")->name('image.store');
+Route::post('/image', [ImageController::class, 'store'])->middleware(['auth','verified'])->name('image.store');
 //------------------------------------------------------------------------------------
 
 //Section for favoritePublicaitons routes
 //------------------------------------------------------------------------------------
 //Route to show create image page
-Route::get('/publications/saved', [PublicationFollow::class, 'index'])->name('publicationfollow.index')->middleware("verified");
+Route::get('/publications/saved', [PublicationFollow::class, 'index'])->name('publicationfollow.index')->middleware(['auth','verified']);
 //Route to store the follow on a publication
-Route::get('publicationfollow/{id}/{show}', [PublicationFollow::class, 'store'])->name('publicationfollow.store');
+Route::get('publicationfollow/{id}/{show}', [PublicationFollow::class, 'store'])->name('publicationfollow.store')->middleware(['auth','verified']);
 //Route to get the view of the followButton
 Route::get('publicationfollow')->name('publications.followButton');
 //------------------------------------------------------------------------------------
