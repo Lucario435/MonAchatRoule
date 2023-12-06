@@ -69,7 +69,7 @@ class PublicationController extends Controller
 
         $currentUser = Auth::id();
         //Vérifier que l'annonce est privée, on redirige vers l'index
-        if($publicationExist->hidden == 0 || $currentUser == $publicationExist->user_id || User::find($currentUser)->isAdmin())
+        if($publicationExist->hidden == 0 || $currentUser == $publicationExist->user_id || (User::find($currentUser) && User::find($currentUser)->isAdmin()))
         {
             $followedPublications = Suiviannonce::where('publication_id', $id)->first();
 
